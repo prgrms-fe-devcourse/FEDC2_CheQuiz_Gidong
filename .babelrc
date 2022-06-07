@@ -1,0 +1,16 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      { "targets": { "browsers": ["last 2 versions", ">= 5% in KR"] } }
+    ],
+    ["@babel/preset-react", {"runtime": "automatic"}],
+    "@babel/typescript"
+  ],
+  "plugins": [
+    ["@babel/plugin-transform-runtime", {
+    "corejs": 3
+    }
+    ]
+  ]
+}
