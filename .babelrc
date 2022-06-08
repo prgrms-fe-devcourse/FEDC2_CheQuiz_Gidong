@@ -8,6 +8,7 @@
     "@babel/typescript"
   ],
   "plugins": [
+    "@emotion",
     ["@babel/plugin-transform-runtime", {
     "corejs": 3
     }
