@@ -1,3 +1,5 @@
+import { PostAPIBase } from './PostAPI';
+
 export interface QuizContent {
   question: string;
   des: string;
@@ -7,3 +9,5 @@ export interface QuizContent {
   answerType: 't/f' | 'numberType' | 'stringType';
   answer: string;
 }
+
+export interface Quiz extends PostAPIBase, QuizContent {}
