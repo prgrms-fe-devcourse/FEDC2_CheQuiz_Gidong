@@ -3,6 +3,7 @@ import { Quiz } from '@/interfaces/Quiz';
 const QuizMockData: Quiz[] = [
   {
     _id: '1',
+    likes: [],
     comments: [],
     channel: {
       _id: '1',
@@ -38,6 +39,7 @@ const QuizMockData: Quiz[] = [
   },
   {
     _id: '2',
+    likes: [],
     comments: [],
     channel: {
       _id: '1',
@@ -73,6 +75,7 @@ const QuizMockData: Quiz[] = [
   },
   {
     _id: '3',
+    likes: [],
     comments: [],
     channel: {
       _id: '1',
@@ -108,6 +111,7 @@ const QuizMockData: Quiz[] = [
   },
   {
     _id: '4',
+    likes: [],
     comments: [],
     channel: {
       _id: '1',
@@ -143,6 +147,7 @@ const QuizMockData: Quiz[] = [
   },
   {
     _id: '5',
+    likes: [],
     comments: [],
     channel: {
       _id: '1',
@@ -178,6 +183,7 @@ const QuizMockData: Quiz[] = [
   },
   {
     _id: '6',
+    likes: [],
     comments: [],
     channel: {
       _id: '1',

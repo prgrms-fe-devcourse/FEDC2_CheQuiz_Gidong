@@ -20,6 +20,7 @@ function QuizSolve(): JSX.Element {
               <li>중요도: {quiz.importance}</li>
               <li>퀴즈 타입: {quiz.answerType}</li>
               <li>정답: {quiz.answer}</li>
+              <li>좋아요 수: {quiz.likes.length}</li>
             </ul>
           </li>
         ))}
