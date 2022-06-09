@@ -12,8 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/react-router": "^5.1.18",
-    "@types/react-router-dom": "^5.3.3",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "react": "^18.1.0",
@@ -32,6 +30,8 @@
     "@emotion/css": "^11.9.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@types/react-router": "^5.1.18",
+    "@types/react-router-dom": "^5.3.3",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
