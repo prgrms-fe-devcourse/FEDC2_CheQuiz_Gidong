@@ -6,7 +6,7 @@ export interface QuizContent {
   tag: string[];
   difficulty: number;
   importance: number;
-  answerType: 'trueOrFalse' | 'multipleChoice | 'shortAnswer';
+  answerType: 'trueOrFalse' | 'multipleChoice' | 'shortAnswer';
   answer: string;
 }
 
