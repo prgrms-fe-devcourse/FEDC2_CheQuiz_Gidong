@@ -4,22 +4,24 @@ import Children from '@/pages/Children';
 
 const HomeContainer = styled.div`
   // 임시 보더
+
   border: 1px solid;
 `;
 
 const HomeHeader = styled.header`
-  padding: 20px;
   text-align: center;
 
-  // 임시 보더
+  // 임시 보더, 패딩
+  padding: 2rem;
   border: 1px solid;
 `;
 
 const HomeMain = styled.main`
-  padding: 20px;
+  margin: 1.5rem 0;
   text-align: center;
 
-  // 임시 보더
+  // 임시 보더, 패딩
+  padding: 2rem;
   border: 1px solid;
 `;
 

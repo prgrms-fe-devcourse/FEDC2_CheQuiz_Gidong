@@ -6,13 +6,13 @@ const ErrorContainer = styled.div`
 
 const ErrorTitle = styled.h1`
   font-size: 3rem;
-  font-weight: 900;
+  font-weight: semi-bold;
   color: red;
 `;
 
 const ErrorBody = styled.p`
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: regular;
 `;
 
 function Error() {

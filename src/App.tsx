@@ -5,7 +5,8 @@ import reset from '@/styles/reset';
 import theme from '@/styles/theme';
 
 const Layout = styled.div`
-  max-width: 1440px;
+  max-width: 75rem;
+  padding: 0 1rem;
   margin: 0 auto;
 `;
 
