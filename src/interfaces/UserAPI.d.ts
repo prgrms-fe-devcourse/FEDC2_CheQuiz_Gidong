@@ -13,4 +13,5 @@ export interface UserAPI {
   email: string;
   createdAt: string;
   updatedAt: string;
+  username: string;
 }
