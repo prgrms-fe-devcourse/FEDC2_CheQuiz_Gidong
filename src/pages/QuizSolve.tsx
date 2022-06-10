@@ -6,7 +6,9 @@ function QuizSolve(): JSX.Element {
   // TODO: 추후 api 연결 필요
   const [quizzes, setQuizzes] = useState(QuizMockData);
   const totalScore = useRef(0);
-  const [answers, setUserAnswers] = useState(Array(quizzes.length).fill(''));
+  const [userAnswers, setUserAnswers] = useState<string[]>(
+    Array(quizzes.length).fill(''),
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   /**
    * ANCHOR: 캐러셀에서 현재 노출될 퀴스 인덱스를 결정함
@@ -18,13 +20,30 @@ function QuizSolve(): JSX.Element {
     [quizzes.length],
   );
 
+  const handleUserAnswer = useCallback(
+    (index: number, value: string) => {
+      setUserAnswers((prev) => [
+        ...prev.slice(0, index),
+        value,
+        ...prev.slice(index + 1, quizzes.length),
+      ]);
+    },
+    [quizzes.length],
+  );
+
   return (
     <div>
       <div>
         {currentIndex + 1}/{quizzes.length}
       </div>
-      {quizzes.map((quiz) => (
-        <QuizBox quiz={quiz} key={quiz._id} />
+      <div>{userAnswers}</div>
+      {quizzes.map((quiz, index) => (
+        <QuizBox
+          quiz={quiz}
+          key={quiz._id}
+          index={index}
+          onChangeUserAnswer={handleUserAnswer}
+        />
       ))}
       <button
         type="button"
@@ -43,7 +62,9 @@ function QuizSolve(): JSX.Element {
       {currentIndex === quizzes.length - 1 && (
         <button
           type="submit"
-          disabled={answers.filter((answer) => answer).length < quizzes.length}
+          disabled={
+            userAnswers.filter((answer) => answer).length < quizzes.length
+          }
         >
           제출
         </button>
