@@ -1,6 +1,7 @@
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import Home from '@/pages/Home';
+import QuizSolve from '@/pages/QuizSolve';
 import AnotherLayout from '@/pages/AnotherLayout';
 import Error from '@/pages/Error';
 
@@ -9,6 +10,7 @@ function Routers() {
   return (
     <BrowserRouter>
       <Switch>
+        <Route exact path="/solve" component={QuizSolve} />
         <Route path="/another" component={AnotherLayout} />
         <Route path="/error" component={Error} />
         <Route path="/" component={Home} />
