@@ -19,33 +19,23 @@ function Quiz({ quiz, index, onChangeUserAnswer }: QuizProps): JSX.Element {
   return (
     <QuizBox>
       <div>Q. {quiz.question}</div>
-      {quiz.answerType === 'shortAnswer' ? (
-        <input
-          type="text"
-          onChange={(e) => onChangeUserAnswer(index, e.target.value)}
-        />
-      ) : (
-        <>
+      {[
+        ['O', 'true'],
+        ['X', 'false'],
+      ].map(([key, value], idx) => {
+        return (
           <SelectButton
-            value="true"
+            key={key}
+            value={value}
             onChangeUserAnswer={onChangeUserAnswer}
             problemIndex={index}
             currentSelected={clickedIndex}
-            buttonIndex={0}
-            text="O"
+            buttonIndex={idx}
+            text={key}
             onClickCurrentButton={handleClickIndex}
           />
-          <SelectButton
-            value="false"
-            onChangeUserAnswer={onChangeUserAnswer}
-            problemIndex={index}
-            currentSelected={clickedIndex}
-            buttonIndex={1}
-            text="X"
-            onClickCurrentButton={handleClickIndex}
-          />
-        </>
-      )}
+        );
+      })}
     </QuizBox>
   );
 }

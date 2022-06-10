@@ -3,16 +3,13 @@ import QuizBox from '@components/Quiz';
 import QuizMockData from '@/assets/QuizMockData';
 
 function QuizSolve(): JSX.Element {
-  // TODO: 추후 api 연결 필요
+  // TODO: 추후 api 연결 필요 및 sessionStorage에 저장 필요
   const [quizzes, setQuizzes] = useState(QuizMockData);
-  const totalScore = useRef(0);
   const [userAnswers, setUserAnswers] = useState<string[]>(
     Array(quizzes.length).fill(''),
   );
+  // ANCHOR: 캐러셀에서 현재 노출될 퀴스 인덱스를 결정함
   const [currentIndex, setCurrentIndex] = useState(0);
-  /**
-   * ANCHOR: 캐러셀에서 현재 노출될 퀴스 인덱스를 결정함
-   */
   const handleIndex = useCallback(
     (index: number) => {
       if (index >= 0 && index <= quizzes.length) setCurrentIndex(() => index);
@@ -20,7 +17,7 @@ function QuizSolve(): JSX.Element {
     [quizzes.length],
   );
 
-  const handleUserAnswer = useCallback(
+  const handleUserAnswers = useCallback(
     (index: number, value: string) => {
       setUserAnswers((prev) => [
         ...prev.slice(0, index),
@@ -36,13 +33,12 @@ function QuizSolve(): JSX.Element {
       <div>
         {currentIndex + 1}/{quizzes.length}
       </div>
-      <div>{userAnswers}</div>
       {quizzes.map((quiz, index) => (
         <QuizBox
           quiz={quiz}
           key={quiz._id}
           index={index}
-          onChangeUserAnswer={handleUserAnswer}
+          onChangeUserAnswer={handleUserAnswers}
         />
       ))}
       <button
