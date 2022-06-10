@@ -9,7 +9,6 @@ function QuizSolve(): JSX.Element {
     <div>
       <ul>
         {state.map((quiz) => (
-          // eslint-disable-next-line no-underscore-dangle
           <li key={quiz._id}>
             <ul>
               <li>유저 정보: {quiz.author.fullName}</li>
