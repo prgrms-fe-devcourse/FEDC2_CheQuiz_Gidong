@@ -1,16 +1,23 @@
 import { Global, ThemeProvider } from '@emotion/react';
+import styled from '@emotion/styled';
 import Routers from '@/Routers';
 import reset from '@/styles/reset';
 import theme from '@/styles/theme';
 
+const Layout = styled.div`
+  max-width: 75rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+`;
+
 function App(): JSX.Element {
   return (
-    <div>
+    <Layout>
       <ThemeProvider theme={theme}>
         <Global styles={reset} />
         <Routers />
       </ThemeProvider>
-    </div>
+    </Layout>
   );
 }
 
