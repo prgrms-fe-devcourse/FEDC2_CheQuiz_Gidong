@@ -1,6 +1,6 @@
 import { Route } from 'react-router';
 import styled from '@emotion/styled';
-import Children from '@/pages/Children';
+import Ranking from '@/pages/Ranking';
 
 const HomeContainer = styled.div`
   // 임시 보더
@@ -31,7 +31,7 @@ function Home() {
       <HomeHeader> 화면의 헤더 입니다.</HomeHeader>
       <HomeMain>
         메인 홈 화면의 바디입니다.
-        <Route exact path="/children" component={Children} />
+        <Route exact path="/ranking" component={Ranking} />
       </HomeMain>
     </HomeContainer>
   );
