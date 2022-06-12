@@ -11,6 +11,17 @@ interface PostAPIImage {
   image?: string | null;
 }
 
+interface PostAPICustomTitle {
+  question: string;
+  des: string; // 해설
+  tag: string; // 태그
+  creator: UserAPI;
+  difficulty: number;
+  importance: number;
+  answerType: string; // 문제 유형 설정 (O,X ["t/f"] 객관식 ["numberType"] 단답형 ["stringType"])
+  answer: string; // "true" | "false"
+}
+
 interface PostAPITitle {
   title: string;
 }
