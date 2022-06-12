@@ -80,7 +80,7 @@ function UserRankList() {
           };
 
           // eslint-disable-next-line consistent-return
-          const pickTagColor = (tag: string): string => {
+          const pickTagColor = (tag: string | undefined): string => {
             if (tag === 'HTML') return RED;
             if (tag === 'React') return BLUE;
             if (tag === 'Vue') return GREEN;
@@ -98,13 +98,6 @@ function UserRankList() {
               <UserInfoWrap>
                 <UserName {...theme}>{user.fullName}</UserName>
                 {user.posts
-                  // 태그를 가지는 포스트만 추출
-                  .filter((post) => {
-                    const quizInfo = JSON.parse(
-                      post.title,
-                    ) as PostAPICustomTitle;
-                    return quizInfo.tag;
-                  })
                   // 태그는 상위 3개만 표기
                   .slice(0, 3)
                   // 태그 출력
@@ -116,7 +109,11 @@ function UserRankList() {
                       <div key={tagedPost._id}>
                         <Tag
                           colors={pickTagColor(quizInfo.tag)}
-                          text={quizInfo.tag}
+                          text={
+                            quizInfo.tag || quizInfo.tag.trim() !== ''
+                              ? quizInfo.tag
+                              : 'Newbie'
+                          }
                         />
                       </div>
                     );
