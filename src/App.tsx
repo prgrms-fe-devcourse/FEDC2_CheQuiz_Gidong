@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Routers from '@/Routers';
 import reset from '@/styles/reset';
 import theme from '@/styles/theme';
+import fontStyle from '@/styles/fontStyle';
 
 const Layout = styled.div`
   max-width: 75rem;
@@ -15,6 +16,8 @@ function App(): JSX.Element {
     <Layout>
       <ThemeProvider theme={theme}>
         <Global styles={reset} />
+        <Global styles={fontStyle} />
+
         <Routers />
       </ThemeProvider>
     </Layout>
