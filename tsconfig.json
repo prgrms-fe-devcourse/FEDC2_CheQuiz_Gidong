@@ -32,6 +32,10 @@
         "src/hooks/*"
       ]
     },
+    "typeRoots": [
+      "./node_modules/@types",
+      "src/interfaces"
+    ],
   },
   "include": [
     "src"
