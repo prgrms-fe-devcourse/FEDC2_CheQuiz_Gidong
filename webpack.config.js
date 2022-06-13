@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const DotenvPlugin = require('dotenv-webpack');
 
 module.exports = {
   resolve: {
@@ -51,6 +52,9 @@ module.exports = {
       ],
     }),
     new ForkTsCheckerWebpackPlugin(),
+    new DotenvPlugin({
+      systemvars: true,
+    }),
   ],
   devServer: {
     port: 3000,
