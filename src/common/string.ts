@@ -1,5 +1,3 @@
-// 고정 스트링 상수들 정의
-
 export const GREEN = 'green';
 export const BLUE = 'blue';
 export const YELLOW = 'yellow';
@@ -8,3 +6,7 @@ export const PINK = 'pink';
 export const BROWN = 'brown';
 export const NOLIKES = 'noLikes';
 export const NOCOMMENTS = 'noComments';
+
+// used in QuizSolve and QuizResults pages.
+export const POST_IDS = 'post-ids' as const;
+export const USER_ANSWERS = 'user-answers' as const;
