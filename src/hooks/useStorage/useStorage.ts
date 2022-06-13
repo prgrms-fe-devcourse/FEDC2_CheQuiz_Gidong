@@ -7,26 +7,26 @@ function useStorage<T>(
   defaultValue: T,
   storageType = 'localStorage',
 ): ReturnTypes<T> {
-  const [storageItem, setStorageItem] = useState(() => {
+  const [value, setStorageItem] = useState(() => {
     try {
       const item = (
         storageType === 'localStorage' ? localStorage : sessionStorage
       ).getItem(key);
-      return item ? (JSON.parse(item) as unknown as T) : defaultValue;
+      return item ? (JSON.parse(item) as T) : defaultValue;
     } catch (error) {
       console.error(error as Error);
       return defaultValue;
     }
   });
 
-  const setStorage = useCallback(
-    (value: T) => {
+  const setValue = useCallback(
+    (newValue: T) => {
       try {
-        setStorageItem(value);
+        setStorageItem(newValue);
         (storageType === 'localStorage'
           ? localStorage
           : sessionStorage
-        ).setItem(key, JSON.stringify(value));
+        ).setItem(key, JSON.stringify(newValue));
       } catch (error) {
         console.error(error as Error);
       }
@@ -34,7 +34,7 @@ function useStorage<T>(
     [key, storageType],
   );
 
-  return [storageItem, setStorage];
+  return [value, setValue];
 }
 
 export default useStorage;
