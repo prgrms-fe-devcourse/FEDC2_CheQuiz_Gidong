@@ -8,6 +8,10 @@ export interface QuizContent {
   importance: number;
   answerType: 'trueOrFalse' | 'multipleChoice' | 'shortAnswer';
   answer: string;
+  answerDescription: string;
 }
 
+export interface QuizClientContent extends QuizContent {
+  _id: number;
+}
 export interface Quiz extends PostAPIBase, QuizContent {}
