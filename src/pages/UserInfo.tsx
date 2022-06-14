@@ -1,26 +1,22 @@
 import Header from '@/components/Header';
 import UserInfoCard from '@/components/UserInfo/UserInfoCard';
-import { UserInfoMockData } from '@/assets/UserInfoMockData';
+import { UserInfoMockData as userMockData } from '@/assets/UserInfoMockData';
 
 // TODO: Badge 정보 처리
 function UserInfo() {
   const userData = {
-    id: UserInfoMockData._id,
-    email: UserInfoMockData.email,
-    fullName: UserInfoMockData.fullName,
-    likes: UserInfoMockData.likes,
-    posts: UserInfoMockData.posts,
-    points: JSON.parse(UserInfoMockData.username).totalPoints,
+    id: userMockData._id,
+    email: userMockData.email,
+    fullName: userMockData.fullName,
+    likes: userMockData.likes,
+    posts: userMockData.posts,
+    points: JSON.parse(userMockData.username).totalPoints,
   };
 
   return (
     <div>
       <Header />
-      <UserInfoCard
-        id={userData.id}
-        nickname={userData.fullName}
-        totalExp={userData.points}
-      />
+      <UserInfoCard id={userData.id} />
     </div>
   );
 }

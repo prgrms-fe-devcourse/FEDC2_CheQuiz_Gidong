@@ -19,16 +19,25 @@ import {
 import {
   UserInfoMockList as userList,
   userQuizMockList as userQuizList,
+  UserInfoMockData as userMockData,
 } from '@/assets/UserInfoMockData';
 
 interface userProps {
   id: string;
-  totalExp: number;
-  nickname: string;
 }
-function UserInfoCard({ id, totalExp, nickname }: userProps) {
-  const level = Math.floor(totalExp / MAXEXP) + 1;
-  const currentExp = totalExp - (level - 1) * MAXEXP;
+function UserInfoCard({ id }: userProps) {
+  // TODO: id를 기반으로 비동기 API요청> userData 가져오기
+  const userData = {
+    id: userMockData._id,
+    fullName: userMockData.fullName,
+    likes: userMockData.likes,
+    posts: userMockData.posts,
+    comments: userMockData.comments,
+    totalExp: JSON.parse(userMockData.username).totalPoints,
+  };
+
+  const level = Math.floor(userData.totalExp / MAXEXP) + 1;
+  const currentExp = userData.totalExp - (level - 1) * MAXEXP;
   const expPercent = Math.floor((currentExp / MAXEXP) * 100);
 
   const levelBreakpoints = [
@@ -90,7 +99,6 @@ function UserInfoCard({ id, totalExp, nickname }: userProps) {
     return modifiedQuiz;
   };
 
-  console.log(getQuiz());
   interface badgeType {
     id: string;
     color: string;
@@ -99,8 +107,8 @@ function UserInfoCard({ id, totalExp, nickname }: userProps) {
 
   const getBadges = () => {
     const badges: badgeType[] = [];
-    // 레벨 별 뱃지
 
+    // 레벨 별 뱃지
     let levelBadgeId = 0;
     levelBreakpoints.forEach((badge, index) => {
       if (level > badge.level) {
@@ -109,7 +117,7 @@ function UserInfoCard({ id, totalExp, nickname }: userProps) {
     });
 
     badges.push({
-      id: `badge${levelBadgeId}`,
+      id: `badgeLv${levelBadgeId}`,
       color: levelBreakpoints[levelBadgeId].color,
       content: `${
         levelBadgeId !== 0
@@ -117,7 +125,14 @@ function UserInfoCard({ id, totalExp, nickname }: userProps) {
           : `뉴비`
       }`,
     });
-    // 퀴즈 별 뱃지
+    // TODO: 퀴즈 별 뱃지 => typescript에 익숙하지 않아 추후 구현 예정..
+
+    // 좋아요, 댓글 당 뱃지
+    console.log(userData.comments.length, userData.likes.length);
+
+    // 댓글 10개 이상 & 좋아요 10개 이상 소통왕.. 댓글 10개 이상 투머치토커..
+    // 좋아요 10개 이상 사랑꾼, 좋아요 없음 무뚝뚝그자체, 댓글 없음 묵언수행중,
+    // 댓글 없음 & 좋아요 없음 혼자가좋아
 
     return badges;
   };
@@ -131,7 +146,7 @@ function UserInfoCard({ id, totalExp, nickname }: userProps) {
           />
         </ImageWrapper>
 
-        <Username>{nickname}</Username>
+        <Username>{userData.fullName}</Username>
         <LevelText>Lv.{level}</LevelText>
       </UserBasicContent>
 
