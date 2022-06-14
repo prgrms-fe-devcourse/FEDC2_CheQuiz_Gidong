@@ -10,25 +10,24 @@ import QuizMockData from '@/assets/QuizMockData';
  * 3. 댓글을 달 수 있는 input과, 좋아요를 누를 수 있는 like가 각 컴포넌트에 위치하여야 한다.
  */
 function QuizResultPage() {
-  const [mockData, setMockData] = useState(QuizMockData);
-  const [postIds, setPostIds] = useSessionStorage<string[]>(POST_IDS, []);
-  const [userAnswers, setUserAnswers] = useSessionStorage<string[]>(
+  const [mockData] = useState(QuizMockData);
+  const [solvedPostIds] = useSessionStorage<string[]>(POST_IDS, []);
+  const [userAnswers] = useSessionStorage<string[]>(
     USER_ANSWERS,
-    Array(postIds.length).fill(''),
+    Array(solvedPostIds.length).fill(''),
   );
   // TODO: implement validation logics
   // if userAnswers.length !== userAnswers.filter(answer => answer).length -> 404page
   return (
     <div>
       {mockData.map((mock, index) => (
-        <>
+        <React.Fragment key={mock._id}>
           <div>{index + 1}번</div>
           <QuizResult
-            key={mock._id}
             quiz={mock}
             correct={mock.answer === userAnswers[index]}
           />
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

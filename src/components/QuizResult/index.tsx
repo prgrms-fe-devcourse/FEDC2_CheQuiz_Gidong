@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import useInput from '@hooks/useInput';
 import styled from '@emotion/styled';
 import { Quiz } from '@/interfaces/Quiz';
+import { CommentAPI } from '@/interfaces/CommentAPI';
+import * as UserService from '@/utils/UserServices';
 
 interface StyledQuizResultProps {
   correct: boolean;
@@ -25,11 +28,18 @@ const StyledComment = styled.div`
 
 function QuizResult({ quiz, correct }: QuizResultProps) {
   const [inputValue, handler, setInputValue] = useInput('');
-  // TODO: comment validation 필요
+  const [comments, setComments] = useState<CommentAPI[]>(() =>
+    quiz && quiz.comments ? quiz.comments : [],
+  );
+  // TODO: useState에 들어갈 값 변경 필요 -> quiz likes 배열 참조할 것
+  const [userLiked, setUserLiked] = useState(false);
   const handleCommentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // TODO: comment validation
+    UserService.createComment({ comment: inputValue, postId: quiz._id });
     setInputValue('');
   };
+
   return (
     <StyledQuizResult>
       <div>Q: {quiz.question}</div>
@@ -46,7 +56,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
       </form>
       <div>
         <h1>comment 보기</h1>
-        {quiz.comments.map((comment) => (
+        {comments.map((comment) => (
           <StyledComment key={comment._id}>
             <div>내용: {comment.comment}</div>
             <div>작성자: {comment.author.fullName}</div>
