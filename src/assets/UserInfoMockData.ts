@@ -1,5 +1,5 @@
 import { UserAPI } from '@/interfaces/UserAPI';
-
+/*
 const UserInfoMockData: UserAPI = {
   _id: '1',
   role: 'Regular',
@@ -16,6 +16,7 @@ const UserInfoMockData: UserAPI = {
     totalPoints: 3000,
   })}`,
 };
+
 
 const UserInfoMockList: UserAPI[] = [
   {
@@ -67,5 +68,88 @@ const UserInfoMockList: UserAPI[] = [
     })}`,
   },
 ];
+*/
+const UserInfoMockData: UserAPI = {
+  _id: 'user01',
+  role: 'Regular',
+  isOnline: true,
+  posts: [],
+  likes: ['62a43587d298d0396d7e731b', '62a43587d298d0396d7e731b'],
+  comments: ['62a301fed298d0396d7e7183', '62a30259d298d0396d7e718e'],
+  notifications: [],
+  fullName: '도넛좋아',
+  username: `${JSON.stringify({
+    totalPoints: 120,
+  })}`,
+  email: 'doughnut@naver.com',
+  createdAt: Date.now().toString(),
+  updatedAt: Date.now().toString(),
+};
 
+const UserInfoMockList: UserAPI[] = [
+  {
+    _id: 'user01',
+    role: 'Regular',
+    isOnline: true,
+    posts: [],
+    likes: ['62a43587d298d0396d7e731b', '62a43587d298d0396d7e731b'],
+    comments: ['62a301fed298d0396d7e7183', '62a30259d298d0396d7e718e'],
+    notifications: [],
+    fullName: 'Apple',
+    username: `${JSON.stringify({
+      totalPoints: 0,
+    })}`,
+    email: 'test@naver.com',
+    createdAt: Date.now().toString(),
+    updatedAt: Date.now().toString(),
+  },
+  {
+    _id: 'user02',
+    role: 'Regular',
+    isOnline: true,
+    posts: [],
+    likes: ['62a43587d298d0396d7e731b', '62a43587d298d0396d7e731b'],
+    comments: ['62a301fed298d0396d7e7183', '62a30259d298d0396d7e718e'],
+    notifications: [],
+    fullName: 'Banana',
+    username: `${JSON.stringify({
+      totalPoints: 10,
+    })}`,
+    email: 'test@naver.com',
+    createdAt: Date.now().toString(),
+    updatedAt: Date.now().toString(),
+  },
+  {
+    _id: 'user03',
+    role: 'Regular',
+    isOnline: true,
+    posts: [],
+    likes: [],
+    comments: [],
+    notifications: [],
+    fullName: 'Cherry',
+    username: `${JSON.stringify({
+      totalPoints: 100,
+    })}`,
+    email: 'Cherry@naver.com',
+    createdAt: Date.now().toString(),
+    updatedAt: Date.now().toString(),
+  },
+  {
+    _id: 'user04',
+    role: 'Regular',
+    isOnline: true,
+    posts: [],
+    likes: [],
+    comments: [],
+    notifications: [],
+    fullName: '도넛좋아',
+    username: `${JSON.stringify({
+      totalPoints: 120,
+    })}`,
+    email: 'doughnut@naver.com',
+    createdAt: Date.now().toString(),
+    updatedAt: Date.now().toString(),
+  },
+];
 export { UserInfoMockData, UserInfoMockList };
