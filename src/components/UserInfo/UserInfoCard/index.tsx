@@ -4,6 +4,7 @@ import {
   UserCard,
   Username,
   UserImage,
+  ImageWrapper,
   LevelText,
   UserBasicContent,
   UserRankContent,
@@ -22,8 +23,8 @@ interface userProps {
   totalExp: number;
 }
 function UserInfoCard({ nickname, totalExp }: userProps) {
-  const level = Math.floor(totalExp / MAXEXP);
-  const currentExp = totalExp - level * MAXEXP;
+  const level = Math.floor(totalExp / MAXEXP) + 1;
+  const currentExp = totalExp - (level - 1) * MAXEXP;
   const expPercent = Math.floor((currentExp / MAXEXP) * 100);
 
   // TODO: 유저리스트 비동기 처리
@@ -42,10 +43,26 @@ function UserInfoCard({ nickname, totalExp }: userProps) {
     return rank;
   }, [nickname]);
 
+  const getImage = () => {
+    if (level < 10) return '100120';
+    if (level < 50) return '100121';
+    if (level < 100) return '100122';
+    if (level < 500) return '100123';
+    if (level < 1000) return '100124';
+    if (level < 5000) return '2510000';
+    if (level < 10000) return '8600006';
+    return '6400006';
+  };
+
   return (
     <UserCard>
       <UserBasicContent>
-        <UserImage src="https://maplestory.io/api/GMS/210.1.1/mob/1110100/render/stand" />
+        <ImageWrapper>
+          <UserImage
+            src={`https://maplestory.io/api/GMS/210.1.1/mob/${getImage()}/render/stand`}
+          />
+        </ImageWrapper>
+
         <Username>{nickname}</Username>
         <LevelText>Lv.{level}</LevelText>
       </UserBasicContent>

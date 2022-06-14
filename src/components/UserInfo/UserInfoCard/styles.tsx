@@ -25,9 +25,15 @@ const Username = styled.h2`
 `;
 
 const UserImage = styled.img`
+  max-height: 5.5rem;
+`;
+
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 6rem;
   height: 6rem;
-  padding: 1rem;
   margin-bottom: 0.5rem;
   border: 3px solid;
   border-radius: 8px;
@@ -115,6 +121,7 @@ export {
   UserCard,
   Username,
   UserImage,
+  ImageWrapper,
   LevelText,
   UserBasicContent,
   UserRankContent,
