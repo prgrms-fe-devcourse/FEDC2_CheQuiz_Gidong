@@ -14,6 +14,17 @@ declare module '@emotion/react' {
     red: string;
     lightBrown: string;
     pink: string;
+    0: string;
+    10: string;
+    50: string;
+    100: string;
+    500: string;
+    1000: string;
+    5000: string;
+    10000: string;
+    50000: string;
+    noLikes: string;
+    noComments: string;
   }
 
   export interface textAndBackGroundColor {

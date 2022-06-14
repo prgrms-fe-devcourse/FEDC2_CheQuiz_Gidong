@@ -43,6 +43,7 @@
     "@typescript-eslint/parser": "^5.26.0",
     "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.5",
+    "buffer": "^6.0.3",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "dotenv-webpack": "^7.1.0",

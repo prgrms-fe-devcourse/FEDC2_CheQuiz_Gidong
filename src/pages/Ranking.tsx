@@ -49,6 +49,17 @@ const SearchInput = styled.input`
   border: none;
 `;
 
+const UserInfoContainer = styled.div`
+  height: 660px;
+  overflow-y: auto;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+`;
+
 function Ranking() {
   const iconProps = {
     name: 'search',
@@ -72,7 +83,9 @@ function Ranking() {
           <Exp>경험치</Exp>
           <UserInfoWrap>유저정보</UserInfoWrap>
         </Container>
-        <UserRankList />
+        <UserInfoContainer>
+          <UserRankList />
+        </UserInfoContainer>
       </Wrap>
     </div>
   );
