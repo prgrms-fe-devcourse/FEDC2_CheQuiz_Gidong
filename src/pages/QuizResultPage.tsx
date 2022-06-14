@@ -23,7 +23,6 @@ function QuizResultPage() {
     <div>
       {mockData.map((mock, index) => (
         <React.Fragment key={mock._id}>
-          <div>{index + 1}번</div>
           <QuizResult
             quiz={mock}
             correct={mock.answer === userAnswers[index]}

@@ -1,13 +1,12 @@
 import styled from '@emotion/styled';
-import Link from 'react-router';
 
 // TODO: 임시 prop 바꾸기
 interface StyledButtonProps {
   color?: 'point' | 'primary' | 'secondary';
 }
 
-interface StyledContainerProps {
-  containerOpened: boolean;
+interface CollapsedProps {
+  collapsed: boolean;
 }
 
 interface StyledSignProps {
@@ -19,6 +18,7 @@ export interface StyledQuizResultProps {
 }
 
 export const Box = styled.div`
+  margin: 1rem 0;
   border: 3px solid #14213d;
   border-radius: 0.5rem;
   * {
@@ -32,18 +32,17 @@ export const Wrapper = styled(Box)`
   padding: 0.5rem;
 `;
 
-export const Container = styled.div<StyledContainerProps>`
+export const Container = styled.div`
   margin: 0 1rem;
-  overflow: hidden;
-  transition: height 0.35s ease;
 `;
 
-export const Header = styled.div`
+export const Header = styled.div<CollapsedProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 4.5rem;
   border-bottom: 3px solid #14213d;
+  transition: border 0.35s ease-in-out;
 `;
 
 export const HeaderLeft = styled.div`
