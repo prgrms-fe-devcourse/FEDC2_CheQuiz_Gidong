@@ -1,6 +1,10 @@
 import { css } from '@emotion/react';
 
 const reset = css`
+  * {
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+      'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  }
   html,
   body,
   div,
@@ -88,7 +92,8 @@ const reset = css`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: 'Roboto', sans-serif;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+      'Noto Sans KR', 'Malgun Gothic', sans-serif;
   }
   /* HTML5 display-role reset for older browsers */
   article,
