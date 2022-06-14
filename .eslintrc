@@ -43,7 +43,8 @@
         "import/extensions": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "prettier/prettier": ["error", { "endOfLine": "auto" }],
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "import/prefer-default-export": "off",
     },
     "overrides": [
         {
