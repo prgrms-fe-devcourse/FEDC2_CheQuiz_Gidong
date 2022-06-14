@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {
   QUIZ_ANSWER_TYPE_LIST,
   QUIZ_CATEGORY_LIST,
@@ -5,11 +6,32 @@ import {
 import { DIFFICULTY_COUNT, IMPORTANCE_COUNT } from '@/common/number';
 import { QuizClientContent } from '@/interfaces/Quiz';
 
+const Wrapper = styled.div`
+  margin: 48px 0;
+`;
+const QuestionSection = styled.section`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 16px;
+`;
+const AnswerSection = styled.section`
+  display: flex;
+`;
+const FlexCol = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Label = styled.div`
+  font-size: 0.75rem;
+`;
+
 interface QuizItemProps {
   quizData: QuizClientContent;
   handleQuizDelete: (id: number) => (e: React.MouseEvent) => void;
   onChangeQuiz: (id: number, key: string, value: string) => void;
 }
+
 export default function QuizItem({
   quizData,
   onChangeQuiz,
@@ -22,16 +44,9 @@ export default function QuizItem({
     };
 
   return (
-    <div className="quiz" style={{ margin: '48px 0' }}>
-      <button
-        type="button"
-        style={{ float: 'right' }}
-        onClick={handleQuizDelete(quizData._id)}
-      >
-        퀴즈 삭제
-      </button>
-      <div className="question" style={{ display: 'flex' }}>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <Wrapper>
+      <QuestionSection>
+        <FlexCol>
           <select value={quizData.tag} onChange={handleInputChange('tag')}>
             <option value="" hidden>
               카테고리
@@ -60,18 +75,22 @@ export default function QuizItem({
               );
             })}
           </select>
+        </FlexCol>
+        <div>
+          <Label>Q. 질문</Label>
+          <textarea
+            value={quizData.question}
+            onChange={handleInputChange('question')}
+          />
         </div>
-        <span>Q. 질문</span>
-        <textarea
-          value={quizData.question}
-          onChange={handleInputChange('question')}
-        />
-      </div>
-      <br />
-      <div className="answer" style={{ display: 'flex' }}>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <button type="button" onClick={handleQuizDelete(quizData._id)}>
+          퀴즈 삭제
+        </button>
+      </QuestionSection>
+      <AnswerSection>
+        <FlexCol>
           <div>
-            <span>정답</span>
+            <Label>정답</Label>
             {[
               { label: 'O', value: 'true' },
               { label: 'X', value: 'false' },
@@ -88,9 +107,8 @@ export default function QuizItem({
               </div>
             ))}
           </div>
-
           <div>
-            <span>중요도</span>
+            <Label>중요도</Label>
             {Array.from({ length: IMPORTANCE_COUNT }, (_, i) => i + 1).map(
               (id) => (
                 <div style={{ display: 'inline-block' }} key={id}>
@@ -107,7 +125,7 @@ export default function QuizItem({
             )}
           </div>
           <div>
-            <span>난이도</span>
+            <Label>난이도</Label>
             {Array.from({ length: DIFFICULTY_COUNT }, (_, i) => i + 1).map(
               (id) => (
                 <div style={{ display: 'inline-block' }} key={id}>
@@ -123,13 +141,16 @@ export default function QuizItem({
               ),
             )}
           </div>
+        </FlexCol>
+        <div>
+          <Label>해설</Label>
+          <textarea
+            value={quizData.answerDescription}
+            onChange={handleInputChange('answerDescription')}
+            style={{ height: '80%' }}
+          />
         </div>
-        <span>해설</span>
-        <textarea
-          value={quizData.answerDescription}
-          onChange={handleInputChange('answerDescription')}
-        />
-      </div>
-    </div>
+      </AnswerSection>
+    </Wrapper>
   );
 }

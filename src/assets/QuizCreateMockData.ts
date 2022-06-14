@@ -13,6 +13,23 @@ const QUIZ_ANSWER_TYPE_LIST = [
   { label: '단답식 문제', value: 'shortAnswer', canUse: false },
 ];
 
+const QUIZ_SET_TAG_LIST = [
+  'React',
+  'Vue',
+  'HTML',
+  'CSS',
+  'SCSS',
+  'Javascript',
+  'Web',
+  'CS지식',
+];
+
+const TEST_ADMIN_TOKEN = '';
+
+const TEST_USER_TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyYTE5YzkxZDI5OGQwMzk2ZDdlNmQzNiIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSJ9LCJpYXQiOjE2NTUxMTI2MDN9.4h_h2mQIAkCjIcAIneiasVnGz4m-yF17SL1Wcn4PZ5Y';
+const TEST_CHANNEL_ID = '62a1bef4d298d0396d7e6e44';
+
 const QUIZ_ITEM_DEFAULT_STATE: QuizClientContent = {
   _id: 0,
   tag: '',
@@ -24,6 +41,11 @@ const QUIZ_ITEM_DEFAULT_STATE: QuizClientContent = {
   answerDescription: '',
 };
 
+const QUIZ_SET_DEFAULT_STATE = {
+  name: '',
+  tags: [],
+  des: '',
+};
 const SAMPLE_QUIZ_LIST_STATE: QuizClientContent[] = [
   {
     _id: 0,
@@ -59,8 +81,13 @@ const SAMPLE_QUIZ_LIST_STATE: QuizClientContent[] = [
   },
 ];
 export {
+  TEST_CHANNEL_ID,
+  TEST_ADMIN_TOKEN,
+  TEST_USER_TOKEN,
   QUIZ_ITEM_DEFAULT_STATE,
+  QUIZ_SET_DEFAULT_STATE,
   QUIZ_CATEGORY_LIST,
   QUIZ_ANSWER_TYPE_LIST,
+  QUIZ_SET_TAG_LIST,
   SAMPLE_QUIZ_LIST_STATE,
 };
