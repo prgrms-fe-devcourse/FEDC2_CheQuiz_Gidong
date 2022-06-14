@@ -1,14 +1,13 @@
-//* 제어 컴포넌트 방식으로 구성 해보기
-import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
+import QuizItem from './QuizItem';
+import { createQuiz, createQuizSet } from '@/api/create';
+import { QuizClientContent } from '@/interfaces/Quiz';
+import { QUIZ_SET_TAG_LIST } from '@/constants';
 import {
   QUIZ_ITEM_DEFAULT_STATE,
   QUIZ_SET_DEFAULT_STATE,
-  QUIZ_SET_TAG_LIST,
 } from '@/assets/QuizCreateMockData';
-import QuizItem from './QuizItem';
-import { QuizClientContent } from '@/interfaces/Quiz';
-import { createQuiz, createQuizSet } from '@/api/create';
 
 const QuizFormWrapper = styled.form`
   display: flex;

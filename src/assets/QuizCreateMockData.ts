@@ -1,29 +1,5 @@
 import { QuizClientContent } from '@/interfaces/Quiz';
 
-const QUIZ_CATEGORY_LIST = [
-  { label: '자바스크립트', value: 'javascript' },
-  'html',
-  'css',
-  'react',
-];
-
-const QUIZ_ANSWER_TYPE_LIST = [
-  { label: 'O/X 문제', value: 'trueOrFalse', canUse: true },
-  { label: '객관식 문제', value: 'multipleChoice', canUse: true },
-  { label: '단답식 문제', value: 'shortAnswer', canUse: false },
-];
-
-const QUIZ_SET_TAG_LIST = [
-  'React',
-  'Vue',
-  'HTML',
-  'CSS',
-  'SCSS',
-  'Javascript',
-  'Web',
-  'CS지식',
-];
-
 const TEST_ADMIN_TOKEN = '';
 
 const TEST_USER_TOKEN =
@@ -86,8 +62,5 @@ export {
   TEST_USER_TOKEN,
   QUIZ_ITEM_DEFAULT_STATE,
   QUIZ_SET_DEFAULT_STATE,
-  QUIZ_CATEGORY_LIST,
-  QUIZ_ANSWER_TYPE_LIST,
-  QUIZ_SET_TAG_LIST,
   SAMPLE_QUIZ_LIST_STATE,
 };

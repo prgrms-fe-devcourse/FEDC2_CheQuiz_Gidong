@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import { QuizClientContent } from '@/interfaces/Quiz';
 import {
+  DIFFICULTY_COUNT,
+  IMPORTANCE_COUNT,
   QUIZ_ANSWER_TYPE_LIST,
   QUIZ_CATEGORY_LIST,
-} from '@/assets/QuizCreateMockData';
-import { DIFFICULTY_COUNT, IMPORTANCE_COUNT } from '@/common/number';
-import { QuizClientContent } from '@/interfaces/Quiz';
+} from '@/constants';
 
 const Wrapper = styled.div`
   margin: 48px 0;
