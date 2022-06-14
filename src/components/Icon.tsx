@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import styled from '@emotion/styled';
 import { Buffer } from 'buffer';
+import { icons } from 'feather-icons';
 
 type propsType = {
   name: string;
@@ -34,7 +35,7 @@ function Icon({
     height: size,
     transform: rotate ? `rotate(${rotate}deg)` : undefined,
   };
-  const icon = require('feather-icons').icons[name];
+  const icon = icons[name];
   const svg = icon ? icon.toSvg(iconStyle) : '';
   const base64 = Buffer.from(svg, 'utf8').toString('base64');
   return (

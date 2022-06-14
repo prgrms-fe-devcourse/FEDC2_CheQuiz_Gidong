@@ -35,6 +35,7 @@
     "@emotion/css": "^11.9.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@types/feather-icons": "^4.7.0",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "@types/react-router": "^5.1.18",
