@@ -70,12 +70,12 @@ const UserInfoMockList: UserAPI[] = [
 ];
 */
 const UserInfoMockData: UserAPI = {
-  _id: 'user01',
+  _id: 'user04',
   role: 'Regular',
   isOnline: true,
   posts: [],
-  likes: ['62a43587d298d0396d7e731b', '62a43587d298d0396d7e731b'],
-  comments: ['62a301fed298d0396d7e7183', '62a30259d298d0396d7e718e'],
+  likes: [],
+  comments: [],
   notifications: [],
   fullName: '도넛좋아',
   username: `${JSON.stringify({

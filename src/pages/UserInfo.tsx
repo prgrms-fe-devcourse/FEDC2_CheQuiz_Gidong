@@ -16,7 +16,11 @@ function UserInfo() {
   return (
     <div>
       <Header />
-      <UserInfoCard nickname={userData.fullName} totalExp={userData.points} />
+      <UserInfoCard
+        id={userData.id}
+        nickname={userData.fullName}
+        totalExp={userData.points}
+      />
     </div>
   );
 }
