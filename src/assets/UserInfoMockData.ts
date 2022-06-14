@@ -79,7 +79,7 @@ const UserInfoMockData: UserAPI = {
   notifications: [],
   fullName: '도넛좋아',
   username: `${JSON.stringify({
-    totalPoints: 120,
+    totalPoints: 12360,
   })}`,
   email: 'doughnut@naver.com',
   createdAt: Date.now().toString(),
@@ -129,7 +129,7 @@ const UserInfoMockList: UserAPI[] = [
     notifications: [],
     fullName: 'Cherry',
     username: `${JSON.stringify({
-      totalPoints: 100,
+      totalPoints: 33333,
     })}`,
     email: 'Cherry@naver.com',
     createdAt: Date.now().toString(),
@@ -145,7 +145,7 @@ const UserInfoMockList: UserAPI[] = [
     notifications: [],
     fullName: '도넛좋아',
     username: `${JSON.stringify({
-      totalPoints: 120,
+      totalPoints: 12360,
     })}`,
     email: 'doughnut@naver.com',
     createdAt: Date.now().toString(),

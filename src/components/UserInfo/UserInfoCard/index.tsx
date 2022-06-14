@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { MAXEXP } from '@/common/number';
 import {
   UserCard,
@@ -14,17 +15,32 @@ import {
   BadgeContent,
   Badge,
 } from './styles';
+import { UserInfoMockList as userList } from '@/assets/UserInfoMockData';
 
 interface userProps {
   nickname: string;
   totalExp: number;
 }
-// 데이터를 보여주는 곳. 바뀌지 않는다!
-// 경험치, 레벨 관련 처리
 function UserInfoCard({ nickname, totalExp }: userProps) {
   const level = Math.floor(totalExp / MAXEXP);
   const currentExp = totalExp - level * MAXEXP;
   const expPercent = Math.floor((currentExp / MAXEXP) * 100);
+
+  // TODO: 유저리스트 비동기 처리
+  const getRank = useCallback(() => {
+    const sortedUserList = userList
+      .map((user) => ({
+        id: user._id,
+        fullName: user.fullName,
+        points: JSON.parse(user.username).totalPoints,
+      }))
+      .sort((a, b) => {
+        return b.points - a.points;
+      });
+    const rank =
+      sortedUserList.findIndex((data) => data.fullName === nickname) + 1;
+    return rank;
+  }, [nickname]);
 
   return (
     <UserCard>
@@ -35,7 +51,7 @@ function UserInfoCard({ nickname, totalExp }: userProps) {
       </UserBasicContent>
 
       <UserRankContent>
-        <Rank>Rank : {1}</Rank>
+        <Rank>Rank : {getRank()}</Rank>
 
         <ExpWrapper>
           <ExpContainer>
