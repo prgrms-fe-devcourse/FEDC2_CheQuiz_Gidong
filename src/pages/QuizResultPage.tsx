@@ -30,6 +30,11 @@ function QuizResultPage() {
           />
         </React.Fragment>
       ))}
+      <div>
+        <button type="button">다른 문제 풀러가기</button>
+        <button type="button">랭킹 보기</button>
+        <button type="button">퀴즈 만들러 가기</button>
+      </div>
     </div>
   );
 }
