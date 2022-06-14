@@ -79,7 +79,7 @@ function UserInfoCard({ id }: userProps) {
 
   interface badgeType {
     id: string;
-    color: string;
+    color?: string;
     content: string;
   }
 
@@ -105,8 +105,38 @@ function UserInfoCard({ id }: userProps) {
     });
     // TODO: 퀴즈 별 뱃지 => typescript에 익숙하지 않아 추후 구현 예정..
 
-    // 좋아요, 댓글 당 뱃지
+    const categoryMap = new Map();
 
+    getQuiz().forEach((quiz) => {
+      const { category } = quiz;
+      const count = categoryMap.get(category);
+      if (count) {
+        categoryMap.set(category, count + 1);
+      } else {
+        categoryMap.set(category, 1);
+      }
+    });
+
+    const categoryQuiz = Array.from(categoryMap).sort((a, b) => {
+      if (a[1] <= b[1]) return 1;
+      return -1;
+    });
+
+    categoryQuiz.forEach((quiz, index) => {
+      if (quiz[1] >= 50) {
+        badges.push({
+          id: `badgeCategory${index}`,
+          content: `${quiz[0]}을 정복한 자`,
+        });
+      } else if (quiz[1] >= 10) {
+        badges.push({
+          id: `badgeCategory${index}`,
+          content: `${quiz[0]}을 시작한 자`,
+        });
+      }
+    });
+
+    // 댓글과 좋아요로 뱃지 가져오기
     Breakpoints.commentBreakpoints.forEach((breakpoint, index) => {
       if (breakpoint.exact) {
         if (userData.comments.length === breakpoint.count) {
@@ -168,7 +198,7 @@ function UserInfoCard({ id }: userProps) {
     });
     return badges;
   };
-  getBadges();
+
   return (
     <UserCard>
       <UserBasicContent>
@@ -196,7 +226,7 @@ function UserInfoCard({ id }: userProps) {
 
         <BadgeContent>
           {getBadges().map((badge) => (
-            <Badge color={badge.color} key={badge.id}>
+            <Badge color={badge.color ? badge.color : '#fffff'} key={badge.id}>
               {badge.content}
             </Badge>
           ))}
