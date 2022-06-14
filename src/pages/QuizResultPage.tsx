@@ -8,6 +8,7 @@ import QuizMockData from '@/assets/QuizMockData';
  * 1. sessionStorage에서 post-ids, user-answers를 불러온다.
  * 2. post-ids와 user-answers 개수를 확인하여 일치하지 않았다면 404페이지로 이동한다.
  * 3. 댓글을 달 수 있는 input과, 좋아요를 누를 수 있는 like가 각 컴포넌트에 위치하여야 한다.
+ * 4. random인지, random인지 아닌지 저장해야 한다.
  */
 function QuizResultPage() {
   const [mockData] = useState(QuizMockData);
