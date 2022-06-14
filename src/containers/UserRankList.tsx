@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import RankingMockData from '@/assets/RankingMockData';
-import { UserInfo } from '@/interfaces/UserAPI';
+import { UserAPI, UserInfo } from '@/interfaces/UserAPI';
 import NoImg from '@/assets/no-image.png';
-import { PostAPICustomTitle } from '@/interfaces/PostAPI';
-import { BLUE, GREEN, PINK, RED, YELLOW } from '@/common/string';
-import Tag from '@/components/Tag';
 import theme, { blackGray, borderWidth, gray, large } from '@/styles/theme';
+import Tag from '@/components/Tag';
+import { NOCOMMENTS, NOLIKES } from '@/common/string';
 
 const Container = styled.div`
   display: flex;
@@ -42,7 +41,7 @@ const UserImg = styled.img`
 
 const UserInfoWrap = styled.div`
   width: 18.75rem;
-  height: 6.25rem;
+  height: 10rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -55,8 +54,99 @@ const UserName = styled.div`
   padding: 0.125rem 1.25rem;
 `;
 
+const TagsWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3125rem;
+`;
+
 function UserRankList() {
   const userList = RankingMockData;
+
+  const generateTags = (userInfo: UserAPI) => {
+    const tagsList = [];
+
+    const { totalPoints } = JSON.parse(userInfo.username) as UserInfo;
+
+    // 포인트 관련 조건
+    const isLevel0 = totalPoints < 10 && totalPoints >= 0;
+    const isLevel10 = totalPoints < 50 && totalPoints >= 10;
+    const isLevel50 = totalPoints < 100 && totalPoints >= 50;
+    const isLevel100 = totalPoints < 500 && totalPoints >= 100;
+    const isLevel500 = totalPoints < 1000 && totalPoints >= 500;
+    const isLevel1000 = totalPoints < 5000 && totalPoints >= 1000;
+    const isLevel5000 = totalPoints < 10000 && totalPoints >= 5000;
+    const isLevel10000 = totalPoints < 50000 && totalPoints >= 10000;
+    const isLevel50000 = totalPoints >= 50000;
+
+    if (isLevel0) {
+      tagsList.push(<Tag colors="0" text="뉴비라네" />);
+    }
+
+    if (isLevel10) {
+      tagsList.push(<Tag colors="10" text="내가 레벨 10대라니!" />);
+    }
+
+    if (isLevel50) {
+      tagsList.push(<Tag colors="50" text="내가 레벨 50대라니!" />);
+    }
+
+    if (isLevel100) {
+      tagsList.push(<Tag colors="100" text="내가 레벨 100대라니!" />);
+    }
+
+    if (isLevel500) {
+      tagsList.push(<Tag colors="500" text="내가 레벨 500대라니!" />);
+    }
+
+    if (isLevel1000) {
+      tagsList.push(<Tag colors="1000" text="내가 레벨 1000대라니!" />);
+    }
+
+    if (isLevel5000) {
+      tagsList.push(<Tag colors="5000" text="내가 레벨 5000대라니!" />);
+    }
+
+    if (isLevel10000) {
+      tagsList.push(<Tag colors="10000" text="내가 레벨 10000대라니!" />);
+    }
+
+    if (isLevel50000) {
+      tagsList.push(<Tag colors="50000" text="내가 레벨 50000대라니!" />);
+    }
+
+    // 좋아요, 커맨트 관련 조건
+    const isManyComments = userInfo.comments?.length >= 10;
+    const isManyLikes = userInfo.likes?.length >= 10;
+    const isNoLikes = userInfo.likes?.length === 0;
+    const isNoComments = userInfo.comments?.length === 0;
+
+    if (isManyComments && isManyLikes) {
+      tagsList.push(<Tag colors="red" text="소통왕" />);
+    }
+
+    if (isManyComments) {
+      tagsList.push(<Tag colors="green" text="투머치토커" />);
+    }
+
+    if (isManyLikes) {
+      tagsList.push(<Tag colors="pink" text="사랑꾼" />);
+    }
+
+    if (isNoLikes) {
+      tagsList.push(<Tag colors={NOLIKES} text="무뚝뚝그자체" />);
+    }
+
+    if (isNoComments) {
+      tagsList.push(<Tag colors={NOCOMMENTS} text="묵언수행중" />);
+    }
+
+    if (isNoLikes && isNoComments) {
+      tagsList.push(<Tag colors="alone" text="혼자가좋아" />);
+    }
+
+    return tagsList;
+  };
 
   return (
     <>
@@ -79,15 +169,6 @@ function UserRankList() {
             return img;
           };
 
-          // eslint-disable-next-line consistent-return
-          const pickTagColor = (tag: string | undefined): string => {
-            if (tag === 'HTML') return RED;
-            if (tag === 'React') return BLUE;
-            if (tag === 'Vue') return GREEN;
-            if (tag === 'Javascript') return YELLOW;
-            if (tag === 'SCSS') return PINK;
-            return '#000';
-          };
           return (
             <Container {...theme} key={user._id}>
               <Rank {...theme}>Rank {index + 1}</Rank>
@@ -97,27 +178,12 @@ function UserRankList() {
               </UserProfile>
               <UserInfoWrap>
                 <UserName {...theme}>{user.fullName}</UserName>
-                {user.posts
-                  // 태그는 상위 3개만 표기
-                  .slice(0, 3)
-                  // 태그 출력
-                  .map((tagedPost) => {
-                    const quizInfo = JSON.parse(
-                      tagedPost.title,
-                    ) as PostAPICustomTitle;
-                    return (
-                      <div key={tagedPost._id}>
-                        <Tag
-                          colors={pickTagColor(quizInfo.tag)}
-                          text={
-                            quizInfo.tag || quizInfo.tag.trim() !== ''
-                              ? quizInfo.tag
-                              : 'Newbie'
-                          }
-                        />
-                      </div>
-                    );
-                  })}
+                <TagsWrap>
+                  {generateTags(user).map((tag, idx) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <span key={`rank-tag-${idx}`}>{tag}</span>
+                  ))}
+                </TagsWrap>
               </UserInfoWrap>
             </Container>
           );

@@ -37,7 +37,7 @@ export interface UserAPI {
   isOnline: boolean;
   posts: PostAPI[];
   likes: LikeAPI[];
-  comments: CommentAPI[];
+  comments: CommentAPI[] | string[];
   followers?: string[];
   following: followingType[];
   messages: Message[];

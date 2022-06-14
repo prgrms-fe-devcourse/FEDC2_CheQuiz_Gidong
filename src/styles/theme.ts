@@ -22,6 +22,17 @@ export const theme = {
     red: '#FF6254',
     lightBrown: '#FED36F',
     pink: '#FF937E',
+    0: '#977C37',
+    10: '#5F7161',
+    50: '#6D8B74',
+    100: '#00FFAB',
+    500: '#0D99FF',
+    1000: '#FFBEB8',
+    5000: '#FAFF00',
+    10000: '#F30E5C',
+    50000: '#FF1809',
+    noLikes: '#7E7474',
+    noComments: '#8E05C2',
   },
   textAndBackGroundColor: {
     blackGray: '#212529',
@@ -68,6 +79,17 @@ export const tagLightBrown = (theme: Theme) => theme.tagColor.lightBrown;
 export const tagPink = (theme: Theme) => theme.tagColor.pink;
 export const tagRed = (theme: Theme) => theme.tagColor.red;
 export const tagYellow = (theme: Theme) => theme.tagColor.yellow;
+export const tag0 = (theme: Theme) => theme.tagColor[0];
+export const tag10 = (theme: Theme) => theme.tagColor[10];
+export const tag50 = (theme: Theme) => theme.tagColor[50];
+export const tag100 = (theme: Theme) => theme.tagColor[100];
+export const tag500 = (theme: Theme) => theme.tagColor[500];
+export const tag1000 = (theme: Theme) => theme.tagColor[1000];
+export const tag5000 = (theme: Theme) => theme.tagColor[5000];
+export const tag10000 = (theme: Theme) => theme.tagColor[10000];
+export const tag50000 = (theme: Theme) => theme.tagColor[50000];
+export const tagNoLikes = (theme: Theme) => theme.tagColor.noLikes;
+export const tagNoComments = (theme: Theme) => theme.tagColor.noComments;
 
 export const DarkGray = (theme: Theme) => theme.textAndBackGroundColor.DarkGray;
 export const blackGray = (theme: Theme) =>
