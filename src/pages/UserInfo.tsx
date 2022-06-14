@@ -31,12 +31,7 @@ function UserInfo() {
   return (
     <div>
       <Header />
-      <UserInfoCard
-        nickname={realUserData.fullName}
-        rank={rank}
-        exp={realUserData.points}
-        maxExp={9999}
-      />
+      <UserInfoCard nickname={realUserData.fullName} totalExp={680} />
     </div>
   );
 }

@@ -1,7 +1,9 @@
+import { MAXEXP } from '@/common/number';
 import {
   UserCard,
   Username,
   UserImage,
+  LevelText,
   UserBasicContent,
   UserRankContent,
   Rank,
@@ -15,30 +17,32 @@ import {
 
 interface userProps {
   nickname: string;
-  rank: number;
-  exp: number;
-  maxExp: number;
+  totalExp: number;
 }
+// 데이터를 보여주는 곳. 바뀌지 않는다!
+// 경험치, 레벨 관련 처리
+function UserInfoCard({ nickname, totalExp }: userProps) {
+  const level = Math.floor(totalExp / MAXEXP);
+  const currentExp = totalExp - level * MAXEXP;
+  const expPercent = Math.floor((currentExp / MAXEXP) * 100);
 
-function UserInfoCard({ nickname, rank, exp, maxExp }: userProps) {
-  let percent = Math.ceil((exp / maxExp) * 100);
-  if (percent > 100) percent = 100;
   return (
     <UserCard>
       <UserBasicContent>
         <UserImage src="https://maplestory.io/api/GMS/210.1.1/mob/1110100/render/stand" />
         <Username>{nickname}</Username>
+        <LevelText>Lv.{level}</LevelText>
       </UserBasicContent>
 
       <UserRankContent>
-        <Rank>Rank : {rank}</Rank>
+        <Rank>Rank : {1}</Rank>
 
         <ExpWrapper>
           <ExpContainer>
             <ExpDetail>
-              {exp}/{maxExp}
+              {currentExp}/{MAXEXP}
             </ExpDetail>
-            <ExpCurrentContainer percent={percent} />
+            <ExpCurrentContainer percent={expPercent} />
           </ExpContainer>
         </ExpWrapper>
 

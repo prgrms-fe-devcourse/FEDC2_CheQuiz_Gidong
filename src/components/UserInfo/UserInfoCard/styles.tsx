@@ -35,7 +35,11 @@ const UserImage = styled.img`
   color: inherit;
   background-color: #e9ecef;
 `;
-
+const LevelText = styled.h2`
+  font-size: 1.25rem;
+  font-family: 'MaplestoryOTFBold', sans-serif !important;
+  margin-top: 0.5rem;
+`;
 const UserBasicContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -111,6 +115,7 @@ export {
   UserCard,
   Username,
   UserImage,
+  LevelText,
   UserBasicContent,
   UserRankContent,
   Rank,
