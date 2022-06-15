@@ -38,9 +38,7 @@ function Ranking() {
           <S.Exp>경험치</S.Exp>
           <S.UserInfoWrap>유저정보</S.UserInfoWrap>
         </S.Container>
-        <S.UserInfoContainer>
-          <UserRankList keyword={keyword} />
-        </S.UserInfoContainer>
+        <UserRankList keyword={keyword} />
       </S.Wrap>
     </div>
   );
