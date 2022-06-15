@@ -1,27 +1,56 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from 'react';
 import RankingMockData from '@/assets/RankingMockData';
 import { UserAPI, UserInfo } from '@/interfaces/UserAPI';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
 import * as S from './style';
-import theme from '@/styles/theme';
+import getRankAll from '@/apis/getRankAll';
 
 type Props = {
   keyword: string;
 };
 
 function UserRankList({ keyword }: Props) {
-  const userList = RankingMockData.map((data, index) => [
-    RankingMockData.length - index,
+  const [rankingData, setRankingData] = useState([] as UserAPI[]);
+
+  useEffect(() => {
+    const fetchRankData = async () => {
+      const data = await getRankAll();
+      setRankingData(data);
+    };
+
+    fetchRankData();
+
+    return () => {
+      fetchRankData();
+    };
+  }, []);
+
+  // const userList = RankingMockData.map((data, index) => [
+  //   RankingMockData.length - index,
+  //   data,
+  // ]) as [number, UserAPI][];
+
+  const userList = rankingData.map((data, index) => [
+    rankingData.length - index,
     data,
   ]) as [number, UserAPI][];
 
+  // console.log(userList);
+
   const generateTags = (userInfo: UserAPI) => {
     const tagsList = [];
+    let point;
 
-    const { totalPoints } = JSON.parse(userInfo.username) as UserInfo;
+    if (!userInfo?.username) point = 0;
+    else if (userInfo.username.indexOf('totalPoint') === -1) point = 0;
+    else {
+      const { totalPoints } = JSON.parse(userInfo.username) as UserInfo;
+      point = totalPoints;
+    }
 
-    const level = totalPoints / 100;
+    const level = point / 100;
 
     // 포인트 관련 조건
     const isLevel0 = level < 10 && level >= 0;
@@ -103,6 +132,38 @@ function UserRankList({ keyword }: Props) {
     return tagsList;
   };
 
+  console.log(
+    '확인횰',
+    userList
+      .sort(([prevRank, prev], [nextRank, next]) => {
+        let prevPoint;
+        let nextPoint;
+
+        if (!prev?.username) prevPoint = 0;
+        else if (prev.username.indexOf('totalPoint') === -1) prevPoint = 0;
+        else {
+          const { totalPoints = 0 } = JSON.parse(prev?.username);
+          prevPoint = totalPoints;
+        }
+
+        if (!next?.username) nextPoint = 0;
+        else if (next.username.indexOf('totalPoint') === -1) nextPoint = 0;
+        else {
+          const { totalPoints = 0 } = JSON.parse(next?.username);
+          nextPoint = totalPoints;
+        }
+
+        return nextPoint - prevPoint;
+      })
+      .filter(([itemRank, item]) => {
+        const flag = item.fullName
+          .toLowerCase()
+          ?.indexOf(keyword.toLowerCase());
+        if (flag === -1) return false;
+        return true;
+      }),
+  );
+
   const checkUserImage = (point: number) => {
     const level = point / 100;
 
@@ -151,14 +212,26 @@ function UserRankList({ keyword }: Props) {
     <>
       {userList
         .sort(([prevRank, prev], [nextRank, next]) => {
-          const { totalPoints: prevPoints } = JSON.parse(
-            prev.username,
-          ) as UserInfo;
-          const { totalPoints: nextPoints } = JSON.parse(
-            next.username,
-          ) as UserInfo;
+          let prevPoint;
+          let nextPoint;
 
-          return nextPoints - prevPoints;
+          if (!prev?.username) prevPoint = 0;
+          else if (prev.username.indexOf('totalPoint') === -1) prevPoint = 0;
+          else {
+            const { totalPoints = 0 } = JSON.parse(prev?.username);
+            prevPoint = totalPoints;
+          }
+
+          if (!next?.username) nextPoint = 0;
+          else if (next.username.indexOf('totalPoint') === -1) nextPoint = 0;
+          else {
+            const { totalPoints = 0 } = JSON.parse(next?.username);
+            nextPoint = totalPoints;
+          }
+
+          if (nextPoint === prevPoint) return -1;
+
+          return nextPoint - prevPoint;
         })
         .filter(([itemRank, item]) => {
           const flag = item.fullName
@@ -168,14 +241,20 @@ function UserRankList({ keyword }: Props) {
           return true;
         })
         .map(([userRank, user]) => {
-          const { totalPoints } = JSON.parse(user.username) as UserInfo;
+          let points;
+          if (!user?.username) points = 0;
+          else if (user.username.indexOf('totalPoint') === -1) points = 0;
+          else {
+            const { totalPoints } = JSON.parse(user.username);
+            points = totalPoints;
+          }
 
           return (
             <S.Container key={user._id}>
               <S.Rank>Rank {userRank}</S.Rank>
-              <S.Exp>{totalPoints.toLocaleString()}</S.Exp>
+              <S.Exp>{points.toLocaleString()}</S.Exp>
               <S.UserProfile>
-                <S.UserImg src={checkUserImage(totalPoints)} alt="userImage" />
+                <S.UserImg src={checkUserImage(points)} alt="userImage" />
               </S.UserProfile>
               <S.UserInfoWrap>
                 <S.UserName>{user.fullName}</S.UserName>
