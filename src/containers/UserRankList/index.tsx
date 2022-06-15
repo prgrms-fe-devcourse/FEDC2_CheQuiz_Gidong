@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
-import RankingMockData from '@/assets/RankingMockData';
-import { UserAPI, UserInfo } from '@/interfaces/UserAPI';
+import { UserAPI } from '@/interfaces/UserAPI';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
 import * as S from './style';
@@ -26,11 +25,6 @@ function UserRankList({ keyword }: Props) {
       fetchRankData();
     };
   }, []);
-
-  // const userList = RankingMockData.map((data, index) => [
-  //   RankingMockData.length - index,
-  //   data,
-  // ]) as [number, UserAPI][];
 
   // 랭킹데이터 점수내림차순 정렬 후 순위를 위해 고정 인덱스 부여
   const userList = rankingData
@@ -57,8 +51,6 @@ function UserRankList({ keyword }: Props) {
       return nextPoint - prevPoint;
     })
     .map((data, index) => [index + 1, data]) as [number, UserAPI][];
-
-  // console.log(userList);
 
   const generateTags = (userInfo: UserAPI) => {
     const tagsList = [];

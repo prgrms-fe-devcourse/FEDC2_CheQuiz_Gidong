@@ -1,5 +1,3 @@
-import { Theme } from '@emotion/react';
-
 /* eslint-disable no-shadow */
 const Size = {
   pc: '1200px', // 1200px

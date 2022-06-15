@@ -1,4 +1,3 @@
-import theme from '@/styles/theme';
 import * as S from './style';
 
 type propsType = {
