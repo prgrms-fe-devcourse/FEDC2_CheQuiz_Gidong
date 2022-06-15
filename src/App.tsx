@@ -21,7 +21,6 @@ function App(): JSX.Element {
         <ThemeProvider theme={theme}>
           <Global styles={reset} />
           <Global styles={fontStyle} />
-
           <Routers />
         </ThemeProvider>
       </Layout>
