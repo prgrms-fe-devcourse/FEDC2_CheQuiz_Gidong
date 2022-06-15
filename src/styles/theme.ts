@@ -68,7 +68,6 @@ export const theme = {
 export const pc = (props: any) => props.theme.media.pc;
 export const tab = (props: any) => props.theme.media.tab;
 export const mobile = (props: any) => props.theme.media.mobile;
-
 export const pointColor = (props: any) => props.theme.themeColors.pointColor;
 export const primary = (props: any) => props.theme.themeColors.primary;
 export const secondary = (props: any) => props.theme.themeColors.secondary;
