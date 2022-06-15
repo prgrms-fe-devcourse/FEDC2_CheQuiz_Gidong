@@ -63,7 +63,7 @@ export const theme = {
   },
 };
 
-// 글로벌 props 타입 지정
+// 글로벌 props 타입 지정 코드
 type themeProps = {
   theme: Theme;
 };

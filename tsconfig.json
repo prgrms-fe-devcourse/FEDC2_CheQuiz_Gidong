@@ -42,6 +42,8 @@
     ],
   },
   "include": [
-    "src"
+    "src",
+    "emotion.d.ts",
+    "assets.d.ts",
   ]
 }
