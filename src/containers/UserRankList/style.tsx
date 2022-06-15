@@ -32,6 +32,7 @@ export const UserProfile = styled.div`
 
 export const UserImg = styled.img`
   width: 100%;
+  padding: 1.25rem;
 `;
 
 export const UserInfoWrap = styled.div`
