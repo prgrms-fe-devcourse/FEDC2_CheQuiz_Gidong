@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import UserRankList from '@/containers/UserRankList';
+import theme from '@/styles/theme';
 import Icon from '@/components/Icon';
 import * as S from './style';
 
