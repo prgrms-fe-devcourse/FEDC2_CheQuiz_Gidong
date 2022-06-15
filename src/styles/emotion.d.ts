@@ -60,7 +60,7 @@ declare module '@emotion/react' {
     detail: string;
   }
 
-  export interface Theme {
+  export interface Theme extends Record<string, any> {
     themeColors: themeColors;
     tagColor: tagColor;
     textAndBackGroundColor: textAndBackGroundColor;
