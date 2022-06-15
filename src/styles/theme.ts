@@ -63,6 +63,7 @@ export const theme = {
   },
 };
 
+<<<<<<< HEAD
 // 글로벌 emotion props 타입 지정
 
 export const pc = (props: any) => props.theme.media.pc;
@@ -116,5 +117,68 @@ export const medium = (props: any) => props.theme.fontStyle.medium;
 export const small = (props: any) => props.theme.fontStyle.small;
 export const p = (props: any) => props.theme.fontStyle.p;
 export const detail = (props: any) => props.theme.fontStyle.detail;
+=======
+export const pc = ({ theme }: { theme: Theme }) => theme.media.pc;
+export const tab = ({ theme }: { theme: Theme }) => theme.media.tab;
+export const mobile = ({ theme }: { theme: Theme }) => theme.media.mobile;
+
+export const pointColor = ({ theme }: { theme: Theme }) =>
+  theme.themeColors.pointColor;
+export const primary = ({ theme }: { theme: Theme }) =>
+  theme.themeColors.primary;
+export const secondary = ({ theme }: { theme: Theme }) =>
+  theme.themeColors.secondary;
+export const tagBlue = ({ theme }: { theme: Theme }) => theme.tagColor.blue;
+export const tagGreen = ({ theme }: { theme: Theme }) => theme.tagColor.green;
+export const tagLightBrown = ({ theme }: { theme: Theme }) =>
+  theme.tagColor.lightBrown;
+export const tagPink = ({ theme }: { theme: Theme }) => theme.tagColor.pink;
+export const tagRed = ({ theme }: { theme: Theme }) => theme.tagColor.red;
+export const tagYellow = ({ theme }: { theme: Theme }) => theme.tagColor.yellow;
+export const tag0 = ({ theme }: { theme: Theme }) => theme.tagColor[0];
+export const tag10 = ({ theme }: { theme: Theme }) => theme.tagColor[10];
+export const tag50 = ({ theme }: { theme: Theme }) => theme.tagColor[50];
+export const tag100 = ({ theme }: { theme: Theme }) => theme.tagColor[100];
+export const tag500 = ({ theme }: { theme: Theme }) => theme.tagColor[500];
+export const tag1000 = ({ theme }: { theme: Theme }) => theme.tagColor[1000];
+export const tag5000 = ({ theme }: { theme: Theme }) => theme.tagColor[5000];
+export const tag10000 = ({ theme }: { theme: Theme }) => theme.tagColor[10000];
+export const tag50000 = ({ theme }: { theme: Theme }) => theme.tagColor[50000];
+export const tagNoLikes = ({ theme }: { theme: Theme }) =>
+  theme.tagColor.noLikes;
+export const tagNoComments = ({ theme }: { theme: Theme }) =>
+  theme.tagColor.noComments;
+
+export const DarkGray = ({ theme }: { theme: Theme }) =>
+  theme.textAndBackGroundColor.DarkGray;
+export const blackGray = ({ theme }: { theme: Theme }) =>
+  theme.textAndBackGroundColor.blackGray;
+export const brightGray = ({ theme }: { theme: Theme }) =>
+  theme.textAndBackGroundColor.brightGray;
+export const gray = ({ theme }: { theme: Theme }) =>
+  theme.textAndBackGroundColor.gray;
+export const grayWhite = ({ theme }: { theme: Theme }) =>
+  theme.textAndBackGroundColor.grayWhite;
+export const lightGray = ({ theme }: { theme: Theme }) =>
+  theme.textAndBackGroundColor.lightGray;
+export const lightGrayWhite = ({ theme }: { theme: Theme }) =>
+  theme.textAndBackGroundColor.lightGrayWhite;
+export const white = ({ theme }: { theme: Theme }) =>
+  theme.textAndBackGroundColor.white;
+
+export const borderRadius = ({ theme }: { theme: Theme }) =>
+  theme.borderStyle.borderRadius;
+export const borderWidth = ({ theme }: { theme: Theme }) =>
+  theme.borderStyle.borderWidth;
+
+export const h1 = ({ theme }: { theme: Theme }) => theme.fontStyle.h1;
+export const h2 = ({ theme }: { theme: Theme }) => theme.fontStyle.h2;
+export const h3 = ({ theme }: { theme: Theme }) => theme.fontStyle.h3;
+export const large = ({ theme }: { theme: Theme }) => theme.fontStyle.large;
+export const medium = ({ theme }: { theme: Theme }) => theme.fontStyle.medium;
+export const small = ({ theme }: { theme: Theme }) => theme.fontStyle.small;
+export const p = ({ theme }: { theme: Theme }) => theme.fontStyle.p;
+export const detail = ({ theme }: { theme: Theme }) => theme.fontStyle.detail;
+>>>>>>> 4827cae ([refactor] 스타일 컴포넌트 네임스페이스 규칙에 맞게 수정)
 
 export default theme;
