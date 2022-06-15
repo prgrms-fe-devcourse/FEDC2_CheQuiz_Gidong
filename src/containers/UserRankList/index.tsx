@@ -4,7 +4,6 @@ import NoImg from '@/assets/no-image.png';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
 import * as S from './style';
-import theme from '@/styles/theme';
 
 function UserRankList() {
   const userList = RankingMockData;
@@ -116,14 +115,14 @@ function UserRankList() {
           };
 
           return (
-            <S.Container {...theme} key={user._id}>
-              <S.Rank {...theme}>Rank {index + 1}</S.Rank>
+            <S.Container key={user._id}>
+              <S.Rank>Rank {index + 1}</S.Rank>
               <S.Exp>{totalPoints.toLocaleString()}</S.Exp>
               <S.UserProfile>
                 <S.UserImg src={checkUserImage(user.image)} alt="userImage" />
               </S.UserProfile>
               <S.UserInfoWrap>
-                <S.UserName {...theme}>{user.fullName}</S.UserName>
+                <S.UserName>{user.fullName}</S.UserName>
                 <S.TagsWrap>
                   {generateTags(user).map((tag, idx) => (
                     // eslint-disable-next-line react/no-array-index-key

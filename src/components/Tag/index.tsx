@@ -1,4 +1,3 @@
-import theme from '@/styles/theme';
 import * as S from './style';
 
 type propsType = {
@@ -8,7 +7,7 @@ type propsType = {
 
 function Tag({ colors, text, ...props }: propsType) {
   return (
-    <S.TagWrap {...theme} {...props} colors={colors}>
+    <S.TagWrap {...props} colors={colors}>
       {text}
     </S.TagWrap>
   );

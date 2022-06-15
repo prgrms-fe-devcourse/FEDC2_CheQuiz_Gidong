@@ -1,5 +1,4 @@
 import UserRankList from '@/containers/UserRankList';
-import theme from '@/styles/theme';
 import Icon from '@/components/Icon';
 import * as S from './style';
 
@@ -21,7 +20,7 @@ function Ranking() {
         </S.SearchWrap>
       </S.SearchContainer>
       <S.Wrap>
-        <S.Container {...theme}>
+        <S.Container>
           <S.Rank>순위</S.Rank>
           <S.Exp>경험치</S.Exp>
           <S.UserInfoWrap>유저정보</S.UserInfoWrap>
