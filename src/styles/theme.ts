@@ -63,7 +63,7 @@ export const theme = {
   },
 };
 
-// 글로벌 emotion props 타입 지정 코드
+// 글로벌 emotion props 타입 지정
 
 export const pc = (props: any) => props.theme.media.pc;
 export const tab = (props: any) => props.theme.media.tab;
