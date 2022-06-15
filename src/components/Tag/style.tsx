@@ -1,6 +1,6 @@
+/* eslint-disable import/prefer-default-export */
 import styled from '@emotion/styled';
-import { Theme } from '@emotion/react';
-import theme, {
+import {
   blackGray,
   borderRadius,
   borderWidth,
@@ -33,17 +33,16 @@ import {
   YELLOW,
 } from '@/common/string';
 
-type propsType = {
+type tagProps = {
   colors: string;
-  text: string;
 };
 
-const TagWrap = styled.div`
+export const TagWrap = styled.div<tagProps>`
   color: ${blackGray};
   padding: 0.3125rem;
   border: ${borderWidth};
   border-radius: ${borderRadius};
-  background-color: ${({ colors }: Theme) => {
+  background-color: ${({ colors }) => {
     if (colors === GREEN) return tagGreen;
     if (colors === BLUE) return tagBlue;
     if (colors === YELLOW) return tagYellow;
@@ -66,13 +65,3 @@ const TagWrap = styled.div`
 
   border-radius: ${borderRadius};
 `;
-
-function Tag({ colors, text, ...props }: propsType) {
-  return (
-    <TagWrap {...theme} {...props} colors={colors}>
-      {text}
-    </TagWrap>
-  );
-}
-
-export default Tag;

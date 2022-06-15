@@ -1,64 +1,10 @@
-import styled from '@emotion/styled';
 import RankingMockData from '@/assets/RankingMockData';
 import { UserAPI, UserInfo } from '@/interfaces/UserAPI';
 import NoImg from '@/assets/no-image.png';
-import theme, { blackGray, borderWidth, gray, large } from '@/styles/theme';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
-
-const Container = styled.div`
-  display: flex;
-  color: ${blackGray};
-  justify-content: space-around;
-  align-items: center;
-  border: ${borderWidth};
-  padding: 1.5rem 0;
-  margin: 0.3125rem 0.125rem;
-`;
-
-const Rank = styled.div`
-  ${large};
-  width: 6.25rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-`;
-
-const Exp = styled.div`
-  width: 9.375rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-`;
-
-const UserProfile = styled.div`
-  width: 9.375rem;
-`;
-
-const UserImg = styled.img`
-  width: 100%;
-`;
-
-const UserInfoWrap = styled.div`
-  width: 18.75rem;
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
-`;
-
-const UserName = styled.div`
-  border: ${borderWidth};
-  border-color: ${gray};
-  padding: 0.125rem 1.25rem;
-`;
-
-const TagsWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3125rem;
-`;
+import * as S from './style';
+import theme from '@/styles/theme';
 
 function UserRankList() {
   const userList = RankingMockData;
@@ -170,22 +116,22 @@ function UserRankList() {
           };
 
           return (
-            <Container {...theme} key={user._id}>
-              <Rank {...theme}>Rank {index + 1}</Rank>
-              <Exp>{totalPoints.toLocaleString()}</Exp>
-              <UserProfile>
-                <UserImg src={checkUserImage(user.image)} alt="userImage" />
-              </UserProfile>
-              <UserInfoWrap>
-                <UserName {...theme}>{user.fullName}</UserName>
-                <TagsWrap>
+            <S.Container {...theme} key={user._id}>
+              <S.Rank {...theme}>Rank {index + 1}</S.Rank>
+              <S.Exp>{totalPoints.toLocaleString()}</S.Exp>
+              <S.UserProfile>
+                <S.UserImg src={checkUserImage(user.image)} alt="userImage" />
+              </S.UserProfile>
+              <S.UserInfoWrap>
+                <S.UserName {...theme}>{user.fullName}</S.UserName>
+                <S.TagsWrap>
                   {generateTags(user).map((tag, idx) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <span key={`rank-tag-${idx}`}>{tag}</span>
                   ))}
-                </TagsWrap>
-              </UserInfoWrap>
-            </Container>
+                </S.TagsWrap>
+              </S.UserInfoWrap>
+            </S.Container>
           );
         })}
     </>

@@ -66,7 +66,6 @@ declare module '@emotion/react' {
     textAndBackGroundColor: textAndBackGroundColor;
     borderStyle: borderStyle;
     media: media;
-    colors: string;
     fontStyle: fontStyle;
   }
 }
