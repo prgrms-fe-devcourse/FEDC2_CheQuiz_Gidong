@@ -63,69 +63,59 @@ export const theme = {
   },
 };
 
-// 글로벌 props 타입 지정 코드
-type themeProps = {
-  theme: Theme;
-};
+// 글로벌 emotion props 타입 지정 코드
 
-export const pc = (props: themeProps) => props.theme.media.pc;
-export const tab = (props: themeProps) => props.theme.media.tab;
-export const mobile = (props: themeProps) => props.theme.media.mobile;
+export const pc = (props: any) => props.theme.media.pc;
+export const tab = (props: any) => props.theme.media.tab;
+export const mobile = (props: any) => props.theme.media.mobile;
 
-export const pointColor = (props: themeProps) =>
-  props.theme.themeColors.pointColor;
-export const primary = (props: themeProps) => props.theme.themeColors.primary;
-export const secondary = (props: themeProps) =>
-  props.theme.themeColors.secondary;
-export const tagBlue = (props: themeProps) => props.theme.tagColor.blue;
-export const tagGreen = (props: themeProps) => props.theme.tagColor.green;
-export const tagLightBrown = (props: themeProps) =>
-  props.theme.tagColor.lightBrown;
-export const tagPink = (props: themeProps) => props.theme.tagColor.pink;
-export const tagRed = (props: themeProps) => props.theme.tagColor.red;
-export const tagYellow = (props: themeProps) => props.theme.tagColor.yellow;
-export const tag0 = (props: themeProps) => props.theme.tagColor[0];
-export const tag10 = (props: themeProps) => props.theme.tagColor[10];
-export const tag50 = (props: themeProps) => props.theme.tagColor[50];
-export const tag100 = (props: themeProps) => props.theme.tagColor[100];
-export const tag500 = (props: themeProps) => props.theme.tagColor[500];
-export const tag1000 = (props: themeProps) => props.theme.tagColor[1000];
-export const tag5000 = (props: themeProps) => props.theme.tagColor[5000];
-export const tag10000 = (props: themeProps) => props.theme.tagColor[10000];
-export const tag50000 = (props: themeProps) => props.theme.tagColor[50000];
-export const tagNoLikes = (props: themeProps) => props.theme.tagColor.noLikes;
-export const tagNoComments = (props: themeProps) =>
-  props.theme.tagColor.noComments;
+export const pointColor = (props: any) => props.theme.themeColors.pointColor;
+export const primary = (props: any) => props.theme.themeColors.primary;
+export const secondary = (props: any) => props.theme.themeColors.secondary;
+export const tagBlue = (props: any) => props.theme.tagColor.blue;
+export const tagGreen = (props: any) => props.theme.tagColor.green;
+export const tagLightBrown = (props: any) => props.theme.tagColor.lightBrown;
+export const tagPink = (props: any) => props.theme.tagColor.pink;
+export const tagRed = (props: any) => props.theme.tagColor.red;
+export const tagYellow = (props: any) => props.theme.tagColor.yellow;
+export const tag0 = (props: any) => props.theme.tagColor[0];
+export const tag10 = (props: any) => props.theme.tagColor[10];
+export const tag50 = (props: any) => props.theme.tagColor[50];
+export const tag100 = (props: any) => props.theme.tagColor[100];
+export const tag500 = (props: any) => props.theme.tagColor[500];
+export const tag1000 = (props: any) => props.theme.tagColor[1000];
+export const tag5000 = (props: any) => props.theme.tagColor[5000];
+export const tag10000 = (props: any) => props.theme.tagColor[10000];
+export const tag50000 = (props: any) => props.theme.tagColor[50000];
+export const tagNoLikes = (props: any) => props.theme.tagColor.noLikes;
+export const tagNoComments = (props: any) => props.theme.tagColor.noComments;
 
-export const DarkGray = (props: themeProps) =>
+export const DarkGray = (props: any) =>
   props.theme.textAndBackGroundColor.DarkGray;
-export const blackGray = (props: themeProps) =>
+export const blackGray = (props: any) =>
   props.theme.textAndBackGroundColor.blackGray;
-export const brightGray = (props: themeProps) =>
+export const brightGray = (props: any) =>
   props.theme.textAndBackGroundColor.brightGray;
-export const gray = (props: themeProps) =>
-  props.theme.textAndBackGroundColor.gray;
-export const grayWhite = (props: themeProps) =>
+export const gray = (props: any) => props.theme.textAndBackGroundColor.gray;
+export const grayWhite = (props: any) =>
   props.theme.textAndBackGroundColor.grayWhite;
-export const lightGray = (props: themeProps) =>
+export const lightGray = (props: any) =>
   props.theme.textAndBackGroundColor.lightGray;
-export const lightGrayWhite = (props: themeProps) =>
+export const lightGrayWhite = (props: any) =>
   props.theme.textAndBackGroundColor.lightGrayWhite;
-export const white = (props: themeProps) =>
-  props.theme.textAndBackGroundColor.white;
+export const white = (props: any) => props.theme.textAndBackGroundColor.white;
 
-export const borderRadius = (props: themeProps) =>
+export const borderRadius = (props: any) =>
   props.theme.borderStyle.borderRadius;
-export const borderWidth = (props: themeProps) =>
-  props.theme.borderStyle.borderWidth;
+export const borderWidth = (props: any) => props.theme.borderStyle.borderWidth;
 
-export const h1 = (props: themeProps) => props.theme.fontStyle.h1;
-export const h2 = (props: themeProps) => props.theme.fontStyle.h2;
-export const h3 = (props: themeProps) => props.theme.fontStyle.h3;
-export const large = (props: themeProps) => props.theme.fontStyle.large;
-export const medium = (props: themeProps) => props.theme.fontStyle.medium;
-export const small = (props: themeProps) => props.theme.fontStyle.small;
-export const p = (props: themeProps) => props.theme.fontStyle.p;
-export const detail = (props: themeProps) => props.theme.fontStyle.detail;
+export const h1 = (props: any) => props.theme.fontStyle.h1;
+export const h2 = (props: any) => props.theme.fontStyle.h2;
+export const h3 = (props: any) => props.theme.fontStyle.h3;
+export const large = (props: any) => props.theme.fontStyle.large;
+export const medium = (props: any) => props.theme.fontStyle.medium;
+export const small = (props: any) => props.theme.fontStyle.small;
+export const p = (props: any) => props.theme.fontStyle.p;
+export const detail = (props: any) => props.theme.fontStyle.detail;
 
 export default theme;
