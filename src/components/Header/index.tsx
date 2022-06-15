@@ -1,10 +1,4 @@
-import {
-  HeaderContainer,
-  ContentContainer,
-  Title,
-  Button,
-  HeaderSpacer,
-} from './styles';
+import * as S from './styles';
 
 interface HeaderProps {
   isLogin?: boolean;
@@ -13,27 +7,27 @@ interface HeaderProps {
 function Header({ isLogin }: HeaderProps): JSX.Element {
   return (
     <>
-      <HeaderContainer>
-        <ContentContainer>
-          <Title>CheQuiz</Title>
+      <S.HeaderContainer>
+        <S.ContentContainer>
+          <S.Title>CheQuiz</S.Title>
           {isLogin && (
             <div>
-              <Button href="#">문제 만들기</Button>
-              <Button href="#">랭킹 보기</Button>
-              <Button href="#">내 정보</Button>
-              <Button href="#">로그아웃</Button>
+              <S.Button href="#">문제 만들기</S.Button>
+              <S.Button href="#">랭킹 보기</S.Button>
+              <S.Button href="#">내 정보</S.Button>
+              <S.Button href="#">로그아웃</S.Button>
             </div>
           )}
           {!isLogin && (
             <div>
-              <Button href="#">랭킹 보기</Button>
-              <Button href="#">로그인</Button>
-              <Button href="#">회원가입</Button>
+              <S.Button href="#">랭킹 보기</S.Button>
+              <S.Button href="#">로그인</S.Button>
+              <S.Button href="#">회원가입</S.Button>
             </div>
           )}
-        </ContentContainer>
-      </HeaderContainer>
-      <HeaderSpacer />
+        </S.ContentContainer>
+      </S.HeaderContainer>
+      <S.HeaderSpacer />
     </>
   );
 }

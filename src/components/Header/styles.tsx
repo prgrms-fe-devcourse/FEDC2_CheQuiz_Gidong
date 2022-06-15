@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const HeaderContainer = styled.div`
+export const HeaderContainer = styled.div`
   position: fixed;
   top: 0px;
   left: 0px;
@@ -11,12 +11,12 @@ const HeaderContainer = styled.div`
 `;
 
 // header : fixed에 의한 레이아웃 용
-const HeaderSpacer = styled.div`
+export const HeaderSpacer = styled.div`
   height: 3.5rem;
   width: 100%;
 `;
 
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -26,14 +26,14 @@ const ContentContainer = styled.div`
   padding: 0 1rem;
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font-family: 'Permanent Marker', sans-serif;
   font-size: 2rem;
   color: #fca311;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 `;
 
-const Button = styled.a`
+export const Button = styled.a`
   display: inline-block;
   text-align: center;
   font-family: 'MaplestoryOTFLight', 'Segoe UI', 'Apple SD Gothic Neo',
@@ -50,5 +50,3 @@ const Button = styled.a`
     color: #fca311;
   }
 `;
-
-export { HeaderContainer, ContentContainer, Title, Button, HeaderSpacer };
