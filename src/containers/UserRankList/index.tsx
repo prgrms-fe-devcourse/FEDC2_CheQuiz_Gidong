@@ -4,6 +4,7 @@ import NoImg from '@/assets/no-image.png';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
 import * as S from './style';
+import theme from '@/styles/theme';
 
 function UserRankList() {
   const userList = RankingMockData;
