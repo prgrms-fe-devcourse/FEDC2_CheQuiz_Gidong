@@ -3,6 +3,9 @@ import { useSessionStorage } from '@hooks/useStorage';
 import QuizResult from '@components/QuizResult';
 import { USER_ANSWERS, POST_IDS } from '@/common/string';
 import QuizMockData from '@/assets/QuizMockData';
+import * as Styled from './styles';
+import LinkButton from './LinkButton';
+
 /**
  * ANCHOR: QuizResultPage 로직
  * 1. sessionStorage에서 post-ids, user-answers를 불러온다.
@@ -20,7 +23,7 @@ function QuizResultPage() {
   // TODO: implement validation logics
   // if userAnswers.length !== userAnswers.filter(answer => answer).length -> 404page
   return (
-    <div>
+    <Styled.QuizResultPage>
       {mockData.map((mock, index) => (
         <React.Fragment key={mock._id}>
           <QuizResult
@@ -30,11 +33,18 @@ function QuizResultPage() {
         </React.Fragment>
       ))}
       <div>
-        <button type="button">다른 문제 풀러가기</button>
-        <button type="button">랭킹 보기</button>
-        <button type="button">퀴즈 만들러 가기</button>
+        {/** TODO: 링크 수정 필요 */}
+        <LinkButton type="button" to="/" color="point" fill>
+          다른 문제 풀러가기
+        </LinkButton>
+        <LinkButton type="button" to="/" color="point" fill>
+          랭킹 보기
+        </LinkButton>
+        <LinkButton type="button" to="/" color="point" fill>
+          퀴즈 만들러 가기
+        </LinkButton>
       </div>
-    </div>
+    </Styled.QuizResultPage>
   );
 }
 
