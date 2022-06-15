@@ -1,21 +1,6 @@
 import { useCallback } from 'react';
 import { MAXEXP } from '@/common/number';
-import {
-  UserCard,
-  Username,
-  UserImage,
-  ImageWrapper,
-  LevelText,
-  UserBasicContent,
-  UserRankContent,
-  Rank,
-  ExpContainer,
-  ExpCurrentContainer,
-  ExpWrapper,
-  ExpDetail,
-  BadgeContent,
-  Badge,
-} from './styles';
+import * as Styled from './styles';
 import {
   UserInfoMockList as userList,
   userQuizMockList as userQuizList,
@@ -26,6 +11,7 @@ import * as Breakpoints from './breakpoints';
 interface userProps {
   id: string;
 }
+
 function UserInfoCard({ id }: userProps) {
   // TODO: id를 기반으로 비동기 API요청> userData 가져오기
   const userData = {
@@ -37,11 +23,7 @@ function UserInfoCard({ id }: userProps) {
     totalExp: JSON.parse(userMockData.username).totalPoints,
   };
 
-  const level = Math.floor(userData.totalExp / MAXEXP) + 1;
-  const currentExp = userData.totalExp - (level - 1) * MAXEXP;
-  const expPercent = Math.floor((currentExp / MAXEXP) * 100);
-
-  // TODO: 유저리스트 비동기 처리
+  // TODO: 유저리스트 비동기 API요청 필요
   const getRank = useCallback(() => {
     const sortedUserList = userList
       .map((user) => ({
@@ -56,16 +38,7 @@ function UserInfoCard({ id }: userProps) {
     return rank;
   }, [id]);
 
-  const getImage = () => {
-    let imageId = '100120';
-    Breakpoints.imageBreakpoints.forEach((breakpoint) => {
-      if (level >= breakpoint.level) {
-        imageId = breakpoint.imageId;
-      }
-    });
-    return imageId;
-  };
-
+  // TODO: 유저가 작성한 퀴즈 정보 비동기 API요청 필요
   const getQuiz = () => {
     const modifiedQuiz = userQuizList.map((quiz) => {
       const customData = JSON.parse(quiz.title);
@@ -76,6 +49,20 @@ function UserInfoCard({ id }: userProps) {
     });
     return modifiedQuiz;
   };
+
+  const level = Math.floor(userData.totalExp / MAXEXP) + 1;
+  const currentExp = userData.totalExp - (level - 1) * MAXEXP;
+  const expPercent = Math.floor((currentExp / MAXEXP) * 100);
+
+  const getImage = useCallback(() => {
+    let selectedId = Breakpoints.imageBreakpoints[0].imageId;
+    Breakpoints.imageBreakpoints.forEach((breakpoint) => {
+      if (level >= breakpoint.level) {
+        selectedId = breakpoint.imageId;
+      }
+    });
+    return selectedId;
+  }, [level]);
 
   interface badgeType {
     id: string;
@@ -103,8 +90,8 @@ function UserInfoCard({ id }: userProps) {
           : `뉴비`
       }`,
     });
-    // TODO: 퀴즈 별 뱃지 => typescript에 익숙하지 않아 추후 구현 예정..
 
+    // 출제한 퀴즈 카테고리 별 뱃지
     const categoryMap = new Map();
 
     getQuiz().forEach((quiz) => {
@@ -200,39 +187,42 @@ function UserInfoCard({ id }: userProps) {
   };
 
   return (
-    <UserCard>
-      <UserBasicContent>
-        <ImageWrapper>
-          <UserImage
+    <Styled.UserCard>
+      <Styled.UserBasicContent>
+        <Styled.ImageWrapper>
+          <Styled.UserImage
             src={`https://maplestory.io/api/GMS/210.1.1/mob/${getImage()}/render/stand`}
           />
-        </ImageWrapper>
+        </Styled.ImageWrapper>
 
-        <Username>{userData.fullName}</Username>
-        <LevelText>Lv.{level}</LevelText>
-      </UserBasicContent>
+        <Styled.Username>{userData.fullName}</Styled.Username>
+        <Styled.LevelText>Lv.{level}</Styled.LevelText>
+      </Styled.UserBasicContent>
 
-      <UserRankContent>
-        <Rank>Rank : {getRank()}</Rank>
+      <Styled.UserRankContent>
+        <Styled.Rank>Rank : {getRank()}</Styled.Rank>
 
-        <ExpWrapper>
-          <ExpContainer>
-            <ExpDetail>
+        <Styled.ExpWrapper>
+          <Styled.ExpContainer>
+            <Styled.ExpDetail>
               {currentExp}/{MAXEXP}
-            </ExpDetail>
-            <ExpCurrentContainer percent={expPercent} />
-          </ExpContainer>
-        </ExpWrapper>
+            </Styled.ExpDetail>
+            <Styled.ExpCurrentContainer percent={expPercent} />
+          </Styled.ExpContainer>
+        </Styled.ExpWrapper>
 
-        <BadgeContent>
+        <Styled.BadgeContent>
           {getBadges().map((badge) => (
-            <Badge color={badge.color ? badge.color : '#fffff'} key={badge.id}>
+            <Styled.Badge
+              color={badge.color ? badge.color : '#fffff'}
+              key={badge.id}
+            >
               {badge.content}
-            </Badge>
+            </Styled.Badge>
           ))}
-        </BadgeContent>
-      </UserRankContent>
-    </UserCard>
+        </Styled.BadgeContent>
+      </Styled.UserRankContent>
+    </Styled.UserCard>
   );
 }
 export default UserInfoCard;

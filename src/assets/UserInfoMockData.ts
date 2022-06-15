@@ -1,5 +1,6 @@
 import { UserAPI } from '@/interfaces/UserAPI';
 
+// API: GET /user/{userId}
 const UserInfoMockData: UserAPI = {
   _id: 'user04',
   role: 'Regular',
@@ -10,13 +11,14 @@ const UserInfoMockData: UserAPI = {
   notifications: [],
   fullName: '도넛좋아',
   username: `${JSON.stringify({
-    totalPoints: 124323,
+    totalPoints: 12360,
   })}`,
   email: 'doughnut@naver.com',
   createdAt: Date.now().toString(),
   updatedAt: Date.now().toString(),
 };
 
+// API: GET /users/get-users
 const UserInfoMockList: UserAPI[] = [
   {
     _id: 'user01',
@@ -83,6 +85,8 @@ const UserInfoMockList: UserAPI[] = [
     updatedAt: Date.now().toString(),
   },
 ];
+
+// API: GET /posts/author/{userId}
 const userQuizMockList = [
   {
     likes: [],

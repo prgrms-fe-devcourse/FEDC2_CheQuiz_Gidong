@@ -1,16 +1,15 @@
 import styled from '@emotion/styled';
 
-const Card = styled.div`
+export const Card = styled.div`
   background-color: #f8f9fa;
   //TODO: 색 의견 물어보기
-  /* background-color: #e3d9ff; */
   color: #212529;
   border: 3px solid;
   border-radius: 8px;
   box-sizing: border-box;
 `;
 
-const UserCard = styled(Card)`
+export const UserCard = styled(Card)`
   position: relative;
   top: 2rem;
   display: flex;
@@ -18,17 +17,17 @@ const UserCard = styled(Card)`
   padding: 1rem;
 `;
 
-const Username = styled.h2`
+export const Username = styled.h2`
   font-size: 1.25rem;
   font-family: 'MaplestoryOTFLight', sans-serif !important;
   margin-top: 0.5rem;
 `;
 
-const UserImage = styled.img`
+export const UserImage = styled.img`
   max-height: 5.5rem;
 `;
 
-const ImageWrapper = styled.div`
+export const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,12 +40,12 @@ const ImageWrapper = styled.div`
   color: inherit;
   background-color: #e9ecef;
 `;
-const LevelText = styled.h2`
+export const LevelText = styled.h2`
   font-size: 1.25rem;
   font-family: 'MaplestoryOTFBold', sans-serif !important;
   margin-top: 0.5rem;
 `;
-const UserBasicContent = styled.div`
+export const UserBasicContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -54,11 +53,11 @@ const UserBasicContent = styled.div`
   margin-right: 1rem;
 `;
 
-const UserRankContent = styled.div`
+export const UserRankContent = styled.div`
   flex: 1;
 `;
 
-const Rank = styled.h3`
+export const Rank = styled.h3`
   font-size: 1.5rem;
   font-family: 'MaplestoryOTFBold', sans-serif !important;
   border: 3px solid;
@@ -68,19 +67,19 @@ const Rank = styled.h3`
   background-color: white;
 `;
 
-const ExpWrapper = styled.div`
+export const ExpWrapper = styled.div`
   padding-top: 1rem;
   height: 1.25rem;
 `;
 
-const ExpContainer = styled(Card)`
+export const ExpContainer = styled(Card)`
   width: 100%;
   height: 1.25rem;
   position: relative;
   background-color: white;
 `;
 
-const ExpCurrentContainer = styled(Card)`
+export const ExpCurrentContainer = styled(Card)`
   width: ${({ percent }: { percent: number }) => `${percent + 1}%`};
   height: 1.25rem;
   position: absolute;
@@ -89,7 +88,7 @@ const ExpCurrentContainer = styled(Card)`
   background-color: #ffdc84;
 `;
 
-const ExpDetail = styled.span`
+export const ExpDetail = styled.span`
   color: #495057;
   z-index: 3;
   position: absolute;
@@ -99,12 +98,12 @@ const ExpDetail = styled.span`
   font-size: 0.8rem;
 `;
 
-const BadgeContent = styled.div`
+export const BadgeContent = styled.div`
   position: relative;
   padding-top: 1rem;
 `;
 
-const Badge = styled.span`
+export const Badge = styled.span`
   display: inline-block;
   background-color: ${({ color }: { color: string }) => color};
   color: #212529;
@@ -115,21 +114,3 @@ const Badge = styled.span`
   padding: 0.25rem 1rem;
   margin: 0.25rem;
 `;
-
-export {
-  Card,
-  UserCard,
-  Username,
-  UserImage,
-  ImageWrapper,
-  LevelText,
-  UserBasicContent,
-  UserRankContent,
-  Rank,
-  ExpContainer,
-  ExpCurrentContainer,
-  ExpWrapper,
-  ExpDetail,
-  BadgeContent,
-  Badge,
-};

@@ -34,24 +34,6 @@ export const commentBreakpoints = [
     text: '투머치토커',
     exact: false,
   },
-  //   {
-  //     count: 2,
-  //     color: '#ddeeff',
-  //     text: '더블 킬!',
-  //     exact: false,
-  //   },
-  //   {
-  //     count: 3,
-  //     color: '#aaffee',
-  //     text: '트리플 킬!',
-  //     exact: false,
-  //   },
-  //   {
-  //     count: 4,
-  //     color: '#eeffdd',
-  //     text: '쿼드라 킬!',
-  //     exact: false,
-  //   },
 ];
 
 export const likeBreakpoints = [
