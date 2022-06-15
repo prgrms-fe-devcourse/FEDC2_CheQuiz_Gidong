@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router';
-import * as Styled from './styles';
+import * as S from './styles';
 
-interface LinkButtonProps extends Styled.StyledLinkedButtonProps {
+interface LinkButtonProps extends S.StyledLinkedButtonProps {
   to: string;
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
@@ -21,7 +21,7 @@ function LinkButton({
     history.push(to);
   }, [history, to]);
   return (
-    <Styled.LinkButton
+    <S.LinkButton
       type={type}
       color={color}
       fill={fill}
@@ -29,7 +29,7 @@ function LinkButton({
       onClick={onClick}
     >
       {children}
-    </Styled.LinkButton>
+    </S.LinkButton>
   );
 }
 

@@ -3,7 +3,7 @@ import { useSessionStorage } from '@hooks/useStorage';
 import QuizResult from '@components/QuizResult';
 import { USER_ANSWERS, POST_IDS } from '@/common/string';
 import QuizMockData from '@/assets/QuizMockData';
-import * as Styled from './styles';
+import * as S from './styles';
 import LinkButton from './LinkButton';
 
 /**
@@ -23,7 +23,7 @@ function QuizResultPage() {
   // TODO: implement validation logics
   // if userAnswers.length !== userAnswers.filter(answer => answer).length -> 404page
   return (
-    <Styled.QuizResultPage>
+    <S.QuizResultPage>
       {mockData.map((mock, index) => (
         <React.Fragment key={mock._id}>
           <QuizResult
@@ -44,7 +44,7 @@ function QuizResultPage() {
           퀴즈 만들러 가기
         </LinkButton>
       </div>
-    </Styled.QuizResultPage>
+    </S.QuizResultPage>
   );
 }
 

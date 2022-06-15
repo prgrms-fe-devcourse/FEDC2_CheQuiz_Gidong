@@ -4,9 +4,9 @@ import AnimateHeight from 'react-animate-height';
 import { Quiz } from '@/interfaces/Quiz';
 import { CommentAPI } from '@/interfaces/CommentAPI';
 import * as UserService from '@/utils/UserServices';
-import * as Styled from './styles';
+import * as S from './styles';
 
-interface QuizResultProps extends Styled.StyledQuizResultProps {
+interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
 }
 
@@ -27,75 +27,68 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
   };
 
   return (
-    <Styled.Box>
-      <Styled.Header collapsed={collapsed}>
-        <Styled.HeaderLeft>
-          <Styled.Sign reverse={false} color={correct ? 'blue' : 'red'}>
+    <S.Box>
+      <S.Header collapsed={collapsed}>
+        <S.HeaderLeft>
+          <S.Sign reverse={false} color={correct ? 'blue' : 'red'}>
             {correct ? 'O' : 'X'}
-          </Styled.Sign>
-          <Styled.Sign reverse={false} color="default">
+          </S.Sign>
+          <S.Sign reverse={false} color="default">
             Q.
-          </Styled.Sign>
-          <Styled.Text>{quiz.question}</Styled.Text>
-        </Styled.HeaderLeft>
-        <Styled.HeaderRight>
+          </S.Sign>
+          <S.Text>{quiz.question}</S.Text>
+        </S.HeaderLeft>
+        <S.HeaderRight>
           <button type="button" onClick={() => setCollapsed((prev) => !prev)}>
             Toggle
           </button>
           <button type="button">좋아요 {quiz.likes.length}</button>
           <button type="button">댓글</button>
-        </Styled.HeaderRight>
-      </Styled.Header>
+        </S.HeaderRight>
+      </S.Header>
       <AnimateHeight duration={350} height={collapsed ? 0 : 'auto'}>
-        <Styled.Container>
-          <Styled.Description>
-            <Styled.Sign
-              reverse
-              color={quiz.answer === 'true' ? 'blue' : 'red'}
-            >
+        <S.Container>
+          <S.Description>
+            <S.Sign reverse color={quiz.answer === 'true' ? 'blue' : 'red'}>
               {quiz.answer === 'true' ? 'O' : 'X'}
-            </Styled.Sign>
+            </S.Sign>
             <div>{quiz.answerDescription}</div>
-          </Styled.Description>
-          <Styled.Wrapper>
+          </S.Description>
+          <S.Wrapper>
             <form onSubmit={handleCommentSubmit}>
               <h3>comment 작성하기</h3>
-              <Styled.Flex>
-                <Styled.ProfileImage>작성자 사진</Styled.ProfileImage>
-                <Styled.InputWrapper>
-                  <Styled.Input
-                    type="text"
-                    value={inputValue}
-                    onChange={handler}
-                  />
-                </Styled.InputWrapper>
+              <S.Flex>
+                <S.ProfileImage>작성자 사진</S.ProfileImage>
+                <S.InputWrapper>
+                  <S.Input type="text" value={inputValue} onChange={handler} />
+                </S.InputWrapper>
 
                 {/** TODO: disabled when loading */}
-                <Styled.Button type="submit" color="point">
+                <S.Button type="submit" color="point">
                   댓글 쓰기
-                </Styled.Button>
-              </Styled.Flex>
+                </S.Button>
+              </S.Flex>
             </form>
-          </Styled.Wrapper>
+          </S.Wrapper>
           <h1>comment 보기</h1>
           {comments.map((comment) => (
-            <Styled.Comment key={comment._id}>
-              <Styled.ProfileImage>작성자 사진</Styled.ProfileImage>
-              <Styled.CommentCenter>
+            <S.Comment key={comment._id}>
+              <S.ProfileImage>작성자 사진</S.ProfileImage>
+              <S.CommentCenter>
                 <div>
-                  <Styled.Text>작성자: {comment.author.fullName}</Styled.Text>
+                  <S.Text>작성자: {comment.author.fullName}</S.Text>
                 </div>
                 <div>
-                  <Styled.Text>내용: {comment.comment}</Styled.Text>
+                  <S.Text>내용: {comment.comment}</S.Text>
                 </div>
-              </Styled.CommentCenter>
+              </S.CommentCenter>
               <div>날짜: {comment.createdAt}</div>
               {/** TODO: 내가 작성한 댓글은 지울 수 있도록 로직 처리 */}
-            </Styled.Comment>
+            </S.Comment>
           ))}
-        </Styled.Container>
+        </S.Container>
       </AnimateHeight>
-    </Styled.Box>
+    </S.Box>
   );
 }
 
