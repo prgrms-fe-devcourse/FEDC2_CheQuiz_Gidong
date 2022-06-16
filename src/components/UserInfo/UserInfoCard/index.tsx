@@ -7,6 +7,7 @@ import {
   UserInfoMockData as userMockData,
 } from '@/assets/UserInfoMockData';
 import * as Breakpoints from './breakpoints';
+import { BadgeType } from '@/interfaces/BadgeType';
 
 interface userProps {
   id: string;
@@ -64,14 +65,8 @@ function UserInfoCard({ id }: userProps) {
     return selectedId;
   }, [level]);
 
-  interface badgeType {
-    id: string;
-    color?: string;
-    content: string;
-  }
-
   const getBadges = () => {
-    const badges: badgeType[] = [];
+    const badges: BadgeType[] = [];
 
     // 레벨 별 뱃지
     let levelBadgeId = 0;
