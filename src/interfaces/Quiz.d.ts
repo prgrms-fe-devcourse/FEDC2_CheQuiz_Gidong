@@ -10,4 +10,7 @@ export interface QuizContent {
   answer: string;
 }
 
+export interface QuizClientContent extends QuizContent {
+  _id: number;
+}
 export interface Quiz extends PostAPIBase, QuizContent {}
