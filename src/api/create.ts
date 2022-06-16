@@ -1,15 +1,15 @@
 import {
   TEST_ADMIN_TOKEN,
-  TEST_CHANNEL_ID,
+  DEFAULT_CHANNEL_ID,
   TEST_USER_TOKEN,
 } from '@/assets/QuizCreateMockData';
 import { QuizSetClientContent } from '@/components/create';
 import { QuizContent } from '@/interfaces/Quiz';
-import axiosInstance from '@/utils/apiInstance';
+import axiosInstance from '@/api/apiInstance';
 
 export const createQuiz = async (
   quiz: QuizContent,
-  channelId = TEST_CHANNEL_ID,
+  channelId = DEFAULT_CHANNEL_ID,
 ) => {
   try {
     await axiosInstance({
@@ -21,7 +21,7 @@ export const createQuiz = async (
       },
     });
   } catch (error) {
-    console.error(error);
+    throw new Error('Create Quiz Failed');
   }
 };
 
@@ -45,7 +45,6 @@ export const createQuizSet = async (set: QuizSetClientContent) => {
     });
     return data;
   } catch (error) {
-    console.error(error);
-    return false;
+    throw new Error('Create Quiz Set Failed');
   }
 };
