@@ -8,6 +8,7 @@ import * as QuizServices from '@/utils/QuizServices';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SliderButton from './SliderButton';
+import * as S from './styles';
 
 function QuizSolvePage(): JSX.Element {
   const history = useHistory();
@@ -102,6 +103,7 @@ function QuizSolvePage(): JSX.Element {
         disabled={currentIndex >= quizzes.length - 1}
       />
     ),
+    style: { marginTop: '20%' },
   };
 
   return (
@@ -116,14 +118,16 @@ function QuizSolvePage(): JSX.Element {
           />
         ))}
       </Slider>
-      <button
-        type="submit"
-        disabled={
-          userAnswers.filter((answer) => answer).length < quizzes.length
-        }
-      >
-        제출
-      </button>
+      <S.Wrapper>
+        <S.SelectButton
+          type="submit"
+          disabled={
+            userAnswers.filter((answer) => answer).length < quizzes.length
+          }
+        >
+          제출
+        </S.SelectButton>
+      </S.Wrapper>
     </form>
   );
 }
