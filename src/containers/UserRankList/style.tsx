@@ -1,5 +1,11 @@
 import styled from '@emotion/styled';
-import { blackGray, borderWidth, gray, large, medium } from '@/styles/theme';
+import {
+  blackGray,
+  borderWidth,
+  large,
+  lightGrayWhite,
+  medium,
+} from '@/styles/theme';
 
 export const Container = styled.div`
   display: flex;
@@ -33,7 +39,7 @@ export const UserProfile = styled.div`
   width: 9.375rem;
   height: 9.375rem;
   border-radius: 50%;
-  background-color: ${gray};
+  background-color: ${lightGrayWhite};
 `;
 
 export const UserImg = styled.img`
