@@ -44,9 +44,10 @@ function QuizSolvePage(): JSX.Element {
         console.log('올바르지 않은 동작입니다.');
         return;
       }
+
       // user 답 sessionStorage에 저장
-      // postId 저장하기
       sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
+      // postId 저장하기
       sessionStorage.setItem(POST_IDS, JSON.stringify(storedPostIds));
       // TODO: remove test logic after merge
       console.log(QuizServices.caculateScore(quizzes, userAnswers));
@@ -60,6 +61,10 @@ function QuizSolvePage(): JSX.Element {
   useEffect(() => {
     // NOTE: 초기화
     setStoredPostIds([]);
+    sessionStorage.setItem(
+      USER_ANSWERS,
+      JSON.stringify(Array(quizzes.length).fill('')),
+    );
 
     // if user request random quizzes
     const fetchRandomQuizzes = async () => {
@@ -78,13 +83,12 @@ function QuizSolvePage(): JSX.Element {
         console.log(response),
       );
     };
-    // fetchRandomQuizzes();
-    fetchQuizzesFromChannel();
+    fetchRandomQuizzes();
   }, [quizzes.length, setStoredPostIds, setUserAnswers]);
 
   // slider options
   const settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -102,9 +106,6 @@ function QuizSolvePage(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        {currentIndex + 1}/{quizzes.length}
-      </div>
       <Slider {...settings}>
         {quizzes.map((quiz, index) => (
           <QuizBox
@@ -115,31 +116,14 @@ function QuizSolvePage(): JSX.Element {
           />
         ))}
       </Slider>
-
       <button
-        type="button"
-        disabled={currentIndex <= 0}
-        onClick={() => handleIndex(currentIndex - 1)}
+        type="submit"
+        disabled={
+          userAnswers.filter((answer) => answer).length < quizzes.length
+        }
       >
-        이전 문제
+        제출
       </button>
-      <button
-        type="button"
-        disabled={currentIndex >= quizzes.length - 1}
-        onClick={() => handleIndex(currentIndex + 1)}
-      >
-        다음 문제
-      </button>
-      {currentIndex === quizzes.length - 1 && (
-        <button
-          type="submit"
-          disabled={
-            userAnswers.filter((answer) => answer).length < quizzes.length
-          }
-        >
-          제출
-        </button>
-      )}
     </form>
   );
 }
