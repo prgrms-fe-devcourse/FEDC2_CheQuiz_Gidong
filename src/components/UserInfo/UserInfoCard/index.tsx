@@ -72,10 +72,18 @@ function UserInfoCard({ id }: userProps) {
           id: user._id,
           fullName: user.fullName,
           points: user.username ? JSON.parse(user.username).points : 0,
+          createdAt: user.createdAt,
         }))
         .sort((userA: userSimpleType, userB: userSimpleType) => {
+          if (userB.points === userA.points) {
+            const isCreatedFirst =
+              new Date(userB.createdAt ? userB.createdAt : '') <
+              new Date(userA.createdAt ? userA.createdAt : '');
+            return isCreatedFirst ? 1 : -1;
+          }
           return userB.points - userA.points;
         });
+
       const rank =
         realData.findIndex((user: userSimpleType) => user.id === id) + 1;
       setUserRank(rank);

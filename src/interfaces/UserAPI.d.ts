@@ -61,4 +61,5 @@ export interface userSimpleType {
   id: string;
   fullName: string;
   points: number;
+  createdAt?: string;
 }
