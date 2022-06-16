@@ -1,5 +1,5 @@
 import axios from 'axios';
-import api from '@/utils/apiInstance';
+import api from '@/api/apiInstance';
 import { ChannelAPI } from '@/interfaces/ChannelAPI';
 import { PostAPI } from '@/interfaces/PostAPI';
 import { Quiz } from '@/interfaces/Quiz';
