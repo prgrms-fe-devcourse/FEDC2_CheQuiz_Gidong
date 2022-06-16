@@ -54,3 +54,13 @@ export function getQuizzes(postIds: string[]) {
     }),
   );
 }
+
+export function caculateScore(quizzes: Quiz[], userAnswers: string[]) {
+  // 전부 선택하지 않았거나 user가 임의로 조작했다면 0점을 부여한다.
+  if (quizzes.length !== userAnswers.filter((answer) => answer).length)
+    return 0;
+  // filter corrected quizzes and add scores
+  return quizzes
+    .filter((quiz, index) => quiz.answer === userAnswers[index])
+    .reduce((acc, cur) => acc + cur.difficulty * 10, 0);
+}

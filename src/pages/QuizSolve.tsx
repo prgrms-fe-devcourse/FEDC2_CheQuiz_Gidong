@@ -39,11 +39,13 @@ function QuizSolve(): JSX.Element {
       // postId 저장하기
       sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
       sessionStorage.setItem(POST_IDS, JSON.stringify(storedPostIds));
+      // TODO: remove test logic after merge
+      console.log(QuizServices.caculateScore(quizzes, userAnswers));
 
       // TODO: history.push로 route 이동하기
       history.push('/result');
     },
-    [history, storedPostIds, userAnswers],
+    [history, quizzes, storedPostIds, userAnswers],
   );
 
   useEffect(() => {
