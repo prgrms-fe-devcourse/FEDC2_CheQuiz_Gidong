@@ -16,13 +16,21 @@ function getAllPostIds() {
   return api
     .get<ChannelAPI[]>('/channels')
     .then((response) => response.data)
-    .then((data) => data.flatMap((channel) => channel.posts));
+    .then((data) => data.flatMap((channel) => channel.posts))
+    .catch(() => {
+      throw new Error('error occured at getAllPostIds.');
+    });
 }
 
 function getPosts(postIds: string[]) {
   return Promise.all(
     postIds.map((postId) =>
-      api.get<PostAPI>(`/posts/${postId}`).then((response) => response.data),
+      api
+        .get<PostAPI>(`/posts/${postId}`)
+        .then((response) => response.data)
+        .catch(() => {
+          throw new Error('error occured at getPosts.');
+        }),
     ),
   );
 }
@@ -31,28 +39,39 @@ export function getPostIdsFromChannel(channelId: string) {
   return api
     .get<ChannelAPI>(`/channels/${channelId}`)
     .then((response) => response.data)
-    .then((data) => data.posts);
+    .then((data) => (data.posts ? data.posts : []))
+    .catch(() => {
+      throw new Error('error occured at getPostIdsFromChannel.');
+    });
 }
 
 export function getShuffledPostIds(count: number) {
-  return getAllPostIds().then((postIds) => shuffle(postIds, count));
+  return getAllPostIds()
+    .then((postIds) => shuffle(postIds, count))
+    .catch(() => {
+      throw new Error('error occured at getShuffledPostIds.');
+    });
 }
 
 export function getQuizzes(postIds: string[]) {
-  return getPosts(postIds).then((response) =>
-    response.map((post) => {
-      try {
-        const postCopy: Partial<PostAPI> = { ...post };
-        const quizContent = postCopy.title as string;
-        delete postCopy.title;
-        return { ...postCopy, ...JSON.parse(quizContent) } as Quiz;
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log('error on post:', post);
-        return {};
-      }
-    }),
-  );
+  return getPosts(postIds)
+    .then((response) =>
+      response.map((post) => {
+        try {
+          const postCopy: Partial<PostAPI> = { ...post };
+          const quizContent = postCopy.title as string;
+          delete postCopy.title;
+          return { ...postCopy, ...JSON.parse(quizContent) } as Quiz;
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.log('error on post:', post);
+          return {};
+        }
+      }),
+    )
+    .catch(() => {
+      throw new Error('error occured at getQuizzes');
+    });
 }
 
 export function caculateScore(quizzes: Quiz[], userAnswers: string[]) {
