@@ -41,15 +41,15 @@ function UserRankList({ keyword }: Props) {
       if (!prev?.username) prevPoint = 0;
       else if (prev.username.indexOf('point') === -1) prevPoint = 0;
       else {
-        const { totalpoints = 0 } = JSON.parse(prev?.username);
-        prevPoint = totalpoints;
+        const { points = 0 } = JSON.parse(prev?.username);
+        prevPoint = points;
       }
 
       if (!next?.username) nextPoint = 0;
       else if (next.username.indexOf('point') === -1) nextPoint = 0;
       else {
-        const { totalpoints = 0 } = JSON.parse(next?.username);
-        nextPoint = totalpoints;
+        const { points = 0 } = JSON.parse(next?.username);
+        nextPoint = points;
       }
 
       if (nextPoint === prevPoint) return -1;
@@ -67,8 +67,8 @@ function UserRankList({ keyword }: Props) {
     if (!userInfo?.username) point = 0;
     else if (userInfo.username.indexOf('point') === -1) point = 0;
     else {
-      const { totalpoints } = JSON.parse(userInfo.username);
-      point = totalpoints;
+      const { points = 0 } = JSON.parse(userInfo.username);
+      point = points;
     }
 
     const level = point / 100;
@@ -208,20 +208,20 @@ function UserRankList({ keyword }: Props) {
           return true;
         })
         .map(([userRank, user]) => {
-          let points;
-          if (!user?.username) points = 0;
-          else if (user.username.indexOf('point') === -1) points = 0;
+          let point;
+          if (!user?.username) point = 0;
+          else if (user.username.indexOf('point') === -1) point = 0;
           else {
-            const { totalpoints } = JSON.parse(user.username);
-            points = totalpoints;
+            const { points = 0 } = JSON.parse(user.username);
+            point = points;
           }
 
           return (
             <S.Container key={user._id}>
               <S.Rank>Rank {userRank}</S.Rank>
-              <S.Exp>{points.toLocaleString()}</S.Exp>
+              <S.Exp>{point.toLocaleString()}</S.Exp>
               <S.UserProfile>
-                <S.UserImg src={checkUserImage(points)} alt="userImage" />
+                <S.UserImg src={checkUserImage(point)} alt="userImage" />
               </S.UserProfile>
               <S.UserInfoWrap>
                 <S.UserName>{user.fullName}</S.UserName>
