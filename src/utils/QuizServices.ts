@@ -1,39 +1,62 @@
+import axios from 'axios';
 import api from '@/utils/apiInstance';
 import { ChannelAPI } from '@/interfaces/ChannelAPI';
 import { PostAPI } from '@/interfaces/PostAPI';
 import { Quiz } from '@/interfaces/Quiz';
 
-class QuizServices {
-  static shuffle<T = unknown>(postIdArray: T[], count: number): T[] {
-    const ret = [...postIdArray];
-    for (let i = 0; i < postIdArray.length - 1; i += 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [ret[i], ret[j]] = [ret[j], ret[i]];
-    }
-    return ret.slice(0, count < ret.length ? count : ret.length);
+function shuffle<T = unknown>(postIdArray: T[], count: number): T[] {
+  const ret = [...postIdArray];
+  for (let i = 0; i < postIdArray.length - 1; i += 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [ret[i], ret[j]] = [ret[j], ret[i]];
   }
+  return ret.slice(0, count < ret.length ? count : ret.length);
+}
 
-  static getAllPostIds() {
-    return api
-      .get<ChannelAPI[]>('/channels')
-      .then((response) => response.data)
-      .then((data) => data.flatMap((channel) => channel.posts));
-  }
+function getAllPostIds() {
+  return api
+    .get<ChannelAPI[]>('/channels')
+    .then((response) => response.data)
+    .then((data) => data.flatMap((channel) => channel.posts))
+    .catch(() => {
+      throw new Error('error occured at getAllPostIds.');
+    });
+}
 
-  static getShuffledPostIds(count: number) {
-    return this.getAllPostIds().then((postIds) => this.shuffle(postIds, count));
-  }
+function getPosts(postIds: string[]) {
+  return axios.all(
+    postIds.map((postId) =>
+      api
+        .get<PostAPI>(`/posts/${postId}`)
+        .then((response) => response.data)
+        .catch(() => {
+          throw new Error('error occured at getPosts.');
+        }),
+    ),
+  );
+}
 
-  static getShuffledPosts(postIds: string[]) {
-    return Promise.all(
-      postIds.map((postId) =>
-        api.get<PostAPI>(`/posts/${postId}`).then((response) => response.data),
-      ),
-    );
-  }
+export function getPostIdsFromChannel(channelId: string) {
+  return api
+    .get<ChannelAPI>(`/channels/${channelId}`)
+    .then((response) => response.data)
+    .then((data) => (data.posts ? data.posts : []))
+    .catch(() => {
+      throw new Error('error occured at getPostIdsFromChannel.');
+    });
+}
 
-  static getShuffledQuizzes(postIds: string[]) {
-    return this.getShuffledPosts(postIds).then((response) =>
+export function getShuffledPostIds(count: number) {
+  return getAllPostIds()
+    .then((postIds) => shuffle(postIds, count))
+    .catch(() => {
+      throw new Error('error occured at getShuffledPostIds.');
+    });
+}
+
+export function getQuizzes(postIds: string[]) {
+  return getPosts(postIds)
+    .then((response) =>
       response.map((post) => {
         try {
           const postCopy: Partial<PostAPI> = { ...post };
@@ -46,11 +69,18 @@ class QuizServices {
           return {};
         }
       }),
-    );
-  }
-  // 퀴즈 타입에 따른 보기 생성하기
-  // 유저가 쓴 답과 정답 비교하기
-  // 유저가 얻을 점수 계산하기 -> difficulty, importance
+    )
+    .catch(() => {
+      throw new Error('error occured at getQuizzes');
+    });
 }
 
-export default QuizServices;
+export function caculateScore(quizzes: Quiz[], userAnswers: string[]) {
+  // 전부 선택하지 않았거나 user가 임의로 조작했다면 0점을 부여한다.
+  if (quizzes.length !== userAnswers.filter((answer) => answer).length)
+    return 0;
+  // filter corrected quizzes and add scores
+  return quizzes
+    .filter((quiz, index) => quiz.answer === userAnswers[index])
+    .reduce((acc, cur) => acc + cur.difficulty * 10, 0);
+}

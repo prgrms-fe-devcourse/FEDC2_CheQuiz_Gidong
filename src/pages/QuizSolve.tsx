@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import QuizBox from '@components/Quiz';
 import { useHistory } from 'react-router';
 import QuizMockData from '@/assets/QuizMockData';
-import QuizServices from '@/utils/QuizServices';
+import * as QuizServices from '@/utils/QuizServices';
 import { POST_IDS, USER_ANSWERS } from '@/common/string';
 
 function QuizSolve(): JSX.Element {
@@ -39,11 +39,13 @@ function QuizSolve(): JSX.Element {
       // postId 저장하기
       sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
       sessionStorage.setItem(POST_IDS, JSON.stringify(storedPostIds));
+      // TODO: remove test logic after merge
+      console.log(QuizServices.caculateScore(quizzes, userAnswers));
 
       // TODO: history.push로 route 이동하기
       history.push('/result');
     },
-    [history, storedPostIds, userAnswers],
+    [history, quizzes, storedPostIds, userAnswers],
   );
 
   useEffect(() => {
@@ -54,11 +56,21 @@ function QuizSolve(): JSX.Element {
     const fetchRandomQuizzes = async () => {
       const ids = await QuizServices.getShuffledPostIds(6);
       setStoredPostIds(ids);
-      return QuizServices.getShuffledQuizzes(ids).then((response) =>
+      return QuizServices.getQuizzes(ids).then((response) =>
         console.log(response),
       );
     };
-    fetchRandomQuizzes();
+
+    const fetchQuizzesFromChannel = async () => {
+      // TODO: sessionStorage에 channelId 저장 필요
+      const ids = await QuizServices.getPostIdsFromChannel('CheQuiz');
+      setStoredPostIds(ids);
+      return QuizServices.getQuizzes(ids).then((response) =>
+        console.log(response),
+      );
+    };
+    // fetchRandomQuizzes();
+    fetchQuizzesFromChannel();
   }, [quizzes.length, setStoredPostIds, setUserAnswers]);
 
   return (
