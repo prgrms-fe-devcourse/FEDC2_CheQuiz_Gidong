@@ -1,19 +1,22 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MAXEXP } from '@/common/number';
 import * as S from './styles';
 import {
   UserInfoMockList as userList,
   userQuizMockList as userQuizList,
-  UserInfoMockData as userMockData,
 } from '@/assets/UserInfoMockData';
 import * as Breakpoints from './breakpoints';
 import { BadgeType } from '@/interfaces/BadgeType';
+import { customUserAPI } from '@/interfaces/UserAPI';
+import { fetchUserData } from '@/api/user';
+import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
 
 interface userProps {
   id: string;
 }
 
 function UserInfoCard({ id }: userProps) {
+<<<<<<< HEAD
   // TODO: id를 기반으로 비동기 API요청> userData 가져오기
   const userData = {
     id: userMockData._id,
@@ -26,6 +29,27 @@ function UserInfoCard({ id }: userProps) {
         ? JSON.parse(userMockData.username).totalPoints
         : 0,
   };
+=======
+  const [userData, setUserData] = useState<customUserAPI>(DEFAULT_USER_DATA);
+
+  useEffect(() => {
+    const updateUserData = async () => {
+      const apiData = await fetchUserData(id);
+      const realData = {
+        id: apiData._id,
+        fullName: apiData.fullName,
+        likes: apiData.likes,
+        posts: apiData.posts,
+        comments: apiData.comments,
+        totalExp: apiData.username
+          ? JSON.parse(apiData.username).totalpoints
+          : 0,
+      };
+      setUserData(realData);
+    };
+    updateUserData();
+  }, [id]);
+>>>>>>> afd5a80 ([feat] 유저 기본 정보 api 연결)
 
   // TODO: 유저리스트 비동기 API요청 필요
   const getRank = useCallback(() => {
@@ -55,8 +79,13 @@ function UserInfoCard({ id }: userProps) {
     return modifiedQuiz;
   };
 
-  const level = Math.floor(userData.totalExp / MAXEXP) + 1;
-  const currentExp = userData.totalExp - (level - 1) * MAXEXP;
+  const level = userData.totalExp
+    ? Math.floor(userData.totalExp / MAXEXP) + 1
+    : 1;
+  const currentExp = userData.totalExp
+    ? userData.totalExp - (level - 1) * MAXEXP
+    : 0;
+
   const expPercent = Math.floor((currentExp / MAXEXP) * 100);
 
   const getImage = useCallback(() => {

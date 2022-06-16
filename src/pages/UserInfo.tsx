@@ -19,7 +19,7 @@ function UserInfo() {
   return (
     <div>
       <Header />
-      <UserInfoCard id={userData.id} />
+      <UserInfoCard id="62aafe7ce193b3692eddfc77" />
     </div>
   );
 }
