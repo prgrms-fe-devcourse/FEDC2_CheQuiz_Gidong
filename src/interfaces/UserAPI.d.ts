@@ -63,3 +63,7 @@ export interface userSimpleType {
   points: number;
   createdAt?: string;
 }
+export interface userQuizCategory {
+  id: string;
+  category: string;
+}

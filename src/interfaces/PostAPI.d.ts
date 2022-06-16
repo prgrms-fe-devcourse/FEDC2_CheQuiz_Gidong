@@ -55,4 +55,6 @@ export interface PostAPIUpdate
   imageToDeletePublicId?: string;
 }
 
+export interface PostAPIUserInfo extends PostAPIBase, PostAPITitle {}
+
 export interface PostAPI extends PostAPIBase, PostAPITitle {}

@@ -23,3 +23,15 @@ export const fetchUserList = async () => {
     throw new Error('Get UserList Failed');
   }
 };
+
+export const fetchUserQuiz = async (userId: string) => {
+  try {
+    const res = await axiosInstance({
+      method: 'GET',
+      url: `/posts/author/${userId}`,
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error('Get UserQuiz Failed');
+  }
+};

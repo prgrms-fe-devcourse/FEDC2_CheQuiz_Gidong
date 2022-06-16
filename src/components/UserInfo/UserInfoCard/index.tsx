@@ -1,14 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
 import { MAXEXP } from '@/common/number';
 import * as S from './styles';
-import { userQuizMockList as userQuizList } from '@/assets/UserInfoMockData';
 import * as Breakpoints from './breakpoints';
 import { BadgeType } from '@/interfaces/BadgeType';
-import { customUserAPI, UserAPI, userSimpleType } from '@/interfaces/UserAPI';
-import { fetchUserData, fetchUserList } from '@/api/user';
+import {
+  customUserAPI,
+  UserAPI,
+  userQuizCategory,
+  userSimpleType,
+} from '@/interfaces/UserAPI';
+import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
 import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
 import { ADMIN_ID } from '@/common/string';
+import { PostAPIUserInfo } from '@/interfaces/PostAPI';
 
+<<<<<<< HEAD
 interface userProps {
   id: string;
 }
@@ -28,8 +34,13 @@ function UserInfoCard({ id }: userProps) {
         : 0,
   };
 =======
+=======
+function UserInfoCard({ id }: { id: string }) {
+>>>>>>> 8a5e13a ([feat] 카테고리 뱃지 API 연동)
   const [userData, setUserData] = useState<customUserAPI>(DEFAULT_USER_DATA);
   const [userRank, setUserRank] = useState(0);
+  const [userQuiz, setUserQuiz] = useState<userQuizCategory[]>([]);
+
   useEffect(() => {
     const updateUserData = async () => {
       const apiData = await fetchUserData(id);
@@ -88,22 +99,28 @@ function UserInfoCard({ id }: userProps) {
         realData.findIndex((user: userSimpleType) => user.id === id) + 1;
       setUserRank(rank);
     };
+
+    // TODO: 퀴즈 데이터가 충분히 쌓이면, 제대로 카테고리가 반영되는지 확인TEST 필요
+    const updateUserQuiz = async () => {
+      const apiData = await fetchUserQuiz(id);
+
+      const realData = apiData.map((quiz: PostAPIUserInfo) => {
+        const customData = JSON.parse(quiz.title);
+        return {
+          id: quiz._id,
+          category: customData.category,
+        };
+      });
+      setUserQuiz(realData);
+    };
     updateUserData();
     updateUserRank();
+<<<<<<< HEAD
 >>>>>>> 105dcb6 ([feat] 유저 랭크 정보 api 연결)
+=======
+    updateUserQuiz();
+>>>>>>> 8a5e13a ([feat] 카테고리 뱃지 API 연동)
   }, [id]);
-
-  // TODO: 유저가 작성한 퀴즈 정보 비동기 API요청 필요
-  const getQuiz = () => {
-    const modifiedQuiz = userQuizList.map((quiz) => {
-      const customData = JSON.parse(quiz.title);
-      return {
-        id: quiz._id,
-        category: customData.tag,
-      };
-    });
-    return modifiedQuiz;
-  };
 
   const level = userData.totalExp
     ? Math.floor(userData.totalExp / MAXEXP) + 1
@@ -125,10 +142,9 @@ function UserInfoCard({ id }: userProps) {
   }, [level]);
 
   const getQuizCategoryCount = useCallback(() => {
-    // 출제한 퀴즈 카테고리 별 뱃지
     const categoryMap = new Map();
 
-    getQuiz().forEach((quiz) => {
+    userQuiz.forEach((quiz) => {
       const { category } = quiz;
       const count = categoryMap.get(category);
       if (count) {
@@ -144,7 +160,7 @@ function UserInfoCard({ id }: userProps) {
     });
 
     return categoryQuiz;
-  }, []);
+  }, [userQuiz]);
 
   const getBadges = useCallback(() => {
     const badges: BadgeType[] = [];
