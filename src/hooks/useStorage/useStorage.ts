@@ -1,40 +1,49 @@
 import { useCallback, useState } from 'react';
 
-export type ReturnTypes<T> = [T, (value: T) => void];
+export type ReturnTypes<T> = [T, (value: T) => void, () => void];
+
+type StorageType = 'localStorage' | 'sessionStorage';
+
+const getStorage = (storageType: StorageType) => {
+  return storageType === 'localStorage' ? localStorage : sessionStorage;
+};
 
 function useStorage<T>(
   key: string,
   defaultValue: T,
-  storageType = 'localStorage',
+  storageType: StorageType,
 ): ReturnTypes<T> {
-  const [value, setStorageItem] = useState(() => {
+  const [value, setValue] = useState(() => {
     try {
-      const item = (
-        storageType === 'localStorage' ? localStorage : sessionStorage
-      ).getItem(key);
-      return item ? (JSON.parse(item) as T) : defaultValue;
+      const item = getStorage(storageType).getItem(key);
+      return item ? JSON.parse(item) : defaultValue;
     } catch (error) {
-      console.error(error as Error);
+      console.error(error);
       return defaultValue;
     }
   });
 
-  const setValue = useCallback(
+  const setItem = useCallback(
     (newValue: T) => {
       try {
-        setStorageItem(newValue);
-        (storageType === 'localStorage'
-          ? localStorage
-          : sessionStorage
-        ).setItem(key, JSON.stringify(newValue));
+        setValue(newValue);
+        getStorage(storageType).setItem(key, JSON.stringify(newValue));
       } catch (error) {
-        console.error(error as Error);
+        console.error(error);
       }
     },
     [key, storageType],
   );
 
-  return [value, setValue];
+  const removeItem = useCallback(() => {
+    try {
+      getStorage(storageType).removeItem(key);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [key, storageType]);
+
+  return [value, setItem, removeItem];
 }
 
 export default useStorage;
