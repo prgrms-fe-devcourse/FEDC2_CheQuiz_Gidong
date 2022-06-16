@@ -1,4 +1,4 @@
-import api from '@/utils/apiInstance';
+import api from '@/api/apiInstance';
 
 export function like(postId: string) {
   return api.post('/likes/create', { postId });
