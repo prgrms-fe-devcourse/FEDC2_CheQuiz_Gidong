@@ -1,14 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import QuizBox from '@components/Quiz';
 import { useHistory } from 'react-router';
+import Slider from 'react-slick';
+import { POST_IDS, USER_ANSWERS } from '@/common/string';
 import QuizMockData from '@/assets/QuizMockData';
 import * as QuizServices from '@/utils/QuizServices';
-import { POST_IDS, USER_ANSWERS } from '@/common/string';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import SliderButton from './SliderButton';
 
-function QuizSolve(): JSX.Element {
+function QuizSolvePage(): JSX.Element {
+  const history = useHistory();
   // TODO: 추후 api 연결 필요 및 sessionStorage에 저장 필요
   const [quizzes, setQuizzes] = useState(QuizMockData);
-  const history = useHistory();
   const [userAnswers, setUserAnswers] = useState<string[]>(
     Array(quizzes.length).fill(''),
   );
@@ -73,19 +77,34 @@ function QuizSolve(): JSX.Element {
     fetchQuizzesFromChannel();
   }, [quizzes.length, setStoredPostIds, setUserAnswers]);
 
+  // slider options
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    centerPadding: '40px',
+    nextArrow: <SliderButton color="point" />,
+    prevArrow: <SliderButton color="point" />,
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
         {currentIndex + 1}/{quizzes.length}
       </div>
-      {quizzes.map((quiz, index) => (
-        <QuizBox
-          quiz={quiz}
-          key={quiz._id}
-          index={index}
-          onChangeUserAnswer={handleUserAnswers}
-        />
-      ))}
+      <Slider {...settings}>
+        {quizzes.map((quiz, index) => (
+          <QuizBox
+            quiz={quiz}
+            key={quiz._id}
+            index={index}
+            onChangeUserAnswer={handleUserAnswers}
+          />
+        ))}
+      </Slider>
+
       <button
         type="button"
         disabled={currentIndex <= 0}
@@ -114,4 +133,4 @@ function QuizSolve(): JSX.Element {
   );
 }
 
-export default QuizSolve;
+export default QuizSolvePage;
