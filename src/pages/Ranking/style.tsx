@@ -16,14 +16,17 @@ export const Container = styled.div`
 
 export const Rank = styled.div`
   width: 6.25rem;
+  font-family: 'MaplestoryOTFBold';
 `;
 
 export const Exp = styled.div`
   width: 9.375rem;
+  font-family: 'MaplestoryOTFBold';
 `;
 
 export const UserInfoWrap = styled.div`
   width: 34.375rem;
+  font-family: 'MaplestoryOTFBold';
 `;
 
 export const SearchContainer = styled.div`
