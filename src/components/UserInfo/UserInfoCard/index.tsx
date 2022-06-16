@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { MAXEXP } from '@/common/number';
-import * as Styled from './styles';
+import * as S from './styles';
 import {
   UserInfoMockList as userList,
   userQuizMockList as userQuizList,
@@ -187,42 +187,42 @@ function UserInfoCard({ id }: userProps) {
   };
 
   return (
-    <Styled.UserCard>
-      <Styled.UserBasicContent>
-        <Styled.ImageWrapper>
-          <Styled.UserImage
+    <S.UserCard>
+      <S.UserBasicContent>
+        <S.ImageWrapper>
+          <S.UserImage
             src={`https://maplestory.io/api/GMS/210.1.1/mob/${getImage()}/render/stand`}
           />
-        </Styled.ImageWrapper>
+        </S.ImageWrapper>
 
-        <Styled.Username>{userData.fullName}</Styled.Username>
-        <Styled.LevelText>Lv.{level}</Styled.LevelText>
-      </Styled.UserBasicContent>
+        <S.Username>{userData.fullName}</S.Username>
+        <S.LevelText>Lv.{level}</S.LevelText>
+      </S.UserBasicContent>
 
-      <Styled.UserRankContent>
-        <Styled.Rank>Rank : {getRank()}</Styled.Rank>
+      <S.UserRankContent>
+        <S.Rank>Rank : {getRank()}</S.Rank>
 
-        <Styled.ExpWrapper>
-          <Styled.ExpContainer>
-            <Styled.ExpDetail>
+        <S.ExpWrapper>
+          <S.ExpContainer>
+            <S.ExpDetail>
               {currentExp}/{MAXEXP}
-            </Styled.ExpDetail>
-            <Styled.ExpCurrentContainer percent={expPercent} />
-          </Styled.ExpContainer>
-        </Styled.ExpWrapper>
+            </S.ExpDetail>
+            <S.ExpCurrentContainer percent={expPercent} />
+          </S.ExpContainer>
+        </S.ExpWrapper>
 
-        <Styled.BadgeContent>
+        <S.BadgeContent>
           {getBadges().map((badge) => (
-            <Styled.Badge
+            <S.Badge
               color={badge.color ? badge.color : '#fffff'}
               key={badge.id}
             >
               {badge.content}
-            </Styled.Badge>
+            </S.Badge>
           ))}
-        </Styled.BadgeContent>
-      </Styled.UserRankContent>
-    </Styled.UserCard>
+        </S.BadgeContent>
+      </S.UserRankContent>
+    </S.UserCard>
   );
 }
 export default UserInfoCard;
