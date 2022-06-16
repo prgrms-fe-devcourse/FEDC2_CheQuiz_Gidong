@@ -5,7 +5,7 @@ import { UserAPI, UserInfo } from '@/interfaces/UserAPI';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
 import * as S from './style';
-import getRankAll from '@/apis/getRankAll';
+import getRankAll from '@/api/getRankAll';
 
 type Props = {
   keyword: string;
@@ -131,38 +131,6 @@ function UserRankList({ keyword }: Props) {
 
     return tagsList;
   };
-
-  console.log(
-    '확인횰',
-    userList
-      .sort(([prevRank, prev], [nextRank, next]) => {
-        let prevPoint;
-        let nextPoint;
-
-        if (!prev?.username) prevPoint = 0;
-        else if (prev.username.indexOf('totalPoint') === -1) prevPoint = 0;
-        else {
-          const { totalPoints = 0 } = JSON.parse(prev?.username);
-          prevPoint = totalPoints;
-        }
-
-        if (!next?.username) nextPoint = 0;
-        else if (next.username.indexOf('totalPoint') === -1) nextPoint = 0;
-        else {
-          const { totalPoints = 0 } = JSON.parse(next?.username);
-          nextPoint = totalPoints;
-        }
-
-        return nextPoint - prevPoint;
-      })
-      .filter(([itemRank, item]) => {
-        const flag = item.fullName
-          .toLowerCase()
-          ?.indexOf(keyword.toLowerCase());
-        if (flag === -1) return false;
-        return true;
-      }),
-  );
 
   const checkUserImage = (point: number) => {
     const level = point / 100;
