@@ -69,7 +69,6 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "tsc-files --noEmit",
       "eslint --cache --fix",
       "prettier --write"
     ]
