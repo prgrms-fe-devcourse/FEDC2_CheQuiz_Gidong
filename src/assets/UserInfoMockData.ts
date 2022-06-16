@@ -16,6 +16,8 @@ const UserInfoMockData: UserAPI = {
   email: 'doughnut@naver.com',
   createdAt: Date.now().toString(),
   updatedAt: Date.now().toString(),
+  following: [],
+  messages: [],
 };
 
 // API: GET /users/get-users
@@ -35,6 +37,8 @@ const UserInfoMockList: UserAPI[] = [
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
+    following: [],
+    messages: [],
   },
   {
     _id: 'user02',
@@ -51,6 +55,8 @@ const UserInfoMockList: UserAPI[] = [
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
+    following: [],
+    messages: [],
   },
   {
     _id: 'user03',
@@ -67,6 +73,8 @@ const UserInfoMockList: UserAPI[] = [
     email: 'Cherry@naver.com',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
+    following: [],
+    messages: [],
   },
   {
     _id: 'user04',
@@ -83,6 +91,8 @@ const UserInfoMockList: UserAPI[] = [
     email: 'doughnut@naver.com',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
+    following: [],
+    messages: [],
   },
 ];
 
