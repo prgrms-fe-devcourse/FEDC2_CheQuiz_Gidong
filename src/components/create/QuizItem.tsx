@@ -48,7 +48,10 @@ export default function QuizItem({
     <Wrapper>
       <QuestionSection>
         <FlexCol>
-          <select value={quizData.tag} onChange={handleInputChange('tag')}>
+          <select
+            value={quizData.category}
+            onChange={handleInputChange('category')}
+          >
             <option value="" hidden>
               카테고리
             </option>

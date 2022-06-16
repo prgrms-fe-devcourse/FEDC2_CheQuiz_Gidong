@@ -10,7 +10,7 @@ export const QUIZ_CATEGORY_LIST = [
 
 export const QUIZ_ANSWER_TYPE_LIST = [
   { label: 'O/X 문제', value: 'trueOrFalse', canUse: true },
-  { label: '객관식 문제', value: 'multipleChoice', canUse: true },
+  { label: '객관식 문제', value: 'multipleChoice', canUse: false },
   { label: '단답식 문제', value: 'shortAnswer', canUse: false },
 ];
 

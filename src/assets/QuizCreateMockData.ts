@@ -1,6 +1,7 @@
 import { QuizClientContent } from '@/interfaces/Quiz';
 
-const TEST_ADMIN_TOKEN = '';
+const TEST_ADMIN_TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyOWUyOTY3NmUzY2NhMWFmMjc2NjQ1OCIsImVtYWlsIjoiYWRtaW5AcHJvZ3JhbW1lcnMuY28ua3IifSwiaWF0IjoxNjU1MzY2OTU2fQ.LtWB_mo4Y68BIdmw3m4C8zLKHlOEoRuJWYCX0lJU8wk';
 
 const TEST_USER_TOKEN =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyYTE5YzkxZDI5OGQwMzk2ZDdlNmQzNiIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSJ9LCJpYXQiOjE2NTUxMTI2MDN9.4h_h2mQIAkCjIcAIneiasVnGz4m-yF17SL1Wcn4PZ5Y';
@@ -8,7 +9,7 @@ const TEST_CHANNEL_ID = '62a1bef4d298d0396d7e6e44';
 
 const QUIZ_ITEM_DEFAULT_STATE: QuizClientContent = {
   _id: 0,
-  tag: '',
+  category: '',
   question: '',
   difficulty: 0,
   importance: 0,
@@ -25,7 +26,7 @@ const QUIZ_SET_DEFAULT_STATE = {
 const SAMPLE_QUIZ_LIST_STATE: QuizClientContent[] = [
   {
     _id: 0,
-    tag: '',
+    category: '',
     question: '',
     difficulty: 0,
     importance: 0,
@@ -35,7 +36,7 @@ const SAMPLE_QUIZ_LIST_STATE: QuizClientContent[] = [
   },
   {
     _id: 1,
-    tag: 'javascript',
+    category: 'javascript',
     question: '질문타이틀_자바스크립트는 인터프리터언어?',
     difficulty: 5,
     importance: 5,
@@ -46,7 +47,7 @@ const SAMPLE_QUIZ_LIST_STATE: QuizClientContent[] = [
   },
   {
     _id: 2,
-    tag: 'react',
+    category: 'react',
     question: '질문타이틀_리액트는 프레임워크입니까?',
     difficulty: 3,
     importance: 2,
