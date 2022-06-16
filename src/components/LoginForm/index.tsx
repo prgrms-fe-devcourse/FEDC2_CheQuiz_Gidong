@@ -5,6 +5,8 @@ import Button from '@/components/Form/Button';
 
 import { useAuthContext } from '@/contexts/AuthContext';
 
+import { validationLogin } from '@/utils/validation';
+
 function LoginForm() {
   const { login } = useAuthContext();
 
@@ -16,6 +18,7 @@ function LoginForm() {
           email: '',
           password: '',
         }}
+        validationSchema={validationLogin}
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
           actions.resetForm();
