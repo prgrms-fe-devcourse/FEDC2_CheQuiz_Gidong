@@ -50,7 +50,9 @@ function UserRankList({ keyword }: Props) {
 
       return nextPoint - prevPoint;
     })
-    .map((data, index) => [index + 1, data]) as [number, UserAPI][];
+    .map((data, index) => {
+      return [index + 1, data];
+    }) as [number, UserAPI][];
 
   // console.log(userList);
 
@@ -233,7 +235,7 @@ function UserRankList({ keyword }: Props) {
           if (flag === -1) return false;
           return true;
         })
-        .map(([userRank, user]) => {
+        .map(([userRank, user], index) => {
           let point;
           if (!user?.username) point = 0;
           else if (user.username.indexOf('point') === -1) point = 0;
@@ -242,9 +244,10 @@ function UserRankList({ keyword }: Props) {
             point = points;
           }
 
+          console.log(userRank);
           return (
             <S.Container key={user._id}>
-              <S.Rank>Rank {userRank}</S.Rank>
+              <S.Rank>{userRank}</S.Rank>
               <S.Exp>{point.toLocaleString()}</S.Exp>
               <S.UserProfile>
                 <S.UserImg src={checkUserImage(point)} alt="userImage" />

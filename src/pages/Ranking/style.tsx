@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
-import { borderWidth } from '@/styles/theme';
+import { primary, white } from '@/styles/theme';
 
 export const Wrap = styled.div`
   border: 0.0625rem solid;
 `;
 
 export const Container = styled.div`
-  border: ${borderWidth};
+  font-family: Pretendard, sans-serif;
+  background-color: ${primary};
+  color: ${white};
   display: flex;
   justify-content: space-around;
   padding: 0.75rem 0;
@@ -21,7 +23,7 @@ export const Exp = styled.div`
 `;
 
 export const UserInfoWrap = styled.div`
-  width: 28.125rem;
+  width: 34.375rem;
 `;
 
 export const SearchContainer = styled.div`

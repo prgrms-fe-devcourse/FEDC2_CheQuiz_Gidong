@@ -38,6 +38,7 @@ type tagProps = {
 };
 
 export const TagWrap = styled.div<tagProps>`
+  font-family: 'MaplestoryOTFLight';
   color: ${blackGray};
   padding: 0.3125rem;
   border: ${borderWidth};
