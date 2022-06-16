@@ -4,7 +4,6 @@ import QuizResult from '@components/QuizResult';
 import { USER_ANSWERS, POST_IDS } from '@/common/string';
 import QuizMockData from '@/assets/QuizMockData';
 import * as S from './styles';
-import LinkButton from './LinkButton';
 
 /**
  * ANCHOR: QuizResultPage 로직
@@ -34,15 +33,15 @@ function QuizResultPage() {
       ))}
       <div>
         {/** TODO: 링크 수정 필요 */}
-        <LinkButton type="button" to="/" color="point" fill>
+        <S.LinkButton to="/" color="point" fill="true">
           다른 문제 풀러가기
-        </LinkButton>
-        <LinkButton type="button" to="/" color="point" fill>
+        </S.LinkButton>
+        <S.LinkButton to="/" color="point" fill="true">
           랭킹 보기
-        </LinkButton>
-        <LinkButton type="button" to="/" color="point" fill>
+        </S.LinkButton>
+        <S.LinkButton to="/" color="point" fill="true">
           퀴즈 만들러 가기
-        </LinkButton>
+        </S.LinkButton>
       </div>
     </S.QuizResultPage>
   );

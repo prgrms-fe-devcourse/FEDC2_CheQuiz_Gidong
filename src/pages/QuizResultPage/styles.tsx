@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 export interface StyledLinkedButtonProps {
   color: 'point' | 'primary' | 'secondary';
-  fill?: boolean;
-  fullWidth?: boolean;
+  fill?: 'true' | 'false';
+  fullWidth?: 'true' | 'false';
 }
 
-export const LinkButton = styled.button<StyledLinkedButtonProps>`
+export const LinkButton = styled(Link)<StyledLinkedButtonProps>`
   display: ${({ fullWidth }) => (fullWidth ? 'block' : 'inline-block')};
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   padding: 0.5rem 1rem;
@@ -25,6 +26,7 @@ export const LinkButton = styled.button<StyledLinkedButtonProps>`
     return '#e5e5e5';
   }};
   font-size: 1rem;
+  text-decoration: none;
   outline: none;
   cursor: pointer;
 `;
