@@ -13,6 +13,8 @@ const UserInfoMockData: UserAPI = {
   username: `${JSON.stringify({
     totalPoints: 12360,
   })}`,
+  following: [],
+  messages: [],
   email: 'doughnut@naver.com',
   createdAt: Date.now().toString(),
   updatedAt: Date.now().toString(),
@@ -34,6 +36,8 @@ const UserInfoMockList: UserAPI[] = [
     username: `${JSON.stringify({
       totalPoints: 0,
     })}`,
+    following: [],
+    messages: [],
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
@@ -52,6 +56,8 @@ const UserInfoMockList: UserAPI[] = [
     username: `${JSON.stringify({
       totalPoints: 10,
     })}`,
+    following: [],
+    messages: [],
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
@@ -70,6 +76,8 @@ const UserInfoMockList: UserAPI[] = [
     username: `${JSON.stringify({
       totalPoints: 33333,
     })}`,
+    following: [],
+    messages: [],
     email: 'Cherry@naver.com',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
@@ -88,6 +96,8 @@ const UserInfoMockList: UserAPI[] = [
     username: `${JSON.stringify({
       totalPoints: 12360,
     })}`,
+    following: [],
+    messages: [],
     email: 'doughnut@naver.com',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
