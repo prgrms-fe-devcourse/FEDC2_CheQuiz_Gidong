@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import QuizBox from '@components/Quiz';
+import { useHistory } from 'react-router';
 import QuizMockData from '@/assets/QuizMockData';
 import QuizServices from '@/utils/QuizServices';
+import { POST_IDS, USER_ANSWERS } from '@/common/string';
 
 function QuizSolve(): JSX.Element {
   // TODO: 추후 api 연결 필요 및 sessionStorage에 저장 필요
   const [quizzes, setQuizzes] = useState(QuizMockData);
+  const history = useHistory();
   const [userAnswers, setUserAnswers] = useState<string[]>(
     Array(quizzes.length).fill(''),
   );
@@ -34,12 +37,13 @@ function QuizSolve(): JSX.Element {
       e.preventDefault();
       // user 답 sessionStorage에 저장
       // postId 저장하기
-      sessionStorage.setItem('user-answers', JSON.stringify(userAnswers));
-      sessionStorage.setItem('post-ids', JSON.stringify(storedPostIds));
+      sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
+      sessionStorage.setItem(POST_IDS, JSON.stringify(storedPostIds));
 
       // TODO: history.push로 route 이동하기
+      history.push('/result');
     },
-    [storedPostIds, userAnswers],
+    [history, storedPostIds, userAnswers],
   );
 
   useEffect(() => {

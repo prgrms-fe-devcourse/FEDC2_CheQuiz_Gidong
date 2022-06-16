@@ -4640,6 +4640,13 @@ raw-body@2.5.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-animate-height@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-animate-height/-/react-animate-height-3.0.3.tgz#bd14f40862d418062c854829b0fd0b777e20c71f"
+  integrity sha512-JDI9i4nNJKNoXN3VKZMMCc33Xfo75VjcR5VoYZTC4DMtkLndkyHrSA3lp8+72Cz5MmjKYR2zeJrJzHZWLZUGLQ==
+  dependencies:
+    classnames "^2.3.1"
+
 react-dom@^18.1.0:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.1.0.tgz#7f6dd84b706408adde05e1df575b3a024d7e8a2f"
