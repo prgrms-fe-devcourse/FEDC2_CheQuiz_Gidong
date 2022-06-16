@@ -32,13 +32,13 @@ function SignUpForm() {
             label="이메일"
             name="email"
             type="email"
-            placeholder="jane@formik.com"
+            placeholder="hello@welcome.com"
           />
           <InputBox
             label="닉네임"
             name="fullName"
             type="text"
-            placeholder="Jane Doe"
+            placeholder="프롱이"
           />
           <InputBox
             label="비밀번호"
