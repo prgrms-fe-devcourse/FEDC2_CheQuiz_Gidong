@@ -1,3 +1,4 @@
+import axios from 'axios';
 import api from '@/utils/apiInstance';
 import { ChannelAPI } from '@/interfaces/ChannelAPI';
 import { PostAPI } from '@/interfaces/PostAPI';
@@ -23,7 +24,7 @@ function getAllPostIds() {
 }
 
 function getPosts(postIds: string[]) {
-  return Promise.all(
+  return axios.all(
     postIds.map((postId) =>
       api
         .get<PostAPI>(`/posts/${postId}`)
