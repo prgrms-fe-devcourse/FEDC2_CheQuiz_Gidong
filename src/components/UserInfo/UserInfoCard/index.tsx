@@ -65,27 +65,7 @@ function UserInfoCard({ id }: userProps) {
     return selectedId;
   }, [level]);
 
-  const getBadges = () => {
-    const badges: BadgeType[] = [];
-
-    // 레벨 별 뱃지
-    let levelBadgeId = 0;
-    Breakpoints.levelBreakpoints.forEach((badge, index) => {
-      if (level > badge.level) {
-        levelBadgeId = index;
-      }
-    });
-
-    badges.push({
-      id: `badgeLevel${levelBadgeId}`,
-      color: Breakpoints.levelBreakpoints[levelBadgeId].color,
-      content: `${
-        levelBadgeId !== 0
-          ? `내가 레벨 ${Breakpoints.levelBreakpoints[levelBadgeId].level} 이라니!`
-          : `뉴비`
-      }`,
-    });
-
+  const getQuizCategoryCount = useCallback(() => {
     // 출제한 퀴즈 카테고리 별 뱃지
     const categoryMap = new Map();
 
@@ -104,82 +84,92 @@ function UserInfoCard({ id }: userProps) {
       return -1;
     });
 
-    categoryQuiz.forEach((quiz, index) => {
-      if (quiz[1] >= 50) {
+    return categoryQuiz;
+  }, []);
+
+  const getBadges = useCallback(() => {
+    const badges: BadgeType[] = [];
+    const userLevelBadges = Breakpoints.levelBreakpoints.filter((badge) => {
+      return badge.level <= level;
+    });
+    const selectedLevelBadge = userLevelBadges[userLevelBadges.length - 1];
+    badges.push({
+      id: `badgeLevel${selectedLevelBadge.level}`,
+      color: selectedLevelBadge.color,
+      content: `${
+        selectedLevelBadge.level !== 0
+          ? `내가 레벨 ${selectedLevelBadge.level} 이라니!`
+          : `뉴비`
+      }`,
+    });
+
+    getQuizCategoryCount().forEach((quiz: [string, number], index) => {
+      if (quiz[1] >= 10) {
         badges.push({
           id: `badgeCategory${index}`,
-          content: `${quiz[0]}을 정복한 자`,
-        });
-      } else if (quiz[1] >= 10) {
-        badges.push({
-          id: `badgeCategory${index}`,
-          content: `${quiz[0]}을 시작한 자`,
+          content: `${quiz[0]}을 ${quiz[1] >= 50 ? '정복' : '시작'}한 자`,
         });
       }
     });
 
     // 댓글과 좋아요로 뱃지 가져오기
     Breakpoints.commentBreakpoints.forEach((breakpoint, index) => {
+      const badge = {
+        id: `badgeComment${index}`,
+        color: breakpoint.color,
+        content: breakpoint.text,
+      };
       if (breakpoint.exact) {
         if (userData.comments.length === breakpoint.count) {
-          badges.push({
-            id: `badgeComment${index}`,
-            color: breakpoint.color,
-            content: breakpoint.text,
-          });
+          badges.push(badge);
         }
       } else if (userData.comments.length >= breakpoint.count) {
-        badges.push({
-          id: `badgeComment${index}`,
-          color: breakpoint.color,
-          content: breakpoint.text,
-        });
+        badges.push(badge);
       }
     });
 
     Breakpoints.likeBreakpoints.forEach((breakpoint, index) => {
+      const badge = {
+        id: `badgeLike${index}`,
+        color: breakpoint.color,
+        content: breakpoint.text,
+      };
       if (breakpoint.exact) {
         if (userData.likes.length === breakpoint.count) {
-          badges.push({
-            id: `badgeLike${index}`,
-            color: breakpoint.color,
-            content: breakpoint.text,
-          });
+          badges.push(badge);
         }
       } else if (userData.likes.length >= breakpoint.count) {
-        badges.push({
-          id: `badgeLike${index}`,
-          color: breakpoint.color,
-          content: breakpoint.text,
-        });
+        badges.push(badge);
       }
     });
 
     Breakpoints.likeAndCommentBreakpoints.forEach((breakpoint, index) => {
+      const badge = {
+        id: `badgeLikeComment${index}`,
+        color: breakpoint.color,
+        content: breakpoint.text,
+      };
       if (breakpoint.exact) {
         if (
           userData.likes.length === breakpoint.count &&
           userData.comments.length === breakpoint.count
         ) {
-          badges.push({
-            id: `badgeLikeComment${index}`,
-            color: breakpoint.color,
-            content: breakpoint.text,
-          });
+          badges.push(badge);
         }
       } else if (
         userData.likes.length >= breakpoint.count &&
         userData.comments.length >= breakpoint.count
       ) {
-        badges.push({
-          id: `badgeLikeComment${index}`,
-          color: breakpoint.color,
-          content: breakpoint.text,
-        });
+        badges.push(badge);
       }
     });
     return badges;
-  };
+  }, [
+    userData.comments.length,
+    userData.likes.length,
+    level,
+    getQuizCategoryCount,
+  ]);
 
   return (
     <S.UserCard>
