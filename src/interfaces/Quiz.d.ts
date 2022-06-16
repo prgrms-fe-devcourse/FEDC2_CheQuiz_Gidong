@@ -3,7 +3,7 @@ import { PostAPIBase } from './PostAPI';
 export interface QuizContent {
   question: string;
   answerDescription: string;
-  tag: string;
+  category: string;
   difficulty: number;
   importance: number;
   answerType: 'trueOrFalse' | 'multipleChoice' | 'shortAnswer';
