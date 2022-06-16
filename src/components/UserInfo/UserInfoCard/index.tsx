@@ -1,15 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { MAXEXP } from '@/common/number';
 import * as S from './styles';
-import {
-  UserInfoMockList as userList,
-  userQuizMockList as userQuizList,
-} from '@/assets/UserInfoMockData';
+import { userQuizMockList as userQuizList } from '@/assets/UserInfoMockData';
 import * as Breakpoints from './breakpoints';
 import { BadgeType } from '@/interfaces/BadgeType';
-import { customUserAPI } from '@/interfaces/UserAPI';
-import { fetchUserData } from '@/api/user';
+import { customUserAPI, UserAPI, userSimpleType } from '@/interfaces/UserAPI';
+import { fetchUserData, fetchUserList } from '@/api/user';
 import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
+import { ADMIN_ID } from '@/common/string';
 
 interface userProps {
   id: string;
@@ -31,7 +29,7 @@ function UserInfoCard({ id }: userProps) {
   };
 =======
   const [userData, setUserData] = useState<customUserAPI>(DEFAULT_USER_DATA);
-
+  const [userRank, setUserRank] = useState(0);
   useEffect(() => {
     const updateUserData = async () => {
       const apiData = await fetchUserData(id);
@@ -41,12 +39,11 @@ function UserInfoCard({ id }: userProps) {
         likes: apiData.likes,
         posts: apiData.posts,
         comments: apiData.comments,
-        totalExp: apiData.username
-          ? JSON.parse(apiData.username).totalpoints
-          : 0,
+        totalExp: apiData.username ? JSON.parse(apiData.username).points : 0,
       };
       setUserData(realData);
     };
+<<<<<<< HEAD
     updateUserData();
   }, [id]);
 >>>>>>> afd5a80 ([feat] 유저 기본 정보 api 연결)
@@ -65,6 +62,27 @@ function UserInfoCard({ id }: userProps) {
       });
     const rank = sortedUserList.findIndex((data) => data.id === id) + 1;
     return rank;
+=======
+
+    const updateUserRank = async () => {
+      const apiData = await fetchUserList();
+      const realData = apiData
+        .filter((user: UserAPI) => user._id !== ADMIN_ID)
+        .map((user: UserAPI) => ({
+          id: user._id,
+          fullName: user.fullName,
+          points: user.username ? JSON.parse(user.username).points : 0,
+        }))
+        .sort((userA: userSimpleType, userB: userSimpleType) => {
+          return userB.points - userA.points;
+        });
+      const rank =
+        realData.findIndex((user: userSimpleType) => user.id === id) + 1;
+      setUserRank(rank);
+    };
+    updateUserData();
+    updateUserRank();
+>>>>>>> 105dcb6 ([feat] 유저 랭크 정보 api 연결)
   }, [id]);
 
   // TODO: 유저가 작성한 퀴즈 정보 비동기 API요청 필요
@@ -218,7 +236,7 @@ function UserInfoCard({ id }: userProps) {
       </S.UserBasicContent>
 
       <S.UserRankContent>
-        <S.Rank>Rank : {getRank()}</S.Rank>
+        <S.Rank>Rank : {userRank}</S.Rank>
 
         <S.ExpWrapper>
           <S.ExpContainer>

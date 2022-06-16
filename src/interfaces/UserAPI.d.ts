@@ -57,3 +57,8 @@ export interface customUserAPI {
   comments: CommentAPI[] | string[];
   totalExp?: number;
 }
+export interface userSimpleType {
+  id: string;
+  fullName: string;
+  points: number;
+}
