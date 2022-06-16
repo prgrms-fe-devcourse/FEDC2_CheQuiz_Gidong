@@ -1,10 +1,9 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
-
+import theme from '@/styles/theme';
 import Routers from '@/Routers';
 
 import reset from '@/styles/reset';
-import theme from '@/styles/theme';
 import fontStyle from '@/styles/fontStyle';
 
 import AuthProvider from '@/contexts/AuthContext';
