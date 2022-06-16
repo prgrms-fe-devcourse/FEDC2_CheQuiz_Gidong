@@ -11,6 +11,7 @@ export const levelBreakpoints = [
 ];
 
 export const imageBreakpoints = [
+  { level: 0, imageId: '100200' },
   { level: 10, imageId: '100120' },
   { level: 50, imageId: '100121' },
   { level: 100, imageId: '100122' },
@@ -18,7 +19,7 @@ export const imageBreakpoints = [
   { level: 1000, imageId: '100124' },
   { level: 5000, imageId: '2510000' },
   { level: 10000, imageId: '8600006' },
-  { level: 50000, imageId: '6400006' },
+  { level: 50000, imageId: '6400007' },
 ];
 
 export const commentBreakpoints = [
