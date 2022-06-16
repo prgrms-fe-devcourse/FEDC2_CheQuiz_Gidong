@@ -39,6 +39,11 @@ function QuizSolvePage(): JSX.Element {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
+      // validation
+      if (quizzes.length !== userAnswers.filter((answer) => answer).length) {
+        console.log('올바르지 않은 동작입니다.');
+        return;
+      }
       // user 답 sessionStorage에 저장
       // postId 저장하기
       sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
@@ -85,8 +90,14 @@ function QuizSolvePage(): JSX.Element {
     slidesToShow: 1,
     slidesToScroll: 1,
     centerPadding: '40px',
-    nextArrow: <SliderButton color="point" />,
-    prevArrow: <SliderButton color="point" />,
+    nextArrow: <SliderButton type="button" color="point" />,
+    prevArrow: (
+      <SliderButton
+        type="button"
+        color="point"
+        disabled={currentIndex >= quizzes.length - 1}
+      />
+    ),
   };
 
   return (

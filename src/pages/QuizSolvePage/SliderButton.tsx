@@ -3,7 +3,7 @@ import * as S from './styles';
 
 interface SliderButtonProps extends S.StyledSliderButtonProps {
   children?: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   disabled?: boolean;
   className?: string;
   [extraProps: string]: unknown;
