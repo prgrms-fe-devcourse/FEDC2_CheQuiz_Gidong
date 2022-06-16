@@ -31,8 +31,10 @@ function AuthProvider({ children }: Props) {
 
         setUser(data.user);
         setToken(data.token);
+
+        // TODO: Success Toast
       } catch (error) {
-        console.error(error);
+        // TODO: Error Toast
       }
     },
     [setUser, setToken],
@@ -45,8 +47,10 @@ function AuthProvider({ children }: Props) {
 
         setUser(data.user);
         setToken(data.token);
+
+        // TODO: Success Toast
       } catch (error) {
-        console.error(error);
+        // TODO: Error Toast
       }
     },
     [setUser, setToken],
