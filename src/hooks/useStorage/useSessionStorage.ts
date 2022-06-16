@@ -1,8 +1,13 @@
 import useStorage, { ReturnTypes } from './useStorage';
 
 function useSessionStorage<T>(key: string, defaultValue: T): ReturnTypes<T> {
-  const [storage, setStorage] = useStorage(key, defaultValue, 'sessionStorage');
-  return [storage, setStorage];
+  const [value, setItem, removeItem] = useStorage(
+    key,
+    defaultValue,
+    'sessionStorage',
+  );
+
+  return [value, setItem, removeItem];
 }
 
 export default useSessionStorage;
