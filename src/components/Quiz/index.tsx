@@ -14,10 +14,8 @@ function Quiz({ quiz, index, onChangeUserAnswer }: QuizProps): JSX.Element {
   return (
     <S.OuterBox>
       <S.InnerBox>
-        <S.Title>
-          <S.Sign>Q.</S.Sign>
-          {quiz.question}
-        </S.Title>
+        <S.Sign>Q.</S.Sign>
+        <S.Title>{quiz.question}</S.Title>
       </S.InnerBox>
       <S.Wrapper margin={3}>
         {[

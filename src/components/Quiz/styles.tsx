@@ -12,6 +12,11 @@ interface StyledWrapperProps {
 export const OuterBox = styled.div``;
 
 export const InnerBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 15rem;
+  overflow-y: auto;
   margin: 0 auto;
   padding: 2rem;
   border: 3px solid ${primary};
@@ -24,10 +29,8 @@ export const InnerBox = styled.div`
 `;
 
 export const Title = styled.div`
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  font-size: 1.5rem;
+  line-height: 1.4;
+  font-size: 1.25rem;
 `;
 
 export const SelectButton = styled.button<StyledSelectButtonProps>`

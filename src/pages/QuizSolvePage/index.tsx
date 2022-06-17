@@ -70,7 +70,6 @@ function QuizSolvePage(): JSX.Element {
       slidesToScroll: 1,
       centerPadding: '40px',
       arrows: true,
-      adaptiveHeight: true,
       beforeChange: (oldIndex: number, newIndex: number) => {
         setCurrentIndex(newIndex);
       },
