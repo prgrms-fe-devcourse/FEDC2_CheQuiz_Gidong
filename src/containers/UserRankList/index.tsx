@@ -230,12 +230,12 @@ function UserRankList({ keyword }: Props) {
       {userList
         .filter(([itemRank, item]) => {
           const flag = item.fullName
-            .toLowerCase()
+            ?.toLowerCase()
             ?.indexOf(keyword.toLowerCase());
           if (flag === -1) return false;
           return true;
         })
-        .map(([userRank, user], index) => {
+        .map(([userRank, user]) => {
           let point;
           if (!user?.username) point = 0;
           else if (user.username.indexOf('point') === -1) point = 0;
@@ -244,7 +244,6 @@ function UserRankList({ keyword }: Props) {
             point = points;
           }
 
-          console.log(userRank);
           return (
             <S.Container key={user._id}>
               <S.Rank>{userRank}</S.Rank>

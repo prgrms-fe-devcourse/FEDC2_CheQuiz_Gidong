@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { primary, white } from '@/styles/theme';
+import { borderRadius, lightGray, primary, white } from '@/styles/theme';
 
 export const Wrap = styled.div`
   border: 0.0625rem solid;
@@ -41,6 +41,8 @@ export const SearchWrap = styled.span`
   display: flex;
   align-items: center;
   padding: 0.3125rem;
+  border-radius: ${borderRadius};
+  background-color: ${lightGray};
 `;
 
 export const SearchInput = styled.input`
@@ -50,6 +52,12 @@ export const SearchInput = styled.input`
   margin-left: 0.625rem;
   outline: none;
   border: none;
+  background-color: transparent;
+  color: ${white};
+
+  &::placeholder {
+    color: ${white};
+  }
 `;
 
 export const UserInfoContainer = styled.div`

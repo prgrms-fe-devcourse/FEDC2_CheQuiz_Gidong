@@ -7,7 +7,7 @@ function Ranking() {
   const iconProps = {
     name: 'search',
     size: 20,
-    strokeWidth: 2,
+    strokeWidth: 3,
     color: '#222',
     rotate: 0,
   };
