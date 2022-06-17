@@ -11,7 +11,6 @@ import {
 } from '@/interfaces/UserAPI';
 import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
 import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
-import { ADMIN_ID } from '@/common/string';
 import { PostAPIUserInfo } from '@/interfaces/PostAPI';
 
 <<<<<<< HEAD
@@ -78,7 +77,7 @@ function UserInfoCard({ id }: { id: string }) {
     const updateUserRank = async () => {
       const apiData = await fetchUserList();
       const realData = apiData
-        .filter((user: UserAPI) => user._id !== ADMIN_ID)
+        .filter((user: UserAPI) => user.role !== 'SuperAdmin')
         .map((user: UserAPI) => ({
           id: user._id,
           fullName: user.fullName,
@@ -94,7 +93,6 @@ function UserInfoCard({ id }: { id: string }) {
           }
           return userB.points - userA.points;
         });
-
       const rank =
         realData.findIndex((user: userSimpleType) => user.id === id) + 1;
       setUserRank(rank);
