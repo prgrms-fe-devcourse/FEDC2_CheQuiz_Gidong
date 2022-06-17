@@ -16,8 +16,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import SliderButton from './SliderButton';
 import * as S from './styles';
 
-// slider options
-
 function QuizSolvePage(): JSX.Element {
   const history = useHistory();
   const sliderRef = useRef<Slider | null>(null);
@@ -61,6 +59,7 @@ function QuizSolvePage(): JSX.Element {
     [history, quizzes, storedPostIds, userAnswers],
   );
 
+  // Slider Options
   const settings = useMemo(() => {
     return {
       dots: false,
@@ -106,26 +105,26 @@ function QuizSolvePage(): JSX.Element {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <S.Wrapper justify="between" margin="1rem 0" align="center">
-          <S.Wrapper padding="0.5rem 0">
+        <S.Wrapper justify="center">
+          <S.Box>
             {currentIndex + 1} / {quizzes.length}
-          </S.Wrapper>
-          <S.Wrapper gap="0.5rem">
-            <SliderButton
-              type="button"
-              color="point"
-              onClick={() => sliderRef.current?.slickPrev()}
-            >
-              prev
-            </SliderButton>
-            <SliderButton
-              type="button"
-              color="point"
-              onClick={() => sliderRef.current?.slickNext()}
-            >
-              next
-            </SliderButton>
-          </S.Wrapper>
+          </S.Box>
+        </S.Wrapper>
+        <S.Wrapper justify="between" margin="1rem 0" align="center">
+          <SliderButton
+            type="button"
+            color="point"
+            onClick={() => sliderRef.current?.slickPrev()}
+          >
+            prev
+          </SliderButton>
+          <SliderButton
+            type="button"
+            color="point"
+            onClick={() => sliderRef.current?.slickNext()}
+          >
+            next
+          </SliderButton>
         </S.Wrapper>
         <Slider
           {...settings}

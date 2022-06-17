@@ -72,7 +72,14 @@ export const Wrapper = styled.div<WrapperProps>`
   margin: ${({ margin }) => margin || 0};
   padding: ${({ padding }) => padding || 0};
   font-size: 1.25rem;
-  * {
-    font-family: 'MaplestoryOTFLight';
-  }
+  font-family: 'MaplestoryOTFLight';
+`;
+
+export const Box = styled.div`
+  display: flex;
+  padding: 0.5rem 2rem;
+  border: 3px solid ${primary};
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  font-family: 'MaplestoryOTFLight';
 `;
