@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import QuizBox from '@components/Quiz';
 import { useHistory } from 'react-router';
 import Slider from 'react-slick';
@@ -11,15 +17,6 @@ import SliderButton from './SliderButton';
 import * as S from './styles';
 
 // slider options
-const settings = {
-  dots: false,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  centerPadding: '40px',
-  arrows: false,
-};
 
 function QuizSolvePage(): JSX.Element {
   const history = useHistory();
@@ -32,13 +29,6 @@ function QuizSolvePage(): JSX.Element {
   );
   const [storedPostIds, setStoredPostIds] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const handleIndex = useCallback(
-    (index: number) => {
-      if (index >= 0 && index < quizzes.length) setCurrentIndex(() => index);
-    },
-    [quizzes.length],
-  );
 
   const handleUserAnswers = useCallback(
     (index: number, value: string) => {
@@ -71,15 +61,29 @@ function QuizSolvePage(): JSX.Element {
     [history, quizzes, storedPostIds, userAnswers],
   );
 
+  const settings = useMemo(() => {
+    return {
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      centerPadding: '40px',
+      arrows: true,
+      adaptiveHeight: true,
+      beforeChange: (oldIndex: number, newIndex: number) => {
+        setCurrentIndex(newIndex);
+      },
+    };
+  }, []);
+
   useEffect(() => {
-    // NOTE: 초기화
     setStoredPostIds([]);
     sessionStorage.setItem(
       USER_ANSWERS,
       JSON.stringify(Array(quizzes.length).fill('')),
     );
 
-    // if user request random quizzes
     const fetchRandomQuizzes = async () => {
       const ids = await QuizServices.getShuffledPostIds(6);
       setStoredPostIds(ids);
@@ -96,6 +100,7 @@ function QuizSolvePage(): JSX.Element {
         console.log(response),
       );
     };
+
     fetchRandomQuizzes();
   }, [quizzes.length, setStoredPostIds, setUserAnswers]);
 
@@ -110,20 +115,14 @@ function QuizSolvePage(): JSX.Element {
             <SliderButton
               type="button"
               color="point"
-              onClick={() => {
-                handleIndex(currentIndex - 1);
-                sliderRef.current?.slickPrev();
-              }}
+              onClick={() => sliderRef.current?.slickPrev()}
             >
               prev
             </SliderButton>
             <SliderButton
               type="button"
               color="point"
-              onClick={() => {
-                handleIndex(currentIndex + 1);
-                sliderRef.current?.slickNext();
-              }}
+              onClick={() => sliderRef.current?.slickNext()}
             >
               next
             </SliderButton>
