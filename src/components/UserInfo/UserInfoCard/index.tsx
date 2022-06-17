@@ -13,29 +13,7 @@ import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
 import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
 import { PostAPIUserInfo } from '@/interfaces/PostAPI';
 
-<<<<<<< HEAD
-interface userProps {
-  id: string;
-}
-
-function UserInfoCard({ id }: userProps) {
-<<<<<<< HEAD
-  // TODO: id를 기반으로 비동기 API요청> userData 가져오기
-  const userData = {
-    id: userMockData._id,
-    fullName: userMockData.fullName,
-    likes: userMockData.likes,
-    posts: userMockData.posts,
-    comments: userMockData.comments,
-    totalExp:
-      userMockData && userMockData.username
-        ? JSON.parse(userMockData.username).totalPoints
-        : 0,
-  };
-=======
-=======
-function UserInfoCard({ id }: { id: string }) {
->>>>>>> 8a5e13a ([feat] 카테고리 뱃지 API 연동)
+function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
   const [userData, setUserData] = useState<customUserAPI>(DEFAULT_USER_DATA);
   const [userRank, setUserRank] = useState(0);
   const [userQuiz, setUserQuiz] = useState<userQuizCategory[]>([]);
@@ -53,26 +31,6 @@ function UserInfoCard({ id }: { id: string }) {
       };
       setUserData(realData);
     };
-<<<<<<< HEAD
-    updateUserData();
-  }, [id]);
->>>>>>> afd5a80 ([feat] 유저 기본 정보 api 연결)
-
-  // TODO: 유저리스트 비동기 API요청 필요
-  const getRank = useCallback(() => {
-    const sortedUserList = userList
-      .map((user) => ({
-        id: user._id,
-        fullName: user.fullName,
-        points:
-          user && user.username ? JSON.parse(user.username).totalPoints : 0,
-      }))
-      .sort((a, b) => {
-        return b.points - a.points;
-      });
-    const rank = sortedUserList.findIndex((data) => data.id === id) + 1;
-    return rank;
-=======
 
     const updateUserRank = async () => {
       const apiData = await fetchUserList();
@@ -113,11 +71,7 @@ function UserInfoCard({ id }: { id: string }) {
     };
     updateUserData();
     updateUserRank();
-<<<<<<< HEAD
->>>>>>> 105dcb6 ([feat] 유저 랭크 정보 api 연결)
-=======
     updateUserQuiz();
->>>>>>> 8a5e13a ([feat] 카테고리 뱃지 API 연동)
   }, [id]);
 
   const level = userData.totalExp
@@ -186,7 +140,6 @@ function UserInfoCard({ id }: { id: string }) {
       }
     });
 
-    // 댓글과 좋아요로 뱃지 가져오기
     Breakpoints.commentBreakpoints.forEach((breakpoint, index) => {
       const badge = {
         id: `badgeComment${index}`,
@@ -248,7 +201,7 @@ function UserInfoCard({ id }: { id: string }) {
   return (
     <>
       {userData.id !== 'loading' && (
-        <S.UserCard>
+        <S.UserCard width={width}>
           <S.UserBasicContent>
             <S.ImageWrapper>
               <S.UserImage
@@ -285,7 +238,7 @@ function UserInfoCard({ id }: { id: string }) {
           </S.UserRankContent>
         </S.UserCard>
       )}
-      {userData.id === 'loading' && <S.UserCard />}
+      {userData.id === 'loading' && <S.UserCard width={width} />}
     </>
   );
 }

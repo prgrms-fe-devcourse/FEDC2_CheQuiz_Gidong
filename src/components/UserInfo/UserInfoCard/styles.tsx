@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+type CardProps = {
+  width: string;
+};
+
 export const Card = styled.div`
   background-color: #f8f9fa;
   //TODO: 색 의견 물어보기
@@ -9,11 +13,11 @@ export const Card = styled.div`
   box-sizing: border-box;
 `;
 
-export const UserCard = styled(Card)`
+export const UserCard = styled(Card)<CardProps>`
   position: relative;
   top: 2rem;
   display: flex;
-  width: 40rem;
+  width: ${(props) => props.width};
   height: 14rem;
   padding: 1rem;
 `;
