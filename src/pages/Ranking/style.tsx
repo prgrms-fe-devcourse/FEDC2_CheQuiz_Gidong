@@ -59,14 +59,3 @@ export const SearchInput = styled.input`
     color: ${white};
   }
 `;
-
-export const UserInfoContainer = styled.div`
-  height: 660px;
-  overflow-y: auto;
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-  }
-`;
