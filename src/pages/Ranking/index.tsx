@@ -1,4 +1,6 @@
+import { ChangeEvent, useState } from 'react';
 import UserRankList from '@/containers/UserRankList';
+import theme from '@/styles/theme';
 import Icon from '@/components/Icon';
 import * as S from './style';
 
@@ -11,12 +13,23 @@ function Ranking() {
     rotate: 0,
   };
 
+  const [keyword, setKeyword] = useState('');
+
+  const changeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value = '' } = e.target;
+    setKeyword(value);
+  };
+
   return (
     <div>
       <S.SearchContainer>
         <S.SearchWrap>
           <Icon {...iconProps} />
-          <S.SearchInput type="text" placeholder="Search" />
+          <S.SearchInput
+            type="text"
+            placeholder="Search"
+            onChange={changeKeyword}
+          />
         </S.SearchWrap>
       </S.SearchContainer>
       <S.Wrap>
@@ -25,9 +38,7 @@ function Ranking() {
           <S.Exp>경험치</S.Exp>
           <S.UserInfoWrap>유저정보</S.UserInfoWrap>
         </S.Container>
-        <S.UserInfoContainer>
-          <UserRankList />
-        </S.UserInfoContainer>
+        <UserRankList keyword={keyword} />
       </S.Wrap>
     </div>
   );

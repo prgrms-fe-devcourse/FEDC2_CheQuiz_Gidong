@@ -29,7 +29,7 @@ const RankingMockData: UserAPI[] = [
     notifications: [],
     fullName: 'Banana',
     username: JSON.stringify({
-      totalPoints: 10,
+      totalPoints: 1000,
     }),
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
@@ -47,7 +47,7 @@ const RankingMockData: UserAPI[] = [
     notifications: [],
     fullName: 'Candle',
     username: JSON.stringify({
-      totalPoints: 50,
+      totalPoints: 5000,
     }),
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
@@ -65,7 +65,7 @@ const RankingMockData: UserAPI[] = [
     notifications: [],
     fullName: 'Dollar',
     username: JSON.stringify({
-      totalPoints: 100,
+      totalPoints: 10000,
     }),
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
@@ -83,7 +83,7 @@ const RankingMockData: UserAPI[] = [
     notifications: [],
     fullName: 'Edison',
     username: JSON.stringify({
-      totalPoints: 500,
+      totalPoints: 50000,
     }),
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
@@ -101,7 +101,7 @@ const RankingMockData: UserAPI[] = [
     notifications: [],
     fullName: 'Fries',
     username: JSON.stringify({
-      totalPoints: 1000,
+      totalPoints: 100000,
     }),
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
@@ -119,7 +119,7 @@ const RankingMockData: UserAPI[] = [
     notifications: [],
     fullName: 'Galaxy',
     username: JSON.stringify({
-      totalPoints: 5000,
+      totalPoints: 500000,
     }),
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
@@ -137,7 +137,7 @@ const RankingMockData: UserAPI[] = [
     notifications: [],
     fullName: 'History',
     username: JSON.stringify({
-      totalPoints: 10000,
+      totalPoints: 1000000,
     }),
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
@@ -155,7 +155,7 @@ const RankingMockData: UserAPI[] = [
     notifications: [],
     fullName: 'Iron',
     username: JSON.stringify({
-      totalPoints: 50000,
+      totalPoints: 5000000,
     }),
     email: 'test@naver.com',
     createdAt: Date.now().toString(),
