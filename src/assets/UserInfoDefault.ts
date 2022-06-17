@@ -1,10 +1,10 @@
 export const DEFAULT_USER_DATA = {
-  id: '62aaed65e193b3692eddfa8f',
+  id: 'loading',
   posts: [],
   likes: [],
   comments: [],
   following: [],
-  fullName: '프롱이',
+  fullName: 'loading중...',
   email: 'asdf@asdf.com',
   totalExp: 0,
 };

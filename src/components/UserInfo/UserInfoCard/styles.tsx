@@ -14,6 +14,7 @@ export const UserCard = styled(Card)`
   top: 2rem;
   display: flex;
   width: 40rem;
+  height: 14rem;
   padding: 1rem;
 `;
 

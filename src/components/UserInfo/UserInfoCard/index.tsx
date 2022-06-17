@@ -162,6 +162,7 @@ function UserInfoCard({ id }: { id: string }) {
 
   const getBadges = useCallback(() => {
     const badges: BadgeType[] = [];
+
     const userLevelBadges = Breakpoints.levelBreakpoints.filter((badge) => {
       return badge.level <= level;
     });
@@ -245,42 +246,47 @@ function UserInfoCard({ id }: { id: string }) {
   ]);
 
   return (
-    <S.UserCard>
-      <S.UserBasicContent>
-        <S.ImageWrapper>
-          <S.UserImage
-            src={`https://maplestory.io/api/GMS/210.1.1/mob/${getImage()}/render/stand`}
-          />
-        </S.ImageWrapper>
+    <>
+      {userData.id !== 'loading' && (
+        <S.UserCard>
+          <S.UserBasicContent>
+            <S.ImageWrapper>
+              <S.UserImage
+                src={`https://maplestory.io/api/GMS/210.1.1/mob/${getImage()}/render/stand`}
+              />
+            </S.ImageWrapper>
 
-        <S.Username>{userData.fullName}</S.Username>
-        <S.LevelText>Lv.{level}</S.LevelText>
-      </S.UserBasicContent>
+            <S.Username>{userData.fullName}</S.Username>
+            <S.LevelText>Lv.{level}</S.LevelText>
+          </S.UserBasicContent>
 
-      <S.UserRankContent>
-        <S.Rank>Rank : {userRank}</S.Rank>
+          <S.UserRankContent>
+            <S.Rank>Rank : {userRank}</S.Rank>
 
-        <S.ExpWrapper>
-          <S.ExpContainer>
-            <S.ExpDetail>
-              {currentExp}/{MAXEXP}
-            </S.ExpDetail>
-            <S.ExpCurrentContainer percent={expPercent} />
-          </S.ExpContainer>
-        </S.ExpWrapper>
+            <S.ExpWrapper>
+              <S.ExpContainer>
+                <S.ExpDetail>
+                  {currentExp}/{MAXEXP}
+                </S.ExpDetail>
+                <S.ExpCurrentContainer percent={expPercent} />
+              </S.ExpContainer>
+            </S.ExpWrapper>
 
-        <S.BadgeContent>
-          {getBadges().map((badge) => (
-            <S.Badge
-              color={badge.color ? badge.color : '#fffff'}
-              key={badge.id}
-            >
-              {badge.content}
-            </S.Badge>
-          ))}
-        </S.BadgeContent>
-      </S.UserRankContent>
-    </S.UserCard>
+            <S.BadgeContent>
+              {getBadges().map((badge) => (
+                <S.Badge
+                  color={badge.color ? badge.color : '#fffff'}
+                  key={badge.id}
+                >
+                  {badge.content}
+                </S.Badge>
+              ))}
+            </S.BadgeContent>
+          </S.UserRankContent>
+        </S.UserCard>
+      )}
+      {userData.id === 'loading' && <S.UserCard />}
+    </>
   );
 }
 export default UserInfoCard;
