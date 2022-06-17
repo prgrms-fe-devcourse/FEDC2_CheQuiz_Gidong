@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { primary, pointColor } from '@/styles/theme';
 
-interface StyledSelectButtonProps {
+interface SelectButtonProps {
   currentSelected: boolean;
 }
 
@@ -9,7 +9,13 @@ interface StyledWrapperProps {
   margin?: number;
 }
 
-export const OuterBox = styled.div``;
+export const OuterBox = styled.div`
+  * {
+    box-sizing: border-box;
+    color: ${primary};
+    font-family: 'MaplestoryOTFLight';
+  }
+`;
 
 export const InnerBox = styled.div`
   display: flex;
@@ -21,11 +27,6 @@ export const InnerBox = styled.div`
   padding: 2rem;
   border: 3px solid ${primary};
   border-radius: 0.5rem;
-  * {
-    box-sizing: border-box;
-    color: ${primary};
-    font-family: 'MaplestoryOTFLight';
-  }
 `;
 
 export const Title = styled.div`
@@ -33,7 +34,7 @@ export const Title = styled.div`
   font-size: 1.25rem;
 `;
 
-export const SelectButton = styled.button<StyledSelectButtonProps>`
+export const SelectButton = styled.button<SelectButtonProps>`
   width: 25%;
   padding: 0.5rem 1rem;
   border: 3px solid ${primary};

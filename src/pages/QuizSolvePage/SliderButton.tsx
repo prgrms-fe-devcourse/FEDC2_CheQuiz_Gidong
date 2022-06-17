@@ -1,11 +1,12 @@
 import React from 'react';
 import * as S from './styles';
 
-interface SliderButtonProps extends S.StyledSliderButtonProps {
+export interface SliderButtonProps {
   children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
   disabled?: boolean;
   className?: string;
+  color: 'point' | 'primary' | 'secondary';
   [extraProps: string]: unknown;
 }
 

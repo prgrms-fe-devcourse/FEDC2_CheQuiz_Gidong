@@ -1,11 +1,8 @@
 import styled from '@emotion/styled';
 import { primary, pointColor } from '@/styles/theme';
+import { SliderButtonProps } from './SliderButton';
 
-export interface StyledSliderButtonProps {
-  color: 'point' | 'primary' | 'secondary';
-}
-
-export interface StyledButtonProps {
+export interface SelectButtonProps {
   disabled?: boolean;
 }
 
@@ -17,7 +14,7 @@ interface WrapperProps {
   align?: 'center' | 'start' | 'flexStart' | 'flexEnd';
 }
 
-export const SliderButton = styled.button<StyledSliderButtonProps>`
+export const SliderButton = styled.button<SliderButtonProps>`
   padding: 0.5rem 1rem;
   background-color: transparent;
   border: 3px solid ${primary};
@@ -34,7 +31,7 @@ export const SliderButton = styled.button<StyledSliderButtonProps>`
   cursor: pointer;
 `;
 
-export const SelectButton = styled.button<StyledButtonProps>`
+export const SelectButton = styled.button<SelectButtonProps>`
   width: 25%;
   padding: 0.5rem 1rem;
   border: 3px solid ${primary};

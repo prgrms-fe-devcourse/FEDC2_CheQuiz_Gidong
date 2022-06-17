@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import QuizBox from '@components/Quiz';
+import Quiz from '@components/Quiz';
 import { useHistory } from 'react-router';
 import Slider from 'react-slick';
 import { POST_IDS, USER_ANSWERS } from '@/common/string';
@@ -133,7 +133,7 @@ function QuizSolvePage(): JSX.Element {
           }}
         >
           {quizzes.map((quiz, index) => (
-            <QuizBox
+            <Quiz
               quiz={quiz}
               key={quiz._id}
               index={index}
