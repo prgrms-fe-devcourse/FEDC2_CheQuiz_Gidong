@@ -1,27 +1,77 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from 'react';
 import RankingMockData from '@/assets/RankingMockData';
 import { UserAPI, UserInfo } from '@/interfaces/UserAPI';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
 import * as S from './style';
-import theme from '@/styles/theme';
+import getRankAll from '@/api/getRankAll';
 
 type Props = {
   keyword: string;
 };
 
 function UserRankList({ keyword }: Props) {
-  const userList = RankingMockData.map((data, index) => [
-    RankingMockData.length - index,
-    data,
-  ]) as [number, UserAPI][];
+  const [rankingData, setRankingData] = useState([] as UserAPI[]);
+
+  useEffect(() => {
+    const fetchRankData = async () => {
+      const data = await getRankAll();
+      setRankingData(data);
+    };
+
+    fetchRankData();
+
+    return () => {
+      fetchRankData();
+    };
+  }, []);
+
+  // const userList = RankingMockData.map((data, index) => [
+  //   RankingMockData.length - index,
+  //   data,
+  // ]) as [number, UserAPI][];
+
+  // 랭킹데이터 점수내림차순 정렬 후 순위를 위해 고정 인덱스 부여
+  const userList = rankingData
+    .sort((prev, next) => {
+      let prevPoint;
+      let nextPoint;
+
+      if (!prev?.username) prevPoint = 0;
+      else if (prev.username.indexOf('point') === -1) prevPoint = 0;
+      else {
+        const { points = 0 } = JSON.parse(prev?.username);
+        prevPoint = points;
+      }
+
+      if (!next?.username) nextPoint = 0;
+      else if (next.username.indexOf('point') === -1) nextPoint = 0;
+      else {
+        const { points = 0 } = JSON.parse(next?.username);
+        nextPoint = points;
+      }
+
+      if (nextPoint === prevPoint) return -1;
+
+      return nextPoint - prevPoint;
+    })
+    .map((data, index) => [index + 1, data]) as [number, UserAPI][];
+
+  // console.log(userList);
 
   const generateTags = (userInfo: UserAPI) => {
     const tagsList = [];
+    let point;
 
-    const { totalPoints } = JSON.parse(userInfo.username) as UserInfo;
+    if (!userInfo?.username) point = 0;
+    else if (userInfo.username.indexOf('point') === -1) point = 0;
+    else {
+      const { points = 0 } = JSON.parse(userInfo.username);
+      point = points;
+    }
 
-    const level = totalPoints / 100;
+    const level = point / 100;
 
     // 포인트 관련 조건
     const isLevel0 = level < 10 && level >= 0;
@@ -150,16 +200,6 @@ function UserRankList({ keyword }: Props) {
   return (
     <>
       {userList
-        .sort(([prevRank, prev], [nextRank, next]) => {
-          const { totalPoints: prevPoints } = JSON.parse(
-            prev.username,
-          ) as UserInfo;
-          const { totalPoints: nextPoints } = JSON.parse(
-            next.username,
-          ) as UserInfo;
-
-          return nextPoints - prevPoints;
-        })
         .filter(([itemRank, item]) => {
           const flag = item.fullName
             .toLowerCase()
@@ -168,14 +208,20 @@ function UserRankList({ keyword }: Props) {
           return true;
         })
         .map(([userRank, user]) => {
-          const { totalPoints } = JSON.parse(user.username) as UserInfo;
+          let point;
+          if (!user?.username) point = 0;
+          else if (user.username.indexOf('point') === -1) point = 0;
+          else {
+            const { points = 0 } = JSON.parse(user.username);
+            point = points;
+          }
 
           return (
             <S.Container key={user._id}>
               <S.Rank>Rank {userRank}</S.Rank>
-              <S.Exp>{totalPoints.toLocaleString()}</S.Exp>
+              <S.Exp>{point.toLocaleString()}</S.Exp>
               <S.UserProfile>
-                <S.UserImg src={checkUserImage(totalPoints)} alt="userImage" />
+                <S.UserImg src={checkUserImage(point)} alt="userImage" />
               </S.UserProfile>
               <S.UserInfoWrap>
                 <S.UserName>{user.fullName}</S.UserName>

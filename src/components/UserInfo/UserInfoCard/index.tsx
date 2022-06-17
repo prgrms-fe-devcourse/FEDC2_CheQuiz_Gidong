@@ -21,7 +21,10 @@ function UserInfoCard({ id }: userProps) {
     likes: userMockData.likes,
     posts: userMockData.posts,
     comments: userMockData.comments,
-    totalExp: JSON.parse(userMockData.username).totalPoints,
+    totalExp:
+      userMockData && userMockData.username
+        ? JSON.parse(userMockData.username).totalPoints
+        : 0,
   };
 
   // TODO: 유저리스트 비동기 API요청 필요
@@ -30,7 +33,8 @@ function UserInfoCard({ id }: userProps) {
       .map((user) => ({
         id: user._id,
         fullName: user.fullName,
-        points: JSON.parse(user.username).totalPoints,
+        points:
+          user && user.username ? JSON.parse(user.username).totalPoints : 0,
       }))
       .sort((a, b) => {
         return b.points - a.points;

@@ -1,6 +1,5 @@
 import { ChangeEvent, useState } from 'react';
 import UserRankList from '@/containers/UserRankList';
-import theme from '@/styles/theme';
 import Icon from '@/components/Icon';
 import * as S from './style';
 
@@ -38,7 +37,9 @@ function Ranking() {
           <S.Exp>경험치</S.Exp>
           <S.UserInfoWrap>유저정보</S.UserInfoWrap>
         </S.Container>
-        <UserRankList keyword={keyword} />
+        <S.UserInfoContainer>
+          <UserRankList keyword={keyword} />
+        </S.UserInfoContainer>
       </S.Wrap>
     </div>
   );

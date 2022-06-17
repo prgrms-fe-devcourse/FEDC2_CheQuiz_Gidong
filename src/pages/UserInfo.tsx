@@ -10,7 +10,10 @@ function UserInfo() {
     fullName: userMockData.fullName,
     likes: userMockData.likes,
     posts: userMockData.posts,
-    points: JSON.parse(userMockData.username).totalPoints,
+    points:
+      userMockData && userMockData.username
+        ? JSON.parse(userMockData.username).totalPoints
+        : 0,
   };
 
   return (
