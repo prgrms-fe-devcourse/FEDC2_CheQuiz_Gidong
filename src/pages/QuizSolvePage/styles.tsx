@@ -1,30 +1,37 @@
 import styled from '@emotion/styled';
-import { primary } from '@/styles/theme';
+import { primary, pointColor } from '@/styles/theme';
 
 export interface StyledSliderButtonProps {
   color: 'point' | 'primary' | 'secondary';
-  className?: string;
 }
 
 export interface StyledButtonProps {
   disabled?: boolean;
 }
 
+interface WrapperProps {
+  gap?: string;
+  margin?: string;
+  padding?: string;
+  justify?: 'center' | 'between' | 'around' | 'even' | 'flexStart' | 'flexEnd';
+  align?: 'center' | 'start' | 'flexStart' | 'flexEnd';
+}
+
 export const SliderButton = styled.button<StyledSliderButtonProps>`
-  border: none;
+  padding: 0.5rem 1rem;
   background-color: transparent;
+  border: 3px solid ${primary};
+  border-radius: 0.5rem;
   color: ${({ color }) => {
-    if (color === 'point') return '#fca311';
+    if (color === 'point') return pointColor;
     if (color === 'primary') return '#14213d';
     return '#e5e5e5';
   }};
   z-index: 10;
   font-size: 1rem;
+  font-family: 'MaplestoryOTFLight';
   outline: none;
-
-  :before {
-    color: black;
-  }
+  cursor: pointer;
 `;
 
 export const SelectButton = styled.button<StyledButtonProps>`
@@ -38,10 +45,34 @@ export const SelectButton = styled.button<StyledButtonProps>`
   font-family: 'MaplestoryOTFLight';
   outline: none;
   cursor: pointer;
+
+  :disabled {
+    cursor: not-allowed;
+  }
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<WrapperProps>`
   display: flex;
-  justify-content: center;
-  gap: 2.5rem;
+  justify-content: ${({ justify }) => {
+    if (justify === 'center') return 'center';
+    if (justify === 'between') return 'space-between';
+    if (justify === 'around') return 'space-around';
+    if (justify === 'even') return 'space-evenly';
+    if (justify === 'flexEnd') return 'flex-end';
+    return 'flex-start';
+  }};
+  align-items: ${({ align }) => {
+    if (align === 'center') return 'align-center';
+    if (align === 'start') return 'start';
+    if (align === 'flexStart') return 'flex-start';
+    if (align === 'flexEnd') return 'flex-end';
+    return 'stretch';
+  }};
+  gap: ${({ gap }) => gap || 0};
+  margin: ${({ margin }) => margin || 0};
+  padding: ${({ padding }) => padding || 0};
+  font-size: 1.25rem;
+  * {
+    font-family: 'MaplestoryOTFLight';
+  }
 `;

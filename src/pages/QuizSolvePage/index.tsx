@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import QuizBox from '@components/Quiz';
 import { useHistory } from 'react-router';
 import Slider from 'react-slick';
@@ -10,20 +10,32 @@ import 'slick-carousel/slick/slick-theme.css';
 import SliderButton from './SliderButton';
 import * as S from './styles';
 
+// slider options
+const settings = {
+  dots: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  centerPadding: '40px',
+  arrows: false,
+};
+
 function QuizSolvePage(): JSX.Element {
   const history = useHistory();
+  const sliderRef = useRef<Slider | null>(null);
+
   // TODO: 추후 api 연결 필요 및 sessionStorage에 저장 필요
   const [quizzes, setQuizzes] = useState(QuizMockData);
   const [userAnswers, setUserAnswers] = useState<string[]>(
     Array(quizzes.length).fill(''),
   );
   const [storedPostIds, setStoredPostIds] = useState<string[]>([]);
-
-  // ANCHOR: 캐러셀에서 현재 노출될 퀴스 인덱스를 결정함
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const handleIndex = useCallback(
     (index: number) => {
-      if (index >= 0 && index <= quizzes.length) setCurrentIndex(() => index);
+      if (index >= 0 && index < quizzes.length) setCurrentIndex(() => index);
     },
     [quizzes.length],
   );
@@ -87,47 +99,62 @@ function QuizSolvePage(): JSX.Element {
     fetchRandomQuizzes();
   }, [quizzes.length, setStoredPostIds, setUserAnswers]);
 
-  // slider options
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    centerPadding: '40px',
-    nextArrow: <SliderButton type="button" color="point" />,
-    prevArrow: (
-      <SliderButton
-        type="button"
-        color="point"
-        disabled={currentIndex >= quizzes.length - 1}
-      />
-    ),
-    style: { marginTop: '20%' },
-  };
-
   return (
     <form onSubmit={handleSubmit}>
-      <Slider {...settings}>
-        {quizzes.map((quiz, index) => (
-          <QuizBox
-            quiz={quiz}
-            key={quiz._id}
-            index={index}
-            onChangeUserAnswer={handleUserAnswers}
-          />
-        ))}
-      </Slider>
-      <S.Wrapper>
-        <S.SelectButton
-          type="submit"
-          disabled={
-            userAnswers.filter((answer) => answer).length < quizzes.length
-          }
+      <div>
+        <S.Wrapper justify="between" margin="1rem 0" align="center">
+          <S.Wrapper padding="0.5rem 0">
+            {currentIndex + 1} / {quizzes.length}
+          </S.Wrapper>
+          <S.Wrapper gap="0.5rem">
+            <SliderButton
+              type="button"
+              color="point"
+              onClick={() => {
+                handleIndex(currentIndex - 1);
+                sliderRef.current?.slickPrev();
+              }}
+            >
+              prev
+            </SliderButton>
+            <SliderButton
+              type="button"
+              color="point"
+              onClick={() => {
+                handleIndex(currentIndex + 1);
+                sliderRef.current?.slickNext();
+              }}
+            >
+              next
+            </SliderButton>
+          </S.Wrapper>
+        </S.Wrapper>
+        <Slider
+          {...settings}
+          ref={(slider) => {
+            sliderRef.current = slider;
+          }}
         >
-          제출
-        </S.SelectButton>
-      </S.Wrapper>
+          {quizzes.map((quiz, index) => (
+            <QuizBox
+              quiz={quiz}
+              key={quiz._id}
+              index={index}
+              onChangeUserAnswer={handleUserAnswers}
+            />
+          ))}
+        </Slider>
+        <S.Wrapper gap="2.5rem" justify="center">
+          <S.SelectButton
+            type="submit"
+            disabled={
+              userAnswers.filter((answer) => answer).length < quizzes.length
+            }
+          >
+            제출
+          </S.SelectButton>
+        </S.Wrapper>
+      </div>
     </form>
   );
 }

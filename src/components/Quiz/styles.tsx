@@ -12,7 +12,6 @@ interface StyledWrapperProps {
 export const OuterBox = styled.div``;
 
 export const InnerBox = styled.div`
-  width: 80%;
   margin: 0 auto;
   padding: 2rem;
   border: 3px solid ${primary};
