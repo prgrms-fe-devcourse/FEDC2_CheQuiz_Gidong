@@ -54,20 +54,15 @@ export function getShuffledPostIds(count: number) {
     });
 }
 
-export function getQuizzes(postIds: string[]) {
+// ANCHOR: API 변경사항이 있다면, 가장 먼저 확인해야 할 부분
+export function getQuizzes(postIds: string[]): Promise<Quiz[]> {
   return getPosts(postIds)
     .then((response) =>
       response.map((post) => {
-        try {
-          const postCopy: Partial<PostAPI> = { ...post };
-          const quizContent = postCopy.title as string;
-          delete postCopy.title;
-          return { ...postCopy, ...JSON.parse(quizContent) } as Quiz;
-        } catch (error) {
-          // eslint-disable-next-line no-console
-          console.log('error on post:', post);
-          return {};
-        }
+        const postCopy: Partial<PostAPI> = { ...post };
+        const quizContent = postCopy.title as string;
+        delete postCopy.title;
+        return { ...postCopy, ...JSON.parse(quizContent) } as Quiz;
       }),
     )
     .catch(() => {
