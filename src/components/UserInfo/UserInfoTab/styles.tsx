@@ -9,6 +9,7 @@ export const TabWrapper = styled.div`
 export const TabContent = styled.div`
   position: relative;
   height: 28rem;
+  padding: 1rem;
   background-color: #f8f9fa;
   border: 3px solid #343a40;
   border-radius: 8px;
@@ -43,7 +44,7 @@ export const TabItem = styled.div<tabItemProps>`
 
 export const ButtonWrapper = styled.div`
   display: inline-flex;
-  margin: 2rem 1rem;
+  margin: 2rem 0rem;
   background-color: aliceblue;
   gap: 0.5rem;
 `;
@@ -67,4 +68,10 @@ export const Button = styled.button<buttonProps>`
   &:hover {
     filter: brightness(120%);
   }
+`;
+
+export const UserQuizContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
 `;
