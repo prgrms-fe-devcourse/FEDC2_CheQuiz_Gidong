@@ -56,9 +56,9 @@ function parseQuiz(post: PostAPI) {
   return { ...postCopy, ...JSON.parse(quizContent) } as Quiz;
 }
 
-export function getPostIdsFromChannel(channelId: string) {
+export function getPostIdsFromChannel(channelName: string): Promise<string[]> {
   return api
-    .get<ChannelAPI>(`/channels/${channelId}`)
+    .get<ChannelAPI>(`/channels/${channelName}`)
     .then((response) => response.data)
     .then((data) => (data.posts ? data.posts : []))
     .catch(() => {
@@ -75,12 +75,18 @@ export function getShuffledPostIds(count: number) {
 }
 
 // ANCHOR: API 변경사항이 있다면, 가장 먼저 확인해야 할 부분
-export function getQuizzes(postIds: string[]): Promise<Quiz[]> {
+export function getQuizzesFromPostIds(postIds: string[]): Promise<Quiz[]> {
   return getPostsFromPostIds(postIds)
     .then((response) => response.map((post) => parseQuiz(post)))
     .catch(() => {
       throw new Error('error occured at getQuizzes');
     });
+}
+
+export function getQuizzesFromChannel(channelName: string) {
+  return getPostIdsFromChannel(channelName).then((postIds) =>
+    getQuizzesFromPostIds(postIds),
+  );
 }
 
 export function getShuffledQuizzes(count: number) {

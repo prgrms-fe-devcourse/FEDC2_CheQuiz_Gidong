@@ -26,7 +26,6 @@ function QuizSolvePage(): JSX.Element {
   const [userAnswers, setUserAnswers] = useState<string[]>(
     Array(quizLength.current).fill(''),
   );
-  const [storedPostIds, setStoredPostIds] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleUserAnswers = useCallback((index: number, value: string) => {
@@ -45,10 +44,13 @@ function QuizSolvePage(): JSX.Element {
       }
 
       sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
-      sessionStorage.setItem(POST_IDS, JSON.stringify(storedPostIds));
+      sessionStorage.setItem(
+        POST_IDS,
+        JSON.stringify(quizzes.map((quiz) => quiz._id)),
+      );
       history.push('/result');
     },
-    [history, quizzes, storedPostIds, userAnswers],
+    [history, quizzes, userAnswers],
   );
 
   // Slider Options
@@ -69,7 +71,6 @@ function QuizSolvePage(): JSX.Element {
 
   useEffect(() => {
     // initialize
-    setStoredPostIds([]);
     sessionStorage.removeItem(POST_IDS);
     sessionStorage.removeItem(USER_ANSWERS);
 
@@ -78,7 +79,7 @@ function QuizSolvePage(): JSX.Element {
         const shuffledQuizzes = await QuizServices.getShuffledQuizzes(
           quizLength.current,
         );
-        setQuizzes(shuffledQuizzes);
+        return shuffledQuizzes;
       } catch (error) {
         throw Error('error occured at fetchRandomQuizzes.');
       }
@@ -87,27 +88,22 @@ function QuizSolvePage(): JSX.Element {
     const fetchQuizzesFromChannel = async () => {
       // TODO: sessionStorage에 channelId 저장 필요
       try {
-        const ids = await QuizServices.getPostIdsFromChannel('CheQuiz');
-        return ids;
+        const quizzesFromChannel = await QuizServices.getQuizzesFromChannel(
+          'CheQuiz',
+        );
+        return quizzesFromChannel;
       } catch (error) {
         throw Error('error occured at fetchQuizzesFromChannel.');
       }
     };
 
-    const next = async (ids: string[]) => {
-      try {
-        setStoredPostIds(ids);
-        setUserAnswers(Array(ids.length).fill(''));
-        return QuizServices.getQuizzes(ids).then((response) =>
-          setQuizzes(response),
-        );
-      } catch (error) {
-        throw Error('error occured at myFunction.');
-      }
+    const next = (quizArray: QuizInterface[]) => {
+      setQuizzes(quizArray);
+      setUserAnswers(Array(quizArray.length).fill(''));
     };
 
-    fetchRandomQuizzes();
-  }, [quizzes.length, setStoredPostIds, setUserAnswers]);
+    fetchRandomQuizzes().then((quizArray) => next(quizArray));
+  }, [quizzes.length, setUserAnswers]);
 
   return (
     <form onSubmit={handleSubmit}>
