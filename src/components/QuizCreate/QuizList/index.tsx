@@ -25,7 +25,7 @@ function QuizList({ quizList, setQuizList }: QuizListProps) {
   const handleQuizDelete = (id: number) => () => {
     setQuizList(quizList.filter((quiz) => quiz._id !== id));
   };
-  const handleQuizChange = (id: number, key: string, value: string) => {
+  const handleQuizChange = (id: number, key: string, value: unknown) => {
     setQuizList(
       quizList.map((quiz) =>
         quiz._id === id ? { ...quiz, [key]: value } : quiz,
