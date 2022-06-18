@@ -35,3 +35,16 @@ export const fetchUserQuiz = async (userId: string) => {
     throw new Error('Get UserQuiz Failed');
   }
 };
+
+// 임시로 사용 => 추후 준혁님의 quizService merge시 해당 API 사용 예정
+export const fetchPosts = async () => {
+  try {
+    const res = await axiosInstance({
+      method: 'GET',
+      url: `/posts`,
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error('Get Posts Failed');
+  }
+};
