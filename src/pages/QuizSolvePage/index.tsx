@@ -44,14 +44,8 @@ function QuizSolvePage(): JSX.Element {
         return;
       }
 
-      // user 답 sessionStorage에 저장
       sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
-      // postId 저장하기
       sessionStorage.setItem(POST_IDS, JSON.stringify(storedPostIds));
-      // TODO: remove test logic after merge
-      console.log(QuizServices.caculateScore(quizzes, userAnswers));
-
-      // TODO: history.push로 route 이동하기
       history.push('/result');
     },
     [history, quizzes, storedPostIds, userAnswers],
@@ -76,29 +70,41 @@ function QuizSolvePage(): JSX.Element {
   useEffect(() => {
     // initialize
     setStoredPostIds([]);
-    sessionStorage.setItem(
-      USER_ANSWERS,
-      JSON.stringify(Array(quizzes.length).fill('')),
-    );
+    sessionStorage.removeItem(POST_IDS);
+    sessionStorage.removeItem(USER_ANSWERS);
 
     const fetchRandomQuizzes = async () => {
-      const ids = await QuizServices.getShuffledPostIds(quizLength.current);
-      setStoredPostIds(ids);
-      return QuizServices.getQuizzes(ids).then((response) =>
-        setQuizzes(response),
-      );
+      try {
+        const ids = await QuizServices.getShuffledPostIds(quizLength.current);
+        return ids;
+      } catch (error) {
+        throw Error('error occured at fetchRandomQuizzes.');
+      }
     };
 
     const fetchQuizzesFromChannel = async () => {
       // TODO: sessionStorage에 channelId 저장 필요
-      const ids = await QuizServices.getPostIdsFromChannel('CheQuiz');
-      setStoredPostIds(ids);
-      return QuizServices.getQuizzes(ids).then((response) =>
-        console.log(response),
-      );
+      try {
+        const ids = await QuizServices.getPostIdsFromChannel('CheQuiz');
+        return ids;
+      } catch (error) {
+        throw Error('error occured at fetchQuizzesFromChannel.');
+      }
     };
 
-    fetchRandomQuizzes();
+    const next = async (ids: string[]) => {
+      try {
+        setStoredPostIds(ids);
+        setUserAnswers(Array(ids.length).fill(''));
+        return QuizServices.getQuizzes(ids).then((response) =>
+          setQuizzes(response),
+        );
+      } catch (error) {
+        throw Error('error occured at myFunction.');
+      }
+    };
+
+    fetchRandomQuizzes().then((ids) => next(ids));
   }, [quizzes.length, setStoredPostIds, setUserAnswers]);
 
   return (
