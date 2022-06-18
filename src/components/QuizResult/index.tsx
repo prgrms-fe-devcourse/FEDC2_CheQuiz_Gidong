@@ -23,18 +23,33 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
   );
   // TODO: useCollapse 만들기
   const [collapsed, setCollapsed] = useState(true);
-  const handleCommentSubmit = async (e: React.FormEvent) => {
+
+  const postComment = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // TODO: alert를 toast로 변경
-    if (!inputValue.trim()) alert('1글자 이상 작성해야 합니다.');
+    if (!inputValue.trim()) window.alert('1글자 이상 작성해야 합니다.');
+    try {
+      const newComment = await UserService.createComment({
+        comment: inputValue,
+        postId: quiz._id,
+      });
 
-    const newComment = await UserService.createComment({
-      comment: inputValue,
-      postId: quiz._id,
-    });
-    console.log(newComment);
-    setInputValue('');
+      setComments((prev) => [...prev, newComment]);
+      setInputValue('');
+    } catch (error) {
+      window.alert('문제가 생겨 댓글을 작성할 수 없습니다.');
+      throw new Error('error occured at postComment.');
+    }
+  };
+
+  const deleteComment = async (id: string) => {
+    try {
+      await UserService.deleteComment(id);
+      setComments((prev) => prev.filter((comment) => comment._id !== id));
+    } catch (error) {
+      throw new Error('error occured at deleteComment.');
+    }
   };
 
   const isLoggedIn = !(JSON.stringify(user) === '{}' || !user);
@@ -68,7 +83,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
             <div>{quiz.answerDescription}</div>
           </S.Description>
           <S.Wrapper>
-            <form onSubmit={handleCommentSubmit}>
+            <form onSubmit={postComment}>
               <h3>comment 작성하기</h3>
               <S.Flex>
                 <S.ProfileImage>작성자 사진</S.ProfileImage>
@@ -103,8 +118,18 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
                   <S.Text>내용: {comment.comment}</S.Text>
                 </div>
               </S.CommentCenter>
-              <div>날짜: {comment.createdAt}</div>
-              {/** TODO: 내가 작성한 댓글은 지울 수 있도록 로직 처리 */}
+              <div>
+                <div>날짜: {comment.createdAt}</div>
+                {/** TODO: 내가 작성한 댓글은 지울 수 있도록 로직 처리 */}
+                {comment.author._id === user._id ? (
+                  <S.Button
+                    type="button"
+                    onClick={() => deleteComment(comment._id)}
+                  >
+                    삭제하기
+                  </S.Button>
+                ) : null}
+              </div>
             </S.Comment>
           ))}
         </S.Container>
