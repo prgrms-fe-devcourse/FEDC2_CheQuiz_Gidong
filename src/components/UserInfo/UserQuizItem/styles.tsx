@@ -4,10 +4,11 @@ import { borderRadius, large, primary, small } from '@/styles/theme';
 export const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
+  //width: 35rem;
   height: 5.5rem;
   border: 3px solid ${primary};
   border-radius: ${borderRadius};
-  //width: 35rem;
+  background-color: white;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.1s;
@@ -54,7 +55,8 @@ export const CountWrapper = styled.div`
 export const CountItem = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.25rem;
+  width: 100%;
   color: ${primary};
 `;

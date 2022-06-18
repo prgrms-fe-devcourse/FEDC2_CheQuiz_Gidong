@@ -1,9 +1,15 @@
 import styled from '@emotion/styled';
+import { lightGrayWhite, primary } from '@/styles/theme';
 
 export const TabWrapper = styled.div`
   margin-top: 4rem;
   width: 100%;
   min-width: 40rem;
+`;
+
+export const TabMenus = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const TabContent = styled.div`
@@ -13,6 +19,17 @@ export const TabContent = styled.div`
   background-color: #f8f9fa;
   border: 3px solid #343a40;
   border-radius: 8px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${primary};
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${lightGrayWhite};
+  }
 `;
 
 export const TabItemContainer = styled.div`
@@ -44,7 +61,6 @@ export const TabItem = styled.div<tabItemProps>`
 
 export const ButtonWrapper = styled.div`
   display: inline-flex;
-  margin: 2rem 0rem;
   background-color: aliceblue;
   gap: 0.5rem;
 `;
