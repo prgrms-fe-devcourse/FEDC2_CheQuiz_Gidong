@@ -3,7 +3,7 @@ import {
   blackGray,
   correct,
   DarkGray,
-  h2,
+  h3,
   incorrect,
   lightGrayWhite,
   small,
@@ -50,6 +50,7 @@ export const SelectBox = styled.select`
 
   appearance: none;
   background: url(${arrowIcon}) 95.5% center/10% no-repeat white;
+  cursor: pointer;
 `;
 
 export const QuestionWrapper = styled.div`
@@ -57,6 +58,7 @@ export const QuestionWrapper = styled.div`
   display: flex;
   font-family: 'MaplestoryOTFBold', sans-serif !important;
   font-size: 1.5rem;
+  gap: 0.5rem;
 `;
 
 //* Answer
@@ -93,9 +95,10 @@ export const TrueFalseBox = styled.label`
   border: 3px solid ${DarkGray};
   border-radius: 0.5rem;
   background-color: white;
-  ${h2};
   text-align: center;
   line-height: 3rem;
+  ${h3};
+  cursor: pointer;
 `;
 export const TrueFalseController = styled.input`
   display: none;
@@ -111,6 +114,11 @@ export const Difficulty = styled.div``;
 
 export const AnswerDescription = styled.div`
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  & > textarea {
+    flex-grow: 1;
+  }
 `;
 
 //* Common
@@ -122,9 +130,10 @@ export const TextArea = styled.textarea`
   border: 3px solid ${DarkGray};
   border-radius: 0.5rem;
   font-family: 'Pretendard';
+  resize: none;
 `;
 export const Label = styled.div<LabelProps>`
   display: ${({ block }) => (block ? 'block' : 'inline-block')};
   font-size: 1.25rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 `;

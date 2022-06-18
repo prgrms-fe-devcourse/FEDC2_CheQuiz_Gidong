@@ -3,7 +3,7 @@ import {
   DEFAULT_CHANNEL_ID,
   TEST_USER_TOKEN,
 } from '@/assets/QuizCreateMockData';
-import { QuizSetClientContent } from '@/components/create';
+import { QuizSetClientContent } from '@/components/QuizCreate';
 import { QuizContent } from '@/interfaces/Quiz';
 import axiosInstance from '@/api/apiInstance';
 

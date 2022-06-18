@@ -11,12 +11,14 @@ import Icon from '@/components/Icon';
 
 interface QuizItemProps {
   quizData: QuizClientContent;
+  order: number;
   handleQuizDelete: (id: number) => (e: React.MouseEvent) => void;
   onChangeQuiz: (id: number, key: string, value: string) => void;
 }
 
 export default function QuizItem({
   quizData,
+  order,
   onChangeQuiz,
   handleQuizDelete,
 }: QuizItemProps) {
@@ -26,18 +28,13 @@ export default function QuizItem({
       onChangeQuiz(quizData._id, key, (e.target as HTMLInputElement).value);
     };
 
-  const iconProps = {
-    name: 'x-circle',
-    size: 20,
-    strokeWidth: 2,
-    color: '#222',
-    rotate: 0,
-    addStyle: { alignSelf: 'flex-end' },
-  };
-
   return (
     <S.QuizContainer>
-      <Icon {...iconProps} onClick={handleQuizDelete(quizData._id)} />
+      <Icon
+        name="x-circle"
+        addStyle={{ alignSelf: 'flex-end', cursor: 'pointer' }}
+        onClick={handleQuizDelete(quizData._id)}
+      />
       <S.QuestionSection>
         <S.SelectWrapper>
           <S.SelectBox
@@ -67,7 +64,7 @@ export default function QuizItem({
           </S.SelectBox>
         </S.SelectWrapper>
         <S.QuestionWrapper>
-          Q.
+          {`Q${order}`}
           <S.TextArea
             value={quizData.question}
             onChange={handleInputChange('question')}
@@ -86,12 +83,14 @@ export default function QuizItem({
               <React.Fragment key={value}>
                 <S.TrueFalseController
                   type="radio"
-                  id={label}
+                  id={`${quizData._id}${label}`}
                   name={`answer_${quizData._id}`}
                   value={value}
                   onChange={handleInputChange('answer')}
                 />
-                <S.TrueFalseBox htmlFor={label}> {label} </S.TrueFalseBox>
+                <S.TrueFalseBox htmlFor={`${quizData._id}${label}`}>
+                  {label}
+                </S.TrueFalseBox>
               </React.Fragment>
             ))}
           </S.TrueFalseWrapper>
