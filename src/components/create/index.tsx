@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
+import React, { useRef, useState, useEffect } from 'react';
+import Icon from '@components/Icon';
 import QuizItem from './QuizItem';
+import * as S from './styles';
 import { createQuiz, createQuizSet } from '@/api/create';
 import { QuizClientContent } from '@/interfaces/Quiz';
 import { QUIZ_SET_TAG_LIST } from '@/constants';
@@ -9,12 +10,6 @@ import {
   QUIZ_SET_DEFAULT_STATE,
 } from '@/assets/QuizCreateMockData';
 
-const QuizFormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  margin-top: 150px;
-`;
 export interface QuizSetClientContent {
   name: string;
   tags: string[];
@@ -29,6 +24,7 @@ function QuizForm() {
   const [quizSet, setQuizSet] = useState<QuizSetClientContent>(
     QUIZ_SET_DEFAULT_STATE,
   );
+  const move = useRef(false);
 
   const handleSetTagChange = (tag: string) => {
     const index = quizSet.tags.indexOf(tag);
@@ -45,6 +41,7 @@ function QuizForm() {
       ),
     );
   };
+
   const handleQuizAdd = () => {
     setQuizList([
       ...quizList,
@@ -53,6 +50,7 @@ function QuizForm() {
         _id: Math.max(...quizList.map((quiz) => quiz._id), 0) + 1,
       },
     ]);
+    move.current = !move.current;
   };
   const handleQuizDelete = (id: number) => () => {
     setQuizList(quizList.filter((quiz) => quiz._id !== id));
@@ -75,61 +73,77 @@ function QuizForm() {
       });
     }
   };
+
+  const insertButtonRef = useRef<HTMLButtonElement>(null);
+  const scrollToBottom = () => {
+    insertButtonRef?.current?.scrollIntoView({
+      behavior: 'smooth',
+    });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [move.current]);
+
   return (
-    <QuizFormWrapper onSubmit={handleQuizSubmit}>
-      <section>
-        <input
+    <S.FormContainer onSubmit={handleQuizSubmit}>
+      <S.SetWrapper>
+        <S.SetCheckBox
           type="checkbox"
           checked={isSet}
           onChange={() => toggleSet(!isSet)}
         />
         세트화 여부
-        <input
+        <S.SetNameInput
           disabled={!isSet}
-          placeholder="세트이름"
+          placeholder="퀴즈세트 이름을 적어주세요"
           onChange={({ target }) =>
             setQuizSet({ ...quizSet, name: target.value })
           }
         />
         {isSet && (
-          <div>
+          <S.SetInfoWrpper>
             {QUIZ_SET_TAG_LIST.map((tag) => (
-              <span key={tag}>
-                <input
+              <React.Fragment key={tag}>
+                <S.SetTagInput
                   type="checkbox"
+                  id={tag}
                   value={tag}
                   onChange={({ target }) => handleSetTagChange(target.value)}
                 />
-                {tag}
-              </span>
+                <S.SetTag htmlFor={tag}>{tag}</S.SetTag>
+              </React.Fragment>
             ))}
-            <textarea
+            <S.TextArea
               value={quizSet.des}
+              placeholder="퀴즈세트에 대해서 설명해주세요"
               onChange={({ target }) =>
                 setQuizSet({ ...quizSet, des: target.value })
               }
-              style={{ display: 'block', width: '100%' }}
             />
-          </div>
+          </S.SetInfoWrpper>
         )}
-      </section>
-      <section>
-        {quizList.map((quiz) => (
+      </S.SetWrapper>
+      <S.QuizListContainer>
+        {quizList.map((quiz, idx) => (
           <QuizItem
             quizData={quiz}
             key={quiz._id}
+            order={idx + 1}
             onChangeQuiz={handleQuizChange}
             handleQuizDelete={handleQuizDelete}
           />
         ))}
-      </section>
-      <section style={{ marginTop: '50px' }}>
-        <button type="button" onClick={handleQuizAdd}>
+        <S.InsertQuizItem
+          ref={insertButtonRef}
+          type="button"
+          onClick={handleQuizAdd}
+        >
+          <Icon name="plus-circle" size={24} />
           퀴즈 추가하기
-        </button>
-        <button type="submit">퀴즈 제출</button>
-      </section>
-    </QuizFormWrapper>
+        </S.InsertQuizItem>
+      </S.QuizListContainer>
+      <S.SubmitButton type="submit">퀴즈 제출</S.SubmitButton>
+    </S.FormContainer>
   );
 }
 

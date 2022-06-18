@@ -6,10 +6,14 @@ import { icons } from 'feather-icons';
 
 type propsType = {
   name: string;
-  size: number;
-  strokeWidth: number;
-  color: string;
-  rotate: number;
+  size?: number;
+  strokeWidth?: number;
+  color?: string;
+  rotate?: number;
+  addStyle?: {
+    [x: string]: unknown;
+  };
+  [x: string]: unknown;
 };
 
 const IconWrapper = styled.i`
@@ -21,7 +25,8 @@ function Icon({
   size = 16,
   strokeWidth = 2,
   color = '#222',
-  rotate,
+  rotate = 0,
+  addStyle,
   ...props
 }: propsType) {
   const iconStyle = {
@@ -39,7 +44,7 @@ function Icon({
   const svg = icon ? icon.toSvg(iconStyle) : '';
   const base64 = Buffer.from(svg, 'utf8').toString('base64');
   return (
-    <IconWrapper style={shapeStyle} {...props}>
+    <IconWrapper style={{ ...shapeStyle, ...addStyle }} {...props}>
       <img alt={name} src={`data:image/svg+xml;base64,${base64}`} />
     </IconWrapper>
   );
