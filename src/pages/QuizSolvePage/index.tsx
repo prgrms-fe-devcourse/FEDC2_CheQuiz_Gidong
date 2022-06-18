@@ -75,8 +75,10 @@ function QuizSolvePage(): JSX.Element {
 
     const fetchRandomQuizzes = async () => {
       try {
-        const ids = await QuizServices.getShuffledPostIds(quizLength.current);
-        return ids;
+        const shuffledQuizzes = await QuizServices.getShuffledQuizzes(
+          quizLength.current,
+        );
+        setQuizzes(shuffledQuizzes);
       } catch (error) {
         throw Error('error occured at fetchRandomQuizzes.');
       }
@@ -104,7 +106,7 @@ function QuizSolvePage(): JSX.Element {
       }
     };
 
-    fetchRandomQuizzes().then((ids) => next(ids));
+    fetchRandomQuizzes();
   }, [quizzes.length, setStoredPostIds, setUserAnswers]);
 
   return (
