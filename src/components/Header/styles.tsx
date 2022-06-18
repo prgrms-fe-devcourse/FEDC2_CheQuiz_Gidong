@@ -8,6 +8,7 @@ export const HeaderContainer = styled.div`
   width: 100%;
   border-bottom: 3px solid #343a40;
   background-color: #f8f9fa;
+  z-index: 3;
 `;
 
 // header : fixed에 의한 레이아웃 용
