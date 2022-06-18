@@ -2,8 +2,8 @@ import { css } from '@emotion/react';
 
 const reset = css`
   * {
-    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
-      'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    font-family: 'MaplestoryOTFLight', -apple-system, BlinkMacSystemFont,
+      system-ui, 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   }
   html,
   body,
@@ -93,8 +93,8 @@ const reset = css`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
-      'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    font-family: 'MaplestoryOTFLight', -apple-system, BlinkMacSystemFont,
+      system-ui, 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   }
   /* HTML5 display-role reset for older browsers */
   article,

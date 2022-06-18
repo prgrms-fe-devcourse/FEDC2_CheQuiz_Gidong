@@ -2,33 +2,7 @@ import { css } from '@emotion/react';
 
 const fontStyle = css`
   @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
-
-  @font-face {
-    font-family: 'Pretendard';
-    font-weight: 600;
-    font-display: swap;
-    src: local('Pretendard SemiBold'),
-      local('./fonts/Pretendard-SemiBold.woff2') format('woff2'),
-      local('./fonts/Pretendard-SemiBold.woff') format('woff');
-  }
-
-  @font-face {
-    font-family: 'Pretendard';
-    font-weight: 500;
-    font-display: swap;
-    src: local('Pretendard Medium'),
-      local('./fonts/Pretendard-Medium.woff2') format('woff2'),
-      local('./fonts/Pretendard-Medium.woff') format('woff');
-  }
-
-  @font-face {
-    font-family: 'Pretendard';
-    font-weight: 400;
-    font-display: swap;
-    src: local('Pretendard Regular'),
-      local('./fonts/Pretendard-Regular.woff2') format('woff2'),
-      local('./fonts/Pretendard-Regular.woff') format('woff');
-  }
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
   @font-face {
     font-family: 'MaplestoryOTFLight';

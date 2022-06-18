@@ -48,3 +48,22 @@ export interface UserAPI {
   updatedAt: string;
   username?: string;
 }
+
+export interface customUserAPI {
+  id: string;
+  fullName: string;
+  posts: PostAPI[];
+  likes: LikeAPI[];
+  comments: CommentAPI[] | string[];
+  totalExp?: number;
+}
+export interface userSimpleType {
+  id: string;
+  fullName: string;
+  points: number;
+  createdAt?: string;
+}
+export interface userQuizCategory {
+  id: string;
+  category: string;
+}
