@@ -3,6 +3,7 @@ import useInput from '@hooks/useInput';
 import AnimateHeight from 'react-animate-height';
 import { Quiz } from '@/interfaces/Quiz';
 import { CommentAPI } from '@/interfaces/CommentAPI';
+import { useAuthContext } from '@/contexts/AuthContext';
 import * as UserService from '@/utils/UserServices';
 import * as S from './styles';
 
@@ -11,12 +12,15 @@ interface QuizResultProps extends S.StyledQuizResultProps {
 }
 
 function QuizResult({ quiz, correct }: QuizResultProps) {
+  const { user } = useAuthContext();
   const [inputValue, handler, setInputValue] = useInput('');
   const [comments, setComments] = useState<CommentAPI[]>(() =>
     quiz && quiz.comments ? quiz.comments : [],
   );
-  // TODO: useState에 들어갈 값 변경 필요 -> quiz likes 배열 참조할 것
-  const [userLiked, setUserLiked] = useState(false);
+  // TODO: TEST 필요
+  const [userLiked, setUserLiked] = useState(
+    () => user._id && quiz.likes.map((like) => like.user).includes(user._id),
+  );
   // TODO: useCollapse 만들기
   const [collapsed, setCollapsed] = useState(true);
   const handleCommentSubmit = (e: React.FormEvent) => {
