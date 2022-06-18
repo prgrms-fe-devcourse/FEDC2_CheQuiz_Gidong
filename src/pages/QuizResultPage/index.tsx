@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { useSessionStorage } from '@hooks/useStorage';
+import React, { useEffect, useMemo, useState } from 'react';
 import QuizResult from '@components/QuizResult';
-import { USER_ANSWERS, POST_IDS } from '@/common/string';
-import QuizMockData from '@/assets/QuizMockData';
+import { Quiz as QuizInterface } from '@/interfaces/Quiz';
+import * as QuizServices from '@/utils/QuizServices';
 import * as S from './styles';
 
 /**
@@ -13,17 +12,37 @@ import * as S from './styles';
  * 4. random인지, random인지 아닌지 저장해야 한다.
  */
 function QuizResultPage() {
-  const [mockData] = useState(QuizMockData);
-  const [solvedPostIds] = useSessionStorage<string[]>(POST_IDS, []);
-  const [userAnswers] = useSessionStorage<string[]>(
-    USER_ANSWERS,
-    Array(solvedPostIds.length).fill(''),
+  const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
+  // TODO: 67 branch 머지 시 변경 필요
+  const solvedPostIds = useMemo(
+    () => [
+      '62ac3cc2377cfd03a86b54c0',
+      '62ac3c72377cfd03a86b54b8',
+      '62aaf228e193b3692eddfb96',
+      '62aaf058e193b3692eddfb08',
+    ],
+    [],
   );
+  const userAnswers = useMemo(() => ['true', 'false', 'true', 'false'], []);
   // TODO: implement validation logics
   // if userAnswers.length !== userAnswers.filter(answer => answer).length -> 404page
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        // TODO: 67 branch 머지시 변경 필요
+        const q = await QuizServices.getQuizzes(solvedPostIds);
+        setQuizzes(q);
+      } catch (error) {
+        throw new Error('error occured at fetchPosts');
+      }
+    };
+    fetchPosts();
+  }, [solvedPostIds]);
+
   return (
     <S.QuizResultPage>
-      {mockData.map((mock, index) => (
+      {quizzes.map((mock, index) => (
         <React.Fragment key={mock._id}>
           <QuizResult
             quiz={mock}
