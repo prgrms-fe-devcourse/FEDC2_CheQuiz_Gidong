@@ -2,8 +2,8 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import Home from '@/pages/Home';
 import QuizCreate from '@/pages/QuizCreate';
-import QuizSolve from '@/pages/QuizSolve';
 import QuizResultPage from '@/pages/QuizResultPage';
+import QuizSolvePage from '@/pages/QuizSolvePage';
 import AnotherLayout from '@/pages/AnotherLayout';
 import Error from '@/pages/Error';
 import UserInfo from '@/pages/UserInfo';
@@ -14,9 +14,9 @@ function Routers() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/create" component={QuizCreate} />
-        <Route exact path="/solve" component={QuizSolve} />
         <Route exact path="/result" component={QuizResultPage} />
         <Route path="/user" component={UserInfo} />
+        <Route exact path="/solve" component={QuizSolvePage} />
         <Route path="/another" component={AnotherLayout} />
         <Route path="/error" component={Error} />
         <Route path="/" component={Home} />
