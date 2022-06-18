@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import React from 'react';
+import * as S from './styles';
 import { QuizClientContent } from '@/interfaces/Quiz';
 import {
   DIFFICULTY_COUNT,
@@ -6,26 +7,7 @@ import {
   QUIZ_ANSWER_TYPE_LIST,
   QUIZ_CATEGORY_LIST,
 } from '@/constants';
-
-const Wrapper = styled.div`
-  margin: 48px 0;
-`;
-const QuestionSection = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 16px;
-`;
-const AnswerSection = styled.section`
-  display: flex;
-`;
-const FlexCol = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const Label = styled.div`
-  font-size: 0.75rem;
-`;
+import Icon from '@/components/Icon';
 
 interface QuizItemProps {
   quizData: QuizClientContent;
@@ -44,11 +26,21 @@ export default function QuizItem({
       onChangeQuiz(quizData._id, key, (e.target as HTMLInputElement).value);
     };
 
+  const iconProps = {
+    name: 'x-circle',
+    size: 20,
+    strokeWidth: 2,
+    color: '#222',
+    rotate: 0,
+    addStyle: { alignSelf: 'flex-end' },
+  };
+
   return (
-    <Wrapper>
-      <QuestionSection>
-        <FlexCol>
-          <select
+    <S.QuizContainer>
+      <Icon {...iconProps} onClick={handleQuizDelete(quizData._id)} />
+      <S.QuestionSection>
+        <S.SelectWrapper>
+          <S.SelectBox
             value={quizData.category}
             onChange={handleInputChange('category')}
           >
@@ -62,57 +54,49 @@ export default function QuizItem({
                 {opt.label}
               </option>
             ))}
-          </select>
-          <select
+          </S.SelectBox>
+          <S.SelectBox
             value={quizData.answerType}
             onChange={handleInputChange('answerType')}
           >
-            {QUIZ_ANSWER_TYPE_LIST.map((opt) => {
-              return (
-                <option
-                  key={opt.value}
-                  value={opt.value}
-                  disabled={!opt.canUse}
-                >
-                  {opt.label}
-                </option>
-              );
-            })}
-          </select>
-        </FlexCol>
-        <div>
-          <Label>Q. 질문</Label>
-          <textarea
+            {QUIZ_ANSWER_TYPE_LIST.map((opt) => (
+              <option key={opt.value} value={opt.value} disabled={!opt.canUse}>
+                {opt.label}
+              </option>
+            ))}
+          </S.SelectBox>
+        </S.SelectWrapper>
+        <S.QuestionWrapper>
+          Q.
+          <S.TextArea
             value={quizData.question}
             onChange={handleInputChange('question')}
           />
-        </div>
-        <button type="button" onClick={handleQuizDelete(quizData._id)}>
-          퀴즈 삭제
-        </button>
-      </QuestionSection>
-      <AnswerSection>
-        <FlexCol>
-          <div>
-            <Label>정답</Label>
+        </S.QuestionWrapper>
+      </S.QuestionSection>
+
+      <S.AnswerSection>
+        <S.LeftSide>
+          <S.TrueFalseWrapper>
+            <S.Label block>정답</S.Label>
             {[
               { label: 'O', value: 'true' },
               { label: 'X', value: 'false' },
             ].map(({ label, value }) => (
-              <div style={{ display: 'inline-block' }} key={value}>
-                <input
+              <React.Fragment key={value}>
+                <S.TrueFalseController
                   type="radio"
-                  id={value}
+                  id={label}
                   name={`answer_${quizData._id}`}
                   value={value}
                   onChange={handleInputChange('answer')}
                 />
-                <label htmlFor={value}> {label} </label>
-              </div>
+                <S.TrueFalseBox htmlFor={label}> {label} </S.TrueFalseBox>
+              </React.Fragment>
             ))}
-          </div>
-          <div>
-            <Label>중요도</Label>
+          </S.TrueFalseWrapper>
+          <S.Importance>
+            <S.Label block>중요도</S.Label>
             {Array.from({ length: IMPORTANCE_COUNT }, (_, i) => i + 1).map(
               (id) => (
                 <div style={{ display: 'inline-block' }} key={id}>
@@ -127,9 +111,9 @@ export default function QuizItem({
                 </div>
               ),
             )}
-          </div>
-          <div>
-            <Label>난이도</Label>
+          </S.Importance>
+          <S.Difficulty>
+            <S.Label block>난이도</S.Label>
             {Array.from({ length: DIFFICULTY_COUNT }, (_, i) => i + 1).map(
               (id) => (
                 <div style={{ display: 'inline-block' }} key={id}>
@@ -144,17 +128,16 @@ export default function QuizItem({
                 </div>
               ),
             )}
-          </div>
-        </FlexCol>
-        <div>
-          <Label>해설</Label>
-          <textarea
+          </S.Difficulty>
+        </S.LeftSide>
+        <S.AnswerDescription>
+          <S.Label block>해설</S.Label>
+          <S.TextArea
             value={quizData.answerDescription}
             onChange={handleInputChange('answerDescription')}
-            style={{ height: '80%' }}
           />
-        </div>
-      </AnswerSection>
-    </Wrapper>
+        </S.AnswerDescription>
+      </S.AnswerSection>
+    </S.QuizContainer>
   );
 }
