@@ -23,12 +23,21 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
   );
   // TODO: useCollapse 만들기
   const [collapsed, setCollapsed] = useState(true);
-  const handleCommentSubmit = (e: React.FormEvent) => {
+  const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: comment validation
-    UserService.createComment({ comment: inputValue, postId: quiz._id });
+
+    // TODO: alert를 toast로 변경
+    if (!inputValue.trim()) alert('1글자 이상 작성해야 합니다.');
+
+    const newComment = await UserService.createComment({
+      comment: inputValue,
+      postId: quiz._id,
+    });
+    console.log(newComment);
     setInputValue('');
   };
+
+  const isLoggedIn = !(JSON.stringify(user) === '{}' || !user);
 
   return (
     <S.Box>
@@ -64,7 +73,15 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
               <S.Flex>
                 <S.ProfileImage>작성자 사진</S.ProfileImage>
                 <S.InputWrapper>
-                  <S.Input type="text" value={inputValue} onChange={handler} />
+                  <S.Input
+                    type="text"
+                    value={inputValue}
+                    onChange={handler}
+                    placeholder={
+                      isLoggedIn ? '댓글을 남겨보세요.' : '로그인해야 합니다.'
+                    }
+                    disabled={!isLoggedIn}
+                  />
                 </S.InputWrapper>
 
                 {/** TODO: disabled when loading */}
