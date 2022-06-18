@@ -43,7 +43,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
             Toggle
           </button>
           <button type="button">좋아요 {quiz.likes.length}</button>
-          <button type="button">댓글</button>
+          <button type="button">댓글 {comments.length}</button>
         </S.HeaderRight>
       </S.Header>
       <AnimateHeight duration={350} height={collapsed ? 0 : 'auto'}>
@@ -70,7 +70,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
               </S.Flex>
             </form>
           </S.Wrapper>
-          <h1>comment 보기</h1>
+          <h1>{comments.length ? '코멘트 보기' : '코멘트가 없습니다.'}</h1>
           {comments.map((comment) => (
             <S.Comment key={comment._id}>
               <S.ProfileImage>작성자 사진</S.ProfileImage>
