@@ -9,7 +9,7 @@ import {
   small,
   white,
 } from '@/styles/theme';
-import arrowIcon from '@/assets/arrow_down_icon.png';
+import arrowIcon from '@/assets/downArrow.png';
 
 interface LabelProps {
   block: boolean;

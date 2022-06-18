@@ -8,9 +8,7 @@ interface RateProps {
   defaultVal: number;
   onChangeStar?: (value: number) => void;
   size?: number;
-  props?: {
-    [x: string]: unknown;
-  };
+  [x: string]: unknown;
 }
 
 const RateWrapper = styled.div`

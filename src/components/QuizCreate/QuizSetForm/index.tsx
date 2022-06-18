@@ -1,13 +1,13 @@
 import React from 'react';
 import { QUIZ_SET_TAG_LIST } from '@/constants';
 import * as S from './styles';
-import { QuizSetClientContent } from '..';
+import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
 
 interface SetFormProps {
   isSet: boolean;
-  quizSet: QuizSetClientContent;
+  quizSet: ChannelAPICustomTitle;
   toggleSet: React.Dispatch<React.SetStateAction<boolean>>;
-  setQuizSet: React.Dispatch<React.SetStateAction<QuizSetClientContent>>;
+  setQuizSet: React.Dispatch<React.SetStateAction<ChannelAPICustomTitle>>;
 }
 function QuizSetForm({ isSet, quizSet, toggleSet, setQuizSet }: SetFormProps) {
   const handleSetTagChange = (tag: string) => {

@@ -8,19 +8,14 @@ import {
 } from '@/assets/QuizCreateMockData';
 import QuizList from './QuizList';
 import QuizSetForm from './QuizSetForm';
-
-export interface QuizSetClientContent {
-  name: string;
-  tags: string[];
-  des: string;
-}
+import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
 
 function QuizForm() {
   const [quizList, setQuizList] = useState<QuizClientContent[]>([
     QUIZ_ITEM_DEFAULT_STATE,
   ]);
   const [isSet, toggleSet] = useState<boolean>(false);
-  const [quizSet, setQuizSet] = useState<QuizSetClientContent>(
+  const [quizSet, setQuizSet] = useState<ChannelAPICustomTitle>(
     QUIZ_SET_DEFAULT_STATE,
   );
 
