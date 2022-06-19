@@ -4,7 +4,7 @@ import { lightGrayWhite, primary } from '@/styles/theme';
 export const TabWrapper = styled.div`
   margin-top: 4rem;
   width: 100%;
-  min-width: 40rem;
+  min-width: 20rem;
 `;
 
 export const TabMenus = styled.div`
@@ -61,7 +61,6 @@ export const TabItem = styled.div<tabItemProps>`
 
 export const ButtonWrapper = styled.div`
   display: inline-flex;
-  background-color: aliceblue;
   gap: 0.5rem;
 `;
 
