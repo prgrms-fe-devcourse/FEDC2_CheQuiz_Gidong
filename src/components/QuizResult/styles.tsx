@@ -3,10 +3,7 @@ import styled from '@emotion/styled';
 // TODO: 임시 prop 바꾸기
 interface StyledButtonProps {
   color?: 'point' | 'primary' | 'secondary';
-}
-
-interface CollapsedProps {
-  collapsed: boolean;
+  fullWidth?: boolean;
 }
 
 interface StyledSignProps {
@@ -36,7 +33,7 @@ export const Container = styled.div`
   margin: 0 1rem;
 `;
 
-export const Header = styled.div<CollapsedProps>`
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -175,5 +172,9 @@ export const Button = styled.button<StyledButtonProps>`
   :hover {
     // TODO: 각 color 마다 추가 작업 필요
     background-color: #fca211d9;
+  }
+
+  :disabled {
+    cursor: default;
   }
 `;

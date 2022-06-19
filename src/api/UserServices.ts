@@ -3,8 +3,14 @@ import api from '@/api/apiInstance';
 import { CommentAPI } from '@/interfaces/CommentAPI';
 import { LikeAPI } from '@/interfaces/LikeAPI';
 
+const token = localStorage.getItem('token');
+
+const isNotNull = (item: string | null): item is string => {
+  return !!item;
+};
+
 const headers: AxiosRequestHeaders = {
-  Authorization: `Bearer ${JSON.parse(localStorage.getItem('token') || '')}`,
+  Authorization: `Bearer ${isNotNull(token) ? JSON.parse(token) : ''}`,
 };
 
 export function like(postId: string) {

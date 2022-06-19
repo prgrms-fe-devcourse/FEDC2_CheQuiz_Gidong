@@ -4,9 +4,10 @@ import AnimateHeight from 'react-animate-height';
 import { Quiz } from '@/interfaces/Quiz';
 import { CommentAPI } from '@/interfaces/CommentAPI';
 import { useAuthContext } from '@/contexts/AuthContext';
-import * as UserService from '@/utils/UserServices';
+import * as UserService from '@/api/UserServices';
 import * as S from './styles';
 import { LikeAPI } from '@/interfaces/LikeAPI';
+import dateFormat from '@/utils/dateFormat';
 
 interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
@@ -26,17 +27,24 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
     () => JSON.stringify(user) !== '{}' || !user,
     [user],
   )!;
-
   const isUserLiked = useMemo(
     () => !!(user._id && likes.map((like) => like.user).includes(user._id)),
     [likes, user._id],
   );
+  const findLike = () => likes.find((like) => like.user === user._id);
 
   const postComment = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // TODO: alert를 toast로 변경
-    if (!inputValue.trim()) window.alert('1글자 이상 작성해야 합니다.');
+    if (!isLoggedIn) {
+      window.alert('로그인이 필요합니다.');
+      return;
+    }
+    if (!inputValue.trim()) {
+      window.alert('1글자 이상 작성해야 합니다.');
+      return;
+    }
     try {
       const newComment = await UserService.createComment({
         comment: inputValue,
@@ -56,14 +64,9 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
       await UserService.deleteComment(id);
       setComments((prev) => prev.filter((comment) => comment._id !== id));
     } catch (error) {
+      window.alert('문제가 생겨 댓글을 삭제할 수 없습니다.');
       throw new Error('error occured at deleteComment.');
     }
-  };
-
-  const findUserLiked = () => {
-    if (!isLoggedIn) return undefined;
-    const response = likes.find((like) => like.user === user._id);
-    return response;
   };
 
   const likePost = async () => {
@@ -71,17 +74,19 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
       const like = await UserService.like(quiz._id);
       setLikes((prev) => [...prev, like]);
     } catch (error) {
+      window.alert('문제가 생겨 좋아요할 수 없습니다.');
       throw new Error('error occured at likePost.');
     }
   };
 
   const cancelLikePost = async () => {
     try {
-      const like = findUserLiked();
+      const like = findLike();
       if (!like) return;
       await UserService.cancelLike(like._id);
       setLikes((prev) => prev.filter((prevLike) => prevLike._id !== like._id));
     } catch (error) {
+      window.alert('문제가 생겨 좋아요 취소할 수 없습니다.');
       throw new Error('error occured at cancelLikePost.');
     }
   };
@@ -97,7 +102,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
 
   return (
     <S.Box>
-      <S.Header collapsed={collapsed}>
+      <S.Header>
         <S.HeaderLeft>
           <S.Sign reverse={false} color={correct ? 'blue' : 'red'}>
             {correct ? 'O' : 'X'}
@@ -143,7 +148,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
                 </S.InputWrapper>
 
                 {/** TODO: disabled when loading */}
-                <S.Button type="submit" color="point">
+                <S.Button type="submit" color="point" disabled={!isLoggedIn}>
                   댓글 쓰기
                 </S.Button>
               </S.Flex>
@@ -162,11 +167,11 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
                 </div>
               </S.CommentCenter>
               <div>
-                <div>날짜: {comment.createdAt}</div>
-                {/** TODO: 내가 작성한 댓글은 지울 수 있도록 로직 처리 */}
+                <div>{dateFormat(comment.createdAt)}</div>
                 {comment.author._id === user._id ? (
                   <S.Button
                     type="button"
+                    fullWidth
                     onClick={() => deleteComment(comment._id)}
                   >
                     삭제하기
