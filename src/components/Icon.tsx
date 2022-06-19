@@ -10,6 +10,7 @@ type propsType = {
   strokeWidth?: number;
   color?: string;
   rotate?: number;
+  fill?: boolean;
   addStyle?: {
     [x: string]: unknown;
   };
@@ -26,6 +27,7 @@ function Icon({
   strokeWidth = 2,
   color = '#222',
   rotate = 0,
+  fill,
   addStyle,
   ...props
 }: propsType) {
@@ -34,6 +36,7 @@ function Icon({
     stroke: color,
     width: size,
     height: size,
+    fill: fill ? color : 'none',
   };
   const shapeStyle = {
     width: size,

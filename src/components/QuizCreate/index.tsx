@@ -21,7 +21,6 @@ function QuizForm() {
 
   const handleQuizSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('퀴즈제출');
     if (isSet) {
       const set = await createQuizSet(quizSet);
       if (!set) return;

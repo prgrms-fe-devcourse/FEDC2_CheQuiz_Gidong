@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import fullStar from '@/assets/fullStar.png';
-import emptyStar from '@/assets/emptyStar.png';
+import Icon from '@/components/Icon';
 
 interface RateProps {
   count: number;
@@ -34,18 +33,16 @@ function Rate({
       setCurrVal(clickedVal);
     }
 
-    if (onChangeStar) {
-      onChangeStar(value);
-    }
+    if (onChangeStar) onChangeStar(value);
   };
   return (
     <RateWrapper {...props}>
       {Array.from({ length: count }, (_, i) => i + 1).map((starVal) => (
         <Star key={starVal} onClick={() => handleStarClick(starVal)}>
           {starVal <= currVal ? (
-            <img src={fullStar} width={size} alt="fullStar" />
+            <Icon name="star" size={size} fill />
           ) : (
-            <img src={emptyStar} width={size} alt="emptyStar" />
+            <Icon name="star" size={size} />
           )}
         </Star>
       ))}

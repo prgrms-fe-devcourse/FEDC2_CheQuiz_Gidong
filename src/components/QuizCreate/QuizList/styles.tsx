@@ -9,15 +9,13 @@ export const QuizListContainer = styled.section`
 `;
 
 export const InsertQuizItem = styled.button`
-  height: 7.5rem;
+  height: 12rem;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 1rem;
+  align-items: center;
 
   border: 3px dashed ${DarkGray};
-  border-bottom: none;
-  border-radius: 0.5rem 0.5rem 0 0;
+  border-radius: 0.5rem;
   background-color: ${white};
 
   ${small};

@@ -23,6 +23,7 @@ function QuizList({ quizList, setQuizList }: QuizListProps) {
     moveController.current = !moveController.current;
   };
   const handleQuizDelete = (id: number) => () => {
+    if (quizList.length <= 1) return;
     setQuizList(quizList.filter((quiz) => quiz._id !== id));
   };
   const handleQuizChange = (id: number, key: string, value: unknown) => {
