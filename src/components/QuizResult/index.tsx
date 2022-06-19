@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import useInput from '@hooks/useInput';
 import AnimateHeight from 'react-animate-height';
 import { Quiz } from '@/interfaces/Quiz';
@@ -6,6 +6,7 @@ import { CommentAPI } from '@/interfaces/CommentAPI';
 import { useAuthContext } from '@/contexts/AuthContext';
 import * as UserService from '@/utils/UserServices';
 import * as S from './styles';
+import { LikeAPI } from '@/interfaces/LikeAPI';
 
 interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
@@ -17,12 +18,19 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
   const [comments, setComments] = useState<CommentAPI[]>(() =>
     quiz && quiz.comments ? quiz.comments : [],
   );
-  // TODO: TEST 필요
-  const [userLiked, setUserLiked] = useState(
-    () => user._id && quiz.likes.map((like) => like.user).includes(user._id),
+  const [likes, setLikes] = useState<LikeAPI[]>(() =>
+    quiz && quiz.likes ? quiz.likes : [],
   );
-  // TODO: useCollapse 만들기
   const [collapsed, setCollapsed] = useState(true);
+  const isLoggedIn = useMemo(
+    () => JSON.stringify(user) !== '{}' || !user,
+    [user],
+  )!;
+
+  const isUserLiked = useMemo(
+    () => !!(user._id && likes.map((like) => like.user).includes(user._id)),
+    [likes, user._id],
+  );
 
   const postComment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +60,40 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
     }
   };
 
-  const isLoggedIn = !(JSON.stringify(user) === '{}' || !user);
+  const findUserLiked = () => {
+    if (!isLoggedIn) return undefined;
+    const response = likes.find((like) => like.user === user._id);
+    return response;
+  };
+
+  const likePost = async () => {
+    try {
+      const like = await UserService.like(quiz._id);
+      setLikes((prev) => [...prev, like]);
+    } catch (error) {
+      throw new Error('error occured at likePost.');
+    }
+  };
+
+  const cancelLikePost = async () => {
+    try {
+      const like = findUserLiked();
+      if (!like) return;
+      await UserService.cancelLike(like._id);
+      setLikes((prev) => prev.filter((prevLike) => prevLike._id !== like._id));
+    } catch (error) {
+      throw new Error('error occured at cancelLikePost.');
+    }
+  };
+
+  const handleLikePost = () => {
+    if (!isLoggedIn) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+    if (isUserLiked) cancelLikePost();
+    else likePost();
+  };
 
   return (
     <S.Box>
@@ -70,7 +111,9 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
           <button type="button" onClick={() => setCollapsed((prev) => !prev)}>
             Toggle
           </button>
-          <button type="button">좋아요 {quiz.likes.length}</button>
+          <button type="button" onClick={handleLikePost}>
+            {!isUserLiked ? '좋아요' : '좋아요 취소'} {likes.length}
+          </button>
           <button type="button">댓글 {comments.length}</button>
         </S.HeaderRight>
       </S.Header>

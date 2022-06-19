@@ -23,13 +23,7 @@ export function like(postId: string) {
 }
 
 export function cancelLike(likeId: string) {
-  return api.post(
-    '/likes/delete',
-    { id: likeId },
-    {
-      headers: { ...headers },
-    },
-  );
+  return api.delete('/likes/delete', { data: { id: likeId }, headers });
 }
 
 export function createComment({
