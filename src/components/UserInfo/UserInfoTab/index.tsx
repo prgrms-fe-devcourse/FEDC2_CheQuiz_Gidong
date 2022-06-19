@@ -46,21 +46,11 @@ function UserInfoTab({ id }: { id: string }) {
       );
 
       const userCommentQuizzes = realData.filter((quiz: UserQuizType) => {
-        const userCommentIndex = quiz.comments.findIndex((comment) => {
-          return comment.author._id === id;
-        });
-        const isUserComment = userCommentIndex !== -1;
-        return isUserComment;
+        return quiz.comments.some((comment) => comment.author._id === id);
       });
-
       const userLikesQuizzes = realData.filter((quiz: UserQuizType) => {
-        const userLikesIndex = quiz.likes.findIndex((like) => {
-          return like.user === id;
-        });
-        const isUserLiked = userLikesIndex !== -1;
-        return isUserLiked;
+        return quiz.likes.some((like) => like.user === id);
       });
-
       setMadeQuizzes(userMadeQuizzes);
       setCommentedQuizzes(userCommentQuizzes);
       setLikedQuizzes(userLikesQuizzes);

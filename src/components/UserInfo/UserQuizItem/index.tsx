@@ -7,16 +7,8 @@ interface QuizItemProps {
   commentCount: number;
 }
 
-const likeIconProps = {
-  name: 'thumbs-up',
-  size: 20,
-  strokeWidth: 2,
-  color: '#343A40',
-  rotate: 0,
-};
-
-const commentIconProps = {
-  name: 'message-square',
+const IconProps = {
+  name: '',
   size: 20,
   strokeWidth: 2,
   color: '#343A40',
@@ -39,11 +31,11 @@ function UserQuizItem({ question, likeCount, commentCount }: QuizItemProps) {
 
       <S.CountWrapper>
         <S.CountItem>
-          <Icon {...likeIconProps} />
+          <Icon {...IconProps} name="thumbs-up" />
           {renderCount(likeCount, 100)}
         </S.CountItem>
         <S.CountItem>
-          <Icon {...commentIconProps} />
+          <Icon {...IconProps} name="message-square" />
           {renderCount(commentCount, 100)}
         </S.CountItem>
       </S.CountWrapper>
