@@ -54,6 +54,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
       setComments((prev) => [...prev, newComment]);
       setInputValue('');
     } catch (error) {
+      console.log(error);
       window.alert('문제가 생겨 댓글을 작성할 수 없습니다.');
       throw new Error('error occured at postComment.');
     }

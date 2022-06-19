@@ -3,15 +3,16 @@ import api from '@/api/apiInstance';
 import { CommentAPI } from '@/interfaces/CommentAPI';
 import { LikeAPI } from '@/interfaces/LikeAPI';
 
-const token = localStorage.getItem('token');
-
 const isNotNull = (item: string | null): item is string => {
   return !!item;
 };
 
-const headers: AxiosRequestHeaders = {
-  Authorization: `Bearer ${isNotNull(token) ? JSON.parse(token) : ''}`,
-};
+function getHeaders(): AxiosRequestHeaders {
+  const token = localStorage.getItem('token');
+  return {
+    Authorization: `Bearer ${isNotNull(token) ? JSON.parse(token) : ''}`,
+  };
+}
 
 export function like(postId: string) {
   return api
@@ -19,7 +20,7 @@ export function like(postId: string) {
       '/likes/create',
       { postId },
       {
-        headers: { ...headers },
+        headers: { ...getHeaders() },
       },
     )
     .then((response) => response.data)
@@ -29,7 +30,10 @@ export function like(postId: string) {
 }
 
 export function cancelLike(likeId: string) {
-  return api.delete('/likes/delete', { data: { id: likeId }, headers });
+  return api.delete('/likes/delete', {
+    data: { id: likeId },
+    headers: { ...getHeaders() },
+  });
 }
 
 export function createComment({
@@ -44,7 +48,7 @@ export function createComment({
       '/comments/create',
       { comment, postId },
       {
-        headers: { ...headers },
+        headers: { ...getHeaders() },
       },
     )
     .then((response) => response.data)
@@ -55,5 +59,8 @@ export function createComment({
 }
 
 export function deleteComment(commentId: string) {
-  return api.delete('/comments/delete', { data: { id: commentId }, headers });
+  return api.delete('/comments/delete', {
+    data: { id: commentId },
+    headers: { ...getHeaders() },
+  });
 }
