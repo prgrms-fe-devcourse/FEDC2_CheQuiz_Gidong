@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useMemo } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 import { useLocalStorage } from '@/hooks/useStorage';
 
@@ -9,10 +15,12 @@ import auth from '@/api/auth';
 import { UserAPI } from '@/interfaces/UserAPI';
 
 interface AuthContextType {
-  user: Partial<UserAPI>;
+  user: UserAPI;
   token: string;
-  login: (formData: LoginFormData) => void;
-  signUp: (formData: SignUpFormData) => void;
+  login: (formData: LoginFormData) => Promise<void>;
+  signUp: (formData: SignUpFormData) => Promise<void>;
+  authUser: () => Promise<void>;
+  isAuth: boolean;
 }
 
 interface Props {
@@ -23,19 +31,20 @@ const AuthContext = createContext({});
 export const useAuthContext = () => useContext(AuthContext) as AuthContextType;
 
 function AuthProvider({ children }: Props) {
-  const [user, setUser] = useLocalStorage<Partial<UserAPI>>('user', {});
-  const [token, setToken] = useLocalStorage('token', '');
+  const [user, setUser, removeUser] = useLocalStorage('user', {});
+  const [token, setToken, removeToken] = useLocalStorage('token', '');
+  const [isAuth, setIsAuth] = useState(false);
 
   const login = useCallback(
     async (formData: LoginFormData) => {
       try {
         const data = await auth.login(formData);
-
         setUser(data.user);
         setToken(data.token);
-
+        setIsAuth(true);
         // TODO: Success Toast
       } catch (error) {
+        setIsAuth(false);
         // TODO: Error Toast
       }
     },
@@ -46,17 +55,29 @@ function AuthProvider({ children }: Props) {
     async (formData: SignUpFormData) => {
       try {
         const data = await auth.signUp(formData);
-
         setUser(data.user);
         setToken(data.token);
-
+        setIsAuth(true);
         // TODO: Success Toast
       } catch (error) {
+        setIsAuth(false);
         // TODO: Error Toast
       }
     },
     [setUser, setToken],
   );
+
+  const authUser = useCallback(async () => {
+    try {
+      const authedUser = await auth.getAuthUser(token);
+      setUser(authedUser);
+      setIsAuth(true);
+    } catch (error) {
+      removeUser();
+      removeToken();
+      setIsAuth(false);
+    }
+  }, [token, setUser, removeUser, removeToken]);
 
   return (
     <AuthContext.Provider
@@ -66,8 +87,10 @@ function AuthProvider({ children }: Props) {
           token,
           login,
           signUp,
+          authUser,
+          isAuth,
         }),
-        [user, token, login, signUp],
+        [user, token, login, signUp, authUser, isAuth],
       )}
     >
       {children}
