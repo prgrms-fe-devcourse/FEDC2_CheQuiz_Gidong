@@ -4,18 +4,15 @@ import { UserAPI } from '@/interfaces/UserAPI';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
 import * as S from './style';
-import getRankAll from '@/api/getRankAll';
+import getUserList from '@/api/getUserList';
+import { rankSearchProp } from '@/interfaces/Rank';
 
-type Props = {
-  keyword: string;
-};
-
-function UserRankList({ keyword }: Props) {
+function UserRankList({ keyword }: rankSearchProp) {
   const [rankingData, setRankingData] = useState([] as UserAPI[]);
 
   useEffect(() => {
     const fetchRankData = async () => {
-      const data = await getRankAll();
+      const data = await getUserList();
       setRankingData(data);
     };
 
@@ -46,15 +43,25 @@ function UserRankList({ keyword }: Props) {
         nextPoint = points;
       }
 
-      if (nextPoint === prevPoint) return -1;
+      // 점수가 같은 경우 계정 생성일순으로 정렬
+      if (nextPoint === prevPoint) {
+        return Date.parse(prev.createdAt) - Date.parse(next.createdAt);
+      }
 
+      // 포인트 내림차순 정렬
       return nextPoint - prevPoint;
     })
+    .filter((user) => {
+      // 어드민계정 제외 필터링
+      const roleFlag = user.role?.toLowerCase()?.indexOf('admin');
+
+      if (roleFlag !== -1) return false;
+      return true;
+    })
     .map((data, index) => {
+      // 검색 필터링 이후에도 순위 유지를 위한 재 인덱싱
       return [index + 1, data];
     }) as [number, UserAPI][];
-
-  // console.log(userList);
 
   const generateTags = (userInfo: UserAPI) => {
     const tagsList = [];
@@ -149,38 +156,6 @@ function UserRankList({ keyword }: Props) {
     return tagsList;
   };
 
-  console.log(
-    '확인횰',
-    userList
-      .sort(([prevRank, prev], [nextRank, next]) => {
-        let prevPoint;
-        let nextPoint;
-
-        if (!prev?.username) prevPoint = 0;
-        else if (prev.username.indexOf('totalPoint') === -1) prevPoint = 0;
-        else {
-          const { totalPoints = 0 } = JSON.parse(prev?.username);
-          prevPoint = totalPoints;
-        }
-
-        if (!next?.username) nextPoint = 0;
-        else if (next.username.indexOf('totalPoint') === -1) nextPoint = 0;
-        else {
-          const { totalPoints = 0 } = JSON.parse(next?.username);
-          nextPoint = totalPoints;
-        }
-
-        return nextPoint - prevPoint;
-      })
-      .filter(([itemRank, item]) => {
-        const flag = item.fullName
-          .toLowerCase()
-          ?.indexOf(keyword.toLowerCase());
-        if (flag === -1) return false;
-        return true;
-      }),
-  );
-
   const checkUserImage = (point: number) => {
     const level = point / 100;
 
@@ -229,17 +204,19 @@ function UserRankList({ keyword }: Props) {
     <>
       {userList
         .filter(([itemRank, item]) => {
-          const flag = item.fullName
+          // 검색 키워드 필터링
+          const searchFlag = item.fullName
             ?.toLowerCase()
             ?.indexOf(keyword.toLowerCase());
-          if (flag === -1) return false;
+
+          if (searchFlag === -1) return false;
+
           return true;
         })
         .map(([userRank, user]) => {
-          let point;
-          if (!user?.username) point = 0;
-          else if (user.username.indexOf('point') === -1) point = 0;
-          else {
+          let point = 0;
+
+          if (user.username && user.username.indexOf('point') !== -1) {
             const { points = 0 } = JSON.parse(user.username);
             point = points;
           }
