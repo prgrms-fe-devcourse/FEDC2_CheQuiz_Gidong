@@ -5,7 +5,7 @@ const port = process.env.REACT_APP_API_PORT ?? 3000;
 
 const API_ENDPOINT = `${host}:${port}`;
 
-const apiInstance: AxiosInstance = axios.create({
+const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_ENDPOINT, // baseURL 미리세팅
   timeout: 5000,
   headers: {
@@ -13,9 +13,12 @@ const apiInstance: AxiosInstance = axios.create({
   },
 });
 
-apiInstance.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => Promise.resolve(response),
-  (err) => Promise.reject(err.response),
+  (error) => {
+    console.error(error);
+    return Promise.reject(error);
+  },
 );
 
-export default apiInstance;
+export default axiosInstance;

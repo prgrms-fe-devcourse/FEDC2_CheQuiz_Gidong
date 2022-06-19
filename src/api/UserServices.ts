@@ -1,5 +1,5 @@
 import { AxiosRequestHeaders } from 'axios';
-import api from '@/api/apiInstance';
+import api from '@/api/axiosInstance';
 import { CommentAPI } from '@/interfaces/CommentAPI';
 import { LikeAPI } from '@/interfaces/LikeAPI';
 

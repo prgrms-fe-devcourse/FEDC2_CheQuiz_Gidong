@@ -4,7 +4,7 @@ import {
   TEST_USER_TOKEN,
 } from '@/assets/QuizCreateMockData';
 import { QuizContent } from '@/interfaces/Quiz';
-import axiosInstance from '@/api/apiInstance';
+import axiosInstance from '@/api/axiosInstance';
 import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
 
 export const createQuiz = async (
