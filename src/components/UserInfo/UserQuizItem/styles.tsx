@@ -49,7 +49,7 @@ export const CountWrapper = styled.div`
   align-items: center;
   width: 5rem;
   height: 100%;
-  padding: 1rem;
+  padding: 0.8rem;
   background-color: #ffdc84;
 `;
 export const CountItem = styled.div`

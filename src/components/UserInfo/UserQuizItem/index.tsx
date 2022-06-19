@@ -24,6 +24,12 @@ const commentIconProps = {
 };
 
 function UserQuizItem({ question, likeCount, commentCount }: QuizItemProps) {
+  const renderCount = (currentCount: number, maxCount: number) => {
+    if (currentCount > maxCount) {
+      return `${maxCount}+`;
+    }
+    return `${currentCount}`;
+  };
   return (
     <S.ItemWrapper>
       <S.ContentWrapper>
@@ -34,11 +40,11 @@ function UserQuizItem({ question, likeCount, commentCount }: QuizItemProps) {
       <S.CountWrapper>
         <S.CountItem>
           <Icon {...likeIconProps} />
-          {likeCount}
+          {renderCount(likeCount, 100)}
         </S.CountItem>
         <S.CountItem>
           <Icon {...commentIconProps} />
-          {commentCount}
+          {renderCount(commentCount, 100)}
         </S.CountItem>
       </S.CountWrapper>
     </S.ItemWrapper>
