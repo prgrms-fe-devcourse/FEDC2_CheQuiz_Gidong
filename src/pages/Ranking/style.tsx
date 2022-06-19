@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
-import { borderWidth } from '@/styles/theme';
+import { borderRadius, lightGray, primary, white } from '@/styles/theme';
 
 export const Wrap = styled.div`
   border: 0.0625rem solid;
 `;
 
 export const Container = styled.div`
-  border: ${borderWidth};
+  font-family: Pretendard, sans-serif;
+  background-color: ${primary};
+  color: ${white};
   display: flex;
   justify-content: space-around;
   padding: 0.75rem 0;
@@ -14,14 +16,17 @@ export const Container = styled.div`
 
 export const Rank = styled.div`
   width: 6.25rem;
+  font-family: 'MaplestoryOTFBold';
 `;
 
 export const Exp = styled.div`
   width: 9.375rem;
+  font-family: 'MaplestoryOTFBold';
 `;
 
 export const UserInfoWrap = styled.div`
-  width: 28.125rem;
+  width: 34.375rem;
+  font-family: 'MaplestoryOTFBold';
 `;
 
 export const SearchContainer = styled.div`
@@ -36,6 +41,8 @@ export const SearchWrap = styled.span`
   display: flex;
   align-items: center;
   padding: 0.3125rem;
+  border-radius: ${borderRadius};
+  background-color: ${lightGray};
 `;
 
 export const SearchInput = styled.input`
@@ -45,15 +52,10 @@ export const SearchInput = styled.input`
   margin-left: 0.625rem;
   outline: none;
   border: none;
-`;
+  background-color: transparent;
+  color: ${white};
 
-export const UserInfoContainer = styled.div`
-  height: 660px;
-  overflow-y: auto;
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+  &::placeholder {
+    color: ${white};
   }
 `;

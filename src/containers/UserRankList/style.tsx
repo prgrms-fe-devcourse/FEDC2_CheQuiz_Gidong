@@ -1,5 +1,11 @@
 import styled from '@emotion/styled';
-import { blackGray, borderWidth, gray, large } from '@/styles/theme';
+import {
+  blackGray,
+  borderWidth,
+  large,
+  lightGrayWhite,
+  medium,
+} from '@/styles/theme';
 
 export const Container = styled.div`
   display: flex;
@@ -7,12 +13,13 @@ export const Container = styled.div`
   justify-content: space-around;
   align-items: center;
   border: ${borderWidth};
+  border-top: none;
   padding: 1.5rem 0;
-  margin: 0.3125rem 0.125rem;
 `;
 
 export const Rank = styled.div`
   ${large};
+  font-family: 'MaplestoryOTFBold';
   width: 6.25rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -21,6 +28,8 @@ export const Rank = styled.div`
 
 export const Exp = styled.div`
   width: 9.375rem;
+  font-family: 'MaplestoryOTFLight';
+  ${medium}
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -28,10 +37,16 @@ export const Exp = styled.div`
 
 export const UserProfile = styled.div`
   width: 9.375rem;
+  height: 9.375rem;
+  border-radius: 50%;
+  background-color: ${lightGrayWhite};
 `;
 
 export const UserImg = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   padding: 1.25rem;
 `;
 
@@ -45,9 +60,8 @@ export const UserInfoWrap = styled.div`
 `;
 
 export const UserName = styled.div`
-  border: ${borderWidth};
-  border-color: ${gray};
-  padding: 0.125rem 1.25rem;
+  font-family: 'MaplestoryOTFBold';
+  ${large};
 `;
 
 export const TagsWrap = styled.div`

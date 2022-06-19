@@ -1,22 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
-import RankingMockData from '@/assets/RankingMockData';
-import { UserAPI, UserInfo } from '@/interfaces/UserAPI';
+import { UserAPI } from '@/interfaces/UserAPI';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
 import * as S from './style';
-import getRankAll from '@/api/getRankAll';
+import getUserList from '@/api/getUserList';
+import { rankSearchProp } from '@/interfaces/Rank';
 
-type Props = {
-  keyword: string;
-};
-
-function UserRankList({ keyword }: Props) {
+function UserRankList({ keyword }: rankSearchProp) {
   const [rankingData, setRankingData] = useState([] as UserAPI[]);
 
   useEffect(() => {
     const fetchRankData = async () => {
-      const data = await getRankAll();
+      const data = await getUserList();
       setRankingData(data);
     };
 
@@ -26,11 +22,6 @@ function UserRankList({ keyword }: Props) {
       fetchRankData();
     };
   }, []);
-
-  // const userList = RankingMockData.map((data, index) => [
-  //   RankingMockData.length - index,
-  //   data,
-  // ]) as [number, UserAPI][];
 
   // 랭킹데이터 점수내림차순 정렬 후 순위를 위해 고정 인덱스 부여
   const userList = rankingData
@@ -52,13 +43,25 @@ function UserRankList({ keyword }: Props) {
         nextPoint = points;
       }
 
-      if (nextPoint === prevPoint) return -1;
+      // 점수가 같은 경우 계정 생성일순으로 정렬
+      if (nextPoint === prevPoint) {
+        return Date.parse(prev.createdAt) - Date.parse(next.createdAt);
+      }
 
+      // 포인트 내림차순 정렬
       return nextPoint - prevPoint;
     })
-    .map((data, index) => [index + 1, data]) as [number, UserAPI][];
+    .filter((user) => {
+      // 어드민계정 제외 필터링
+      const roleFlag = user.role?.toLowerCase()?.indexOf('admin');
 
-  // console.log(userList);
+      if (roleFlag !== -1) return false;
+      return true;
+    })
+    .map((data, index) => {
+      // 검색 필터링 이후에도 순위 유지를 위한 재 인덱싱
+      return [index + 1, data];
+    }) as [number, UserAPI][];
 
   const generateTags = (userInfo: UserAPI) => {
     const tagsList = [];
@@ -201,24 +204,26 @@ function UserRankList({ keyword }: Props) {
     <>
       {userList
         .filter(([itemRank, item]) => {
-          const flag = item.fullName
-            .toLowerCase()
+          // 검색 키워드 필터링
+          const searchFlag = item.fullName
+            ?.toLowerCase()
             ?.indexOf(keyword.toLowerCase());
-          if (flag === -1) return false;
+
+          if (searchFlag === -1) return false;
+
           return true;
         })
         .map(([userRank, user]) => {
-          let point;
-          if (!user?.username) point = 0;
-          else if (user.username.indexOf('point') === -1) point = 0;
-          else {
+          let point = 0;
+
+          if (user.username && user.username.indexOf('point') !== -1) {
             const { points = 0 } = JSON.parse(user.username);
             point = points;
           }
 
           return (
             <S.Container key={user._id}>
-              <S.Rank>Rank {userRank}</S.Rank>
+              <S.Rank>{userRank}</S.Rank>
               <S.Exp>{point.toLocaleString()}</S.Exp>
               <S.UserProfile>
                 <S.UserImg src={checkUserImage(point)} alt="userImage" />

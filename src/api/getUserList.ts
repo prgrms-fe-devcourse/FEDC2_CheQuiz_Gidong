@@ -1,8 +1,8 @@
 import apiInstance from '@/api/apiInstance';
 import { UserAPI } from '@/interfaces/UserAPI';
-import { rankingUrl } from '@/utils/apiUrl';
+import { rankingUrl } from '@/api/apiUrl';
 
-const getRankAll = async () => {
+const getUserList = async () => {
   try {
     const { data }: { data: UserAPI[] } = await apiInstance({
       method: 'get',
@@ -10,9 +10,8 @@ const getRankAll = async () => {
     });
     return data;
   } catch (error) {
-    console.log(error);
+    throw new Error('Get UserList failed');
   }
-  return [];
 };
 
-export default getRankAll;
+export default getUserList;
