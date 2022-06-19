@@ -12,6 +12,7 @@ import {
 import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
 import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
 import { PostAPIUserInfo } from '@/interfaces/PostAPI';
+import { getUserImageByPoints } from '@/utils/getUserImage';
 
 function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
   const [userData, setUserData] = useState<customUserAPI>(DEFAULT_USER_DATA);
@@ -82,16 +83,6 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
     : 0;
 
   const expPercent = Math.floor((currentExp / MAXEXP) * 100);
-
-  const getImage = useCallback(() => {
-    let selectedId = Breakpoints.imageBreakpoints[0].imageId;
-    Breakpoints.imageBreakpoints.forEach((breakpoint) => {
-      if (level >= breakpoint.level) {
-        selectedId = breakpoint.imageId;
-      }
-    });
-    return selectedId;
-  }, [level]);
 
   const getQuizCategoryCount = useCallback(() => {
     const categoryMap = new Map();
@@ -205,7 +196,9 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
           <S.UserBasicContent>
             <S.ImageWrapper>
               <S.UserImage
-                src={`https://maplestory.io/api/GMS/210.1.1/mob/${getImage()}/render/stand`}
+                src={getUserImageByPoints(
+                  userData.totalExp ? userData.totalExp : 0,
+                )}
               />
             </S.ImageWrapper>
 
