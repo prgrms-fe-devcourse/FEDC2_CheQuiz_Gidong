@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { MAXEXP } from '@/common/number';
 import * as S from './styles';
-import * as Breakpoints from './breakpoints';
+import * as Breakpoints from '../breakpoints';
 import { BadgeType } from '@/interfaces/BadgeType';
 import {
   customUserAPI,
