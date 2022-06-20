@@ -84,6 +84,11 @@ export interface UserQuizType {
 }
 
 export interface UserQuizInfo {
-  id: string;
+  _id: string;
   points: number;
+}
+
+export interface UserQuizPostAPI {
+  fullName: string;
+  username: UserQUizInfo;
 }

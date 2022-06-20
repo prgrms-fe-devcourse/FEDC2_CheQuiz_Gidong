@@ -2,7 +2,7 @@ import { AxiosRequestHeaders } from 'axios';
 import api from '@/api/axiosInstance';
 import { CommentAPI } from '@/interfaces/CommentAPI';
 import { LikeAPI } from '@/interfaces/LikeAPI';
-import { UserQuizInfo } from '@/interfaces/UserAPI';
+import { UserAPI, UserQuizPostAPI } from '@/interfaces/UserAPI';
 
 const isNotNull = (item: string | null): item is string => {
   return !!item;
@@ -66,11 +66,11 @@ export function deleteComment(commentId: string) {
   });
 }
 
-export function updateTotalPoint(info: UserQuizInfo) {
+export function updateTotalPoint(info: UserQuizPostAPI) {
   return api
-    .put(
+    .put<UserAPI>(
       '/settings/update-user',
-      { username: JSON.stringify(info) },
+      { ...info, username: JSON.stringify(info.username) },
       { headers: { ...getHeaders() } },
     )
     .then((response) => response.data)

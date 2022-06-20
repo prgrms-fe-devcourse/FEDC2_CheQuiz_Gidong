@@ -3,6 +3,8 @@ import QuizResult from '@components/QuizResult';
 import { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import * as QuizServices from '@/api/QuizServices';
 import * as S from './styles';
+import { useSessionStorage } from '@/hooks/useStorage';
+import { POST_IDS } from '@/constants';
 
 /**
  * ANCHOR: QuizResultPage 로직
@@ -13,16 +15,7 @@ import * as S from './styles';
  */
 function QuizResultPage() {
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
-  // TODO: 67 branch 머지 시 변경 필요
-  const solvedPostIds = useMemo(
-    () => [
-      '62ac3cc2377cfd03a86b54c0',
-      '62ac3c72377cfd03a86b54b8',
-      '62aaf228e193b3692eddfb96',
-      '62aaf058e193b3692eddfb08',
-    ],
-    [],
-  );
+  const [postIds] = useSessionStorage<string[]>(POST_IDS, []);
   const userAnswers = useMemo(() => ['true', 'false', 'true', 'false'], []);
   // TODO: implement validation logics
   // if userAnswers.length !== userAnswers.filter(answer => answer).length -> 404page
@@ -30,15 +23,14 @@ function QuizResultPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // TODO: 67 branch 머지시 변경 필요
-        const q = await QuizServices.getQuizzesFromPostIds(solvedPostIds);
-        setQuizzes(q);
+        const qs = await QuizServices.getQuizzesFromPostIds(postIds);
+        setQuizzes(qs);
       } catch (error) {
         throw new Error('error occured at fetchPosts');
       }
     };
     fetchPosts();
-  }, [solvedPostIds]);
+  }, [postIds]);
 
   return (
     <S.QuizResultPage>
