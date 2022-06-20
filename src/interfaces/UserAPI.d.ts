@@ -82,3 +82,8 @@ export interface UserQuizType {
   comments: CommentAPI[];
   likes: LikeAPI[];
 }
+
+export interface UserQuizInfo {
+  id: string;
+  points: number;
+}
