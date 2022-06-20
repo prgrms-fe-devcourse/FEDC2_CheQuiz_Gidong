@@ -38,7 +38,7 @@ function QuizResultPage() {
 
   return (
     <>
-      <Header />
+      <Header isLogin={isAuth} />
       {isAuth ? <UserInfoCard id={user._id} width="100%" /> : null}
       <S.QuizResultPage>
         {quizzes.map((quiz, index) => (
@@ -49,7 +49,6 @@ function QuizResultPage() {
           />
         ))}
         <div>
-          {/** TODO: 링크 수정 필요 */}
           <S.LinkButton to="/" color="point" fill="true">
             다른 문제 풀러가기
           </S.LinkButton>
