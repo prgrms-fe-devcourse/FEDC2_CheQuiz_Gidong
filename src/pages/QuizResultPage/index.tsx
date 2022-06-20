@@ -7,6 +7,7 @@ import { useSessionStorage } from '@/hooks/useStorage';
 import { POST_IDS } from '@/constants';
 import UserInfoCard from '@/components/UserInfo/UserInfoCard';
 import { useAuthContext } from '@/contexts/AuthContext';
+import Header from '@/components/Header';
 
 /**
  * ANCHOR: QuizResultPage 로직
@@ -37,7 +38,8 @@ function QuizResultPage() {
 
   return (
     <>
-      {/* {isAuth ? <UserInfoCard id={user._id} width="100%" /> : null} */}
+      <Header />
+      {isAuth ? <UserInfoCard id={user._id} width="100%" /> : null}
       <S.QuizResultPage>
         {quizzes.map((quiz, index) => (
           <QuizResult

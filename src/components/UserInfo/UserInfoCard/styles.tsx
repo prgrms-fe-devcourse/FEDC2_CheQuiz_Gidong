@@ -14,8 +14,6 @@ export const Card = styled.div`
 `;
 
 export const UserCard = styled(Card)<CardProps>`
-  position: relative;
-  top: 2rem;
   display: flex;
   width: ${(props) => props.width};
   height: 14rem;
