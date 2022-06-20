@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { lightGrayWhite, primary } from '@/styles/theme';
 
 export const TabWrapper = styled.div`
-  margin-top: 4rem;
+  margin-top: 2rem;
   width: 100%;
   min-width: 20rem;
 `;
