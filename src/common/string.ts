@@ -6,7 +6,3 @@ export const PINK = 'pink';
 export const BROWN = 'brown';
 export const NOLIKES = 'noLikes';
 export const NOCOMMENTS = 'noComments';
-
-// used in QuizSolve and QuizResults pages.
-export const POST_IDS = 'post-ids' as const;
-export const USER_ANSWERS = 'user-answers' as const;

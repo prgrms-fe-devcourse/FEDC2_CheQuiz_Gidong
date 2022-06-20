@@ -24,3 +24,8 @@ export const QUIZ_SET_TAG_LIST = [
   'Web',
   'CS지식',
 ];
+
+// used in QuizSolve and QuizResults pages.
+export const POST_IDS = 'post-ids';
+export const USER_ANSWERS = 'user-answers';
+export const POINTS = 'points';
