@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { UserAPI } from '@/interfaces/UserAPI';
 import Tag from '@/components/Tag';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
@@ -9,12 +10,18 @@ import { rankSearchProp } from '@/interfaces/Rank';
 import { getUserImageByPoints } from '@/utils/getUserImage';
 
 function UserRankList({ keyword }: rankSearchProp) {
+  const history = useHistory();
+
   const [rankingData, setRankingData] = useState([] as UserAPI[]);
 
   useEffect(() => {
     const fetchRankData = async () => {
-      const data = await getUserList();
-      setRankingData(data);
+      try {
+        const data = await getUserList();
+        setRankingData(data);
+      } catch (error) {
+        history.push('/error');
+      }
     };
 
     fetchRankData();
@@ -179,7 +186,12 @@ function UserRankList({ keyword }: rankSearchProp) {
           }
 
           return (
-            <S.Container key={user._id}>
+            <S.Container
+              key={user._id}
+              onClick={() => {
+                history.push(`/user/${user._id}`);
+              }}
+            >
               <S.Rank>{userRank}</S.Rank>
               <S.Exp>{point.toLocaleString()}</S.Exp>
               <S.UserProfile>
