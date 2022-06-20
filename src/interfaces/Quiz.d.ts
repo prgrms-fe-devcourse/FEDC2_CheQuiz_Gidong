@@ -13,4 +13,12 @@ export interface QuizContent {
 export interface QuizClientContent extends QuizContent {
   _id: number;
 }
+
 export interface Quiz extends PostAPIBase, QuizContent {}
+
+export interface QuizShowContent extends QuizContent {
+  _id: number;
+  likes: LikeAPI[];
+  comments: CommentAPI[];
+  author: UserAPI;
+}

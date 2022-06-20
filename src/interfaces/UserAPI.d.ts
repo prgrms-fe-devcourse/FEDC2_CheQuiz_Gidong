@@ -67,3 +67,17 @@ export interface userQuizCategory {
   id: string;
   category: string;
 }
+
+export interface UserQuizType {
+  id: string;
+  question: string;
+  answer: string;
+  answerDescription: string;
+  answerType: 'trueOrFalse' | 'multipleChoice' | 'shortAnswer';
+  author: UserAPI;
+  category: string;
+  difficulty: number;
+  importance: number;
+  comments: CommentAPI[];
+  likes: LikeAPI[];
+}
