@@ -5,6 +5,7 @@ import UserInfoCard from '@/components/UserInfo/UserInfoCard';
 import UserInfoTab from '@/components/UserInfo/UserInfoTab';
 import { fetchUserList } from '@/api/user';
 import { UserAPI } from '@/interfaces/UserAPI';
+import * as S from './styles';
 
 interface Props {
   userId: string;
@@ -32,7 +33,9 @@ function UserInfo() {
   return (
     <div>
       <Header />
-      {!valid && <h3>해당 유저는 존재하지 않습니다.</h3>}
+      {!valid && (
+        <S.notFoundText>해당 유저는 존재하지 않습니다.</S.notFoundText>
+      )}
       {id && <UserInfoCard id={id} />}
       {id && <UserInfoTab id={id} />}
     </div>
