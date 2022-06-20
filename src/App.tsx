@@ -7,6 +7,7 @@ import reset from '@/styles/reset';
 import fontStyle from '@/styles/fontStyle';
 
 import AuthProvider from '@/contexts/AuthContext';
+import QuizProvider from './contexts/QuizContext';
 
 const Layout = styled.div`
   max-width: 75rem;
@@ -17,13 +18,15 @@ const Layout = styled.div`
 function App(): JSX.Element {
   return (
     <AuthProvider>
-      <Layout>
-        <ThemeProvider theme={theme}>
-          <Global styles={reset} />
-          <Global styles={fontStyle} />
-          <Router />
-        </ThemeProvider>
-      </Layout>
+      <QuizProvider>
+        <Layout>
+          <ThemeProvider theme={theme}>
+            <Global styles={reset} />
+            <Global styles={fontStyle} />
+            <Router />
+          </ThemeProvider>
+        </Layout>
+      </QuizProvider>
     </AuthProvider>
   );
 }
