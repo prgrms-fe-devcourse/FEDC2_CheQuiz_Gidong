@@ -38,3 +38,9 @@ export const validationChangeName = () =>
   Yup.object({
     fullName: validationRequired(),
   });
+
+export const validationChangePassword = () =>
+  Yup.object({
+    password: validationPassword(),
+    passwordConfirm: validationPasswordConfirm(),
+  });

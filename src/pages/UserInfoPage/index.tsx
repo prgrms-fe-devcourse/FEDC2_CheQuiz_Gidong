@@ -50,7 +50,12 @@ function UserInfo() {
           setNameModalShown(false);
         }}
       />
-      {isPwModalShown && <PasswordModal />}
+      <PasswordModal
+        isShown={isPwModalShown}
+        onClosePassword={() => {
+          setPwModalShown(false);
+        }}
+      />
 
       {!loading && (
         <>

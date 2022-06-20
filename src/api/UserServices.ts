@@ -3,7 +3,10 @@ import api from '@/api/axiosInstance';
 import { CommentAPI } from '@/interfaces/CommentAPI';
 import { LikeAPI } from '@/interfaces/LikeAPI';
 import { UserAPI, UserQuizPostAPI } from '@/interfaces/UserAPI';
-import { UpdateNameFormData } from '@/interfaces/UpdateNameFormData';
+import {
+  UpdateNameFormData,
+  UpdatePasswordFormData,
+} from '@/interfaces/ChangeFormData';
 
 const isNotNull = (item: string | null): item is string => {
   return !!item;
@@ -90,5 +93,17 @@ export function updateFullName(userUpdateData: UpdateNameFormData) {
     .then((response) => response.data)
     .catch(() => {
       throw new Error('error occured at updateFullName.');
+    });
+}
+export function updatePassword(passwordData: UpdatePasswordFormData) {
+  return api
+    .put<UserAPI>(
+      '/settings/update-password',
+      { ...passwordData },
+      { headers: { ...getHeaders() } },
+    )
+    .then((response) => response.data)
+    .catch(() => {
+      throw new Error('error occured at updatePassword.');
     });
 }
