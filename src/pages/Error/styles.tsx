@@ -45,4 +45,5 @@ export const HomeButton = styled.button`
   padding: 20px;
   ${large};
   margin-top: 30px;
+  cursor: pointer;
 `;
