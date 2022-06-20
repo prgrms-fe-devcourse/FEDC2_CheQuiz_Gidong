@@ -62,27 +62,32 @@ function UserInfo() {
           {!valid && (
             <S.notFoundText>해당 유저는 존재하지 않습니다.</S.notFoundText>
           )}
-          {id && <UserInfoCard id={id} />}
-          {user._id === id && (
-            <div>
-              <button
-                type="button"
-                onClick={() => {
-                  setNameModalShown(true);
-                }}
-              >
-                닉네임 변경
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setPwModalShown(true);
-                }}
-              >
-                비밀번호 변경
-              </button>
-            </div>
+          {id && (
+            <S.CardWrapper>
+              <UserInfoCard id={id} />
+              {user._id === id && (
+                <S.SettingDiv>
+                  <S.SettingButton
+                    type="button"
+                    onClick={() => {
+                      setNameModalShown(true);
+                    }}
+                  >
+                    닉네임 변경
+                  </S.SettingButton>
+                  <S.SettingButton
+                    type="button"
+                    onClick={() => {
+                      setPwModalShown(true);
+                    }}
+                  >
+                    비밀번호 변경
+                  </S.SettingButton>
+                </S.SettingDiv>
+              )}
+            </S.CardWrapper>
           )}
+
           {id && <UserInfoTab id={id} />}
         </>
       )}
