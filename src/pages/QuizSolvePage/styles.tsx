@@ -80,3 +80,7 @@ export const Box = styled.div`
   font-size: 1.25rem;
   font-family: 'MaplestoryOTFLight';
 `;
+
+export const QuizSolvePage = styled.div`
+  margin-top: 5rem;
+`;

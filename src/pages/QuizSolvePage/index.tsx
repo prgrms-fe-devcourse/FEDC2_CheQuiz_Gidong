@@ -143,7 +143,7 @@ function QuizSolvePage(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <S.QuizSolvePage>
         <S.Wrapper justify="center">
           <S.Box>
             {currentIndex + 1} / {quizzes.length}
@@ -190,7 +190,7 @@ function QuizSolvePage(): JSX.Element {
             제출
           </S.SelectButton>
         </S.Wrapper>
-      </div>
+      </S.QuizSolvePage>
     </form>
   );
 }
