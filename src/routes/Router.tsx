@@ -18,8 +18,8 @@ function Routers() {
         <AuthRoute exact path="/create" component={QuizCreate} mode="private" />
         <AuthRoute exact path="/solve" component={QuizSolvePage} />
         <AuthRoute exact path="/result" component={QuizResultPage} />
-        <AuthRoute path="/user" component={UserInfo} />
         <AuthRoute exact path="/ranking" component={Ranking} />
+        <AuthRoute path="/user/:userId" component={UserInfo} />
         <AuthRoute path="/error" component={Error} />
         <AuthRoute path="/" component={Home} />
         <AuthRoute path="*" render={() => <Redirect to="/" />} />
