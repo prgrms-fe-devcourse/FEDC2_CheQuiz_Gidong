@@ -6,7 +6,7 @@ import InputBox from '../Form/InputBox';
 import Button from '../Form/Button';
 import { UserAPI } from '@/interfaces/UserAPI';
 import { updateFullName } from '@/api/UserServices';
-import { UpdateNameFormData } from '@/interfaces/UpdateNameFormData';
+import { UpdateNameFormData } from '@/interfaces/ChangeFormData';
 import { useAuthContext } from '@/contexts/AuthContext';
 
 interface Props {
