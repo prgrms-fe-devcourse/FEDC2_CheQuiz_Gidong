@@ -4,9 +4,11 @@ import * as S from './styles';
 import Icon from '@/components/Icon';
 import QuizSetCard from '../QuizSetCard';
 import { ChannelAPI } from '@/interfaces/ChannelAPI';
+import { useQuizContext } from '@/contexts/QuizContext';
 
 function QuizSetList() {
   const [quizSetList, setQuizSetList] = useState<ChannelAPI[]>([]);
+  const { setChannelId } = useQuizContext();
 
   useEffect(() => {
     const getQuizSetList = async () => {
@@ -41,7 +43,13 @@ function QuizSetList() {
       <S.Title>지식 사냥터 </S.Title>
       <S.QuizSetListContainer>
         {quizSetList.map((quizSet: ChannelAPI) => (
-          <QuizSetCard key={quizSet._id} quizSet={quizSet} />
+          <S.LinkToSolve
+            to="/solve"
+            key={quizSet._id}
+            onClick={() => setChannelId(quizSet._id)}
+          >
+            <QuizSetCard quizSet={quizSet} />
+          </S.LinkToSolve>
         ))}
       </S.QuizSetListContainer>
     </section>

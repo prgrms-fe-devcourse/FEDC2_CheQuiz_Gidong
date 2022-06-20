@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import exp from 'constants';
+import { Link } from 'react-router-dom';
 import { DarkGray, grayWhite, h3, small } from '@/styles/theme';
 import arrowIcon from '@/assets/downArrow.png';
 
@@ -54,4 +54,9 @@ export const QuizSetListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4,1fr);
   gap: 0.5rem; 1rem;
+`;
+
+export const LinkToSolve = styled(Link)`
+  text-decoration: none;
+  color: ${DarkGray};
 `;

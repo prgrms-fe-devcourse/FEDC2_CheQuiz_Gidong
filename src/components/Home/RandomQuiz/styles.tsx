@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import {
   DarkGray,
   h1,
@@ -90,19 +91,21 @@ export const BoldText = styled.div`
   color: ${pointColor};
   -webkit-text-stroke: 1px ${DarkGray};
 `;
-export const StartBox = styled.div`
+export const StartBox = styled(Link)`
   width: 8rem;
   height: 8rem;
 
+  color: ${DarkGray};
   background-color: white;
   border: 3px solid ${DarkGray};
   border-radius: 0 1rem 4rem 0;
+  text-decoration: none;
+  cursor: pointer;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 `;
 
 export const Input = styled.input`

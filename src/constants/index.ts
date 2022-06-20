@@ -2,10 +2,14 @@ export const DIFFICULTY_COUNT = 5;
 export const IMPORTANCE_COUNT = 5;
 
 export const QUIZ_CATEGORY_LIST = [
+  { label: 'Html', value: 'html' },
+  { label: 'CSS', value: 'css' },
   { label: '자바스크립트', value: 'javascript' },
-  'html',
-  'css',
-  'react',
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'SCSS', value: 'scss' },
+  { label: 'Web', value: 'web' },
+  { label: 'CS지식', value: 'cs' },
 ];
 
 export const QUIZ_ANSWER_TYPE_LIST = [
