@@ -83,8 +83,8 @@ export function getQuizzesFromPostIds(postIds: string[]): Promise<Quiz[]> {
     });
 }
 
-export function getQuizzesFromChannel(channelName: string) {
-  return getPostIdsFromChannel(channelName).then((postIds) =>
+export function getQuizzesFromChannel(channelId: string) {
+  return getPostIdsFromChannel(channelId).then((postIds) =>
     getQuizzesFromPostIds(postIds),
   );
 }
