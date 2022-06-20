@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import QuizResult from '@components/QuizResult';
+import { useHistory } from 'react-router';
 import { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import * as QuizServices from '@/api/QuizServices';
 import * as S from './styles';
@@ -17,10 +18,12 @@ import Header from '@/components/Header';
  * 4. random인지, random인지 아닌지 저장해야 한다.
  */
 function QuizResultPage() {
+  const history = useHistory();
   const { user, isAuth } = useAuthContext();
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
   const [postIds] = useSessionStorage<string[]>(POST_IDS, []);
   const [userAnswers] = useSessionStorage<string[]>(USER_ANSWERS, []);
+  const [loading, setLoading] = useState(true);
   // TODO: implement validation logics
   // if userAnswers.length !== userAnswers.filter(answer => answer).length -> 404page
 
@@ -29,13 +32,20 @@ function QuizResultPage() {
       try {
         const qs = await QuizServices.getQuizzesFromPostIds(postIds);
         setQuizzes(qs);
+
+        return qs;
       } catch (error) {
         throw new Error('error occured at fetchPosts');
       }
     };
-    fetchPosts();
-  }, [postIds]);
-
+    fetchPosts()
+      .then((quizArray) => {
+        if (!quizArray.length || quizArray.length !== userAnswers.length)
+          history.replace('/error');
+      })
+      .finally(() => setLoading(false));
+  }, [history, postIds, userAnswers.length]);
+  if (loading) return null;
   return (
     <>
       <Header isLogin={isAuth} />
