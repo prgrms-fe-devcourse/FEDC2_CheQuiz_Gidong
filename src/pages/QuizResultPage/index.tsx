@@ -4,7 +4,7 @@ import { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import * as QuizServices from '@/api/QuizServices';
 import * as S from './styles';
 import { useSessionStorage } from '@/hooks/useStorage';
-import { POST_IDS } from '@/constants';
+import { POST_IDS, USER_ANSWERS } from '@/constants';
 import UserInfoCard from '@/components/UserInfo/UserInfoCard';
 import { useAuthContext } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
@@ -20,7 +20,7 @@ function QuizResultPage() {
   const { user, isAuth } = useAuthContext();
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
   const [postIds] = useSessionStorage<string[]>(POST_IDS, []);
-  const userAnswers = useMemo(() => ['true', 'false', 'true', 'false'], []);
+  const [userAnswers] = useSessionStorage<string[]>(USER_ANSWERS, []);
   // TODO: implement validation logics
   // if userAnswers.length !== userAnswers.filter(answer => answer).length -> 404page
 
