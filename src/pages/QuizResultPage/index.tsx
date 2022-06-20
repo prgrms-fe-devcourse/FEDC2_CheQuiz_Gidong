@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import QuizResult from '@components/QuizResult';
 import { Quiz as QuizInterface } from '@/interfaces/Quiz';
-import * as QuizServices from '@/utils/QuizServices';
+import * as QuizServices from '@/api/QuizServices';
 import * as S from './styles';
 
 /**
@@ -31,7 +31,7 @@ function QuizResultPage() {
     const fetchPosts = async () => {
       try {
         // TODO: 67 branch 머지시 변경 필요
-        const q = await QuizServices.getQuizzes(solvedPostIds);
+        const q = await QuizServices.getQuizzesFromPostIds(solvedPostIds);
         setQuizzes(q);
       } catch (error) {
         throw new Error('error occured at fetchPosts');
