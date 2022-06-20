@@ -9,33 +9,30 @@ import Quiz from '@components/Quiz';
 import { useHistory } from 'react-router';
 import Slider from 'react-slick';
 import { POST_IDS, USER_ANSWERS } from '@/common/string';
-import QuizMockData from '@/assets/QuizMockData';
-import * as QuizServices from '@/utils/QuizServices';
+import * as QuizServices from '@/api/QuizServices';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SliderButton from './SliderButton';
+import { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import * as S from './styles';
 
 function QuizSolvePage(): JSX.Element {
   const history = useHistory();
   const sliderRef = useRef<Slider | null>(null);
 
-  // TODO: 추후 api 연결 필요 및 sessionStorage에 저장 필요
-  const [quizzes, setQuizzes] = useState(QuizMockData);
+  // TODO: 추후 ContextAPI로 관리할 예정
+  const quizLength = useRef(6);
+  const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
   const [userAnswers, setUserAnswers] = useState<string[]>(
-    Array(quizzes.length).fill(''),
+    Array(quizLength.current).fill(''),
   );
-  const [storedPostIds, setStoredPostIds] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleUserAnswers = useCallback(
-    (index: number, value: string) => {
-      setUserAnswers((prev) =>
-        prev.map((answer, idx) => (idx === index ? value : answer)),
-      );
-    },
-    [setUserAnswers],
-  );
+  const handleUserAnswers = useCallback((index: number, value: string) => {
+    setUserAnswers((prev) =>
+      prev.map((answer, idx) => (idx === index ? value : answer)),
+    );
+  }, []);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
@@ -46,17 +43,14 @@ function QuizSolvePage(): JSX.Element {
         return;
       }
 
-      // user 답 sessionStorage에 저장
       sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
-      // postId 저장하기
-      sessionStorage.setItem(POST_IDS, JSON.stringify(storedPostIds));
-      // TODO: remove test logic after merge
-      console.log(QuizServices.caculateScore(quizzes, userAnswers));
-
-      // TODO: history.push로 route 이동하기
+      sessionStorage.setItem(
+        POST_IDS,
+        JSON.stringify(quizzes.map((quiz) => quiz._id)),
+      );
       history.push('/result');
     },
-    [history, quizzes, storedPostIds, userAnswers],
+    [history, quizzes, userAnswers],
   );
 
   // Slider Options
@@ -76,31 +70,40 @@ function QuizSolvePage(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    setStoredPostIds([]);
-    sessionStorage.setItem(
-      USER_ANSWERS,
-      JSON.stringify(Array(quizzes.length).fill('')),
-    );
+    // initialize
+    sessionStorage.removeItem(POST_IDS);
+    sessionStorage.removeItem(USER_ANSWERS);
 
     const fetchRandomQuizzes = async () => {
-      const ids = await QuizServices.getShuffledPostIds(6);
-      setStoredPostIds(ids);
-      return QuizServices.getQuizzes(ids).then((response) =>
-        console.log(response),
-      );
+      try {
+        const shuffledQuizzes = await QuizServices.getShuffledQuizzes(
+          quizLength.current,
+        );
+        return shuffledQuizzes;
+      } catch (error) {
+        throw Error('error occured at fetchRandomQuizzes.');
+      }
     };
 
     const fetchQuizzesFromChannel = async () => {
       // TODO: sessionStorage에 channelId 저장 필요
-      const ids = await QuizServices.getPostIdsFromChannel('CheQuiz');
-      setStoredPostIds(ids);
-      return QuizServices.getQuizzes(ids).then((response) =>
-        console.log(response),
-      );
+      try {
+        const quizzesFromChannel = await QuizServices.getQuizzesFromChannel(
+          'CheQuiz',
+        );
+        return quizzesFromChannel;
+      } catch (error) {
+        throw Error('error occured at fetchQuizzesFromChannel.');
+      }
     };
 
-    fetchRandomQuizzes();
-  }, [quizzes.length, setStoredPostIds, setUserAnswers]);
+    const next = (quizArray: QuizInterface[]) => {
+      setQuizzes(quizArray);
+      setUserAnswers(Array(quizArray.length).fill(''));
+    };
+
+    fetchRandomQuizzes().then((quizArray) => next(quizArray));
+  }, [quizzes.length, setUserAnswers]);
 
   return (
     <form onSubmit={handleSubmit}>
