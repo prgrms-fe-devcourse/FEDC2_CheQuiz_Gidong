@@ -4,7 +4,8 @@ import { useQuizContext } from '@/contexts/QuizContext';
 import * as S from './styles';
 
 function RandomQuiz() {
-  const { setRandomQuizCount, setRandomQuizCategory } = useQuizContext();
+  const { setRandomQuizCount, setRandomQuizCategory, setChannelId } =
+    useQuizContext();
   const SelectStyle = {
     width: '6rem',
     color: '#555555',
@@ -15,6 +16,15 @@ function RandomQuiz() {
     backgroundImage: 'none',
     backgroundColor: '#E9ECEF',
   };
+
+  const handleQuizChange = (value: string) => {
+    setRandomQuizCount(Number(value));
+  };
+
+  const handleQuizStart = () => {
+    setChannelId(null);
+  };
+
   return (
     <S.Container>
       <S.TitleBox>
@@ -37,15 +47,13 @@ function RandomQuiz() {
               min={1}
               max={10}
               placeholder="( 문제 수 )"
-              onChange={({ target }) =>
-                setRandomQuizCount(Number(target.value))
-              }
+              onChange={({ target }) => handleQuizChange(target.value)}
             />
             만큼 풀게나!
           </S.Text>
           <S.Text>보상 | 소정의 경험치 획득 </S.Text>
         </S.Content>
-        <S.StartBox to="/solve">
+        <S.StartBox to="/solve" onClick={handleQuizStart}>
           <S.Text type="small">퀘스트 수행하러</S.Text>
           <S.BoldText>Go!</S.BoldText>
         </S.StartBox>

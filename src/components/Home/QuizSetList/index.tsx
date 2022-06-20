@@ -9,7 +9,8 @@ import Select from '@/components/Form/Select';
 
 function QuizSetList() {
   const [quizSetList, setQuizSetList] = useState<ChannelAPI[]>([]);
-  const { setChannelId } = useQuizContext();
+  const { setRandomQuizCategory, setRandomQuizCount, setChannelId } =
+    useQuizContext();
 
   useEffect(() => {
     const getQuizSetList = async () => {
@@ -20,7 +21,11 @@ function QuizSetList() {
     };
     getQuizSetList();
   }, []);
-
+  const handleQuizClick = (id: string) => {
+    setRandomQuizCategory(null);
+    setRandomQuizCount(null);
+    setChannelId(id);
+  };
   return (
     <section>
       <S.FilterContainer>
@@ -40,7 +45,7 @@ function QuizSetList() {
           <S.LinkToSolve
             to="/solve"
             key={quizSet._id}
-            onClick={() => setChannelId(quizSet._id)}
+            onClick={() => handleQuizClick(quizSet._id)}
           >
             <QuizSetCard quizSet={quizSet} />
           </S.LinkToSolve>
