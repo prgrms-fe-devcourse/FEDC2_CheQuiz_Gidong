@@ -5,7 +5,7 @@ import Home from '@/pages/Home';
 import QuizCreate from '@/pages/QuizCreate';
 import QuizSolvePage from '@/pages/QuizSolvePage';
 import QuizResultPage from '@/pages/QuizResultPage';
-import UserInfo from '@/pages/UserInfo';
+import UserInfoPage from '@/pages/UserInfoPage';
 import Ranking from '@/pages/Ranking';
 import Error from '@/pages/Error';
 
@@ -19,7 +19,7 @@ function Routers() {
         <AuthRoute exact path="/solve" component={QuizSolvePage} />
         <AuthRoute exact path="/result" component={QuizResultPage} />
         <AuthRoute exact path="/ranking" component={Ranking} />
-        <AuthRoute path="/user/:userId" component={UserInfo} />
+        <AuthRoute path="/user/:userId" component={UserInfoPage} />
         <AuthRoute path="/error" component={Error} />
         <AuthRoute path="/" component={Home} />
         <AuthRoute path="*" render={() => <Redirect to="/" />} />

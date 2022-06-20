@@ -32,6 +32,7 @@ function UserInfo() {
   return (
     <div>
       <Header />
+      {!valid && <h3>해당 유저는 존재하지 않습니다.</h3>}
       {id && <UserInfoCard id={id} />}
       {id && <UserInfoTab id={id} />}
     </div>
