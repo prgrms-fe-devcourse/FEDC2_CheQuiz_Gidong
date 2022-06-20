@@ -5,6 +5,8 @@ import * as QuizServices from '@/api/QuizServices';
 import * as S from './styles';
 import { useSessionStorage } from '@/hooks/useStorage';
 import { POST_IDS } from '@/constants';
+import UserInfoCard from '@/components/UserInfo/UserInfoCard';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 /**
  * ANCHOR: QuizResultPage 로직
@@ -14,6 +16,7 @@ import { POST_IDS } from '@/constants';
  * 4. random인지, random인지 아닌지 저장해야 한다.
  */
 function QuizResultPage() {
+  const { user, isAuth } = useAuthContext();
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
   const [postIds] = useSessionStorage<string[]>(POST_IDS, []);
   const userAnswers = useMemo(() => ['true', 'false', 'true', 'false'], []);
@@ -33,27 +36,30 @@ function QuizResultPage() {
   }, [postIds]);
 
   return (
-    <S.QuizResultPage>
-      {quizzes.map((quiz, index) => (
-        <QuizResult
-          key={quiz._id}
-          quiz={quiz}
-          correct={quiz.answer === userAnswers[index]}
-        />
-      ))}
-      <div>
-        {/** TODO: 링크 수정 필요 */}
-        <S.LinkButton to="/" color="point" fill="true">
-          다른 문제 풀러가기
-        </S.LinkButton>
-        <S.LinkButton to="/" color="point" fill="true">
-          랭킹 보기
-        </S.LinkButton>
-        <S.LinkButton to="/" color="point" fill="true">
-          퀴즈 만들러 가기
-        </S.LinkButton>
-      </div>
-    </S.QuizResultPage>
+    <>
+      {/* {isAuth ? <UserInfoCard id={user._id} width="100%" /> : null} */}
+      <S.QuizResultPage>
+        {quizzes.map((quiz, index) => (
+          <QuizResult
+            key={quiz._id}
+            quiz={quiz}
+            correct={quiz.answer === userAnswers[index]}
+          />
+        ))}
+        <div>
+          {/** TODO: 링크 수정 필요 */}
+          <S.LinkButton to="/" color="point" fill="true">
+            다른 문제 풀러가기
+          </S.LinkButton>
+          <S.LinkButton to="/ranking" color="point" fill="true">
+            랭킹 보기
+          </S.LinkButton>
+          <S.LinkButton to="/create" color="point" fill="true">
+            퀴즈 만들러 가기
+          </S.LinkButton>
+        </div>
+      </S.QuizResultPage>
+    </>
   );
 }
 
