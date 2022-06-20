@@ -8,6 +8,7 @@ import React, {
 import Quiz from '@components/Quiz';
 import { useHistory } from 'react-router';
 import Slider from 'react-slick';
+import { v4 } from 'uuid';
 import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
 import * as QuizServices from '@/api/QuizServices';
 import 'slick-carousel/slick/slick.css';
@@ -44,7 +45,7 @@ function QuizSolvePage(): JSX.Element {
       sessionStorage.setItem(POINTS, JSON.stringify(totalPoint));
 
       const newInfo = {
-        _id: String(Math.random()),
+        _id: v4(),
         points: totalPoint,
       };
       if (user.username) {
