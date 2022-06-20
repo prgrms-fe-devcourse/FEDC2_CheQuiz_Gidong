@@ -2,8 +2,11 @@ import { ChangeEvent, useState } from 'react';
 import UserRankList from '@/containers/UserRankList';
 import Icon from '@/components/Icon';
 import * as S from './style';
+import Header from '@/components/Header';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 function Ranking() {
+  const { isAuth } = useAuthContext();
   const iconProps = {
     name: 'search',
     size: 20,
@@ -21,6 +24,7 @@ function Ranking() {
 
   return (
     <div>
+      <Header isLogin={isAuth} />
       <S.SearchContainer>
         <S.SearchWrap>
           <Icon {...iconProps} />
