@@ -33,3 +33,8 @@ export const validationSignup = () =>
     password: validationPassword(),
     passwordConfirm: validationPasswordConfirm(),
   });
+
+export const validationChangeName = () =>
+  Yup.object({
+    fullName: validationRequired(),
+  });

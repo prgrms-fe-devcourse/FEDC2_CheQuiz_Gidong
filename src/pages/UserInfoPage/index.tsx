@@ -7,6 +7,8 @@ import { fetchUserList } from '@/api/user';
 import { UserAPI } from '@/interfaces/UserAPI';
 import * as S from './styles';
 import { useAuthContext } from '@/contexts/AuthContext';
+import NicknameModal from '@/components/Modal/NicknameModal';
+import PasswordModal from '@/components/Modal/PasswordModal';
 
 interface Props {
   userId: string;
@@ -15,6 +17,10 @@ function UserInfo() {
   const [valid, setValid] = useState(false);
   const [id, setId] = useState('');
   const [loading, isLoading] = useState(false);
+
+  const [isNameModalShown, setNameModalShown] = useState(false);
+  const [isPwModalShown, setPwModalShown] = useState(false);
+
   const { user } = useAuthContext();
   const params = useParams<Props>();
   useEffect(() => {
@@ -37,6 +43,15 @@ function UserInfo() {
   return (
     <div>
       <Header />
+      <NicknameModal
+        user={user}
+        isShown={isNameModalShown}
+        onCloseNickname={() => {
+          setNameModalShown(false);
+        }}
+      />
+      {isPwModalShown && <PasswordModal />}
+
       {!loading && (
         <>
           {!valid && (
@@ -45,8 +60,22 @@ function UserInfo() {
           {id && <UserInfoCard id={id} />}
           {user._id === id && (
             <div>
-              <button type="button">닉네임 변경</button>
-              <button type="button">비밀번호 변경</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setNameModalShown(true);
+                }}
+              >
+                닉네임 변경
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setPwModalShown(true);
+                }}
+              >
+                비밀번호 변경
+              </button>
             </div>
           )}
           {id && <UserInfoTab id={id} />}
