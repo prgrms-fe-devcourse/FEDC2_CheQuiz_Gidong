@@ -123,10 +123,9 @@ function QuizSolvePage(): JSX.Element {
     };
 
     const fetchQuizzesFromChannel = async () => {
-      // TODO: sessionStorage에 channelId 저장 필요
       try {
         const quizzesFromChannel = await QuizServices.getQuizzesFromChannel(
-          'CheQuiz',
+          '62aaeb93e193b3692eddfa1c',
         );
         return quizzesFromChannel;
       } catch (error) {

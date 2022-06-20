@@ -56,6 +56,15 @@ function parseQuiz(post: PostAPI) {
   return { ...postCopy, ...JSON.parse(quizContent) } as Quiz;
 }
 
+function getPostsFromChannel(channelId: string): Promise<PostAPI[]> {
+  return api
+    .get<PostAPI[]>(`/posts/channel/${channelId}`)
+    .then((response) => response.data);
+}
+
+/**
+ * @deprecated
+ */
 export function getPostIdsFromChannel(channelName: string): Promise<string[]> {
   return api
     .get<ChannelAPI>(`/channels/${channelName}`)
@@ -66,6 +75,9 @@ export function getPostIdsFromChannel(channelName: string): Promise<string[]> {
     });
 }
 
+/**
+ * @deprecated
+ */
 export function getShuffledPostIds(count: number) {
   return getPostIds()
     .then((postIds) => shuffle(postIds, count))
@@ -74,7 +86,6 @@ export function getShuffledPostIds(count: number) {
     });
 }
 
-// ANCHOR: API 변경사항이 있다면, 가장 먼저 확인해야 할 부분
 export function getQuizzesFromPostIds(postIds: string[]): Promise<Quiz[]> {
   return getPostsFromPostIds(postIds)
     .then((response) => response.map((post) => parseQuiz(post)))
@@ -84,8 +95,8 @@ export function getQuizzesFromPostIds(postIds: string[]): Promise<Quiz[]> {
 }
 
 export function getQuizzesFromChannel(channelId: string) {
-  return getPostIdsFromChannel(channelId).then((postIds) =>
-    getQuizzesFromPostIds(postIds),
+  return getPostsFromChannel(channelId).then((posts) =>
+    posts.map((post) => parseQuiz(post)),
   );
 }
 
