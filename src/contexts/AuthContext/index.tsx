@@ -5,6 +5,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { v4 } from 'uuid';
 
 import { useLocalStorage } from '@/hooks/useStorage';
 
@@ -18,7 +19,7 @@ interface AuthContextType {
   user: UserAPI;
   token: string;
   login: (formData: LoginFormData) => Promise<void>;
-  signUp: (formData: SignUpFormData) => Promise<void>;
+  signUp: (formData: Partial<SignUpFormData>) => Promise<void>;
   authUser: () => Promise<void>;
   isAuth: boolean;
 }
@@ -54,7 +55,11 @@ function AuthProvider({ children }: Props) {
   const signUp = useCallback(
     async (formData: SignUpFormData) => {
       try {
-        const data = await auth.signUp(formData);
+        const data = await auth.signUp({
+          ...formData,
+          username: JSON.stringify({ _id: v4(), points: 0 }),
+        });
+
         setUser(data.user);
         setToken(data.token);
         setIsAuth(true);

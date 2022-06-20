@@ -2,7 +2,8 @@ import { CommentAPI } from './CommentAPI.d';
 import { PostAPI } from './PostAPI';
 
 export interface UserInfo {
-  totalPoints: number;
+  _id: string;
+  points: number;
 }
 
 export interface NotificationAPI {

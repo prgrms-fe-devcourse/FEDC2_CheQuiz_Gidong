@@ -3,4 +3,5 @@ export interface SignUpFormData {
   fullName: string;
   password: string;
   passwordConfirm: string;
+  username: string;
 }
