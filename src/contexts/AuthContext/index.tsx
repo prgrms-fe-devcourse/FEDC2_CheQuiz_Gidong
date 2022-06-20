@@ -6,8 +6,10 @@ import { LoginFormData } from '@/interfaces/LoginFormData';
 import { SignUpFormData } from '@/interfaces/SignUpFormData';
 
 import auth from '@/api/auth';
+import { UserAPI } from '@/interfaces/UserAPI';
 
 interface AuthContextType {
+  user: Partial<UserAPI>;
   token: string;
   login: (formData: LoginFormData) => void;
   signUp: (formData: SignUpFormData) => void;
@@ -21,7 +23,7 @@ const AuthContext = createContext({});
 export const useAuthContext = () => useContext(AuthContext) as AuthContextType;
 
 function AuthProvider({ children }: Props) {
-  const [user, setUser] = useLocalStorage('user', {});
+  const [user, setUser] = useLocalStorage<Partial<UserAPI>>('user', {});
   const [token, setToken] = useLocalStorage('token', '');
 
   const login = useCallback(
