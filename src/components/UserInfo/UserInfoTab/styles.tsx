@@ -59,32 +59,6 @@ export const TabItem = styled.div<tabItemProps>`
   }
 `;
 
-export const ButtonWrapper = styled.div`
-  display: inline-flex;
-  gap: 0.5rem;
-`;
-
-type buttonProps = {
-  color?: string;
-  selected?: boolean;
-};
-export const Button = styled.button<buttonProps>`
-  border: 3px solid #343a40;
-  border-radius: 8px;
-  width: 9rem;
-  height: 2.5rem;
-  font-size: 1rem;
-  font-family: 'MaplestoryOTFLight', sans-serif;
-  background-color: ${({ color }) => color};
-  color: white;
-  cursor: pointer;
-  filter: ${({ selected }) => (selected ? `brightness(120%)` : null)};
-
-  &:hover {
-    filter: brightness(120%);
-  }
-`;
-
 export const UserQuizContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;

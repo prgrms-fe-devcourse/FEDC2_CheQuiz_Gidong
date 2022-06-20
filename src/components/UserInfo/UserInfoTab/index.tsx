@@ -77,10 +77,6 @@ function UserInfoTab({ id }: { id: string }) {
             />
           ))}
         </S.TabItemContainer>
-        <S.ButtonWrapper>
-          <S.Button color="#5B9785">퀴즈 수정</S.Button>
-          <S.Button color="#CE4C4C">퀴즈 삭제</S.Button>
-        </S.ButtonWrapper>
       </S.TabMenus>
 
       <S.TabContent>
