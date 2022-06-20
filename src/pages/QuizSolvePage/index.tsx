@@ -8,7 +8,7 @@ import React, {
 import Quiz from '@components/Quiz';
 import { useHistory } from 'react-router';
 import Slider from 'react-slick';
-import { POST_IDS, USER_ANSWERS } from '@/common/string';
+import { POST_IDS, USER_ANSWERS } from '@/constants';
 import * as QuizServices from '@/api/QuizServices';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -48,6 +48,9 @@ function QuizSolvePage(): JSX.Element {
         POST_IDS,
         JSON.stringify(quizzes.map((quiz) => quiz._id)),
       );
+
+      // 로그인했다면, 사용자의 점수를 반영
+
       history.push('/result');
     },
     [history, quizzes, userAnswers],
