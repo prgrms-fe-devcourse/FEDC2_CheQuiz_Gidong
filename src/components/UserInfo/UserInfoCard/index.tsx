@@ -4,10 +4,10 @@ import * as S from './styles';
 import * as Breakpoints from '../breakpoints';
 import { BadgeType } from '@/interfaces/BadgeType';
 import {
-  customUserAPI,
+  CustomUserAPI,
   UserAPI,
-  userQuizCategory,
-  userSimpleType,
+  UserQuizCategory,
+  UserSimpleType,
 } from '@/interfaces/UserAPI';
 import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
 import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
@@ -15,9 +15,9 @@ import { PostAPIUserInfo } from '@/interfaces/PostAPI';
 import { getUserImageByPoints } from '@/utils/getUserImage';
 
 function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
-  const [userData, setUserData] = useState<customUserAPI>(DEFAULT_USER_DATA);
+  const [userData, setUserData] = useState<CustomUserAPI>(DEFAULT_USER_DATA);
   const [userRank, setUserRank] = useState(0);
-  const [userQuiz, setUserQuiz] = useState<userQuizCategory[]>([]);
+  const [userQuiz, setUserQuiz] = useState<UserQuizCategory[]>([]);
 
   useEffect(() => {
     const updateUserData = async () => {
@@ -43,7 +43,7 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
           points: user.username ? JSON.parse(user.username).points : 0,
           createdAt: user.createdAt,
         }))
-        .sort((userA: userSimpleType, userB: userSimpleType) => {
+        .sort((userA: UserSimpleType, userB: UserSimpleType) => {
           if (userB.points === userA.points) {
             const isCreatedFirst =
               new Date(userB.createdAt ? userB.createdAt : '') <
@@ -53,7 +53,7 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
           return userB.points - userA.points;
         });
       const rank =
-        realData.findIndex((user: userSimpleType) => user.id === id) + 1;
+        realData.findIndex((user: UserSimpleType) => user.id === id) + 1;
       setUserRank(rank);
     };
 

@@ -1,11 +1,6 @@
 import { CommentAPI } from './CommentAPI.d';
 import { PostAPI } from './PostAPI';
 
-export interface UserInfo {
-  _id: string;
-  points: number;
-}
-
 export interface NotificationAPI {
   seen: boolean;
   _id: string;
@@ -50,7 +45,7 @@ export interface UserAPI {
   username?: string;
 }
 
-export interface customUserAPI {
+export interface CustomUserAPI {
   id: string;
   fullName: string;
   posts: PostAPI[];
@@ -58,13 +53,13 @@ export interface customUserAPI {
   comments: CommentAPI[] | string[];
   totalExp?: number;
 }
-export interface userSimpleType {
+export interface UserSimpleType {
   id: string;
   fullName: string;
   points: number;
   createdAt?: string;
 }
-export interface userQuizCategory {
+export interface UserQuizCategory {
   id: string;
   category: string;
 }
