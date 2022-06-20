@@ -34,13 +34,12 @@ function QuizResultPage() {
 
   return (
     <S.QuizResultPage>
-      {quizzes.map((mock, index) => (
-        <React.Fragment key={mock._id}>
-          <QuizResult
-            quiz={mock}
-            correct={mock.answer === userAnswers[index]}
-          />
-        </React.Fragment>
+      {quizzes.map((quiz, index) => (
+        <QuizResult
+          key={quiz._id}
+          quiz={quiz}
+          correct={quiz.answer === userAnswers[index]}
+        />
       ))}
       <div>
         {/** TODO: 링크 수정 필요 */}
