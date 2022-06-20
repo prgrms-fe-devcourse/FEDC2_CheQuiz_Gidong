@@ -1,10 +1,20 @@
+import Select from '@/components/Form/Select';
 import { QUIZ_CATEGORY_LIST } from '@/constants';
 import { useQuizContext } from '@/contexts/QuizContext';
 import * as S from './styles';
 
 function RandomQuiz() {
   const { setRandomQuizCount, setRandomQuizCategory } = useQuizContext();
-
+  const SelectStyle = {
+    width: '6rem',
+    color: '#555555',
+    padding: '0',
+    margin: '0 1rem',
+    border: 'none',
+    appearance: 'auto',
+    backgroundImage: 'none',
+    backgroundColor: '#E9ECEF',
+  };
   return (
     <S.Container>
       <S.TitleBox>
@@ -15,19 +25,12 @@ function RandomQuiz() {
         <S.Content>
           <S.Text>
             퀘스트 요약 |
-            <S.CategorySelect
-              name="orders"
-              onChange={({ target }) => setRandomQuizCategory(target.value)}
-            >
-              <option value="" hidden>
-                ( 카테고리 )
-              </option>
-              {QUIZ_CATEGORY_LIST.map((opt) => (
-                <option key={opt.label} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </S.CategorySelect>
+            <Select
+              defaultValue="( 카테고리 )"
+              options={QUIZ_CATEGORY_LIST}
+              onChangeValue={(value: string) => setRandomQuizCategory(value)}
+              addStyle={{ ...SelectStyle }}
+            />
             의 문제를
             <S.Input
               type="number"

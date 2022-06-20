@@ -5,6 +5,7 @@ import Icon from '@/components/Icon';
 import QuizSetCard from '../QuizSetCard';
 import { ChannelAPI } from '@/interfaces/ChannelAPI';
 import { useQuizContext } from '@/contexts/QuizContext';
+import Select from '@/components/Form/Select';
 
 function QuizSetList() {
   const [quizSetList, setQuizSetList] = useState<ChannelAPI[]>([]);
@@ -27,18 +28,11 @@ function QuizSetList() {
           <Icon name="search" strokeWidth={4} />
           <S.SearchInput type="text" placeholder="검색" />
         </S.SearchWrap>
-        <S.SortWrap>
-          <S.SortSelect name="orders">
-            <option value="" hidden>
-              정렬
-            </option>
-            {['최신순', '좋아요순'].map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </S.SortSelect>
-        </S.SortWrap>
+        <Select
+          defaultValue="정렬"
+          options={['최신순', '좋아요순']}
+          addStyle={{ width: '11rem', backgroundColor: '#DEE2E6' }}
+        />
       </S.FilterContainer>
       <S.Title>지식 사냥터 </S.Title>
       <S.QuizSetListContainer>

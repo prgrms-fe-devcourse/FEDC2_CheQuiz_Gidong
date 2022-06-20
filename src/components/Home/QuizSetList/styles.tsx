@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { DarkGray, grayWhite, h3, small } from '@/styles/theme';
-import arrowIcon from '@/assets/downArrow.png';
 
 export const FilterContainer = styled.div`
   display: flex;
@@ -29,19 +28,6 @@ export const SearchInput = styled.input`
   outline: none;
   background-color: ${grayWhite};
   ${small};
-  cursor: pointer;
-`;
-export const SortWrap = styled(FilterWrap)``;
-export const SortSelect = styled.select`
-  width: 11rem;
-  padding-right: 1rem;
-  text-align: center;
-
-  border: none;
-  outline: none;
-  ${small};
-  appearance: none;
-  background: url(${arrowIcon}) 95.5% center/10% no-repeat ${grayWhite};
   cursor: pointer;
 `;
 

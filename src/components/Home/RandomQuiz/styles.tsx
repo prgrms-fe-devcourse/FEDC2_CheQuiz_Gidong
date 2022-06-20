@@ -52,7 +52,7 @@ export const ContentBox = styled.div`
 export const Content = styled.div`
   width: 36rem;
   height: 8rem;
-  padding: 2rem 1rem;
+  padding: 1rem;
 
   display: flex;
   flex-direction: column;
@@ -65,19 +65,6 @@ export const Content = styled.div`
   border-radius: 0 0 0 0.5rem;
   border-right: none;
   gap: 1rem;
-`;
-export const CategorySelect = styled.select`
-  width: 6rem;
-  height: 1.75rem;
-  margin: 0 1rem;
-  ${small};
-  color: #555555;
-
-  border: none;
-  outline: none;
-  background-color: ${lightGrayWhite};
-
-  cursor: pointer;
 `;
 type TextProps = {
   type?: string;
