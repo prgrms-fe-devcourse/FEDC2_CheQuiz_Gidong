@@ -13,10 +13,12 @@ interface Props {
 function UserInfo() {
   const [valid, setValid] = useState(false);
   const [id, setId] = useState('');
+  const [loading, isLoading] = useState(false);
 
   const params = useParams<Props>();
   useEffect(() => {
     const setValidId = async (urlId: string) => {
+      isLoading(true);
       const apiData = await fetchUserList();
       const idList = apiData.map((user: UserAPI) => user._id);
       const isValid = idList.some((item: string) => item === urlId);
@@ -24,6 +26,7 @@ function UserInfo() {
       if (isValid) {
         setId(urlId);
       }
+      isLoading(false);
     };
 
     const { userId } = params;
@@ -33,11 +36,15 @@ function UserInfo() {
   return (
     <div>
       <Header />
-      {!valid && (
-        <S.notFoundText>해당 유저는 존재하지 않습니다.</S.notFoundText>
+      {!loading && (
+        <>
+          {!valid && (
+            <S.notFoundText>해당 유저는 존재하지 않습니다.</S.notFoundText>
+          )}
+          {id && <UserInfoCard id={id} />}
+          {id && <UserInfoTab id={id} />}
+        </>
       )}
-      {id && <UserInfoCard id={id} />}
-      {id && <UserInfoTab id={id} />}
     </div>
   );
 }
