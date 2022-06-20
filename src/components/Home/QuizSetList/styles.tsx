@@ -1,0 +1,57 @@
+import styled from '@emotion/styled';
+import exp from 'constants';
+import { DarkGray, grayWhite, h3, small } from '@/styles/theme';
+import arrowIcon from '@/assets/downArrow.png';
+
+export const FilterContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+`;
+
+const FilterWrap = styled.div`
+  height: 2.5rem;
+  display: flex;
+  padding: 0.5rem;
+  align-items: center;
+
+  border: 3px solid ${DarkGray};
+  border-radius: 0.5rem;
+  background-color: ${grayWhite};
+`;
+
+export const SearchWrap = styled(FilterWrap)`
+  gap: 1rem;
+`;
+export const SearchInput = styled.input`
+  width: 11rem;
+  border: none;
+  outline: none;
+  background-color: ${grayWhite};
+  ${small};
+  cursor: pointer;
+`;
+export const SortWrap = styled(FilterWrap)``;
+export const SortSelect = styled.select`
+  width: 11rem;
+  padding-right: 1rem;
+  text-align: center;
+
+  border: none;
+  outline: none;
+  ${small};
+  appearance: none;
+  background: url(${arrowIcon}) 95.5% center/10% no-repeat ${grayWhite};
+  cursor: pointer;
+`;
+
+export const Title = styled.div`
+  ${h3}
+`;
+
+export const QuizSetListContainer = styled.div`
+  margin: 0.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 0.5rem; 1rem;
+`;
