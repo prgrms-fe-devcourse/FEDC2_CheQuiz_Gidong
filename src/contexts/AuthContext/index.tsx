@@ -21,6 +21,7 @@ interface AuthContextType {
   login: (formData: LoginFormData) => Promise<void>;
   signUp: (formData: Partial<SignUpFormData>) => Promise<void>;
   authUser: () => Promise<void>;
+  setUser: (value: UserAPI) => void;
   isAuth: boolean;
 }
 
@@ -93,9 +94,10 @@ function AuthProvider({ children }: Props) {
           login,
           signUp,
           authUser,
+          setUser,
           isAuth,
         }),
-        [user, token, login, signUp, authUser, isAuth],
+        [user, token, login, signUp, authUser, setUser, isAuth],
       )}
     >
       {children}
