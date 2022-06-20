@@ -1,10 +1,13 @@
 import { Form, Formik } from 'formik';
+import { useCallback } from 'react';
 import { validationChangeName } from '@/utils/validation';
 import * as S from './styles';
 import InputBox from '../Form/InputBox';
 import Button from '../Form/Button';
 import { UserAPI } from '@/interfaces/UserAPI';
 import { updateFullName } from '@/api/UserServices';
+import { UpdateNameFormData } from '@/interfaces/UpdateNameFormData';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 interface Props {
   user: UserAPI;
@@ -13,6 +16,19 @@ interface Props {
 }
 
 function NicknameModal({ user, isShown, onCloseNickname }: Props) {
+  const { setUser } = useAuthContext();
+  const onSubmitFullName = useCallback(async (formData: UpdateNameFormData) => {
+    try {
+      const userInfo = await updateFullName(formData);
+      if (userInfo) {
+        setUser(userInfo);
+        // TODO: refresh 보다 나은 방법으로 변경
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('error occured at onSubmitFullName.');
+    }
+  }, []);
   return (
     <>
       {isShown && (
@@ -35,7 +51,7 @@ function NicknameModal({ user, isShown, onCloseNickname }: Props) {
                   ...values,
                   username: user.username ? user.username : '{}',
                 };
-                updateFullName(formData);
+                onSubmitFullName(formData);
                 onCloseNickname();
               }}
             >
