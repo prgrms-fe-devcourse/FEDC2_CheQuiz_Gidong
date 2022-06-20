@@ -40,6 +40,10 @@ export const theme = {
     lightGrayWhite: '#E9ECEF',
     white: '#F8F9FA',
   },
+  answerColor: {
+    correct: '#5B9785',
+    incorrect: '#CE4C4C',
+  },
   borderStyle: {
     borderWidth: '3px solid',
     borderRadius: '8px',
@@ -102,6 +106,8 @@ export const lightGrayWhite = (props: any) =>
   props.theme.textAndBackGroundColor.lightGrayWhite;
 export const white = (props: any) => props.theme.textAndBackGroundColor.white;
 
+export const correct = (props: any) => props.theme.answerColor.correct;
+export const incorrect = (props: any) => props.theme.answerColor.incorrect;
 export const borderRadius = (props: any) =>
   props.theme.borderStyle.borderRadius;
 export const borderWidth = (props: any) => props.theme.borderStyle.borderWidth;

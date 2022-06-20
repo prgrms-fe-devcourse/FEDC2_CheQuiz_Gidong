@@ -3,9 +3,9 @@ import {
   DEFAULT_CHANNEL_ID,
   TEST_USER_TOKEN,
 } from '@/assets/QuizCreateMockData';
-import { QuizSetClientContent } from '@/components/create';
 import { QuizContent } from '@/interfaces/Quiz';
 import axiosInstance from '@/api/apiInstance';
+import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
 
 export const createQuiz = async (
   quiz: QuizContent,
@@ -25,7 +25,7 @@ export const createQuiz = async (
   }
 };
 
-export const createQuizSet = async (set: QuizSetClientContent) => {
+export const createQuizSet = async (set: ChannelAPICustomTitle) => {
   const { name, ...quizSetCustomData } = set;
   try {
     const { data } = await axiosInstance({

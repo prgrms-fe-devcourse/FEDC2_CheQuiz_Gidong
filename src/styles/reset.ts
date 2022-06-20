@@ -4,6 +4,7 @@ const reset = css`
   * {
     font-family: 'MaplestoryOTFLight', -apple-system, BlinkMacSystemFont,
       system-ui, 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    box-sizing: border-box;
   }
   html,
   body,
