@@ -1,4 +1,4 @@
-import axiosInstance from '@/api/apiInstance';
+import axiosInstance from '@/api/axiosInstance';
 
 export const fetchUserData = async (userId: string) => {
   try {

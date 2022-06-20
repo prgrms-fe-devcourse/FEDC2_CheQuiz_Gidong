@@ -1,4 +1,4 @@
-import apiInstance from '@/api/apiInstance';
+import apiInstance from '@/api/axiosInstance';
 import { UserAPI } from '@/interfaces/UserAPI';
 import { rankingUrl } from '@/api/apiUrl';
 
