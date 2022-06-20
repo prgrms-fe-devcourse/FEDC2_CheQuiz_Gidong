@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import QuizResult from '@components/QuizResult';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import * as QuizServices from '@/api/QuizServices';
 import * as S from './styles';
@@ -24,8 +24,14 @@ function QuizResultPage() {
   const [postIds] = useSessionStorage<string[]>(POST_IDS, []);
   const [userAnswers] = useSessionStorage<string[]>(USER_ANSWERS, []);
   const [loading, setLoading] = useState(true);
-  // TODO: implement validation logics
-  // if userAnswers.length !== userAnswers.filter(answer => answer).length -> 404page
+
+  // TODO: 나중에 책임 분리 가능
+  const isAppropriateAccess = () => {
+    if (!quizzes.length) return false;
+    if (quizzes.length !== userAnswers.filter((answer) => answer).length)
+      return false;
+    return true;
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -38,14 +44,13 @@ function QuizResultPage() {
         throw new Error('error occured at fetchPosts');
       }
     };
-    fetchPosts()
-      .then((quizArray) => {
-        if (!quizArray.length || quizArray.length !== userAnswers.length)
-          history.replace('/error');
-      })
-      .finally(() => setLoading(false));
+    fetchPosts().finally(() => setLoading(false));
   }, [history, postIds, userAnswers.length]);
+
   if (loading) return null;
+  if (!isAppropriateAccess()) {
+    return <Redirect to="/error" />;
+  }
   return (
     <>
       <Header isLogin={isAuth} />
