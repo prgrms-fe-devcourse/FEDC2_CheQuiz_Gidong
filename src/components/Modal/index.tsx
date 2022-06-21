@@ -1,21 +1,36 @@
+import LoginForm from '@/components/LoginForm';
+import SignUpForm from '@/components/SignUpForm';
+import Notification from '@/components/Notification';
+
 import * as S from './styles';
 
-function Modal() {
+interface Props {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  content: string;
+}
+
+function Modal({ setModal, content }: Props) {
+  const getComponentByContent = (contentType: string) => {
+    switch (contentType) {
+      case 'login':
+        return <LoginForm setModal={setModal} />;
+      case 'signup':
+        return <SignUpForm setModal={setModal} />;
+      case 'notification':
+        return <Notification />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <S.Wrapper>
-      <S.Container>
-        <S.Title>비밀번호 변경</S.Title>
-        <form>
-          <S.Label htmlFor="password">새 비밀번호</S.Label>
-          <S.TextInput id="password" />
-
-          <S.Label htmlFor="password_validation">비밀번호 확인</S.Label>
-          <S.TextInput id="password_validation" />
-
-          <S.ButtonContainer>
-            <S.ButtonInput type="submit" value="저장" />
-          </S.ButtonContainer>
-        </form>
+    <S.Wrapper
+      onClick={() => {
+        setModal(false);
+      }}
+    >
+      <S.Container onClick={(e) => e.stopPropagation()}>
+        {getComponentByContent(content)}
       </S.Container>
     </S.Wrapper>
   );
