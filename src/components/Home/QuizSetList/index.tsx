@@ -6,6 +6,7 @@ import { ChannelAPI } from '@/interfaces/ChannelAPI';
 import { useQuizContext } from '@/contexts/QuizContext';
 import Select from '@/components/Form/Select';
 import { getChannels } from '@/api/QuizServices';
+import { DEFAULT_CHANNEL_ID } from '@/assets/QuizCreateMockData';
 
 function QuizSetList() {
   const [quizSetList, setQuizSetList] = useState<ChannelAPI[]>([]);
@@ -18,7 +19,9 @@ function QuizSetList() {
   useEffect(() => {
     const fetchQuizSets = async () => {
       const apiData = await getChannels();
-      setQuizSetList(apiData);
+      setQuizSetList(
+        apiData.filter((quizset) => quizset._id !== DEFAULT_CHANNEL_ID),
+      );
     };
 
     fetchQuizSets();
