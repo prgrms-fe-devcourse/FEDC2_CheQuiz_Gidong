@@ -56,7 +56,9 @@ function QuizModal({ quiz, isShown, onClose }: Props) {
             )}
 
             <S.ButtonContainer>
-              <S.CloseButton type="button">X</S.CloseButton>
+              <S.CloseButton type="button" onClick={onClose}>
+                X
+              </S.CloseButton>
             </S.ButtonContainer>
           </S.Container>
         </S.Wrapper>
