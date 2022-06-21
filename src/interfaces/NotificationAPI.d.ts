@@ -1,12 +1,16 @@
+import { CommentAPI } from './CommentAPI';
+import { LikeAPI } from './LikeAPI';
+import { UserAPI } from './UserAPI';
+
 export interface NotificationAPI {
   seen: boolean;
   _id: string;
-  author: User;
-  user: User | string;
+  author: UserAPI;
+  user: UserAPI | string;
   post: Nullable<string>; // 포스트 id
   follow: string | undefined; // 사용자 id
-  comment: string | undefined;
-  like: string | undefined;
+  comment?: CommentAPI;
+  like?: LikeAPI;
   message: string | undefined; // 메시지 id
   createdAt: string;
   updatedAt: string;

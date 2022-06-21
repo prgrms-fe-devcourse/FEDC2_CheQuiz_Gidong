@@ -1,6 +1,5 @@
 import LoginForm from '@/components/LoginForm';
 import SignUpForm from '@/components/SignUpForm';
-import Notification from '@/components/Notification';
 
 import * as S from './styles';
 
@@ -16,8 +15,6 @@ function Modal({ setModal, content }: Props) {
         return <LoginForm setModal={setModal} />;
       case 'signup':
         return <SignUpForm setModal={setModal} />;
-      case 'notification':
-        return <Notification />;
       default:
         return null;
     }

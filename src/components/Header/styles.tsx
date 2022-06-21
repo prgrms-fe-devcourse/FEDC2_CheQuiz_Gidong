@@ -28,6 +28,7 @@ export const HeaderSpacer = styled.div`
 
 export const ContentContainer = styled.div`
   height: inherit;
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;

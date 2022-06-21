@@ -4,6 +4,7 @@ import { useAuthContext } from '@/contexts/AuthContext';
 
 import Modal from '@/components/Modal';
 import Icon from '@/components/Icon';
+import Notification from '@/components/Notification';
 
 import * as S from './styles';
 
@@ -12,6 +13,7 @@ function Header(): JSX.Element {
 
   const [modal, setModal] = useState(false);
   const [modalContent, setModalContent] = useState('');
+  const [notiShow, setNotiShow] = useState(true);
 
   return (
     <>
@@ -35,8 +37,7 @@ function Header(): JSX.Element {
               <S.Button
                 color="primary"
                 onClick={() => {
-                  setModal(true);
-                  setModalContent('notification');
+                  setNotiShow(!notiShow);
                 }}
               >
                 <Icon name="bell" size={24} />
@@ -59,14 +60,14 @@ function Header(): JSX.Element {
               <S.Button
                 color="primary"
                 onClick={() => {
-                  setModal(true);
-                  setModalContent('signup');
+                  setNotiShow(!notiShow);
                 }}
               >
                 회원가입
               </S.Button>
             </S.ButtonGroup>
           )}
+          {notiShow && <Notification />}
         </S.ContentContainer>
       </S.HeaderContainer>
       <S.HeaderSpacer />
