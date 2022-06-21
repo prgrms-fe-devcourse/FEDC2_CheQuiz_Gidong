@@ -22,7 +22,7 @@ function Routers() {
         <AuthRoute path="/user/:userId" component={UserInfoPage} />
         <AuthRoute path="/error" component={Error} />
         <AuthRoute path="/" component={Home} />
-        <AuthRoute path="*" render={() => <Redirect to="/" />} />
+        <AuthRoute path="*" render={() => <Redirect to="/error" />} />
       </Switch>
     </BrowserRouter>
   );
