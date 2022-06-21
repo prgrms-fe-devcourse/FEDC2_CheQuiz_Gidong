@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 import Quiz from '@components/Quiz';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import Slider from 'react-slick';
 import { v4 } from 'uuid';
 import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
@@ -19,19 +19,18 @@ import * as S from './styles';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { UserQuizInfo } from '@/interfaces/UserAPI';
 import { updateTotalPoint } from '@/api/UserServices';
+import { useQuizContext } from '@/contexts/QuizContext';
 
-function QuizSolvePage(): JSX.Element {
+function QuizSolvePage() {
   const history = useHistory();
   const sliderRef = useRef<Slider | null>(null);
   const { user, setUser, isAuth } = useAuthContext();
+  const { channelId, randomQuizCount } = useQuizContext();
 
-  // TODO: 추후 ContextAPI로 관리할 예정
-  const quizLength = useRef(6);
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
-  const [userAnswers, setUserAnswers] = useState<string[]>(
-    Array(quizLength.current).fill(''),
-  );
+  const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const handleUserAnswers = useCallback((index: number, value: string) => {
     setUserAnswers((prev) =>
@@ -111,36 +110,26 @@ function QuizSolvePage(): JSX.Element {
     sessionStorage.removeItem(USER_ANSWERS);
     sessionStorage.removeItem(POINTS);
 
-    const fetchRandomQuizzes = async () => {
-      try {
-        const shuffledQuizzes = await QuizServices.getShuffledQuizzes(
-          quizLength.current,
-        );
-        return shuffledQuizzes;
-      } catch (error) {
-        throw Error('error occured at fetchRandomQuizzes.');
-      }
-    };
-
-    const fetchQuizzesFromChannel = async () => {
-      try {
-        const quizzesFromChannel = await QuizServices.getQuizzesFromChannel(
-          '62aaeb93e193b3692eddfa1c',
-        );
-        return quizzesFromChannel;
-      } catch (error) {
-        throw Error('error occured at fetchQuizzesFromChannel.');
-      }
-    };
-
     const next = (quizArray: QuizInterface[]) => {
       setQuizzes(quizArray);
       setUserAnswers(Array(quizArray.length).fill(''));
     };
 
-    fetchRandomQuizzes().then((quizArray) => next(quizArray));
-  }, [quizzes.length, setUserAnswers]);
+    if (randomQuizCount && randomQuizCount > 0)
+      QuizServices.getShuffledQuizzes(randomQuizCount).then((quizArray) =>
+        next(quizArray),
+      );
+    else if (channelId)
+      QuizServices.getQuizzesFromChannel(channelId).then((quizArray) =>
+        next(quizArray),
+      );
+    setLoading(false);
+  }, [channelId, quizzes.length, randomQuizCount, setUserAnswers]);
 
+  if (loading) return null;
+  if (!(channelId || randomQuizCount)) {
+    return <Redirect to="/error" />;
+  }
   return (
     <form onSubmit={handleSubmit}>
       <S.QuizSolvePage>
