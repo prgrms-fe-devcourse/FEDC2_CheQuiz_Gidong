@@ -18,6 +18,7 @@ export const UserCard = styled(Card)<CardProps>`
   width: ${(props) => props.width};
   height: 14rem;
   padding: 1rem;
+  margin-top: 1rem;
 `;
 
 export const Username = styled.h2`
