@@ -16,7 +16,7 @@ interface Props {
 function UserInfo() {
   const [isExistUser, setIsExistUser] = useState(false);
   const [id, setId] = useState('');
-  const [loading, isLoading] = useState(false);
+  const [loading, isLoading] = useState(true);
 
   const [isNameModalShown, setNameModalShown] = useState(false);
   const [isPwModalShown, setPwModalShown] = useState(false);
@@ -25,19 +25,17 @@ function UserInfo() {
   const params = useParams<Props>();
   useEffect(() => {
     const setValidId = async (urlId: string) => {
-      isLoading(true);
       const apiData = await fetchUserList();
-      const idList = apiData.map((userItem: UserAPI) => userItem._id);
-      const isValid = idList.some((item: string) => item === urlId);
+      const idList = apiData.map((userItem) => userItem._id);
+      const isValid = idList.some((item) => item === urlId);
       setIsExistUser(isValid);
       if (isValid) {
         setId(urlId);
       }
-      isLoading(false);
     };
 
     const { userId } = params;
-    setValidId(userId);
+    setValidId(userId).finally(() => isLoading(false));
   }, [params]);
 
   return (
