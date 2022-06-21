@@ -161,6 +161,9 @@ export const Description = styled.div`
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;
+  * {
+    font-family: Pretendard, sans-serif;
+  }
 `;
 
 export const Flex = styled.div`

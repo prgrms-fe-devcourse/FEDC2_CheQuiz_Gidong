@@ -55,7 +55,7 @@ function QuizResultPage() {
             correct={quiz.answer === userAnswers[index]}
           />
         ))}
-        <div>
+        <S.FooterButtonWrapper>
           <S.LinkButton to="/" color="point" fill="true">
             다른 문제 풀러가기
           </S.LinkButton>
@@ -65,7 +65,7 @@ function QuizResultPage() {
           <S.LinkButton to="/create" color="point" fill="true">
             퀴즈 만들러 가기
           </S.LinkButton>
-        </div>
+        </S.FooterButtonWrapper>
       </S.QuizResultPage>
     </>
   );
