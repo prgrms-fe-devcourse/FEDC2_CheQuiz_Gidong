@@ -77,6 +77,7 @@ export const HeaderRight = styled.div`
 `;
 
 export const Sign = styled.div<StyledSignProps>`
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
