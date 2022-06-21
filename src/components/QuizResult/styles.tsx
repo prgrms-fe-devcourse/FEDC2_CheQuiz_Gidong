@@ -22,6 +22,10 @@ interface StyledSignProps {
   color: 'correct' | 'incorrect' | 'default';
 }
 
+interface TextProps {
+  color?: string;
+}
+
 export interface StyledQuizResultProps {
   correct: boolean;
 }
@@ -125,7 +129,8 @@ export const Sign = styled.div<StyledSignProps>`
   font-weight: bold;
 `;
 
-export const Text = styled.span`
+export const Text = styled.span<TextProps>`
+  color: ${({ color }) => color || 'inherit'};
   line-height: 1.4;
 `;
 

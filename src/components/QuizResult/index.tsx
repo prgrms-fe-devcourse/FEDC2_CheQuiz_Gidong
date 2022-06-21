@@ -193,7 +193,9 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
               </S.Flex>
             </form>
           </S.Wrapper>
-          <h1>댓글{comments.length ? ' 보기' : '이 없습니다.'}</h1>
+          <h1>
+            댓글{comments.length ? `${comments.length}개` : '이 없습니다.'}
+          </h1>
           {comments.map((comment) => (
             <S.Comment key={comment._id}>
               <S.ImageWrapper>
@@ -203,10 +205,10 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
               </S.ImageWrapper>
               <S.CommentCenter>
                 <div>
-                  <S.Text>작성자: {comment.author.fullName}</S.Text>
+                  <S.Text>{comment.author.fullName}</S.Text>
                 </div>
                 <div>
-                  <S.Text>내용: {comment.comment}</S.Text>
+                  <S.Text color="#567">{comment.comment}</S.Text>
                 </div>
               </S.CommentCenter>
               <div>

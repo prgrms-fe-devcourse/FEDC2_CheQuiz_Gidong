@@ -123,7 +123,6 @@ function QuizSolvePage() {
       QuizServices.getQuizzesFromChannel(channelId)
         .then((quizArray) => next(quizArray))
         .then(() => setLoading(false));
-    // setLoading(false);
   }, [channelId, quizzes.length, randomQuizCount, setUserAnswers]);
 
   if (loading) return null;
