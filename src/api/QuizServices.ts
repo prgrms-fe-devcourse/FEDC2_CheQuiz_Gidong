@@ -95,9 +95,9 @@ export function getQuizzesFromPostIds(postIds: string[]): Promise<Quiz[]> {
 }
 
 export function getQuizzesFromChannel(channelId: string) {
-  return getPostsFromChannel(channelId).then((posts) =>
-    posts.map((post) => parseQuiz(post)),
-  );
+  return getPostsFromChannel(channelId)
+    .then((posts) => posts.map((post) => parseQuiz(post)))
+    .then((quiz) => quiz.reverse());
 }
 
 export function getShuffledQuizzes(count: number) {
