@@ -5,6 +5,7 @@ import { PostAPIUserInfo } from '@/interfaces/PostAPI';
 import { UserQuizType } from '@/interfaces/UserAPI';
 import UserQuizItem from '../UserQuizItem';
 import TabItem from '../UserInfoTabItem';
+import QuizModal from '@/components/Modal/QuizModal';
 
 function UserInfoTab({ id }: { id: string }) {
   const [madeQuizzes, setMadeQuizzes] = useState([]);
@@ -14,7 +15,8 @@ function UserInfoTab({ id }: { id: string }) {
 
   const [currentTab, setCurrentTab] = useState(0);
 
-  const [currentQuiz, setCurrentQuiz] = useState({});
+  const [currentQuiz, setCurrentQuiz] = useState({} as UserQuizType);
+  const [isModalShown, setIsModalShown] = useState(false);
 
   const tabMapper = [madeQuizzes, commentedQuizzes, likedQuizzes];
 
@@ -66,9 +68,9 @@ function UserInfoTab({ id }: { id: string }) {
     const selectedQuiz = allQuizzes.find(
       (quiz: UserQuizType) => quiz.id === quizId,
     );
-    console.log(selectedQuiz);
     if (selectedQuiz) {
       setCurrentQuiz(selectedQuiz);
+      setIsModalShown(true);
     }
   };
 
@@ -77,6 +79,11 @@ function UserInfoTab({ id }: { id: string }) {
   };
   return (
     <S.TabWrapper>
+      <QuizModal
+        quiz={currentQuiz}
+        isShown={isModalShown}
+        onClose={() => setIsModalShown(false)}
+      />
       <S.TabMenus>
         <S.TabItemContainer>
           {tabs.map((tab) => (
