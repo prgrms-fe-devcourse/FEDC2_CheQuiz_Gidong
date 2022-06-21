@@ -12,6 +12,7 @@ import { getUserImageByPoints } from '@/utils/getUserImage';
 import { UserQuizInfo, UserAPI } from '@/interfaces/UserAPI';
 import { createNotification } from '@/api/notification';
 import { theme } from '@/styles/theme';
+import Icon from '@/components/Icon';
 
 interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
@@ -136,12 +137,20 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
         </S.HeaderLeft>
         <S.HeaderRight>
           <button type="button" onClick={() => setCollapsed((prev) => !prev)}>
-            Toggle
+            <Icon
+              name="chevron-down"
+              strokeWidth={3}
+              rotate={collapsed ? 0 : 180}
+              addStyle={{ transition: 'all 0.2s' }}
+            />
           </button>
           <button type="button" onClick={handleLikePost}>
-            {!isUserLiked ? '좋아요' : '좋아요 취소'} {likes.length}
+            <S.Box flex justify="center" align="center" gap="0.5rem" margin="0">
+              <div>
+                <Icon name="thumbs-up" fill={isUserLiked} />
+              </div>
+            </S.Box>
           </button>
-          <button type="button">댓글 {comments.length}</button>
         </S.HeaderRight>
       </S.Header>
       <AnimateHeight duration={350} height={collapsed ? 0 : 'auto'}>

@@ -8,6 +8,8 @@ interface BoxProps {
   margin?: string;
   padding?: string;
   gap?: string;
+  justify?: 'center' | 'start' | 'between' | 'around' | 'evenly';
+  align?: 'center' | 'start' | 'end' | 'stretch';
 }
 
 interface StyledButtonProps {
@@ -26,6 +28,19 @@ export interface StyledQuizResultProps {
 
 export const Box = styled.div<BoxProps>`
   display: ${({ flex }) => (flex ? 'flex' : 'block')};
+  justify-content: ${({ justify }) => {
+    if (justify === 'center') return 'center';
+    if (justify === 'between') return 'space-between';
+    if (justify === 'around') return 'space-around';
+    if (justify === 'evenly') return 'space-evenly';
+    return 'flex-start';
+  }};
+  align-items: ${({ align }) => {
+    if (align === 'center') return 'center';
+    if (align === 'start') return 'flex-start';
+    if (align === 'end') return 'flex-end';
+    return 'stretch';
+  }};
   flex-grow: 1;
   gap: ${({ gap }) => gap || 0};
   margin: ${({ margin }) => margin || '1rem 0'};
@@ -65,7 +80,9 @@ export const HeaderRight = styled.div`
   height: 100%;
 
   button {
+    flex-shrink: 0;
     display: block;
+    width: 4rem;
     height: 100%;
     border: none;
     background-color: rgba(252, 163, 17, 0.2);
