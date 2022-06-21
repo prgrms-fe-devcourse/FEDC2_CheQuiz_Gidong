@@ -1,10 +1,5 @@
 import { QuizClientContent } from '@/interfaces/Quiz';
 
-const TEST_ADMIN_TOKEN = '';
-const TEST_USER_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyYWFlYjExZTE5M2IzNjkyZWRkZmExMSIsImVtYWlsIjoiYXNkZkBhc2RmLmNvbSJ9LCJpYXQiOjE2NTUzNjk2Nzh9.rnab-tJWPRmjF9rprydWuQcAWves_Xyhl6WJYyP2l4I';
-const DEFAULT_CHANNEL_ID = '62b12aedaf3e834e8fb294c8';
-
 const QUIZ_ITEM_DEFAULT_STATE: QuizClientContent = {
   _id: 0,
   category: '',
@@ -56,9 +51,6 @@ const SAMPLE_QUIZ_LIST_STATE: QuizClientContent[] = [
   },
 ];
 export {
-  DEFAULT_CHANNEL_ID,
-  TEST_ADMIN_TOKEN,
-  TEST_USER_TOKEN,
   QUIZ_ITEM_DEFAULT_STATE,
   QUIZ_SET_DEFAULT_STATE,
   SAMPLE_QUIZ_LIST_STATE,

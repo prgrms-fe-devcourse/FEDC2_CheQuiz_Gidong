@@ -1,7 +1,3 @@
-import {
-  TEST_ADMIN_TOKEN,
-  DEFAULT_CHANNEL_ID,
-} from '@/assets/QuizCreateMockData';
 import { QuizContent } from '@/interfaces/Quiz';
 import axiosInstance from '@/api/axiosInstance';
 import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
@@ -10,7 +6,7 @@ import { UserAPI } from '@/interfaces/UserAPI';
 export const createQuiz = async (
   quiz: QuizContent,
   token: string,
-  channelId = DEFAULT_CHANNEL_ID,
+  channelId = process.env.DEFAULT_CHANNEL_ID,
 ) => {
   try {
     await axiosInstance({
@@ -44,7 +40,7 @@ export const createQuizSet = async (
         }),
       },
       headers: {
-        Authorization: `Bearer ${TEST_ADMIN_TOKEN}`,
+        Authorization: `Bearer ${process.env.ADMIN_USER_TOKEN}`,
       },
     });
     return data;
