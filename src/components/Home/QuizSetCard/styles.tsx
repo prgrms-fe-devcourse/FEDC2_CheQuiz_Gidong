@@ -27,12 +27,13 @@ const colors = [
   tagGreen,
 ];
 export const CardContainer = styled.div`
-  width: 17rem;
   height: 25rem;
 
   border: 3px solid ${DarkGray};
   border-radius: 0.5rem;
   background-color: ${white};
+  transform: ${({ cardIdx }: { cardIdx: number }) =>
+    cardIdx % 2 === 0 ? 'none' : 'translateY(1rem)'};
 
   display: flex;
   flex-direction: column;

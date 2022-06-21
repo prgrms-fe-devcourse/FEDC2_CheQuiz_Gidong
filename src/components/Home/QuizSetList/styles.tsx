@@ -38,8 +38,8 @@ export const Title = styled.div`
 export const QuizSetListContainer = styled.div`
   margin: 0.5rem 0;
   display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 0.5rem; 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem 1.5rem;
 `;
 
 export const LinkToSolve = styled(Link)`
