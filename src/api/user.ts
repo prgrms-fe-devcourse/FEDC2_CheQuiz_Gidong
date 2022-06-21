@@ -1,4 +1,5 @@
 import axiosInstance from '@/api/axiosInstance';
+import { UserAPI } from '@/interfaces/UserAPI';
 
 export const fetchUserData = async (userId: string) => {
   try {
@@ -18,7 +19,7 @@ export const fetchUserList = async () => {
       method: 'GET',
       url: `/users/get-users`,
     });
-    return res.data;
+    return res.data as UserAPI[];
   } catch (error) {
     throw new Error('Get UserList Failed');
   }

@@ -1,6 +1,17 @@
 import styled from '@emotion/styled';
+import { theme } from '@/styles/theme';
 
-// TODO: 임시 prop 바꾸기
+interface BoxProps {
+  flex?: boolean;
+  border?: boolean;
+  background?: string;
+  margin?: string;
+  padding?: string;
+  gap?: string;
+  justify?: 'center' | 'start' | 'between' | 'around' | 'evenly';
+  align?: 'center' | 'start' | 'end' | 'stretch';
+}
+
 interface StyledButtonProps {
   color?: 'point' | 'primary' | 'secondary';
   fullWidth?: boolean;
@@ -8,29 +19,44 @@ interface StyledButtonProps {
 
 interface StyledSignProps {
   reverse?: boolean;
-  color: 'blue' | 'red' | 'default';
+  color: 'correct' | 'incorrect' | 'default';
 }
 
-interface ProfileImageProps {
-  src?: string;
+interface TextProps {
+  color?: string;
 }
+
 export interface StyledQuizResultProps {
   correct: boolean;
 }
 
-export const Box = styled.div`
-  margin: 1rem 0;
-  border: 3px solid #14213d;
+export const Box = styled.div<BoxProps>`
+  display: ${({ flex }) => (flex ? 'flex' : 'block')};
+  justify-content: ${({ justify }) => {
+    if (justify === 'center') return 'center';
+    if (justify === 'between') return 'space-between';
+    if (justify === 'around') return 'space-around';
+    if (justify === 'evenly') return 'space-evenly';
+    return 'flex-start';
+  }};
+  align-items: ${({ align }) => {
+    if (align === 'center') return 'center';
+    if (align === 'start') return 'flex-start';
+    if (align === 'end') return 'flex-end';
+    return 'stretch';
+  }};
+  flex-grow: 1;
+  gap: ${({ gap }) => gap || 0};
+  margin: ${({ margin }) => margin || '1rem 0'};
+  padding: ${({ padding }) => padding || 0};
+  border: ${({ border }) =>
+    border ? `3px solid ${theme.themeColors.primary}` : 'none'};
+  background-color: ${({ background }) => background || 'transparent'};
   border-radius: 0.5rem;
-  * {
-    box-sizing: border-box;
-    font-family: 'MaplestoryOTFLight';
-  }
 `;
 
 export const Wrapper = styled(Box)`
-  margin: 1rem 0;
-  padding: 0.5rem;
+  padding: ${({ padding }) => padding || '0.5rem'};
 `;
 
 export const Container = styled.div`
@@ -58,7 +84,9 @@ export const HeaderRight = styled.div`
   height: 100%;
 
   button {
+    flex-shrink: 0;
     display: block;
+    width: 4rem;
     height: 100%;
     border: none;
     background-color: rgba(252, 163, 17, 0.2);
@@ -77,6 +105,7 @@ export const HeaderRight = styled.div`
 `;
 
 export const Sign = styled.div<StyledSignProps>`
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,21 +115,22 @@ export const Sign = styled.div<StyledSignProps>`
   border-radius: 0.5rem;
   background-color: ${({ reverse, color }) => {
     if (!reverse) return '#ffffff';
-    if (color === 'blue') return 'royalblue';
-    if (color === 'red') return 'tomato';
-    return '#14123d';
+    if (color === 'correct') return theme.answerColor.correct;
+    if (color === 'incorrect') return theme.answerColor.incorrect;
+    return theme.themeColors.primary;
   }};
   color: ${({ reverse, color }) => {
     if (reverse) return '#ffffff';
-    if (color === 'blue') return 'royalblue';
-    if (color === 'red') return 'tomato';
-    return '#14123d';
+    if (color === 'correct') return theme.answerColor.correct;
+    if (color === 'incorrect') return theme.answerColor.incorrect;
+    return theme.themeColors.primary;
   }};
   font-size: 2rem;
   font-weight: bold;
 `;
 
-export const Text = styled.span`
+export const Text = styled.span<TextProps>`
+  color: ${({ color }) => color || 'inherit'};
   line-height: 1.4;
 `;
 
@@ -136,6 +166,9 @@ export const Description = styled.div`
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;
+  * {
+    font-family: Pretendard, sans-serif;
+  }
 `;
 
 export const Flex = styled.div`
@@ -167,6 +200,7 @@ export const Input = styled.input`
   border: none;
   font-size: 1rem;
   outline: none;
+  background-color: transparent;
 `;
 
 export const Button = styled.button<StyledButtonProps>`

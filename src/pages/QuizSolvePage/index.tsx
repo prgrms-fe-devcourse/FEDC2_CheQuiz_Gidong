@@ -116,14 +116,13 @@ function QuizSolvePage() {
     };
 
     if (randomQuizCount && randomQuizCount > 0)
-      QuizServices.getShuffledQuizzes(randomQuizCount).then((quizArray) =>
-        next(quizArray),
-      );
+      QuizServices.getShuffledQuizzes(randomQuizCount)
+        .then((quizArray) => next(quizArray))
+        .finally(() => setLoading(false));
     else if (channelId)
-      QuizServices.getQuizzesFromChannel(channelId).then((quizArray) =>
-        next(quizArray),
-      );
-    setLoading(false);
+      QuizServices.getQuizzesFromChannel(channelId)
+        .then((quizArray) => next(quizArray))
+        .then(() => setLoading(false));
   }, [channelId, quizzes.length, randomQuizCount, setUserAnswers]);
 
   if (loading) return null;

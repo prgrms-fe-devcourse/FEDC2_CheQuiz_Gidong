@@ -11,6 +11,8 @@ import dateFormat from '@/utils/dateFormat';
 import { getUserImageByPoints } from '@/utils/getUserImage';
 import { UserQuizInfo, UserAPI } from '@/interfaces/UserAPI';
 import { createNotification } from '@/api/notification';
+import { theme } from '@/styles/theme';
+import Icon from '@/components/Icon';
 
 interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
@@ -122,10 +124,10 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
   };
 
   return (
-    <S.Box>
+    <S.Box border>
       <S.Header>
         <S.HeaderLeft>
-          <S.Sign reverse={false} color={correct ? 'blue' : 'red'}>
+          <S.Sign reverse={false} color={correct ? 'correct' : 'incorrect'}>
             {correct ? 'O' : 'X'}
           </S.Sign>
           <S.Sign reverse={false} color="default">
@@ -135,51 +137,65 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
         </S.HeaderLeft>
         <S.HeaderRight>
           <button type="button" onClick={() => setCollapsed((prev) => !prev)}>
-            Toggle
+            <Icon
+              name="chevron-down"
+              strokeWidth={3}
+              rotate={collapsed ? 0 : 180}
+              addStyle={{ transition: 'all 0.2s' }}
+            />
           </button>
           <button type="button" onClick={handleLikePost}>
-            {!isUserLiked ? '좋아요' : '좋아요 취소'} {likes.length}
+            <S.Box flex justify="center" align="center" gap="0.5rem" margin="0">
+              <div>
+                <Icon name="thumbs-up" fill={isUserLiked} />
+              </div>
+            </S.Box>
           </button>
-          <button type="button">댓글 {comments.length}</button>
         </S.HeaderRight>
       </S.Header>
       <AnimateHeight duration={350} height={collapsed ? 0 : 'auto'}>
         <S.Container>
           <S.Description>
-            <S.Sign reverse color={quiz.answer === 'true' ? 'blue' : 'red'}>
+            <S.Sign
+              reverse
+              color={quiz.answer === 'true' ? 'correct' : 'incorrect'}
+            >
               {quiz.answer === 'true' ? 'O' : 'X'}
             </S.Sign>
             <div>{quiz.answerDescription}</div>
           </S.Description>
-          <S.Wrapper>
+          <S.Wrapper background={theme.textAndBackGroundColor.lightGrayWhite}>
             <form onSubmit={postComment}>
-              <h3>comment 작성하기</h3>
               <S.Flex>
                 <S.ImageWrapper>
                   <S.UserImage
                     src={getUserImageByPoints(getUserPoints(user))}
                   />
                 </S.ImageWrapper>
-                <S.InputWrapper>
-                  <S.Input
-                    type="text"
-                    value={inputValue}
-                    onChange={handler}
-                    placeholder={
-                      isLoggedIn ? '댓글을 남겨보세요.' : '로그인해야 합니다.'
-                    }
-                    disabled={!isLoggedIn}
-                  />
-                </S.InputWrapper>
+                <S.Box flex gap="0.5rem">
+                  <S.InputWrapper border background="#ffffff">
+                    <S.Input
+                      type="text"
+                      value={inputValue}
+                      onChange={handler}
+                      placeholder={
+                        isLoggedIn ? '댓글을 남겨보세요.' : '로그인해야 합니다.'
+                      }
+                      disabled={!isLoggedIn}
+                    />
+                  </S.InputWrapper>
 
-                {/** TODO: disabled when loading */}
-                <S.Button type="submit" color="point" disabled={!isLoggedIn}>
-                  댓글 쓰기
-                </S.Button>
+                  {/** TODO: disabled when loading */}
+                  <S.Button type="submit" color="point" disabled={!isLoggedIn}>
+                    댓글 쓰기
+                  </S.Button>
+                </S.Box>
               </S.Flex>
             </form>
           </S.Wrapper>
-          <h1>{comments.length ? '코멘트 보기' : '코멘트가 없습니다.'}</h1>
+          <h1>
+            댓글{comments.length ? `${comments.length}개` : '이 없습니다.'}
+          </h1>
           {comments.map((comment) => (
             <S.Comment key={comment._id}>
               <S.ImageWrapper>
@@ -189,10 +205,10 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
               </S.ImageWrapper>
               <S.CommentCenter>
                 <div>
-                  <S.Text>작성자: {comment.author.fullName}</S.Text>
+                  <S.Text>{comment.author.fullName}</S.Text>
                 </div>
                 <div>
-                  <S.Text>내용: {comment.comment}</S.Text>
+                  <S.Text color="#567">{comment.comment}</S.Text>
                 </div>
               </S.CommentCenter>
               <div>
