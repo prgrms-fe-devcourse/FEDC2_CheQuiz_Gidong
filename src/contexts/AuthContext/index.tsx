@@ -23,6 +23,7 @@ interface AuthContextType {
   authUser: () => Promise<void>;
   setUser: (value: UserAPI) => void;
   isAuth: boolean;
+  logout: () => Promise<void>;
 }
 
 interface Props {
@@ -85,6 +86,17 @@ function AuthProvider({ children }: Props) {
     }
   }, [token, setUser, removeUser, removeToken]);
 
+  const logout = useCallback(async () => {
+    try {
+      await auth.logout();
+      removeUser();
+      removeToken();
+      // TODO: Success Toast
+    } catch (error) {
+      // TODO: Error Toast
+    }
+  }, [removeUser, removeToken]);
+
   return (
     <AuthContext.Provider
       value={useMemo(
@@ -96,8 +108,9 @@ function AuthProvider({ children }: Props) {
           authUser,
           setUser,
           isAuth,
+          logout,
         }),
-        [user, token, login, signUp, authUser, setUser, isAuth],
+        [user, token, login, signUp, authUser, setUser, isAuth, logout],
       )}
     >
       {children}
