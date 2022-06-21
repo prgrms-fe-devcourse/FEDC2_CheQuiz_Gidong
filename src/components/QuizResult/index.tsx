@@ -156,7 +156,6 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
           </S.Description>
           <S.Wrapper>
             <form onSubmit={postComment}>
-              <h3>comment 작성하기</h3>
               <S.Flex>
                 <S.ImageWrapper>
                   <S.UserImage
@@ -182,7 +181,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
               </S.Flex>
             </form>
           </S.Wrapper>
-          <h1>{comments.length ? '코멘트 보기' : '코멘트가 없습니다.'}</h1>
+          <h1>댓글{comments.length ? ' 보기' : '이 없습니다.'}</h1>
           {comments.map((comment) => (
             <S.Comment key={comment._id}>
               <S.ImageWrapper>
