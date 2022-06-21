@@ -6,12 +6,18 @@ import InputBox from '@/components/Form/InputBox';
 import { validationSignup } from '@/utils/validation';
 import { useAuthContext } from '@/contexts/AuthContext';
 
-function SignUpForm() {
+import * as S from '@/components/Form/Title/styles';
+
+interface Props {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function SignUpForm({ setModal }: Props) {
   const { signUp } = useAuthContext();
 
   return (
     <>
-      <h1>회원가입</h1>
+      <S.Title>회원가입</S.Title>
       <Formik
         initialValues={{
           email: '',
@@ -25,6 +31,7 @@ function SignUpForm() {
           actions.resetForm();
 
           signUp(values);
+          setModal(false);
         }}
       >
         <Form>
