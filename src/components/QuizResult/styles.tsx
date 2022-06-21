@@ -5,6 +5,9 @@ interface BoxProps {
   flex?: boolean;
   border?: boolean;
   background?: string;
+  margin?: string;
+  padding?: string;
+  gap?: string;
 }
 
 interface StyledButtonProps {
@@ -23,15 +26,18 @@ export interface StyledQuizResultProps {
 
 export const Box = styled.div<BoxProps>`
   display: ${({ flex }) => (flex ? 'flex' : 'block')};
-  margin: 1rem 0;
+  flex-grow: 1;
+  gap: ${({ gap }) => gap || 0};
+  margin: ${({ margin }) => margin || '1rem 0'};
+  padding: ${({ padding }) => padding || 0};
   border: ${({ border }) =>
     border ? `3px solid ${theme.themeColors.primary}` : 'none'};
-  background-color: ${({ background }) => background || '#ffffff'};
+  background-color: ${({ background }) => background || 'transparent'};
   border-radius: 0.5rem;
 `;
 
 export const Wrapper = styled(Box)`
-  padding: 0.5rem;
+  padding: ${({ padding }) => padding || '0.5rem'};
 `;
 
 export const Container = styled.div`

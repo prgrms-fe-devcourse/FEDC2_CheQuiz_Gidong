@@ -163,22 +163,24 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
                     src={getUserImageByPoints(getUserPoints(user))}
                   />
                 </S.ImageWrapper>
-                <S.InputWrapper border>
-                  <S.Input
-                    type="text"
-                    value={inputValue}
-                    onChange={handler}
-                    placeholder={
-                      isLoggedIn ? '댓글을 남겨보세요.' : '로그인해야 합니다.'
-                    }
-                    disabled={!isLoggedIn}
-                  />
-                </S.InputWrapper>
+                <S.Box flex gap="0.5rem">
+                  <S.InputWrapper border background="#ffffff">
+                    <S.Input
+                      type="text"
+                      value={inputValue}
+                      onChange={handler}
+                      placeholder={
+                        isLoggedIn ? '댓글을 남겨보세요.' : '로그인해야 합니다.'
+                      }
+                      disabled={!isLoggedIn}
+                    />
+                  </S.InputWrapper>
 
-                {/** TODO: disabled when loading */}
-                <S.Button type="submit" color="point" disabled={!isLoggedIn}>
-                  댓글 쓰기
-                </S.Button>
+                  {/** TODO: disabled when loading */}
+                  <S.Button type="submit" color="point" disabled={!isLoggedIn}>
+                    댓글 쓰기
+                  </S.Button>
+                </S.Box>
               </S.Flex>
             </form>
           </S.Wrapper>
