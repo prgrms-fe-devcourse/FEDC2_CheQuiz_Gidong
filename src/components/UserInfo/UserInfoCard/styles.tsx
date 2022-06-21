@@ -97,7 +97,6 @@ export const ExpCurrentContainer = styled(Card)`
 
 export const ExpDetail = styled.span`
   color: #495057;
-  z-index: 3;
   position: absolute;
   top: -1rem;
   right: 0px;
