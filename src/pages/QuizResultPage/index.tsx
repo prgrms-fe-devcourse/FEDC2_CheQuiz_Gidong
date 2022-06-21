@@ -34,17 +34,9 @@ function QuizResultPage() {
   };
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const qs = await QuizServices.getQuizzesFromPostIds(postIds);
-        setQuizzes(qs);
-
-        return qs;
-      } catch (error) {
-        throw new Error('error occured at fetchPosts');
-      }
-    };
-    fetchPosts().finally(() => setLoading(false));
+    QuizServices.getQuizzesFromPostIds(postIds)
+      .then((quizArray) => setQuizzes(quizArray))
+      .finally(() => setLoading(false));
   }, [history, postIds, userAnswers.length]);
 
   if (loading) return null;
