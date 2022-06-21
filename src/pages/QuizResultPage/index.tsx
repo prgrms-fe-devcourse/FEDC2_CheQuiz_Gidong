@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import QuizResult from '@components/QuizResult';
+import { Redirect, useHistory } from 'react-router';
 import { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import * as QuizServices from '@/api/QuizServices';
 import * as S from './styles';
@@ -17,25 +18,31 @@ import Header from '@/components/Header';
  * 4. random인지, random인지 아닌지 저장해야 한다.
  */
 function QuizResultPage() {
+  const history = useHistory();
   const { user, isAuth } = useAuthContext();
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
   const [postIds] = useSessionStorage<string[]>(POST_IDS, []);
   const [userAnswers] = useSessionStorage<string[]>(USER_ANSWERS, []);
-  // TODO: implement validation logics
-  // if userAnswers.length !== userAnswers.filter(answer => answer).length -> 404page
+  const [loading, setLoading] = useState(true);
+
+  // TODO: 나중에 책임 분리 가능
+  const isAppropriateAccess = () => {
+    if (!quizzes.length) return false;
+    if (quizzes.length !== userAnswers.filter((answer) => answer).length)
+      return false;
+    return true;
+  };
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const qs = await QuizServices.getQuizzesFromPostIds(postIds);
-        setQuizzes(qs);
-      } catch (error) {
-        throw new Error('error occured at fetchPosts');
-      }
-    };
-    fetchPosts();
-  }, [postIds]);
+    QuizServices.getQuizzesFromPostIds(postIds)
+      .then((quizArray) => setQuizzes(quizArray))
+      .finally(() => setLoading(false));
+  }, [history, postIds, userAnswers.length]);
 
+  if (loading) return null;
+  if (!isAppropriateAccess()) {
+    return <Redirect to="/error" />;
+  }
   return (
     <>
       <Header isLogin={isAuth} />
