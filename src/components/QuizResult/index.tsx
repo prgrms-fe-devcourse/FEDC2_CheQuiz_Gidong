@@ -11,6 +11,7 @@ import dateFormat from '@/utils/dateFormat';
 import { getUserImageByPoints } from '@/utils/getUserImage';
 import { UserQuizInfo, UserAPI } from '@/interfaces/UserAPI';
 import { createNotification } from '@/api/notification';
+import { theme } from '@/styles/theme';
 
 interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
@@ -122,7 +123,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
   };
 
   return (
-    <S.Box>
+    <S.Box border>
       <S.Header>
         <S.HeaderLeft>
           <S.Sign reverse={false} color={correct ? 'correct' : 'incorrect'}>
@@ -154,7 +155,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
             </S.Sign>
             <div>{quiz.answerDescription}</div>
           </S.Description>
-          <S.Wrapper>
+          <S.Wrapper background={theme.textAndBackGroundColor.lightGrayWhite}>
             <form onSubmit={postComment}>
               <S.Flex>
                 <S.ImageWrapper>
@@ -162,7 +163,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
                     src={getUserImageByPoints(getUserPoints(user))}
                   />
                 </S.ImageWrapper>
-                <S.InputWrapper>
+                <S.InputWrapper border>
                   <S.Input
                     type="text"
                     value={inputValue}
@@ -183,7 +184,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
           </S.Wrapper>
           <h1>댓글{comments.length ? ' 보기' : '이 없습니다.'}</h1>
           {comments.map((comment) => (
-            <S.Comment key={comment._id}>
+            <S.Comment key={comment._id} border>
               <S.ImageWrapper>
                 <S.UserImage
                   src={getUserImageByPoints(getUserPoints(comment.author))}

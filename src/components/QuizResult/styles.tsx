@@ -1,6 +1,12 @@
 import styled from '@emotion/styled';
 import { theme } from '@/styles/theme';
 
+interface BoxProps {
+  flex?: boolean;
+  border?: boolean;
+  background?: string;
+}
+
 interface StyledButtonProps {
   color?: 'point' | 'primary' | 'secondary';
   fullWidth?: boolean;
@@ -11,25 +17,20 @@ interface StyledSignProps {
   color: 'correct' | 'incorrect' | 'default';
 }
 
-interface ProfileImageProps {
-  src?: string;
-}
 export interface StyledQuizResultProps {
   correct: boolean;
 }
 
-export const Box = styled.div`
+export const Box = styled.div<BoxProps>`
+  display: ${({ flex }) => (flex ? 'flex' : 'block')};
   margin: 1rem 0;
-  border: 3px solid #14213d;
+  border: ${({ border }) =>
+    border ? `3px solid ${theme.themeColors.primary}` : 'none'};
+  background-color: ${({ background }) => background || '#ffffff'};
   border-radius: 0.5rem;
-  * {
-    box-sizing: border-box;
-    font-family: 'MaplestoryOTFLight';
-  }
 `;
 
 export const Wrapper = styled(Box)`
-  margin: 1rem 0;
   padding: 0.5rem;
 `;
 
@@ -168,6 +169,7 @@ export const Input = styled.input`
   border: none;
   font-size: 1rem;
   outline: none;
+  background-color: transparent;
 `;
 
 export const Button = styled.button<StyledButtonProps>`
