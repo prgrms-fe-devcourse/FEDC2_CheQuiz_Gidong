@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import {
   DarkGray,
-  grayWhite,
-  lightGrayWhite,
   medium,
   pointColor,
   small,
@@ -27,7 +25,7 @@ const colors = [
   tagGreen,
 ];
 export const CardContainer = styled.div`
-  height: 25rem;
+  min-height: 25rem;
 
   border: 3px solid ${DarkGray};
   border-radius: 0.5rem;
