@@ -44,3 +44,20 @@ export const validationChangePassword = () =>
     password: validationPassword(),
     passwordConfirm: validationPasswordConfirm(),
   });
+
+//* QuizForm
+export const validationQuizCreate = () =>
+  Yup.array().of(
+    Yup.object({
+      _id: Yup.string(),
+      category: Yup.string().trim().required('category is required'),
+      question: Yup.string().trim().required('question is required'),
+      difficulty: Yup.number().min(1).required('difficulty is required'),
+      importance: Yup.number().min(1).required('importance is required'),
+      answerType: Yup.string().trim().required('answerType is required'),
+      answer: Yup.string().trim().required('answer is required'),
+      answerDescription: Yup.string()
+        .trim()
+        .required('answerDesCription required'),
+    }),
+  );

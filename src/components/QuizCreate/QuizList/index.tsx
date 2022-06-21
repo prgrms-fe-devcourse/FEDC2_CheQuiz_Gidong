@@ -8,8 +8,9 @@ import * as S from './styles';
 interface QuizListProps {
   quizList: QuizClientContent[];
   setQuizList: React.Dispatch<React.SetStateAction<QuizClientContent[]>>;
+  errors: any;
 }
-function QuizList({ quizList, setQuizList }: QuizListProps) {
+function QuizList({ quizList, setQuizList, errors }: QuizListProps) {
   const moveController = useRef(false);
 
   const handleQuizAdd = () => {
@@ -52,6 +53,7 @@ function QuizList({ quizList, setQuizList }: QuizListProps) {
           quizData={quiz}
           key={quiz._id}
           order={idx + 1}
+          errors={errors}
           onChangeQuiz={handleQuizChange}
           handleQuizDelete={handleQuizDelete}
         />
