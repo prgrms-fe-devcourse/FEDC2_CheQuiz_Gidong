@@ -25,14 +25,18 @@ function Notification() {
   if (loading) return null;
   return (
     <S.Notification>
-      {notifications.map((notification: NotificationAPI) => (
-        <Item
-          key={notification._id}
-          author={notification.author}
-          comment={notification.comment}
-          like={notification.like}
-        />
-      ))}
+      {notifications.length === 0 ? (
+        <Item />
+      ) : (
+        notifications.map((notification: NotificationAPI) => (
+          <Item
+            key={notification._id}
+            author={notification.author}
+            comment={notification.comment}
+            like={notification.like}
+          />
+        ))
+      )}
     </S.Notification>
   );
 }
