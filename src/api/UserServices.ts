@@ -3,6 +3,10 @@ import api from '@/api/axiosInstance';
 import { CommentAPI } from '@/interfaces/CommentAPI';
 import { LikeAPI } from '@/interfaces/LikeAPI';
 import { UserAPI, UserQuizPostAPI } from '@/interfaces/UserAPI';
+import {
+  UpdateNameFormData,
+  UpdatePasswordFormData,
+} from '@/interfaces/ChangeFormData';
 
 const isNotNull = (item: string | null): item is string => {
   return !!item;
@@ -76,5 +80,30 @@ export function updateTotalPoint(info: UserQuizPostAPI) {
     .then((response) => response.data)
     .catch(() => {
       throw new Error('error occured at updateTotalPoint.');
+    });
+}
+
+export function updateFullName(userUpdateData: UpdateNameFormData) {
+  return api
+    .put<UserAPI>(
+      '/settings/update-user',
+      { ...userUpdateData },
+      { headers: { ...getHeaders() } },
+    )
+    .then((response) => response.data)
+    .catch(() => {
+      throw new Error('error occured at updateFullName.');
+    });
+}
+export function updatePassword(passwordData: UpdatePasswordFormData) {
+  return api
+    .put<UserAPI>(
+      '/settings/update-password',
+      { ...passwordData },
+      { headers: { ...getHeaders() } },
+    )
+    .then((response) => response.data)
+    .catch(() => {
+      throw new Error('error occured at updatePassword.');
     });
 }

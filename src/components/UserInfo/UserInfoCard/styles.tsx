@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { gray } from '@/styles/theme';
 
 type CardProps = {
   width: string;
@@ -15,10 +16,12 @@ export const Card = styled.div`
 
 export const UserCard = styled(Card)<CardProps>`
   display: flex;
+  position: relative;
   width: ${(props) => props.width};
   height: 14rem;
   padding: 1rem;
   margin-top: 1rem;
+  z-index: 1;
 `;
 
 export const Username = styled.h2`
@@ -117,4 +120,15 @@ export const Badge = styled.span`
   font-family: 'MaplestoryOTFLight', sans-serif !important;
   padding: 0.25rem 1rem;
   margin: 0.25rem;
+`;
+
+export const SettingContainer = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: ${gray};
+`;
+
+export const SettingButton = styled.span`
+  cursor: pointer;
 `;

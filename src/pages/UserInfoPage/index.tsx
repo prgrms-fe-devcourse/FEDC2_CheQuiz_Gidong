@@ -6,23 +6,30 @@ import UserInfoTab from '@/components/UserInfo/UserInfoTab';
 import { fetchUserList } from '@/api/user';
 import { UserAPI } from '@/interfaces/UserAPI';
 import * as S from './styles';
+import { useAuthContext } from '@/contexts/AuthContext';
+import NicknameModal from '@/components/Modal/NicknameModal';
+import PasswordModal from '@/components/Modal/PasswordModal';
 
 interface Props {
   userId: string;
 }
 function UserInfo() {
-  const [valid, setValid] = useState(false);
+  const [isExistUser, setIsExistUser] = useState(false);
   const [id, setId] = useState('');
   const [loading, isLoading] = useState(false);
 
+  const [isNameModalShown, setNameModalShown] = useState(false);
+  const [isPwModalShown, setPwModalShown] = useState(false);
+
+  const { user } = useAuthContext();
   const params = useParams<Props>();
   useEffect(() => {
     const setValidId = async (urlId: string) => {
       isLoading(true);
       const apiData = await fetchUserList();
-      const idList = apiData.map((user: UserAPI) => user._id);
+      const idList = apiData.map((userItem: UserAPI) => userItem._id);
       const isValid = idList.some((item: string) => item === urlId);
-      setValid(isValid);
+      setIsExistUser(isValid);
       if (isValid) {
         setId(urlId);
       }
@@ -36,12 +43,51 @@ function UserInfo() {
   return (
     <div>
       <Header />
+      <NicknameModal
+        user={user}
+        isShown={isNameModalShown}
+        onCloseNickname={() => {
+          setNameModalShown(false);
+        }}
+      />
+      <PasswordModal
+        isShown={isPwModalShown}
+        onClosePassword={() => {
+          setPwModalShown(false);
+        }}
+      />
+
       {!loading && (
         <>
-          {!valid && (
+          {!isExistUser && (
             <S.notFoundText>해당 유저는 존재하지 않습니다.</S.notFoundText>
           )}
-          {id && <UserInfoCard id={id} />}
+          {id && (
+            <S.CardWrapper>
+              <UserInfoCard id={id} />
+              {user._id === id && (
+                <S.SettingDiv>
+                  <S.SettingButton
+                    type="button"
+                    onClick={() => {
+                      setNameModalShown(true);
+                    }}
+                  >
+                    닉네임 변경
+                  </S.SettingButton>
+                  <S.SettingButton
+                    type="button"
+                    onClick={() => {
+                      setPwModalShown(true);
+                    }}
+                  >
+                    비밀번호 변경
+                  </S.SettingButton>
+                </S.SettingDiv>
+              )}
+            </S.CardWrapper>
+          )}
+
           {id && <UserInfoTab id={id} />}
         </>
       )}
