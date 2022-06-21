@@ -115,3 +115,12 @@ export function caculateScore(quizzes: Quiz[], userAnswers: string[]) {
     .filter((quiz, index) => quiz.answer === userAnswers[index])
     .reduce((acc, cur) => acc + cur.difficulty * 10, 0);
 }
+
+export async function getChannels() {
+  return api
+    .get<ChannelAPI[]>('/channels')
+    .then((response) => response.data)
+    .catch(() => {
+      throw new Error('error occured at getChannels.');
+    });
+}
