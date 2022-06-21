@@ -5,13 +5,18 @@ import { PostAPIUserInfo } from '@/interfaces/PostAPI';
 import { UserQuizType } from '@/interfaces/UserAPI';
 import UserQuizItem from '../UserQuizItem';
 import TabItem from '../UserInfoTabItem';
+import QuizModal from '@/components/Modal/QuizModal';
 
 function UserInfoTab({ id }: { id: string }) {
   const [madeQuizzes, setMadeQuizzes] = useState([]);
   const [commentedQuizzes, setCommentedQuizzes] = useState([]);
   const [likedQuizzes, setLikedQuizzes] = useState([]);
+  const [allQuizzes, setAllQuizzes] = useState([]);
 
   const [currentTab, setCurrentTab] = useState(0);
+
+  const [currentQuiz, setCurrentQuiz] = useState({} as UserQuizType);
+  const [isModalShown, setIsModalShown] = useState(false);
 
   const tabMapper = [madeQuizzes, commentedQuizzes, likedQuizzes];
 
@@ -40,6 +45,7 @@ function UserInfoTab({ id }: { id: string }) {
         author: post.author,
         ...JSON.parse(post.title),
       }));
+      setAllQuizzes(realData);
 
       const userMadeQuizzes = realData.filter(
         (quiz: UserQuizType) => quiz.author._id === id,
@@ -58,12 +64,26 @@ function UserInfoTab({ id }: { id: string }) {
 
     updateAllQuiz();
   }, [id]);
+  const updateSelectedQuiz = (quizId: string) => {
+    const selectedQuiz = allQuizzes.find(
+      (quiz: UserQuizType) => quiz.id === quizId,
+    );
+    if (selectedQuiz) {
+      setCurrentQuiz(selectedQuiz);
+      setIsModalShown(true);
+    }
+  };
 
   const updateClickedTab = (tabId: number) => {
     setCurrentTab(tabId);
   };
   return (
     <S.TabWrapper>
+      <QuizModal
+        quiz={currentQuiz}
+        isShown={isModalShown}
+        onClose={() => setIsModalShown(false)}
+      />
       <S.TabMenus>
         <S.TabItemContainer>
           {tabs.map((tab) => (
@@ -87,6 +107,7 @@ function UserInfoTab({ id }: { id: string }) {
               question={quiz.question}
               likeCount={quiz.likes.length}
               commentCount={quiz.comments.length}
+              handleClick={() => updateSelectedQuiz(quiz.id)}
             />
           ))}
         </S.UserQuizContainer>

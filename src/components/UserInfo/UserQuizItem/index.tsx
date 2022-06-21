@@ -5,6 +5,7 @@ interface QuizItemProps {
   question: string;
   likeCount: number;
   commentCount: number;
+  handleClick: () => void;
 }
 
 const IconProps = {
@@ -15,7 +16,12 @@ const IconProps = {
   rotate: 0,
 };
 
-function UserQuizItem({ question, likeCount, commentCount }: QuizItemProps) {
+function UserQuizItem({
+  question,
+  likeCount,
+  commentCount,
+  handleClick,
+}: QuizItemProps) {
   const renderCount = (currentCount: number, maxCount: number) => {
     if (currentCount > maxCount) {
       return `${maxCount}+`;
@@ -23,7 +29,7 @@ function UserQuizItem({ question, likeCount, commentCount }: QuizItemProps) {
     return `${currentCount}`;
   };
   return (
-    <S.ItemWrapper>
+    <S.ItemWrapper onClick={handleClick}>
       <S.ContentWrapper>
         <S.QuestionSymbol>Q.</S.QuestionSymbol>
         <S.QuestionText>{question}</S.QuestionText>
