@@ -23,7 +23,6 @@ export default function QuizItem({
   handleQuizDelete,
 }: QuizItemProps) {
   const handleInputChange = (key: string, value: unknown) => {
-    // TODO: debounce 걸어주어 리렌더링 최적화
     onChangeQuiz(quizData._id, key, value);
   };
 
@@ -51,53 +50,61 @@ export default function QuizItem({
               handleInputChange('answerType', value)
             }
           />
-          {errors[`[${order - 1}].category`]}
-          {errors[`[${order - 1}].answerType`]}
+          <S.ValidationLabel>
+            {errors[`[${order - 1}].category`]}
+            {errors[`[${order - 1}].answerType`]}
+          </S.ValidationLabel>
         </S.SelectWrapper>
         <S.QuestionWrapper>
-          {`Q${order}`}
-          <S.TextArea
-            value={quizData.question}
-            onChange={({ target }) =>
-              handleInputChange('question', target.value)
-            }
-          />
-          {errors[`[${order - 1}].question`]}
+          <S.Wrapper>
+            {`Q${order}`}
+            <S.TextArea
+              value={quizData.question}
+              onChange={({ target }) =>
+                handleInputChange('question', target.value)
+              }
+            />
+          </S.Wrapper>
+          <S.ValidationLabel block justify="start" marginL="2.5rem">
+            {errors[`[${order - 1}].question`]}
+          </S.ValidationLabel>
         </S.QuestionWrapper>
       </S.QuestionSection>
 
       <S.AnswerSection>
         <S.LeftSide>
           <S.TrueFalseWrapper>
-            <S.Label block>
-              정답
+            <S.Label> 정답 </S.Label>
+            <S.ValidationLabel marginL="1.5rem">
               {errors[`[${order - 1}].answer`]}
-            </S.Label>
-            {[
-              { label: 'O', value: 'true' },
-              { label: 'X', value: 'false' },
-            ].map(({ label, value }) => (
-              <React.Fragment key={value}>
-                <S.TrueFalseController
-                  type="radio"
-                  id={`${quizData._id}${label}`}
-                  name={`answer_${quizData._id}`}
-                  value={value}
-                  onChange={({ target }) =>
-                    handleInputChange('answer', target.value)
-                  }
-                />
-                <S.TrueFalseBox htmlFor={`${quizData._id}${label}`}>
-                  {label}
-                </S.TrueFalseBox>
-              </React.Fragment>
-            ))}
+            </S.ValidationLabel>
+            <S.TFWrapper>
+              {[
+                { label: 'O', value: 'true' },
+                { label: 'X', value: 'false' },
+              ].map(({ label, value }) => (
+                <React.Fragment key={value}>
+                  <S.TrueFalseController
+                    type="radio"
+                    id={`${quizData._id}${label}`}
+                    name={`answer_${quizData._id}`}
+                    value={value}
+                    onChange={({ target }) =>
+                      handleInputChange('answer', target.value)
+                    }
+                  />
+                  <S.TrueFalseBox htmlFor={`${quizData._id}${label}`}>
+                    {label}
+                  </S.TrueFalseBox>
+                </React.Fragment>
+              ))}
+            </S.TFWrapper>
           </S.TrueFalseWrapper>
           <S.Importance>
-            <S.Label block>
-              중요도
-              {errors[`[${order - 1}].importance`]}
-            </S.Label>
+            <S.Label>중요도</S.Label>
+            <S.ValidationLabel marginL="1rem">
+              {errors[`[${order - 1}].importance`] && 'importance is required'}
+            </S.ValidationLabel>
             <Rate
               count={5}
               defaultVal={quizData.importance}
@@ -105,10 +112,10 @@ export default function QuizItem({
             />
           </S.Importance>
           <S.Difficulty>
-            <S.Label block>
-              난이도
-              {errors[`[${order - 1}].difficulty`]}
-            </S.Label>
+            <S.Label>난이도</S.Label>
+            <S.ValidationLabel marginL="1rem">
+              {errors[`[${order - 1}].difficulty`] && 'difficulty is required'}
+            </S.ValidationLabel>
             <Rate
               count={5}
               defaultVal={quizData.difficulty}
@@ -118,7 +125,9 @@ export default function QuizItem({
         </S.LeftSide>
         <S.AnswerDescription>
           <S.Label block>해설</S.Label>
-          {errors[`[${order - 1}].answerDescription`]}
+          <S.ValidationLabel>
+            {errors[`[${order - 1}].answerDescription`]}
+          </S.ValidationLabel>
           <S.TextArea
             value={quizData.answerDescription}
             onChange={({ target }) =>
