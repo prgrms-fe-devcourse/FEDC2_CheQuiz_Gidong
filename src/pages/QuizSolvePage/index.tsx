@@ -20,6 +20,7 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { UserQuizInfo } from '@/interfaces/UserAPI';
 import { updateTotalPoint } from '@/api/UserServices';
 import { useQuizContext } from '@/contexts/QuizContext';
+import Icon from '@/components/Icon';
 
 function QuizSolvePage() {
   const history = useHistory();
@@ -97,7 +98,7 @@ function QuizSolvePage() {
       slidesToShow: 1,
       slidesToScroll: 1,
       centerPadding: '40px',
-      arrows: true,
+      arrows: false,
       beforeChange: (oldIndex: number, newIndex: number) => {
         setCurrentIndex(newIndex);
       },
@@ -137,48 +138,51 @@ function QuizSolvePage() {
             {currentIndex + 1} / {quizzes.length}
           </S.Box>
         </S.Wrapper>
-        <S.Wrapper justify="between" margin="1rem 0" align="center">
+        <S.Wrapper justify="between">
           <SliderButton
             type="button"
             color="point"
             onClick={() => sliderRef.current?.slickPrev()}
           >
-            prev
+            <Icon name="triangle" size={30} rotate={270} fill />
           </SliderButton>
+          <S.SliderContainer>
+            <Slider
+              {...settings}
+              ref={(slider) => {
+                sliderRef.current = slider;
+              }}
+            >
+              {quizzes.map((quiz, index) => (
+                <Quiz
+                  quiz={quiz}
+                  key={quiz._id}
+                  index={index}
+                  onChangeUserAnswer={handleUserAnswers}
+                />
+              ))}
+            </Slider>
+          </S.SliderContainer>
           <SliderButton
             type="button"
             color="point"
             onClick={() => sliderRef.current?.slickNext()}
           >
-            next
+            <Icon name="triangle" size={30} rotate={90} fill />
           </SliderButton>
         </S.Wrapper>
-        <Slider
-          {...settings}
-          ref={(slider) => {
-            sliderRef.current = slider;
-          }}
-        >
-          {quizzes.map((quiz, index) => (
-            <Quiz
-              quiz={quiz}
-              key={quiz._id}
-              index={index}
-              onChangeUserAnswer={handleUserAnswers}
-            />
-          ))}
-        </Slider>
         <S.Wrapper gap="2.5rem" justify="center">
-          <S.SelectButton
+          <S.SubmitButton
             type="submit"
             disabled={
               userAnswers.filter((answer) => answer).length < quizzes.length
             }
           >
             제출
-          </S.SelectButton>
+          </S.SubmitButton>
         </S.Wrapper>
       </S.QuizSolvePage>
+      <S.Background />
     </form>
   );
 }
