@@ -5,7 +5,7 @@ import QuizCreate from '@/pages/QuizCreate';
 import QuizResultPage from '@/pages/QuizResultPage';
 import QuizSolvePage from '@/pages/QuizSolvePage';
 import Error from '@/pages/Error';
-import UserInfo from '@/pages/UserInfo';
+import UserInfoPage from '@/pages/UserInfoPage';
 
 // 라우터 추가 시 path가 '/'인 메인페이지는 제일 하단에 위치시켜주세요.
 function Routers() {
@@ -14,7 +14,7 @@ function Routers() {
       <Switch>
         <Route exact path="/create" component={QuizCreate} />
         <Route exact path="/result" component={QuizResultPage} />
-        <Route path="/user" component={UserInfo} />
+        <Route path="/user" component={UserInfoPage} />
         <Route exact path="/solve" component={QuizSolvePage} />
         <Route path="/error" component={Error} />
         <Route path="/" component={Home} />
