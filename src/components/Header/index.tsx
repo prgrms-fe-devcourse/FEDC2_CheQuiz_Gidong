@@ -9,11 +9,11 @@ import Notification from '@/components/Notification';
 import * as S from './styles';
 
 function Header(): JSX.Element {
-  const { user, isAuth } = useAuthContext();
+  const { user, isAuth, logout } = useAuthContext();
 
-  const [modal, setModal] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const [modalContent, setModalContent] = useState('');
-  const [notiShow, setNotiShow] = useState(true);
+  const [notiShow, setNotiShow] = useState(false);
 
   return (
     <>
@@ -33,7 +33,16 @@ function Header(): JSX.Element {
               <S.LinkButton to={`/user/${user._id}`} color="primary">
                 내 정보
               </S.LinkButton>
-              <S.Button color="primary">로그아웃</S.Button>
+              <S.Button
+                color="primary"
+                onClick={() => {
+                  logout();
+                  // FIXME: 다른 방법 생각해봐야 함
+                  window.location.reload();
+                }}
+              >
+                로그아웃
+              </S.Button>
               <S.Button
                 color="primary"
                 onClick={() => {
@@ -51,7 +60,7 @@ function Header(): JSX.Element {
               <S.Button
                 color="primary"
                 onClick={() => {
-                  setModal(true);
+                  setModalShow(true);
                   setModalContent('login');
                 }}
               >
@@ -60,7 +69,8 @@ function Header(): JSX.Element {
               <S.Button
                 color="primary"
                 onClick={() => {
-                  setNotiShow(!notiShow);
+                  setModalShow(true);
+                  setModalContent('signup');
                 }}
               >
                 회원가입
@@ -71,7 +81,9 @@ function Header(): JSX.Element {
         </S.ContentContainer>
       </S.HeaderContainer>
       <S.HeaderSpacer />
-      {modal && <Modal setModal={setModal} content={modalContent} />}
+      {modalShow && (
+        <Modal setModalShow={setModalShow} content={modalContent} />
+      )}
     </>
   );
 }

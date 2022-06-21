@@ -9,10 +9,10 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import * as S from '@/components/Form/Title/styles';
 
 interface Props {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SignUpForm({ setModal }: Props) {
+function SignUpForm({ setModalShow }: Props) {
   const { signUp } = useAuthContext();
 
   return (
@@ -31,7 +31,7 @@ function SignUpForm({ setModal }: Props) {
           actions.resetForm();
 
           signUp(values);
-          setModal(false);
+          setModalShow(false);
         }}
       >
         <Form>

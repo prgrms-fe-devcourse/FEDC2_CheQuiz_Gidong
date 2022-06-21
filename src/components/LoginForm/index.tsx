@@ -10,10 +10,10 @@ import { validationLogin } from '@/utils/validation';
 import * as S from '@/components/Form/Title/styles';
 
 interface Props {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function LoginForm({ setModal }: Props) {
+function LoginForm({ setModalShow }: Props) {
   const { login } = useAuthContext();
 
   return (
@@ -30,7 +30,7 @@ function LoginForm({ setModal }: Props) {
           actions.resetForm();
 
           login(values);
-          setModal(false);
+          setModalShow(false);
         }}
       >
         <Form>
