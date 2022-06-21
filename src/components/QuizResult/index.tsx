@@ -10,13 +10,14 @@ import { LikeAPI } from '@/interfaces/LikeAPI';
 import dateFormat from '@/utils/dateFormat';
 import { getUserImageByPoints } from '@/utils/getUserImage';
 import { UserQuizInfo, UserAPI } from '@/interfaces/UserAPI';
+import { createNotification } from '@/api/notification';
 
 interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
 }
 
 function QuizResult({ quiz, correct }: QuizResultProps) {
-  const { user } = useAuthContext();
+  const { user, token } = useAuthContext();
   const [inputValue, handler, setInputValue] = useInput('');
   const [comments, setComments] = useState<CommentAPI[]>(() =>
     quiz && quiz.comments ? quiz.comments : [],
@@ -59,6 +60,12 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
       });
 
       setComments((prev) => [...prev, newComment]);
+      createNotification(token, {
+        notificationType: 'COMMENT',
+        notificationTypeId: newComment._id,
+        userId: quiz.author._id,
+        postId: quiz._id,
+      });
       setInputValue('');
     } catch (error) {
       console.log(error);
@@ -81,6 +88,12 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
     try {
       const like = await UserService.like(quiz._id);
       setLikes((prev) => [...prev, like]);
+      createNotification(token, {
+        notificationType: 'LIKE',
+        notificationTypeId: like._id,
+        userId: quiz.author._id,
+        postId: quiz._id,
+      });
     } catch (error) {
       window.alert('문제가 생겨 좋아요할 수 없습니다.');
       throw new Error('error occured at likePost.');
