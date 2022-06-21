@@ -125,7 +125,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
     <S.Box>
       <S.Header>
         <S.HeaderLeft>
-          <S.Sign reverse={false} color={correct ? 'blue' : 'red'}>
+          <S.Sign reverse={false} color={correct ? 'correct' : 'incorrect'}>
             {correct ? 'O' : 'X'}
           </S.Sign>
           <S.Sign reverse={false} color="default">
@@ -146,7 +146,10 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
       <AnimateHeight duration={350} height={collapsed ? 0 : 'auto'}>
         <S.Container>
           <S.Description>
-            <S.Sign reverse color={quiz.answer === 'true' ? 'blue' : 'red'}>
+            <S.Sign
+              reverse
+              color={quiz.answer === 'true' ? 'correct' : 'incorrect'}
+            >
               {quiz.answer === 'true' ? 'O' : 'X'}
             </S.Sign>
             <div>{quiz.answerDescription}</div>

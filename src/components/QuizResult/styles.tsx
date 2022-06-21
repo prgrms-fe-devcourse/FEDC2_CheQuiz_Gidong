@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
+import { theme } from '@/styles/theme';
 
-// TODO: 임시 prop 바꾸기
 interface StyledButtonProps {
   color?: 'point' | 'primary' | 'secondary';
   fullWidth?: boolean;
@@ -8,7 +8,7 @@ interface StyledButtonProps {
 
 interface StyledSignProps {
   reverse?: boolean;
-  color: 'blue' | 'red' | 'default';
+  color: 'correct' | 'incorrect' | 'default';
 }
 
 interface ProfileImageProps {
@@ -86,15 +86,15 @@ export const Sign = styled.div<StyledSignProps>`
   border-radius: 0.5rem;
   background-color: ${({ reverse, color }) => {
     if (!reverse) return '#ffffff';
-    if (color === 'blue') return 'royalblue';
-    if (color === 'red') return 'tomato';
-    return '#14123d';
+    if (color === 'correct') return theme.answerColor.correct;
+    if (color === 'incorrect') return theme.answerColor.incorrect;
+    return theme.themeColors.primary;
   }};
   color: ${({ reverse, color }) => {
     if (reverse) return '#ffffff';
-    if (color === 'blue') return 'royalblue';
-    if (color === 'red') return 'tomato';
-    return '#14123d';
+    if (color === 'correct') return theme.answerColor.correct;
+    if (color === 'incorrect') return theme.answerColor.incorrect;
+    return theme.themeColors.primary;
   }};
   font-size: 2rem;
   font-weight: bold;
