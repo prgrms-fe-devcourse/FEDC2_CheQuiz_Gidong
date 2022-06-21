@@ -20,13 +20,13 @@ function App(): JSX.Element {
   return (
     <AuthProvider>
       <QuizProvider>
-        <Layout>
-          <ThemeProvider theme={theme}>
-            <Global styles={reset} />
-            <Global styles={fontStyle} />
+        <ThemeProvider theme={theme}>
+          <Global styles={reset} />
+          <Global styles={fontStyle} />
+          <Layout>
             <Router />
-          </ThemeProvider>
-        </Layout>
+          </Layout>
+        </ThemeProvider>
       </QuizProvider>
     </AuthProvider>
   );
