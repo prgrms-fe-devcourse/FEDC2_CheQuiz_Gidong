@@ -40,6 +40,16 @@ export const QuizSetListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem 1.5rem;
+
+  @media all and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media all and (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media all and (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const LinkToSolve = styled(Link)`
