@@ -77,6 +77,8 @@ export const Description = styled.div`
   flex-grow: 1;
   color: #686868;
   ${detail};
+
+  white-space: break-spaces;
 `;
 
 export const UserBox = styled.div`
