@@ -15,3 +15,10 @@ export interface NotificationAPI {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface NotificationPayload {
+  notificationType: 'COMMENT' | 'LIKE';
+  notificationTypeId: string;
+  userId: string;
+  postId?: string;
+}
