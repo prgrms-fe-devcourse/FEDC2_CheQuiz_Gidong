@@ -14,7 +14,7 @@ interface Props {
   userId: string;
 }
 function UserInfo() {
-  const [valid, setValid] = useState(false);
+  const [isExistUser, setIsExistUser] = useState(false);
   const [id, setId] = useState('');
   const [loading, isLoading] = useState(false);
 
@@ -29,7 +29,7 @@ function UserInfo() {
       const apiData = await fetchUserList();
       const idList = apiData.map((userItem: UserAPI) => userItem._id);
       const isValid = idList.some((item: string) => item === urlId);
-      setValid(isValid);
+      setIsExistUser(isValid);
       if (isValid) {
         setId(urlId);
       }
@@ -59,7 +59,7 @@ function UserInfo() {
 
       {!loading && (
         <>
-          {!valid && (
+          {!isExistUser && (
             <S.notFoundText>해당 유저는 존재하지 않습니다.</S.notFoundText>
           )}
           {id && (
