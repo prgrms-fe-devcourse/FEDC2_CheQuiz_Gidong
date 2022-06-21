@@ -36,7 +36,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
   const findLike = () => likes.find((like) => like.user === user._id);
 
   const getUserPoints = (currentUser: UserAPI) => {
-    const { points } = JSON.parse(currentUser.username || '') as UserQuizInfo;
+    const { points } = JSON.parse(currentUser.username || '{}') as UserQuizInfo;
     return points;
   };
 
