@@ -10,6 +10,7 @@ import Select from '@/components/Form/Select';
 interface QuizItemProps {
   quizData: QuizClientContent;
   order: number;
+  errors: any;
   handleQuizDelete: (id: number) => (e: React.MouseEvent) => void;
   onChangeQuiz: (id: number, key: string, value: unknown) => void;
 }
@@ -17,6 +18,7 @@ interface QuizItemProps {
 export default function QuizItem({
   quizData,
   order,
+  errors,
   onChangeQuiz,
   handleQuizDelete,
 }: QuizItemProps) {
@@ -49,6 +51,8 @@ export default function QuizItem({
               handleInputChange('answerType', value)
             }
           />
+          {errors[`[${order - 1}].category`]}
+          {errors[`[${order - 1}].answerType`]}
         </S.SelectWrapper>
         <S.QuestionWrapper>
           {`Q${order}`}
@@ -58,13 +62,17 @@ export default function QuizItem({
               handleInputChange('question', target.value)
             }
           />
+          {errors[`[${order - 1}].question`]}
         </S.QuestionWrapper>
       </S.QuestionSection>
 
       <S.AnswerSection>
         <S.LeftSide>
           <S.TrueFalseWrapper>
-            <S.Label block>정답</S.Label>
+            <S.Label block>
+              정답
+              {errors[`[${order - 1}].answer`]}
+            </S.Label>
             {[
               { label: 'O', value: 'true' },
               { label: 'X', value: 'false' },
@@ -86,7 +94,10 @@ export default function QuizItem({
             ))}
           </S.TrueFalseWrapper>
           <S.Importance>
-            <S.Label block>중요도</S.Label>
+            <S.Label block>
+              중요도
+              {errors[`[${order - 1}].importance`]}
+            </S.Label>
             <Rate
               count={5}
               defaultVal={quizData.importance}
@@ -94,7 +105,10 @@ export default function QuizItem({
             />
           </S.Importance>
           <S.Difficulty>
-            <S.Label block>난이도</S.Label>
+            <S.Label block>
+              난이도
+              {errors[`[${order - 1}].difficulty`]}
+            </S.Label>
             <Rate
               count={5}
               defaultVal={quizData.difficulty}
@@ -104,6 +118,7 @@ export default function QuizItem({
         </S.LeftSide>
         <S.AnswerDescription>
           <S.Label block>해설</S.Label>
+          {errors[`[${order - 1}].answerDescription`]}
           <S.TextArea
             value={quizData.answerDescription}
             onChange={({ target }) =>
