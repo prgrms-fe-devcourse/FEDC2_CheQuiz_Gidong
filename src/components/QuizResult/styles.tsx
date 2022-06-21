@@ -10,6 +10,10 @@ interface StyledSignProps {
   reverse?: boolean;
   color: 'blue' | 'red' | 'default';
 }
+
+interface ProfileImageProps {
+  src?: string;
+}
 export interface StyledQuizResultProps {
   correct: boolean;
 }
@@ -106,14 +110,21 @@ export const Comment = styled(Wrapper)`
   margin: 1rem 0;
 `;
 
-export const ProfileImage = styled.div`
+export const UserImage = styled.img`
+  max-height: 5.5rem;
+`;
+
+export const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80px;
-  height: 80px;
-  background-color: rgba(0, 0, 0, 0.2);
-  font-family: 'MaplestoryOTFLight';
+  width: 5rem;
+  height: 5rem;
+  border: 3px solid;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: inherit;
+  background-color: #e9ecef;
 `;
 
 export const CommentCenter = styled.div`

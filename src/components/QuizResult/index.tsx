@@ -8,6 +8,8 @@ import * as UserService from '@/api/UserServices';
 import * as S from './styles';
 import { LikeAPI } from '@/interfaces/LikeAPI';
 import dateFormat from '@/utils/dateFormat';
+import { getUserImageByPoints } from '@/utils/getUserImage';
+import { UserQuizInfo, UserAPI } from '@/interfaces/UserAPI';
 
 interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
@@ -32,6 +34,11 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
     [likes, user._id],
   );
   const findLike = () => likes.find((like) => like.user === user._id);
+
+  const getUserPoints = (currentUser: UserAPI) => {
+    const { points } = JSON.parse(currentUser.username || '') as UserQuizInfo;
+    return points;
+  };
 
   const postComment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -135,7 +142,11 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
             <form onSubmit={postComment}>
               <h3>comment 작성하기</h3>
               <S.Flex>
-                <S.ProfileImage>작성자 사진</S.ProfileImage>
+                <S.ImageWrapper>
+                  <S.UserImage
+                    src={getUserImageByPoints(getUserPoints(user))}
+                  />
+                </S.ImageWrapper>
                 <S.InputWrapper>
                   <S.Input
                     type="text"
@@ -158,7 +169,11 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
           <h1>{comments.length ? '코멘트 보기' : '코멘트가 없습니다.'}</h1>
           {comments.map((comment) => (
             <S.Comment key={comment._id}>
-              <S.ProfileImage>작성자 사진</S.ProfileImage>
+              <S.ImageWrapper>
+                <S.UserImage
+                  src={getUserImageByPoints(getUserPoints(comment.author))}
+                />
+              </S.ImageWrapper>
               <S.CommentCenter>
                 <div>
                   <S.Text>작성자: {comment.author.fullName}</S.Text>
