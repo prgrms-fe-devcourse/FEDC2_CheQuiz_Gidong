@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import {
   DarkGray,
   h1,
@@ -51,7 +52,7 @@ export const ContentBox = styled.div`
 export const Content = styled.div`
   width: 36rem;
   height: 8rem;
-  padding: 2rem 1rem;
+  padding: 1rem;
 
   display: flex;
   flex-direction: column;
@@ -65,19 +66,6 @@ export const Content = styled.div`
   border-right: none;
   gap: 1rem;
 `;
-export const CategorySelect = styled.select`
-  width: 6rem;
-  height: 1.75rem;
-  margin: 0 1rem;
-  ${small};
-  color: #555555;
-
-  border: none;
-  outline: none;
-  background-color: ${lightGrayWhite};
-
-  cursor: pointer;
-`;
 type TextProps = {
   type?: string;
 };
@@ -90,19 +78,21 @@ export const BoldText = styled.div`
   color: ${pointColor};
   -webkit-text-stroke: 1px ${DarkGray};
 `;
-export const StartBox = styled.div`
+export const StartBox = styled(Link)`
   width: 8rem;
   height: 8rem;
 
+  color: ${DarkGray};
   background-color: white;
   border: 3px solid ${DarkGray};
   border-radius: 0 1rem 4rem 0;
+  text-decoration: none;
+  cursor: pointer;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 `;
 
 export const Input = styled.input`

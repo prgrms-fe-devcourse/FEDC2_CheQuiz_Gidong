@@ -1,14 +1,15 @@
 import {
   TEST_ADMIN_TOKEN,
   DEFAULT_CHANNEL_ID,
-  TEST_USER_TOKEN,
 } from '@/assets/QuizCreateMockData';
 import { QuizContent } from '@/interfaces/Quiz';
 import axiosInstance from '@/api/axiosInstance';
 import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
+import { UserAPI } from '@/interfaces/UserAPI';
 
 export const createQuiz = async (
   quiz: QuizContent,
+  token: string,
   channelId = DEFAULT_CHANNEL_ID,
 ) => {
   try {
@@ -17,7 +18,7 @@ export const createQuiz = async (
       url: '/posts/create',
       data: { image: null, channelId, title: JSON.stringify(quiz) },
       headers: {
-        Authorization: `Bearer ${TEST_USER_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   } catch (error) {
@@ -25,7 +26,10 @@ export const createQuiz = async (
   }
 };
 
-export const createQuizSet = async (set: ChannelAPICustomTitle) => {
+export const createQuizSet = async (
+  set: ChannelAPICustomTitle,
+  user: UserAPI,
+) => {
   const { name, ...quizSetCustomData } = set;
   try {
     const { data } = await axiosInstance({
@@ -36,7 +40,7 @@ export const createQuizSet = async (set: ChannelAPICustomTitle) => {
         name,
         description: JSON.stringify({
           ...quizSetCustomData,
-          creator: TEST_USER_TOKEN,
+          creator: user,
         }),
       },
       headers: {

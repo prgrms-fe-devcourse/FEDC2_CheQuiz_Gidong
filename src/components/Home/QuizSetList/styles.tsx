@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import exp from 'constants';
+import { Link } from 'react-router-dom';
 import { DarkGray, grayWhite, h3, small } from '@/styles/theme';
-import arrowIcon from '@/assets/downArrow.png';
 
 export const FilterContainer = styled.div`
   display: flex;
@@ -31,19 +30,6 @@ export const SearchInput = styled.input`
   ${small};
   cursor: pointer;
 `;
-export const SortWrap = styled(FilterWrap)``;
-export const SortSelect = styled.select`
-  width: 11rem;
-  padding-right: 1rem;
-  text-align: center;
-
-  border: none;
-  outline: none;
-  ${small};
-  appearance: none;
-  background: url(${arrowIcon}) 95.5% center/10% no-repeat ${grayWhite};
-  cursor: pointer;
-`;
 
 export const Title = styled.div`
   ${h3}
@@ -54,4 +40,9 @@ export const QuizSetListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4,1fr);
   gap: 0.5rem; 1rem;
+`;
+
+export const LinkToSolve = styled(Link)`
+  text-decoration: none;
+  color: ${DarkGray};
 `;

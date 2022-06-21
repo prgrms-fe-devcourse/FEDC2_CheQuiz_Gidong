@@ -5,6 +5,7 @@ import { QUIZ_ANSWER_TYPE_LIST, QUIZ_CATEGORY_LIST } from '@/constants';
 
 import Icon from '@/components/Icon';
 import Rate from '@/components/QuizCreate/Rate';
+import Select from '@/components/Form/Select';
 
 interface QuizItemProps {
   quizData: QuizClientContent;
@@ -33,35 +34,21 @@ export default function QuizItem({
       />
       <S.QuestionSection>
         <S.SelectWrapper>
-          <S.SelectBox
+          <Select
+            defaultValue="카테고리"
             value={quizData.category}
-            onChange={({ target }) =>
-              handleInputChange('category', target.value)
+            options={QUIZ_CATEGORY_LIST}
+            onChangeValue={(value: string) =>
+              handleInputChange('category', value)
             }
-          >
-            <option value="" hidden>
-              카테고리
-            </option>
-            {QUIZ_CATEGORY_LIST.map((opt) =>
-              typeof opt === 'string' ? { label: opt, value: opt } : opt,
-            ).map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </S.SelectBox>
-          <S.SelectBox
+          />
+          <Select
             value={quizData.answerType}
-            onChange={({ target }) =>
-              handleInputChange('answerType', target.value)
+            options={QUIZ_ANSWER_TYPE_LIST}
+            onChangeValue={(value: string) =>
+              handleInputChange('answerType', value)
             }
-          >
-            {QUIZ_ANSWER_TYPE_LIST.map((opt) => (
-              <option key={opt.value} value={opt.value} disabled={!opt.canUse}>
-                {opt.label}
-              </option>
-            ))}
-          </S.SelectBox>
+          />
         </S.SelectWrapper>
         <S.QuestionWrapper>
           {`Q${order}`}

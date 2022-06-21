@@ -1,7 +1,30 @@
-import { QUIZ_SET_TAG_LIST } from '@/constants';
+import Select from '@/components/Form/Select';
+import { QUIZ_CATEGORY_LIST } from '@/constants';
+import { useQuizContext } from '@/contexts/QuizContext';
 import * as S from './styles';
 
 function RandomQuiz() {
+  const { setRandomQuizCount, setRandomQuizCategory, setChannelId } =
+    useQuizContext();
+  const SelectStyle = {
+    width: '6rem',
+    color: '#555555',
+    padding: '0',
+    margin: '0 1rem',
+    border: 'none',
+    appearance: 'auto',
+    backgroundImage: 'none',
+    backgroundColor: '#E9ECEF',
+  };
+
+  const handleQuizChange = (value: string) => {
+    setRandomQuizCount(Number(value));
+  };
+
+  const handleQuizStart = () => {
+    setChannelId(null);
+  };
+
   return (
     <S.Container>
       <S.TitleBox>
@@ -12,23 +35,25 @@ function RandomQuiz() {
         <S.Content>
           <S.Text>
             퀘스트 요약 |
-            <S.CategorySelect name="orders">
-              <option value="" hidden>
-                ( 카테고리 )
-              </option>
-              {QUIZ_SET_TAG_LIST.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
-            </S.CategorySelect>
+            <Select
+              defaultValue="( 카테고리 )"
+              options={QUIZ_CATEGORY_LIST}
+              onChangeValue={(value: string) => setRandomQuizCategory(value)}
+              addStyle={{ ...SelectStyle }}
+            />
             의 문제를
-            <S.Input type="number" min={1} max={10} placeholder="( 문제 수 )" />
+            <S.Input
+              type="number"
+              min={1}
+              max={10}
+              placeholder="( 문제 수 )"
+              onChange={({ target }) => handleQuizChange(target.value)}
+            />
             만큼 풀게나!
           </S.Text>
           <S.Text>보상 | 소정의 경험치 획득 </S.Text>
         </S.Content>
-        <S.StartBox>
+        <S.StartBox to="/solve" onClick={handleQuizStart}>
           <S.Text type="small">퀘스트 수행하러</S.Text>
           <S.BoldText>Go!</S.BoldText>
         </S.StartBox>
