@@ -50,8 +50,20 @@ const getAuthUser = async (token: string) => {
   }
 };
 
+const logout = async () => {
+  try {
+    await axiosInstance({
+      method: 'POST',
+      url: '/logout',
+    });
+  } catch (error) {
+    throw new Error('Logout Failed');
+  }
+};
+
 export default {
   login,
   signUp,
   getAuthUser,
+  logout,
 };

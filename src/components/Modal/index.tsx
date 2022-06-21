@@ -4,17 +4,17 @@ import SignUpForm from '@/components/SignUpForm';
 import * as S from './styles';
 
 interface Props {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalShow: React.Dispatch<React.SetStateAction<boolean>>;
   content: string;
 }
 
-function Modal({ setModal, content }: Props) {
+function Modal({ setModalShow, content }: Props) {
   const getComponentByContent = (contentType: string) => {
     switch (contentType) {
       case 'login':
-        return <LoginForm setModal={setModal} />;
+        return <LoginForm setModalShow={setModalShow} />;
       case 'signup':
-        return <SignUpForm setModal={setModal} />;
+        return <SignUpForm setModalShow={setModalShow} />;
       default:
         return null;
     }
@@ -23,7 +23,7 @@ function Modal({ setModal, content }: Props) {
   return (
     <S.Wrapper
       onClick={() => {
-        setModal(false);
+        setModalShow(false);
       }}
     >
       <S.Container onClick={(e) => e.stopPropagation()}>

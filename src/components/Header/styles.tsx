@@ -85,6 +85,7 @@ export const Button = styled.button`
     'Noto Sans KR', 'Malgun Gothic', sans-serif;
   background-color: rgba(0, 0, 0, 0);
   border: none;
+  outline: none;
   font-size: 1rem;
   text-decoration: none;
   color: #343a40;
