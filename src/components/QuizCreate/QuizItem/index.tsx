@@ -103,7 +103,7 @@ export default function QuizItem({
           <S.Importance>
             <S.Label>중요도</S.Label>
             <S.ValidationLabel marginL="1rem">
-              {errors[`[${order - 1}].importance`] && 'importance is required'}
+              {errors[`[${order - 1}].importance`] && '중요도를 선택해주세요'}
             </S.ValidationLabel>
             <Rate
               count={5}
@@ -114,7 +114,7 @@ export default function QuizItem({
           <S.Difficulty>
             <S.Label>난이도</S.Label>
             <S.ValidationLabel marginL="1rem">
-              {errors[`[${order - 1}].difficulty`] && 'difficulty is required'}
+              {errors[`[${order - 1}].difficulty`] && '난이도를 선택해주세요'}
             </S.ValidationLabel>
             <Rate
               count={5}
