@@ -34,10 +34,20 @@ function QuizSetList() {
   const isContainKeyword = (quizSet: ChannelAPI) => {
     const { name, description } = quizSet;
     const { tags, creator } = JSON.parse(description);
+
+    const parseValue = (value: string) => {
+      return value.replace(/\s/g, '').toLowerCase();
+    };
+
+    const lowerTitle = parseValue(name);
+    const lowerTags = tags.map((tag: string) => parseValue(tag));
+    const lowerUserName = parseValue(creator.fullName);
+    const lowerKeyword = parseValue(keyword);
+
     const isFiltered =
-      name.indexOf(keyword) >= 0 ||
-      tags.includes(keyword) ||
-      creator.fullName.indexOf(keyword) >= 0;
+      lowerTitle.indexOf(lowerKeyword) >= 0 ||
+      lowerTags.includes(lowerKeyword) ||
+      lowerUserName.indexOf(lowerKeyword) >= 0;
     return isFiltered;
   };
 
