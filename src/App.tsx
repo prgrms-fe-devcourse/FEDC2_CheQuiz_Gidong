@@ -7,7 +7,7 @@ import reset from '@/styles/reset';
 import fontStyle from '@/styles/fontStyle';
 
 import AuthProvider from '@/contexts/AuthContext';
-import QuizProvider from './contexts/QuizContext';
+import QuizProvider from '@/contexts/QuizContext';
 
 const Layout = styled.div`
   max-width: 75rem;
