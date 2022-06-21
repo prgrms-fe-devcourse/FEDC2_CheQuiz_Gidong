@@ -1,33 +1,76 @@
+import { useState } from 'react';
+
+import { useAuthContext } from '@/contexts/AuthContext';
+
+import Modal from '@/components/Modal';
+import Icon from '@/components/Icon';
+
 import * as S from './styles';
 
-interface HeaderProps {
-  isLogin?: boolean;
-}
+function Header(): JSX.Element {
+  const { user, isAuth } = useAuthContext();
 
-function Header({ isLogin }: HeaderProps): JSX.Element {
+  const [modal, setModal] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+
   return (
     <>
       <S.HeaderContainer>
         <S.ContentContainer>
-          <S.Title>CheQuiz</S.Title>
-          {isLogin && (
-            <div>
-              <S.Button href="#">문제 만들기</S.Button>
-              <S.Button href="#">랭킹 보기</S.Button>
-              <S.Button href="#">내 정보</S.Button>
-              <S.Button href="#">로그아웃</S.Button>
-            </div>
-          )}
-          {!isLogin && (
-            <div>
-              <S.Button href="#">랭킹 보기</S.Button>
-              <S.Button href="#">로그인</S.Button>
-              <S.Button href="#">회원가입</S.Button>
-            </div>
+          <S.LinkButton to="/" color="point" logo="true">
+            CheQuiz
+          </S.LinkButton>
+          {isAuth ? (
+            <S.ButtonGroup>
+              <S.LinkButton to="/create" color="primary">
+                문제 만들기
+              </S.LinkButton>
+              <S.LinkButton to="/ranking" color="primary">
+                랭킹 보기
+              </S.LinkButton>
+              <S.LinkButton to={`/user/${user._id}`} color="primary">
+                내 정보
+              </S.LinkButton>
+              <S.Button color="primary">로그아웃</S.Button>
+              <S.Button
+                color="primary"
+                onClick={() => {
+                  setModal(true);
+                  setModalContent('notification');
+                }}
+              >
+                <Icon name="bell" size={24} />
+              </S.Button>
+            </S.ButtonGroup>
+          ) : (
+            <S.ButtonGroup>
+              <S.LinkButton to="/ranking" color="primary">
+                랭킹 보기
+              </S.LinkButton>
+              <S.Button
+                color="primary"
+                onClick={() => {
+                  setModal(true);
+                  setModalContent('login');
+                }}
+              >
+                로그인
+              </S.Button>
+              <S.Button
+                color="primary"
+                onClick={() => {
+                  setModal(true);
+                  setModalContent('signup');
+                }}
+              >
+                회원가입
+              </S.Button>
+            </S.ButtonGroup>
           )}
         </S.ContentContainer>
       </S.HeaderContainer>
       <S.HeaderSpacer />
+      {modal && <Modal setModal={setModal} content={modalContent} />}
     </>
   );
 }

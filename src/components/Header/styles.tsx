@@ -1,4 +1,12 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
+
+export interface StyledLinkedButtonProps {
+  color: 'point' | 'primary' | 'secondary';
+  fill?: 'true' | 'false';
+  fullWidth?: 'true' | 'false';
+  logo?: 'true' | 'false';
+}
 
 export const HeaderContainer = styled.div`
   position: fixed;
@@ -9,6 +17,7 @@ export const HeaderContainer = styled.div`
   border-bottom: 3px solid #343a40;
   background-color: #f8f9fa;
   z-index: 3;
+  box-sizing: content-box;
 `;
 
 // header : fixed에 의한 레이아웃 용
@@ -18,6 +27,7 @@ export const HeaderSpacer = styled.div`
 `;
 
 export const ContentContainer = styled.div`
+  height: inherit;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -27,16 +37,49 @@ export const ContentContainer = styled.div`
   padding: 0 1rem;
 `;
 
-export const Title = styled.h1`
-  font-family: 'Permanent Marker', sans-serif;
-  font-size: 2rem;
-  color: #fca311;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+export const ButtonGroup = styled.div`
+  display: flex;
+  align-items: center;
+  height: inherit;
 `;
 
-export const Button = styled.a`
+export const LinkButton = styled(Link)<StyledLinkedButtonProps>`
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+  display: ${({ fullWidth }) => (fullWidth ? 'block' : 'inline-block')};
+  font-family: ${({ logo }) =>
+    logo === 'true' ? `'Permanent Marker', sans-serif` : null};
+  font-size: ${({ logo }) => (logo === 'true' ? '2rem' : '1rem')};
+  text-shadow: ${({ logo }) =>
+    logo === 'true'
+      ? '-2px 0 black, 0 2px black, 2px 0 black, 0 -2px black'
+      : null};
+  padding: 0 1rem;
+  border: none;
+  background-color: ${({ color, fill }) => {
+    if (!fill) return '#f8f9fa';
+    if (color === 'point') return '#fca211';
+    if (color === 'primary') return '#14213d';
+    return '#e5e5e5';
+  }};
+  color: ${({ color, fill }) => {
+    if (fill) return '#f8f9fa';
+    if (color === 'point') return '#fca211';
+    if (color === 'primary') return '#14213d';
+    return '#e5e5e5';
+  }};
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+  outline: none;
+  cursor: pointer;
+  &:hover {
+    color: #fca311;
+  }
+`;
+
+export const Button = styled.button`
   display: inline-block;
   text-align: center;
+  padding: 0 1rem;
   font-family: 'MaplestoryOTFLight', 'Segoe UI', 'Apple SD Gothic Neo',
     'Noto Sans KR', 'Malgun Gothic', sans-serif;
   background-color: rgba(0, 0, 0, 0);
@@ -45,7 +88,6 @@ export const Button = styled.a`
   text-decoration: none;
   color: #343a40;
   cursor: pointer;
-  width: 100px;
   transition: color 0.2s ease-in-out;
   &:hover {
     color: #fca311;
