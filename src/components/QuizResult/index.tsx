@@ -195,7 +195,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
           </S.Wrapper>
           <h1>댓글{comments.length ? ' 보기' : '이 없습니다.'}</h1>
           {comments.map((comment) => (
-            <S.Comment key={comment._id} border>
+            <S.Comment key={comment._id}>
               <S.ImageWrapper>
                 <S.UserImage
                   src={getUserImageByPoints(getUserPoints(comment.author))}
