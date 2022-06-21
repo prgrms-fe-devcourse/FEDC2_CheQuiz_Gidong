@@ -10,8 +10,11 @@ function UserInfoTab({ id }: { id: string }) {
   const [madeQuizzes, setMadeQuizzes] = useState([]);
   const [commentedQuizzes, setCommentedQuizzes] = useState([]);
   const [likedQuizzes, setLikedQuizzes] = useState([]);
+  const [allQuizzes, setAllQuizzes] = useState([]);
 
   const [currentTab, setCurrentTab] = useState(0);
+
+  const [currentQuiz, setCurrentQuiz] = useState({});
 
   const tabMapper = [madeQuizzes, commentedQuizzes, likedQuizzes];
 
@@ -40,6 +43,7 @@ function UserInfoTab({ id }: { id: string }) {
         author: post.author,
         ...JSON.parse(post.title),
       }));
+      setAllQuizzes(realData);
 
       const userMadeQuizzes = realData.filter(
         (quiz: UserQuizType) => quiz.author._id === id,
@@ -58,6 +62,15 @@ function UserInfoTab({ id }: { id: string }) {
 
     updateAllQuiz();
   }, [id]);
+  const updateSelectedQuiz = (quizId: string) => {
+    const selectedQuiz = allQuizzes.find(
+      (quiz: UserQuizType) => quiz.id === quizId,
+    );
+    console.log(selectedQuiz);
+    if (selectedQuiz) {
+      setCurrentQuiz(selectedQuiz);
+    }
+  };
 
   const updateClickedTab = (tabId: number) => {
     setCurrentTab(tabId);
@@ -87,6 +100,7 @@ function UserInfoTab({ id }: { id: string }) {
               question={quiz.question}
               likeCount={quiz.likes.length}
               commentCount={quiz.comments.length}
+              handleClick={() => updateSelectedQuiz(quiz.id)}
             />
           ))}
         </S.UserQuizContainer>
