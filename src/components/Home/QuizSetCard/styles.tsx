@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import {
   DarkGray,
-  grayWhite,
-  lightGrayWhite,
   medium,
   pointColor,
   small,
@@ -27,12 +25,13 @@ const colors = [
   tagGreen,
 ];
 export const CardContainer = styled.div`
-  width: 17rem;
-  height: 25rem;
+  min-height: 25rem;
 
   border: 3px solid ${DarkGray};
   border-radius: 0.5rem;
   background-color: ${white};
+  transform: ${({ cardIdx }: { cardIdx: number }) =>
+    cardIdx % 2 === 0 ? 'none' : 'translateY(1rem)'};
 
   display: flex;
   flex-direction: column;
@@ -76,6 +75,8 @@ export const Description = styled.div`
   flex-grow: 1;
   color: #686868;
   ${detail};
+
+  white-space: break-spaces;
 `;
 
 export const UserBox = styled.div`

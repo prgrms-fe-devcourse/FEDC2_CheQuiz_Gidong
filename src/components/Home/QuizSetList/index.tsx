@@ -102,13 +102,13 @@ function QuizSetList() {
         {quizSetList
           .filter(isContainKeyword)
           .sort((a, b) => sortBySelect(a, b, sortBy))
-          .map((quizSet: ChannelAPI) => (
+          .map((quizSet: ChannelAPI, idx) => (
             <S.LinkToSolve
               to="/solve"
               key={quizSet._id}
               onClick={() => handleQuizClick(quizSet._id)}
             >
-              <QuizSetCard quizSet={quizSet} />
+              <QuizSetCard quizSet={quizSet} cardIdx={idx} />
             </S.LinkToSolve>
           ))}
       </S.QuizSetListContainer>

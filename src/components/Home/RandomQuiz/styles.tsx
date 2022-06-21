@@ -100,6 +100,8 @@ export const Input = styled.input`
   height: 1.75rem;
   margin: 0 1rem;
   ${small};
+  text-align: center;
+  vertical-align: middle;
 
   border: none;
   outline: none;
