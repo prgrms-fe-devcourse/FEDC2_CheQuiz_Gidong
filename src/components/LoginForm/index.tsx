@@ -7,12 +7,18 @@ import { useAuthContext } from '@/contexts/AuthContext';
 
 import { validationLogin } from '@/utils/validation';
 
-function LoginForm() {
+import * as S from '@/components/Form/Title/styles';
+
+interface Props {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function LoginForm({ setModal }: Props) {
   const { login } = useAuthContext();
 
   return (
     <>
-      <h1>로그인</h1>
+      <S.Title>로그인</S.Title>
       <Formik
         initialValues={{
           email: '',
@@ -24,6 +30,7 @@ function LoginForm() {
           actions.resetForm();
 
           login(values);
+          setModal(false);
         }}
       >
         <Form>

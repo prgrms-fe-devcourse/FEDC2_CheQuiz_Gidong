@@ -45,7 +45,7 @@ function QuizResultPage() {
   }
   return (
     <>
-      <Header isLogin={isAuth} />
+      <Header />
       {isAuth ? <UserInfoCard id={user._id} width="100%" /> : null}
       <S.QuizResultPage>
         {quizzes.map((quiz, index) => (
