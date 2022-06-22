@@ -1,56 +1,25 @@
-# React typescript boilerplate
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f2b5304c-f123-4c18-8807-24028208b503/Untitled.png)
 
-## 설치 방법
-```cli
-npm install
-npm start # development
-npm build # production
-```
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dcb80930-af4f-468c-97cb-6dd564bf3279/Untitled.png)
 
-## 설치되어 있는 플러그인
+# 서비스 소개
 
-- typescript
-- webpack
-- webpack-dev-server
-- webpack-cli
-- eslint
-- prettier
-- sass
-- postcss
+<aside>
+💡 **CHEQUIZ**는 퀴즈라는 간단하지만 수치화할 수 있는 시스템을 통해 현재 나의 개발 지식을 측정할 수 있는 플랫폼입니다.
 
-## ESLint
+</aside>
 
-- airbnb rule 적용
+# 주요 기능
 
-```json
-{
-    "env": {
-        "browser": true,
-        "node": true,
-        "es6": true
-    },
-    "extends": [
-        "airbnb",
-        "prettier:recommends",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:react-hooks/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["react", "react-hooks"]
-}
-```
+- 랜덤으로 퀴즈를 요청하여 문제를 해결할 수 있습니다.
+- 만들어진 문제 세트에 포함되어 있는 엄선된 문제들을 해결할 수 있습니다.
+- 문제를 맞추면, 경험치를 받을 수 있습니다. 경험치를 쌓고 뱃지를 받아 나를 표현해보세요.
+- 경험치가 쌓여 레벨이 올라가면, 나를 표현하는 캐릭터의 모양도 변화합니다! 문제를 해결하고 더 높은 단계에 도달해 보세요.
+- 문제가 맘에 들면, 좋아요를 눌러 다음에 다시 확인할 수 있습니다.
+- 문제를 해결하고 난 뒤, 댓글을 남겨 출제자에게 피드백을 남기거나, 다른 사용자와 소통할 수 있습니다.
 
-## Prettier
+# 배포 링크
 
-```json
-{
-  "singleQuote": true,
-  "semi": true,
-  "useTabs": false,
-  "tabWidth": 2,
-  "trailingComma": "all",
-  "printWidth": 80
-}
+# 기술 스택
 
-```
+# 팀원 소개
