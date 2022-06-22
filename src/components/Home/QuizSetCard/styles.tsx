@@ -51,15 +51,14 @@ export const Title = styled.div`
   ${medium}
 `;
 export const TagBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem 0.5rem;
 `;
 type TagProps = {
   order: number;
 };
 export const Tag = styled.div<TagProps>`
-  width: 7rem;
   height: 2.125rem;
 
   ${small};
