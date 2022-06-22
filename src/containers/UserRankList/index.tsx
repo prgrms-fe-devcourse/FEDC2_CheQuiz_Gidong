@@ -82,7 +82,7 @@ function UserRankList({ keyword }: rankSearchProp) {
       point = points;
     }
 
-    const level = point / 100;
+    const level = Math.ceil(point / 100);
 
     // 포인트 관련 조건
     const isLevel0 = level < 10 && level >= 0;
