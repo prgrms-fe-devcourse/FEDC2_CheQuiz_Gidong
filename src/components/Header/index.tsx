@@ -37,6 +37,7 @@ function Header(): JSX.Element {
                 color="primary"
                 onClick={() => {
                   logout();
+                  setNotiShow(false);
                 }}
               >
                 로그아웃
