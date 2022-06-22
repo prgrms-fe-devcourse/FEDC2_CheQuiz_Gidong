@@ -25,8 +25,8 @@ export const imageBreakpoints = [
 export const commentBreakpoints = [
   {
     count: 0,
-    color: '#8E05C2',
-    text: '무뚝뚝그자체',
+    color: 'mediumpurple',
+    text: '묵언수행중',
     exact: true,
   },
   {
@@ -41,7 +41,7 @@ export const likeBreakpoints = [
   {
     count: 0,
     color: '#7E7474',
-    text: '묵언수행중',
+    text: '무뚝뚝그자체',
     exact: true,
   },
   {
