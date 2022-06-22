@@ -7,7 +7,7 @@ import QuizSolvePage from '@/pages/QuizSolvePage';
 import QuizResultPage from '@/pages/QuizResultPage';
 import UserInfoPage from '@/pages/UserInfoPage';
 import Ranking from '@/pages/Ranking';
-import Error from '@/pages/Error';
+import Error from '@/pages/ErrorPage';
 
 import AuthRoute from '@/routes/AuthRoute';
 
