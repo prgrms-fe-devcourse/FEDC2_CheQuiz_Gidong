@@ -1,6 +1,6 @@
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f2b5304c-f123-4c18-8807-24028208b503/Untitled.png)
+![logo_full](https://user-images.githubusercontent.com/56826914/174994053-efe8569c-1743-4b9b-ae44-e078034996c3.png)
+![logo](https://user-images.githubusercontent.com/56826914/174994046-397f295b-a496-40f0-9051-95a35f2d4734.png)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dcb80930-af4f-468c-97cb-6dd564bf3279/Untitled.png)
 
 # 서비스 소개
 
