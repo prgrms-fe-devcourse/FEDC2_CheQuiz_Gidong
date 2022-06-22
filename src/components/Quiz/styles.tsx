@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { primary, pointColor } from '@/styles/theme';
+import { primary, pointColor, h2 } from '@/styles/theme';
+import maple from '@/assets/maple.png';
 
 interface SelectButtonProps {
   currentSelected: boolean;
@@ -10,23 +11,23 @@ interface StyledWrapperProps {
 }
 
 export const OuterBox = styled.div`
-  * {
-    box-sizing: border-box;
-    color: ${primary};
-    font-family: 'MaplestoryOTFLight';
-  }
+  color: ${primary};
 `;
 
 export const InnerBox = styled.div`
+  height: 15rem;
+  margin: 0 auto;
+  padding: 2rem;
+
+  border: 3px solid ${primary};
+  border-radius: 0.5rem;
+
+  background: url(${maple}) 98% 100% /6% no-repeat white;
+  overflow-y: auto;
+
   display: flex;
   align-items: center;
   gap: 1rem;
-  height: 15rem;
-  overflow-y: auto;
-  margin: 0 auto;
-  padding: 2rem;
-  border: 3px solid ${primary};
-  border-radius: 0.5rem;
 `;
 
 export const Title = styled.div`
@@ -37,11 +38,13 @@ export const Title = styled.div`
 export const SelectButton = styled.button<SelectButtonProps>`
   width: 25%;
   padding: 0.5rem 1rem;
+
+  font-size: 1.5rem;
   border: 3px solid ${primary};
   border-radius: 0.5rem;
   background-color: ${({ currentSelected }) =>
-    currentSelected ? pointColor : '#e5e5e5'};
-  font-size: 1.5rem;
+    currentSelected ? pointColor : 'white'};
+
   outline: none;
   cursor: pointer;
 `;
@@ -50,12 +53,13 @@ export const Sign = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 46px;
-  height: 46px;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 0.5rem;
-  font-size: 2rem;
-  font-weight: bold;
+
+  ${h2};
   color: ${pointColor};
+  font-family: 'MaplestoryOTFBold', sans-serif !important;
 `;
 
 export const Wrapper = styled.div<StyledWrapperProps>`

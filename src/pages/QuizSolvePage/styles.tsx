@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
-import { primary, pointColor } from '@/styles/theme';
-import { SliderButtonProps } from './SliderButton';
+import { primary, lightGrayWhite, h1 } from '@/styles/theme';
 
-export interface SelectButtonProps {
+export interface SubmitButtonProps {
   disabled?: boolean;
 }
 
@@ -14,32 +13,26 @@ interface WrapperProps {
   align?: 'center' | 'start' | 'flexStart' | 'flexEnd';
 }
 
-export const SliderButton = styled.button<SliderButtonProps>`
-  padding: 0.5rem 1rem;
-  background-color: transparent;
-  border: 3px solid ${primary};
-  border-radius: 0.5rem;
-  color: ${({ color }) => {
-    if (color === 'point') return pointColor;
-    if (color === 'primary') return '#14213d';
-    return '#e5e5e5';
-  }};
-  z-index: 10;
-  font-size: 1rem;
-  font-family: 'MaplestoryOTFLight';
+export const SliderButton = styled.button`
+  align-self: flex-start;
+  min-height: 15rem;
+  padding: 0 1rem;
+
+  border: none;
   outline: none;
+  background-color: ${lightGrayWhite};
   cursor: pointer;
 `;
 
-export const SelectButton = styled.button<SelectButtonProps>`
+export const SubmitButton = styled.button<SubmitButtonProps>`
   width: 25%;
   padding: 0.5rem 1rem;
+
+  color: ${({ disabled }) => (disabled ? '#787878' : '#ffffff')};
+  font-size: 1.5rem;
   border: 3px solid ${primary};
   border-radius: 0.5rem;
   background-color: ${({ disabled }) => (disabled ? '#ababab' : 'royalblue')};
-  color: ${({ disabled }) => (disabled ? '#787878' : '#ffffff')};
-  font-size: 1.5rem;
-  font-family: 'MaplestoryOTFLight';
   outline: none;
   cursor: pointer;
 
@@ -73,14 +66,37 @@ export const Wrapper = styled.div<WrapperProps>`
 `;
 
 export const Box = styled.div`
+  width: 15rem;
+  height: 5rem;
+
   display: flex;
-  padding: 0.5rem 2rem;
+  justify-content: center;
+  align-items: center;
+
+  ${h1};
   border: 3px solid ${primary};
   border-radius: 0.5rem;
-  font-size: 1.25rem;
-  font-family: 'MaplestoryOTFLight';
+  background-color: white;
 `;
 
 export const QuizSolvePage = styled.div`
   margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+`;
+
+export const Background = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  background-color: ${lightGrayWhite};
+`;
+
+export const SliderContainer = styled.div`
+  width: 80%;
 `;
