@@ -35,3 +35,17 @@ export const createNotification = async (
     throw new Error('Create Notification Failed');
   }
 };
+
+export const seenNotifications = async (token: string) => {
+  try {
+    await axiosInstance({
+      method: 'PUT',
+      url: '/notifications/seen',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    throw new Error('Notifications seen Failed');
+  }
+};

@@ -91,6 +91,7 @@ function AuthProvider({ children }: Props) {
       await auth.logout();
       removeUser();
       removeToken();
+      setIsAuth(false);
       // TODO: Success Toast
     } catch (error) {
       // TODO: Error Toast

@@ -37,6 +37,7 @@ function useStorage<T>(
 
   const removeItem = useCallback(() => {
     try {
+      setValue(defaultValue);
       getStorage(storageType).removeItem(key);
     } catch (error) {
       console.error(error);

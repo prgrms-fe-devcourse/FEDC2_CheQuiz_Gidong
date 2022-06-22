@@ -11,7 +11,7 @@ import QuizProvider from '@/contexts/QuizContext';
 
 const Layout = styled.div`
   min-width: 32.5rem;
-  max-width: 75rem;
+  max-width: 1200px;
   padding: 0 1rem;
   margin: 0 auto;
 `;
