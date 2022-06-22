@@ -50,14 +50,12 @@ export const validationQuizCreate = () =>
   Yup.array().of(
     Yup.object({
       _id: Yup.string(),
-      category: Yup.string().trim().required('category is required'),
-      question: Yup.string().trim().required('question is required'),
-      difficulty: Yup.number().min(1).required('difficulty is required'),
-      importance: Yup.number().min(1).required('importance is required'),
-      answerType: Yup.string().trim().required('answerType is required'),
-      answer: Yup.string().trim().required('answer is required'),
-      answerDescription: Yup.string()
-        .trim()
-        .required('answerDesCription required'),
+      category: Yup.string().trim().required('카테고리를 선택해주세요'),
+      question: Yup.string().trim().required('문제를 입력해주세요'),
+      difficulty: Yup.number().min(1).required('난이도를 선택해주세요'),
+      importance: Yup.number().min(1).required('중요도를 선택해주세요'),
+      answerType: Yup.string().trim().required('문제유형을 골라주세요'),
+      answer: Yup.string().trim().required('정답을 선택해주세요'),
+      answerDescription: Yup.string().trim().required('해설을 작성해주세요'),
     }),
   );

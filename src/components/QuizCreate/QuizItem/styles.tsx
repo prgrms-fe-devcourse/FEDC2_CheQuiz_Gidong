@@ -11,10 +11,6 @@ import {
 } from '@/styles/theme';
 import arrowIcon from '@/assets/downArrow.png';
 
-interface LabelProps {
-  block: boolean;
-}
-
 //* Question
 export const QuizContainer = styled.div`
   padding: 0.5rem 1.5rem 2rem;
@@ -56,9 +52,15 @@ export const SelectBox = styled.select`
 export const QuestionWrapper = styled.div`
   flex-grow: 1;
   display: flex;
+  flex-direction: column;
+`;
+
+export const Wrapper = styled.div`
+  flex-grow: 1;
+  display: flex;
+  gap: 0.5rem;
   font-family: 'MaplestoryOTFBold', sans-serif !important;
   font-size: 1.5rem;
-  gap: 0.5rem;
 `;
 
 //* Answer
@@ -79,15 +81,7 @@ export const LeftSide = styled.div`
   gap: 1rem;
 `;
 
-export const TrueFalseWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 1rem;
-  & > div {
-    flex-basis: 100%;
-    font-size: 1.25rem;
-  }
-`;
+export const TrueFalseWrapper = styled.div``;
 export const TrueFalseBox = styled.label`
   width: 7.5rem;
   height: 3rem;
@@ -132,8 +126,30 @@ export const TextArea = styled.textarea`
   font-family: 'Pretendard';
   resize: none;
 `;
-export const Label = styled.div<LabelProps>`
-  display: ${({ block }) => (block ? 'block' : 'inline-block')};
+export const Label = styled.div`
+  display: ${({ block }: { block?: boolean }) =>
+    block ? 'block' : 'inline-block'};
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
+`;
+type ValidationLabelProps = {
+  block?: boolean;
+  justify?: string;
+  marginL?: string;
+};
+export const ValidationLabel = styled.div`
+  display: ${(props: ValidationLabelProps) =>
+    props.block ? 'flex' : ' inline-flex'};
+  color: red;
+  ${small};
+
+  justify-content: ${(props: ValidationLabelProps) => props.justify};
+  align-items: center;
+  margin-left: ${(props: ValidationLabelProps) => props.marginL};
+`;
+export const TFWrapper = styled.div`
+  flex-basis: 100%;
+
+  display: flex;
+  gap: 1rem;
 `;
