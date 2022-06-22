@@ -5,7 +5,6 @@ import {
   grayWhite,
   large,
   lightGrayWhite,
-  medium,
   small,
 } from '@/styles/theme';
 
@@ -20,7 +19,13 @@ export const Container = styled.div`
   border: 3px solid ${DarkGray};
   border-top: 1px solid ${DarkGray};
   border-radius: 0.25rem;
-  background-color: ${lightGrayWhite};
+  background-color: ${({ rank }: { rank: number }) => {
+    if (rank === 1) return 'azure';
+    if (rank === 2) return 'cornsilk';
+    if (rank === 3) return 'lightgray';
+    return lightGrayWhite;
+  }};
+  cursor: pointer;
 `;
 
 export const Rank = styled.div`
