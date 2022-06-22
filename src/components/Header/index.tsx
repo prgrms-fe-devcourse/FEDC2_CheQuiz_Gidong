@@ -37,8 +37,6 @@ function Header(): JSX.Element {
                 color="primary"
                 onClick={() => {
                   logout();
-                  // FIXME: 다른 방법 생각해봐야 함
-                  window.location.reload();
                 }}
               >
                 로그아웃
