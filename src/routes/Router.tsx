@@ -2,11 +2,11 @@ import { Switch, BrowserRouter } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
 import Home from '@/pages/Home';
-import QuizCreate from '@/pages/QuizCreate';
+import QuizCreate from '@/pages/QuizCreatePage';
 import QuizSolvePage from '@/pages/QuizSolvePage';
 import QuizResultPage from '@/pages/QuizResultPage';
 import UserInfoPage from '@/pages/UserInfoPage';
-import Ranking from '@/pages/Ranking';
+import Ranking from '@/pages/RankingPage';
 import Error from '@/pages/ErrorPage';
 
 import AuthRoute from '@/routes/AuthRoute';

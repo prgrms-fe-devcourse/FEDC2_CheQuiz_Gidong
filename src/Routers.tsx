@@ -1,7 +1,7 @@
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import Home from '@/pages/Home';
-import QuizCreate from '@/pages/QuizCreate';
+import QuizCreate from '@/pages/QuizCreatePage';
 import QuizResultPage from '@/pages/QuizResultPage';
 import QuizSolvePage from '@/pages/QuizSolvePage';
 import Error from '@/pages/ErrorPage';
