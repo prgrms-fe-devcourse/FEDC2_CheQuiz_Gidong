@@ -26,6 +26,8 @@
 
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 ![prettier](https://img.shields.io/badge/prettier-ff69b4.svg?style=for-the-badge)
+![husky](https://img.shields.io/badge/husky-8E562E.svg?style=for-the-badge)
+![lint-staged](https://img.shields.io/badge/lint_staged-015E76.svg?style=for-the-badge)
 
 ### 스타일
 
