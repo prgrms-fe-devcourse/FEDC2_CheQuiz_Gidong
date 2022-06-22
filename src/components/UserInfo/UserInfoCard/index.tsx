@@ -118,7 +118,7 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
       content: `${
         selectedLevelBadge.level !== 0
           ? `내가 레벨 ${selectedLevelBadge.level} 이라니!`
-          : `뉴비`
+          : `뉴비라네`
       }`,
     });
 
