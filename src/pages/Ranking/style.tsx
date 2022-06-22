@@ -1,32 +1,46 @@
 import styled from '@emotion/styled';
-import { borderRadius, lightGray, primary, white } from '@/styles/theme';
+import {
+  borderRadius,
+  DarkGray,
+  grayWhite,
+  large,
+  lightGray,
+  primary,
+  small,
+  white,
+} from '@/styles/theme';
 
 export const Wrap = styled.div`
-  border: 0.0625rem solid;
+  border: none;
+  border-radius: 0.5rem;
 `;
 
 export const Container = styled.div`
+  height: 3rem;
   font-family: Pretendard, sans-serif;
-  background-color: ${primary};
+  ${large};
   color: ${white};
+
+  border-radius: 0.5rem 0.5rem 0.25rem 0.25rem;
+  background-color: ${primary};
   display: flex;
-  justify-content: space-around;
+  text-align: center;
   padding: 0.75rem 0;
 `;
 
 export const Rank = styled.div`
-  width: 6.25rem;
-  font-family: 'MaplestoryOTFBold';
+  width: 20%;
+  justify-content: center;
 `;
 
 export const Exp = styled.div`
-  width: 9.375rem;
-  font-family: 'MaplestoryOTFBold';
+  width: 30%;
+  justify-content: space-around;
 `;
 
 export const UserInfoWrap = styled.div`
-  width: 34.375rem;
-  font-family: 'MaplestoryOTFBold';
+  width: 50%;
+  justify-content: space-around;
 `;
 
 export const SearchContainer = styled.div`
@@ -37,25 +51,25 @@ export const SearchContainer = styled.div`
 `;
 
 export const SearchWrap = styled.span`
-  border: 0.0625rem solid;
+  height: 2.5rem;
   display: flex;
+  padding: 0.5rem;
   align-items: center;
-  padding: 0.3125rem;
-  border-radius: ${borderRadius};
-  background-color: ${lightGray};
+
+  border: 3px solid ${DarkGray};
+  border-radius: 0.5rem;
+  background-color: ${grayWhite};
+
+  gap: 1rem;
 `;
 
 export const SearchInput = styled.input`
-  height: 1.875rem;
-  width: 12.5rem;
-  font-size: 1.25rem;
-  margin-left: 0.625rem;
-  outline: none;
+  width: 11rem;
   border: none;
-  background-color: transparent;
-  color: ${white};
+  outline: none;
+  background-color: ${grayWhite};
+  ${small};
+  cursor: pointer;
 
-  &::placeholder {
-    color: ${white};
-  }
+  background-color: transparent;
 `;

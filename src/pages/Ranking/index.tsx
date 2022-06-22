@@ -21,7 +21,7 @@ function Ranking() {
   };
 
   return (
-    <div>
+    <>
       <Header />
       <S.SearchContainer>
         <S.SearchWrap>
@@ -41,7 +41,7 @@ function Ranking() {
         </S.Container>
         <UserRankList keyword={keyword} />
       </S.Wrap>
-    </div>
+    </>
   );
 }
 
