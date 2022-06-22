@@ -21,7 +21,7 @@ function Routers() {
         <AuthRoute exact path="/ranking" component={Ranking} />
         <AuthRoute path="/user/:userId" component={UserInfoPage} />
         <AuthRoute path="/error" component={Error} />
-        <AuthRoute path="/" component={Home} />
+        <AuthRoute exact path="/" component={Home} />
         <AuthRoute path="*" render={() => <Redirect to="/error" />} />
       </Switch>
     </BrowserRouter>
