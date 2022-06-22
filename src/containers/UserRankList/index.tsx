@@ -82,7 +82,7 @@ function UserRankList({ keyword }: rankSearchProp) {
       point = points;
     }
 
-    const level = point / 100;
+    const level = Math.ceil(point / 100);
 
     // 포인트 관련 조건
     const isLevel0 = level < 10 && level >= 0;
@@ -177,7 +177,8 @@ function UserRankList({ keyword }: rankSearchProp) {
 
           return true;
         })
-        .map(([userRank, user]) => {
+        .map(([userRank, user], rankIdx) => {
+          const rank = rankIdx + 1;
           let point = 0;
 
           if (user.username && user.username.indexOf('point') !== -1) {
@@ -188,24 +189,30 @@ function UserRankList({ keyword }: rankSearchProp) {
           return (
             <S.Container
               key={user._id}
+              rank={rank}
               onClick={() => {
                 history.push(`/user/${user._id}`);
               }}
             >
-              <S.Rank>{userRank}</S.Rank>
+              <S.Rank rank={rank}>{userRank}</S.Rank>
               <S.Exp>{point.toLocaleString()}</S.Exp>
-              <S.UserProfile>
-                <S.UserImg src={getUserImageByPoints(point)} alt="userImage" />
-              </S.UserProfile>
-              <S.UserInfoWrap>
-                <S.UserName>{user.fullName}</S.UserName>
-                <S.TagsWrap>
-                  {generateTags(user).map((tag, idx) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <span key={`rank-tag-${idx}`}>{tag}</span>
-                  ))}
-                </S.TagsWrap>
-              </S.UserInfoWrap>
+              <S.UserWrapper>
+                <S.UserProfile rank={rank}>
+                  <S.UserImg
+                    src={getUserImageByPoints(point)}
+                    alt="userImage"
+                  />
+                </S.UserProfile>
+                <S.UserInfoWrap>
+                  <S.UserName>{user.fullName}</S.UserName>
+                  <S.TagsWrap>
+                    {generateTags(user).map((tag, idx) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <span key={`rank-tag-${idx}`}>{tag}</span>
+                    ))}
+                  </S.TagsWrap>
+                </S.UserInfoWrap>
+              </S.UserWrapper>
             </S.Container>
           );
         })}

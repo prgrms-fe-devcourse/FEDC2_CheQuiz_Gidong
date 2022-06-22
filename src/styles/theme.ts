@@ -28,7 +28,7 @@ export const theme = {
     10000: '#F30E5C',
     50000: '#FF1809',
     noLikes: '#7E7474',
-    noComments: '#8E05C2',
+    noComments: 'mediumpurple',
   },
   textAndBackGroundColor: {
     blackGray: '#212529',

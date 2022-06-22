@@ -1,45 +1,69 @@
 import styled from '@emotion/styled';
 import {
   blackGray,
-  borderWidth,
+  DarkGray,
+  grayWhite,
   large,
   lightGrayWhite,
-  medium,
+  small,
 } from '@/styles/theme';
 
 export const Container = styled.div`
+  height: ${({ rank }: { rank: number }) => (rank <= 3 ? '10rem' : '8rem')};
+
   display: flex;
   color: ${blackGray};
-  justify-content: space-around;
+  text-align: center;
   align-items: center;
-  border: ${borderWidth};
-  border-top: none;
-  padding: 1.5rem 0;
+
+  border: 3px solid ${DarkGray};
+  border-top: 1px solid ${DarkGray};
+  border-radius: 0.25rem;
+  background-color: ${({ rank }: { rank: number }) => {
+    if (rank === 1) return 'azure';
+    if (rank === 2) return 'cornsilk';
+    if (rank === 3) return 'lightgray';
+    return lightGrayWhite;
+  }};
+  cursor: pointer;
 `;
 
 export const Rank = styled.div`
+  width: 20%;
   ${large};
+  font-size: ${({ rank }: { rank: number }) => (rank <= 3 ? '2rem' : '1.5rem')};
   font-family: 'MaplestoryOTFBold';
-  width: 6.25rem;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 `;
 
 export const Exp = styled.div`
-  width: 9.375rem;
-  font-family: 'MaplestoryOTFLight';
-  ${medium}
+  width: 30%;
+  ${small};
+  font-family: Pretendard, sans-serif;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 `;
 
+export const UserWrapper = styled.div`
+  width: 50%;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
 export const UserProfile = styled.div`
-  width: 9.375rem;
-  height: 9.375rem;
+  width: 6rem;
+  height: 6rem;
+  border: 3px solid
+    ${({ rank }: { rank: number }) => (rank <= 3 ? 'gold' : 'none')};
   border-radius: 50%;
-  background-color: ${lightGrayWhite};
+  background-color: ${grayWhite};
+  display: flex;
+  align-items: center;
 `;
 
 export const UserImg = styled.img`
@@ -51,16 +75,15 @@ export const UserImg = styled.img`
 `;
 
 export const UserInfoWrap = styled.div`
-  width: 18.75rem;
-  height: 10rem;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
+  gap: 1rem;
 `;
 
 export const UserName = styled.div`
-  font-family: 'MaplestoryOTFBold';
+  display: flex;
+  justify-content: flex-start;
   ${large};
 `;
 
