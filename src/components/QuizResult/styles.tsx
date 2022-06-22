@@ -169,6 +169,7 @@ export const Description = styled.div`
   * {
     font-family: Pretendard, sans-serif;
   }
+  white-space: pre-wrap;
 `;
 
 export const Flex = styled.div`
