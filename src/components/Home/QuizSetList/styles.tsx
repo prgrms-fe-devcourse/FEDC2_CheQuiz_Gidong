@@ -28,7 +28,6 @@ export const SearchInput = styled.input`
   outline: none;
   background-color: ${grayWhite};
   ${small};
-  cursor: pointer;
 `;
 
 export const Title = styled.div`
