@@ -48,6 +48,11 @@ function RandomQuiz() {
               min={1}
               max={10}
               placeholder="( 문제 수 )"
+              onBlur={({ target }) =>
+                target.value === '' &&
+                target.setAttribute('placeholder', '문제수')
+              }
+              onFocus={({ target }) => target.setAttribute('placeholder', '')}
               onChange={({ target }) => handleQuizChange(target.value)}
             />
             만큼 풀게나!
