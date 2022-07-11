@@ -1,8 +1,5 @@
 // border
-export { borderStyle } from './border';
-
-// radius
-export { radiusStyle } from './radius';
+export { borderStyle, radiusStyle } from './border';
 
 // text
 export {
