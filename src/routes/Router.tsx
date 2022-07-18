@@ -10,6 +10,7 @@ import Ranking from '@/pages/RankingPage';
 import Error from '@/pages/ErrorPage';
 
 import AuthRoute from '@/routes/AuthRoute';
+import Design from '@/pages/Design';
 
 function Routers() {
   return (
@@ -20,6 +21,7 @@ function Routers() {
         <AuthRoute exact path="/result" component={QuizResultPage} />
         <AuthRoute exact path="/ranking" component={Ranking} />
         <AuthRoute path="/user/:userId" component={UserInfoPage} />
+        <AuthRoute exact path="/design" component={Design} />
         <AuthRoute path="/error" component={Error} />
         <AuthRoute exact path="/" component={Home} />
         <AuthRoute path="*" render={() => <Redirect to="/error" />} />
