@@ -9,6 +9,7 @@ import QuizSolvePage from '@/pages/QuizSolvePage';
 import Ranking from '@/pages/RankingPage';
 import UserInfoPage from '@/pages/UserInfoPage';
 import AuthRoute from '@/routes/AuthRoute';
+import Design from '@/pages/Design';
 
 const Routers = () => (
   <BrowserRouter>
