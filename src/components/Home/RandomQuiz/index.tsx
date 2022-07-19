@@ -6,16 +6,6 @@ import * as S from './styles';
 function RandomQuiz() {
   const { setRandomQuizCount, setRandomQuizCategory, setChannelId } =
     useQuizContext();
-  const SelectStyle = {
-    width: '6rem',
-    color: '#555555',
-    padding: '0',
-    margin: '0 1rem',
-    border: 'none',
-    appearance: 'auto',
-    backgroundImage: 'none',
-    backgroundColor: '#E9ECEF',
-  };
 
   const handleQuizChange = (value: string) => {
     setRandomQuizCount(Number(value));
@@ -23,6 +13,17 @@ function RandomQuiz() {
 
   const handleQuizStart = () => {
     setChannelId(null);
+  };
+
+  const SelectStyle = {
+    width: '7rem',
+    color: '#555555',
+    padding: '0',
+    margin: '0 1rem',
+    border: 'none',
+    appearance: 'auto',
+    backgroundImage: 'none',
+    backgroundColor: '#E9ECEF',
   };
 
   return (
@@ -47,6 +48,11 @@ function RandomQuiz() {
               min={1}
               max={10}
               placeholder="( 문제 수 )"
+              onBlur={({ target }) =>
+                target.value === '' &&
+                target.setAttribute('placeholder', '문제수')
+              }
+              onFocus={({ target }) => target.setAttribute('placeholder', '')}
               onChange={({ target }) => handleQuizChange(target.value)}
             />
             만큼 풀게나!

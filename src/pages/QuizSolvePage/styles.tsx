@@ -22,6 +22,7 @@ export const SliderButton = styled.button`
   outline: none;
   background-color: ${lightGrayWhite};
   cursor: pointer;
+  visibility: ${({ disabled }) => (disabled ? 'hidden' : 'visible')};
 `;
 
 export const SubmitButton = styled.button<SubmitButtonProps>`

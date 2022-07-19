@@ -142,6 +142,7 @@ function QuizSolvePage() {
           <SliderButton
             type="button"
             color="point"
+            disabled={currentIndex === 0}
             onClick={() => sliderRef.current?.slickPrev()}
           >
             <Icon name="triangle" size={30} rotate={270} fill />
@@ -166,6 +167,7 @@ function QuizSolvePage() {
           <SliderButton
             type="button"
             color="point"
+            disabled={currentIndex === quizzes.length - 1}
             onClick={() => sliderRef.current?.slickNext()}
           >
             <Icon name="triangle" size={30} rotate={90} fill />

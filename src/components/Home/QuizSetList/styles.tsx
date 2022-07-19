@@ -28,7 +28,6 @@ export const SearchInput = styled.input`
   outline: none;
   background-color: ${grayWhite};
   ${small};
-  cursor: pointer;
 `;
 
 export const Title = styled.div`
@@ -36,7 +35,7 @@ export const Title = styled.div`
 `;
 
 export const QuizSetListContainer = styled.div`
-  margin: 0.5rem 0;
+  margin: 2rem 0 4rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem 1.5rem;
