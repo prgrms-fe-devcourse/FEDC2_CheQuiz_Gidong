@@ -1,20 +1,18 @@
+import React from 'react';
+import { useHistory } from 'react-router';
 import Select from '@/components/Form/Select';
 import { QUIZ_CATEGORY_LIST } from '@/constants';
 import { useQuizContext } from '@/contexts/QuizContext';
 import * as S from './styles';
 
 function RandomQuiz() {
-  const { setRandomQuizCount, setRandomQuizCategory, setChannelId } =
-    useQuizContext();
-
-  const handleQuizChange = (value: string) => {
-    setRandomQuizCount(Number(value));
-  };
-
-  const handleQuizStart = () => {
-    setChannelId(null);
-  };
-
+  const {
+    randomQuizCount,
+    setRandomQuizCount,
+    setRandomQuizCategory,
+    setChannelId,
+  } = useQuizContext();
+  const history = useHistory();
   const SelectStyle = {
     width: '7rem',
     color: '#555555',
@@ -24,6 +22,17 @@ function RandomQuiz() {
     appearance: 'auto',
     backgroundImage: 'none',
     backgroundColor: '#E9ECEF',
+  };
+
+  const handleQuizChange = (value: string) => {
+    setRandomQuizCount(Number(value));
+  };
+
+  const handleQuizStart = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (!randomQuizCount) return;
+    setChannelId(null);
+    history.push('/solve');
   };
 
   return (

@@ -26,7 +26,8 @@ function QuizSolvePage() {
   const history = useHistory();
   const sliderRef = useRef<Slider | null>(null);
   const { user, setUser, isAuth } = useAuthContext();
-  const { channelId, randomQuizCount } = useQuizContext();
+  const { channelId, randomQuizCount, setChannelId, setRandomQuizCount } =
+    useQuizContext();
 
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
@@ -84,9 +85,20 @@ function QuizSolvePage() {
         await updateUserPoint();
       }
 
+      setRandomQuizCount(null);
+      setChannelId(null);
+
       history.push('/result');
     },
-    [history, isAuth, quizzes, updateUserPoint, userAnswers],
+    [
+      history,
+      isAuth,
+      quizzes,
+      setChannelId,
+      setRandomQuizCount,
+      updateUserPoint,
+      userAnswers,
+    ],
   );
 
   // Slider Options
@@ -116,14 +128,16 @@ function QuizSolvePage() {
       setUserAnswers(Array(quizArray.length).fill(''));
     };
 
-    if (randomQuizCount && randomQuizCount > 0)
-      QuizServices.getShuffledQuizzes(randomQuizCount)
-        .then((quizArray) => next(quizArray))
-        .finally(() => setLoading(false));
-    else if (channelId)
-      QuizServices.getQuizzesFromChannel(channelId)
-        .then((quizArray) => next(quizArray))
-        .then(() => setLoading(false));
+    (async () => {
+      if (randomQuizCount && randomQuizCount > 0)
+        await QuizServices.getShuffledQuizzes(randomQuizCount).then(
+          (quizArray) => next(quizArray),
+        );
+      else if (channelId)
+        await QuizServices.getQuizzesFromChannel(channelId).then((quizArray) =>
+          next(quizArray),
+        );
+    })().finally(() => setLoading(false));
   }, [channelId, quizzes.length, randomQuizCount, setUserAnswers]);
 
   if (loading) return null;
