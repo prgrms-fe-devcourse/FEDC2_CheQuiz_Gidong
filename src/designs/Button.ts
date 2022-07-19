@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import {
   BRAND_COLOR,
   GRAY_800,
@@ -75,6 +76,59 @@ interface CustomButtonProps {
 }
 
 export const CustomButton = styled.button<CustomButtonProps>`
+  height: 2.5rem;
+  width: ${({ width }) => width};
+
+  color: ${({ color }) => color};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  &:hover {
+    background-color: ${({ hoverBackgroundColor, disable }) =>
+      !disable && `${hoverBackgroundColor}`};
+    color: ${({ hoverTextColor }) => hoverTextColor};
+  }
+
+  border: ${BORDER_STYLE} ${GRAY_800};
+  border-style: ${({ borderTheme }) => borderTheme};
+  border-radius: ${({ isSquare }) => (isSquare ? 0 : BORDER_RADIUS_STYLE)};
+
+  opacity: ${({ disable }) => (disable ? `0.8` : `1`)};
+  cursor: ${({ disable }) => (disable ? `not-allowed` : `pointer`)};
+`;
+
+export const ButtonLink = styled(Link)<ButtonProps>`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: ${({ size }) =>
+    size === 'fit-content' ? undefined : size && sizeMapper[size]};
+  height: 2.5rem;
+
+  border: ${BORDER_STYLE} ${GRAY_800};
+  border-style: ${({ borderTheme }) => borderTheme};
+  border-radius: ${BORDER_RADIUS_STYLE};
+
+  color: ${({ colorTheme }) => (colorTheme === 'primary' ? 'white' : 'black')};
+  font-size: ${({ size }) =>
+    size === 'fit-content' ? undefined : size && fontSizeMapper[size]};
+  text-decoration: none;
+
+  background-color: ${({ colorTheme }) =>
+    colorTheme && backgroundMapper[colorTheme]};
+  opacity: ${({ disable }) => (disable ? `0.8` : `1`)};
+
+  &:hover {
+    background-color: ${({ colorTheme, disable }) =>
+      !disable && colorTheme && hoverColorMapper[colorTheme]};
+  }
+  cursor: ${({ disable }) => (disable ? `not-allowed` : `pointer`)};
+`;
+export const CustomButtonLink = styled(Link)<CustomButtonProps>`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+
   height: 2.5rem;
   width: ${({ width }) => width};
 

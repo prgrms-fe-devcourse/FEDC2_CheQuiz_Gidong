@@ -1,4 +1,9 @@
-import { Button, CustomButton } from '@/designs/Button';
+import {
+  Button,
+  ButtonLink,
+  CustomButton,
+  CustomButtonLink,
+} from '@/designs/Button';
 
 function DesignPage() {
   return (
@@ -66,6 +71,22 @@ function DesignPage() {
       >
         커스텀 버튼
       </CustomButton>
+      <h1>버튼-링크</h1>
+      <ButtonLink to="/" colorTheme="secondary" size="large">
+        버튼링크
+      </ButtonLink>
+      <ButtonLink to="/" colorTheme="brand" size="medium" disable>
+        버튼링크
+      </ButtonLink>
+      <CustomButtonLink
+        to="/"
+        color="white"
+        backgroundColor="royalblue"
+        hoverBackgroundColor="tomato"
+        width="300px"
+      >
+        커스텀버튼링크
+      </CustomButtonLink>
     </div>
   );
 }
