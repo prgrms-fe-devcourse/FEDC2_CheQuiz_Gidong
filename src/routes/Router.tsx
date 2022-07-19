@@ -10,6 +10,7 @@ import Ranking from '@/pages/RankingPage';
 import Error from '@/pages/ErrorPage';
 
 import AuthRoute from '@/routes/AuthRoute';
+import DesignPage from '@/pages/DesignPage';
 
 function Routers() {
   return (
@@ -21,6 +22,7 @@ function Routers() {
         <AuthRoute exact path="/ranking" component={Ranking} />
         <AuthRoute path="/user/:userId" component={UserInfoPage} />
         <AuthRoute path="/error" component={Error} />
+        <AuthRoute exact path="/test/design" component={DesignPage} />
         <AuthRoute exact path="/" component={Home} />
         <AuthRoute path="*" render={() => <Redirect to="/error" />} />
       </Switch>
