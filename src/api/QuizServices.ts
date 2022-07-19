@@ -4,6 +4,8 @@ import { ChannelAPI } from '@/interfaces/ChannelAPI';
 import { PostAPI } from '@/interfaces/PostAPI';
 import { Quiz } from '@/interfaces/Quiz';
 
+import axiosInstance2 from './axiosInstance2';
+
 function shuffle<T = unknown>(array: T[], count: number): T[] {
   const ret = [...array];
   for (let i = 0; i < array.length - 1; i += 1) {
@@ -117,6 +119,14 @@ export function caculateScore(quizzes: Quiz[], userAnswers: string[]) {
 }
 
 export async function getChannels() {
+  // 새 api 테스트
+  const data = await axiosInstance2({
+    method: 'GET',
+    url: '/quiz-packs',
+  });
+
+  console.log(data);
+
   return api
     .get<ChannelAPI[]>('/channels')
     .then((response) => response.data)
