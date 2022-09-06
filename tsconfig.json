@@ -23,7 +23,6 @@
       "@emotion/styled",
       "@types/node"
     ],
-    "jsxImportSource": "@emotion/react",
     "baseUrl": "./",
     "paths": {
       "@/*": [
