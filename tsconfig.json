@@ -19,30 +19,15 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": [
-      "@emotion/styled",
-      "@types/node"
-    ],
+    "jsxImportSource": "@emotion/react",
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@hooks/*": [
-        "src/hooks/*"
-      ]
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"]
     },
-    "typeRoots": [
-      "./node_modules/@types",
-      "src/interfaces"
-    ],
   },
   "include": [
-    "src",
-    "emotion.d.ts",
-    "assets.d.ts",
+    "src"
   ]
 }
