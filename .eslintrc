@@ -1,70 +1,59 @@
 {
-    "env": {
-        "browser": true,
-        "node": true,
-        "es6": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "airbnb",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:prettier/recommended"
-    ],
-    "plugins": [
-        "prettier"
-    ],
-    "rules": {
-        "linebreak-style": "off",
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
-        "react/jsx-filename-extension": [
-            1,
-            {
-                "extensions": [
-                    ".js",
-                    ".jsx",
-                    "tsx"
-                ]
-            }
-        ],
-        "import/no-unresolved": "off",
-        "react/react-in-jsx-scope": "off",
-        "react/jsx-props-no-spreading": "off",
-        "react/require-default-props": "off",
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-                "devDependencies": true
-            }
-        ],
-        "import/extensions": "off",
-        "@typescript-eslint/no-non-null-assertion": "off",
-        "prettier/prettier": ["error", { "endOfLine": "auto" }],
-        "no-underscore-dangle": "off",
-        "import/prefer-default-export": "off",
-    },
-    "overrides": [
-        {
-            "files": [
-                "*.ts",
-                "*.tsx"
-            ],
-            "rules": {
-                "no-undef": "off",
-                "no-unused-vars": "off"
-            }
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "tsconfigRootDir": "./",
+    "project": ["./tsconfig.json"]
+  },
+  "plugins": ["prettier", "@typescript-eslint", "import"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", ["parent", "sibling"], "index"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
         },
-        {
-            "files": [
-                "*.config.js"
-            ],
-            "rules": {
-                "@typescript-eslint/no-var-requires": "off"
-            }
-        }
+        "newlines-between": "always"
+      }
     ],
-    "parser": "@typescript-eslint/parser"
+    "no-underscore-dangle": "off",
+    "react/function-component-definition": [
+      "error",
+      {
+          "namedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  },
+  "overrides": [
+    {
+      // TODO: 앞 두개는 리팩토링 후 주석과 함께 제거
+      "files": ["styles.ts", "styles.tsx", "*.styles.ts"],
+      "rules": {
+        "import/prefer-default-export": "off"
+      }
+    }
+  ]
 }
