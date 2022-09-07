@@ -1,8 +1,8 @@
 {
-  "name": "react-boilerplate",
+  "name": "chequiz",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot --progress",
     "build": "webpack --mode production --progress",
