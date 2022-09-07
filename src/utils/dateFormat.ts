@@ -8,6 +8,7 @@ export function format(number: number) {
 export default function dateFormat(dateString: string) {
   const specificDate = new Date(dateString);
   const now = new Date();
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const _ = format;
 
   /**

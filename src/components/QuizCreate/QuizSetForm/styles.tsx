@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import { DarkGray, lightGrayWhite, pointColor } from '@/styles/theme';
 
 export const SetWrapper = styled.section`

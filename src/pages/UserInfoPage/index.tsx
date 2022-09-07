@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import Header from '@/components/Header';
-import UserInfoCard from '@/components/UserInfo/UserInfoCard';
-import UserInfoTab from '@/components/UserInfo/UserInfoTab';
+
 import { fetchUserList } from '@/api/user';
-import { UserAPI } from '@/interfaces/UserAPI';
-import * as S from './styles';
-import { useAuthContext } from '@/contexts/AuthContext';
+import Header from '@/components/Header';
 import NicknameModal from '@/components/Modal/NicknameModal';
 import PasswordModal from '@/components/Modal/PasswordModal';
+import UserInfoCard from '@/components/UserInfo/UserInfoCard';
+import UserInfoTab from '@/components/UserInfo/UserInfoTab';
+import { useAuthContext } from '@/contexts/AuthContext';
+
+import * as S from './styles';
 
 interface Props {
   userId: string;
 }
-function UserInfo() {
+const UserInfo = () => {
   const [isExistUser, setIsExistUser] = useState(false);
   const [id, setId] = useState('');
   const [loading, isLoading] = useState(true);
@@ -91,5 +92,5 @@ function UserInfo() {
       )}
     </div>
   );
-}
+};
 export default UserInfo;

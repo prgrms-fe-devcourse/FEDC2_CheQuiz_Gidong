@@ -1,10 +1,11 @@
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
-import styled from '@emotion/styled';
 import { Buffer } from 'buffer';
+
+import styled from '@emotion/styled';
 import { icons } from 'feather-icons';
 
-type propsType = {
+type PropsType = {
   name: string;
   size?: number;
   strokeWidth?: number;
@@ -21,7 +22,7 @@ const IconWrapper = styled.i`
   display: inline-block;
 `;
 
-function Icon({
+const Icon = ({
   name,
   size = 16,
   strokeWidth = 2,
@@ -30,7 +31,7 @@ function Icon({
   fill,
   addStyle,
   ...props
-}: propsType) {
+}: PropsType) => {
   const iconStyle = {
     'stroke-width': strokeWidth,
     stroke: color,
@@ -51,6 +52,6 @@ function Icon({
       <img alt={name} src={`data:image/svg+xml;base64,${base64}`} />
     </IconWrapper>
   );
-}
+};
 
 export default Icon;

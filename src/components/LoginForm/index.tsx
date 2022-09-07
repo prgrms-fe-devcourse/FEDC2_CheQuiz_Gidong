@@ -1,19 +1,16 @@
 import { Formik, Form } from 'formik';
 
-import InputBox from '@/components/Form/InputBox';
 import Button from '@/components/Form/Button';
-
-import { useAuthContext } from '@/contexts/AuthContext';
-
-import { validationLogin } from '@/utils/validation';
-
+import InputBox from '@/components/Form/InputBox';
 import * as S from '@/components/Form/Title/styles';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { validationLogin } from '@/utils/validation';
 
 interface Props {
   setModalShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function LoginForm({ setModalShow }: Props) {
+const LoginForm = ({ setModalShow }: Props) => {
   const { login } = useAuthContext();
 
   return (
@@ -51,6 +48,6 @@ function LoginForm({ setModalShow }: Props) {
       </Formik>
     </>
   );
-}
+};
 
 export default LoginForm;

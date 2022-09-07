@@ -10,7 +10,7 @@ interface Props {
   like?: LikeAPI;
 }
 
-function Item({ author, comment, like }: Props) {
+const Item = ({ author, comment, like }: Props) => {
   return author ? (
     <S.Item>
       {author.fullName}님이
@@ -19,6 +19,6 @@ function Item({ author, comment, like }: Props) {
   ) : (
     <S.Item>알림이 없습니다</S.Item>
   );
-}
+};
 
 export default Item;

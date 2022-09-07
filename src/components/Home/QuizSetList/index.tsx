@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import * as S from './styles';
-import Icon from '@/components/Icon';
-import QuizSetCard from '../QuizSetCard';
-import { ChannelAPI } from '@/interfaces/ChannelAPI';
-import { useQuizContext } from '@/contexts/QuizContext';
-import Select from '@/components/Form/Select';
-import { getChannels } from '@/api/QuizServices';
 
-function QuizSetList() {
+import { getChannels } from '@/api/QuizServices';
+import Select from '@/components/Form/Select';
+import Icon from '@/components/Icon';
+import { useQuizContext } from '@/contexts/QuizContext';
+import { ChannelAPI } from '@/interfaces/ChannelAPI';
+
+import QuizSetCard from '../QuizSetCard';
+import * as S from './styles';
+
+const QuizSetList = () => {
   const [quizSetList, setQuizSetList] = useState<ChannelAPI[]>([]);
   const [keyword, setKeyword] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('new');
@@ -114,6 +116,6 @@ function QuizSetList() {
       </S.QuizSetListContainer>
     </section>
   );
-}
+};
 
 export default QuizSetList;

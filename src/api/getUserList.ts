@@ -1,6 +1,6 @@
+import { rankingUrl } from '@/api/apiUrl';
 import apiInstance from '@/api/axiosInstance';
 import { UserAPI } from '@/interfaces/UserAPI';
-import { rankingUrl } from '@/api/apiUrl';
 
 const getUserList = async () => {
   try {

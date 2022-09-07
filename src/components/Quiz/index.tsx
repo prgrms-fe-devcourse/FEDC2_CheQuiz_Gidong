@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import { Quiz as QuizInterface } from '@/interfaces/Quiz';
+
 import * as S from './styles';
 
 interface QuizProps {
@@ -8,7 +10,7 @@ interface QuizProps {
   onChangeUserAnswer: (index: number, value: string) => void;
 }
 
-function Quiz({ quiz, index, onChangeUserAnswer }: QuizProps): JSX.Element {
+const Quiz = ({ quiz, index, onChangeUserAnswer }: QuizProps): JSX.Element => {
   const [clickedIndex, setClickedIndex] = useState(-1);
   const handleClickIndex = (idx: number) => setClickedIndex(idx);
   return (
@@ -39,6 +41,6 @@ function Quiz({ quiz, index, onChangeUserAnswer }: QuizProps): JSX.Element {
       </S.Wrapper>
     </S.OuterBox>
   );
-}
+};
 
 export default Quiz;

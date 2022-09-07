@@ -9,14 +9,14 @@ interface SelectProps {
   [x: string]: unknown;
 }
 
-function Select({
+const Select = ({
   defaultValue,
   value,
   options,
   onChangeValue,
   addStyle,
   ...props
-}: SelectProps) {
+}: SelectProps) => {
   return (
     <S.SelectBox
       value={value}
@@ -44,5 +44,5 @@ function Select({
         ))}
     </S.SelectBox>
   );
-}
+};
 export default Select;

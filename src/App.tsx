@@ -1,13 +1,12 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
-import theme from '@/styles/theme';
-import Router from '@/routes/Router';
-
-import reset from '@/styles/reset';
-import fontStyle from '@/styles/fontStyle';
 
 import AuthProvider from '@/contexts/AuthContext';
 import QuizProvider from '@/contexts/QuizContext';
+import Router from '@/routes/Router';
+import fontStyle from '@/styles/fontStyle';
+import reset from '@/styles/reset';
+import theme from '@/styles/theme';
 
 const Layout = styled.div`
   min-width: 32.5rem;
@@ -16,7 +15,7 @@ const Layout = styled.div`
   margin: 0 auto;
 `;
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   return (
     <AuthProvider>
       <QuizProvider>
@@ -30,6 +29,6 @@ function App(): JSX.Element {
       </QuizProvider>
     </AuthProvider>
   );
-}
+};
 
 export default App;

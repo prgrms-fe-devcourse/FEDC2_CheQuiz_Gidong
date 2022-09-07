@@ -1,6 +1,6 @@
-import { QuizContent } from '@/interfaces/Quiz';
 import axiosInstance from '@/api/axiosInstance';
 import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
+import { QuizContent } from '@/interfaces/Quiz';
 import { UserAPI } from '@/interfaces/UserAPI';
 
 export const createQuiz = async (

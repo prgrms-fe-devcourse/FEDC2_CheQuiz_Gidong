@@ -1,18 +1,20 @@
 import { Form, Formik } from 'formik';
 import { useCallback } from 'react';
-import { validationChangePassword } from '@/utils/validation';
-import * as S from './styles';
-import InputBox from '../Form/InputBox';
-import Button from '../Form/Button';
+
 import { updatePassword } from '@/api/UserServices';
 import { UpdatePasswordFormData } from '@/interfaces/ChangeFormData';
+import { validationChangePassword } from '@/utils/validation';
+
+import Button from '../Form/Button';
+import InputBox from '../Form/InputBox';
+import * as S from './styles';
 
 interface Props {
   isShown: boolean;
   onClosePassword: () => void;
 }
 
-function PasswordModal({ isShown, onClosePassword }: Props) {
+const PasswordModal = ({ isShown, onClosePassword }: Props) => {
   const onSubmitPassword = useCallback(
     async (formData: UpdatePasswordFormData) => {
       try {
@@ -73,6 +75,6 @@ function PasswordModal({ isShown, onClosePassword }: Props) {
       {isShown && null}
     </>
   );
-}
+};
 
 export default PasswordModal;

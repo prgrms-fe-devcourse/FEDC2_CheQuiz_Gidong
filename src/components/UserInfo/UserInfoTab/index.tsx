@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
+
 import { fetchPosts } from '@/api/user';
-import * as S from './styles';
+import QuizModal from '@/components/Modal/QuizModal';
 import { PostAPIUserInfo } from '@/interfaces/PostAPI';
 import { UserQuizType } from '@/interfaces/UserAPI';
-import UserQuizItem from '../UserQuizItem';
-import TabItem from '../UserInfoTabItem';
-import QuizModal from '@/components/Modal/QuizModal';
 
-function UserInfoTab({ id }: { id: string }) {
+import TabItem from '../UserInfoTabItem';
+import UserQuizItem from '../UserQuizItem';
+import * as S from './styles';
+
+const UserInfoTab = ({ id }: { id: string }) => {
   const [madeQuizzes, setMadeQuizzes] = useState([]);
   const [commentedQuizzes, setCommentedQuizzes] = useState([]);
   const [likedQuizzes, setLikedQuizzes] = useState([]);
@@ -114,6 +116,6 @@ function UserInfoTab({ id }: { id: string }) {
       </S.TabContent>
     </S.TabWrapper>
   );
-}
+};
 
 export default UserInfoTab;

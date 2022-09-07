@@ -22,7 +22,7 @@ interface QuizContextType {
 const QuizContext = createContext({});
 export const useQuizContext = () => useContext(QuizContext) as QuizContextType;
 
-function QuizProvider({ children }: Props) {
+const QuizProvider = ({ children }: Props) => {
   const [channelId, setChannelId] = useState(null);
   const [randomQuizCount, setRandomQuizCount] = useState(null);
   const [randomQuizCategory, setRandomQuizCategory] = useState(null);
@@ -40,6 +40,6 @@ function QuizProvider({ children }: Props) {
   );
 
   return <QuizContext.Provider value={state}>{children}</QuizContext.Provider>;
-}
+};
 
 export default QuizProvider;

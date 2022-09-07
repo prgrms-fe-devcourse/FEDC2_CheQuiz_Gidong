@@ -1,11 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+
 import Select from '@/components/Form/Select';
 import { QUIZ_CATEGORY_LIST } from '@/constants';
 import { useQuizContext } from '@/contexts/QuizContext';
+
 import * as S from './styles';
 
-function RandomQuiz() {
+const RandomQuiz = () => {
   const {
     randomQuizCount,
     setRandomQuizCount,
@@ -75,6 +77,6 @@ function RandomQuiz() {
       </S.ContentBox>
     </S.Container>
   );
-}
+};
 
 export default RandomQuiz;

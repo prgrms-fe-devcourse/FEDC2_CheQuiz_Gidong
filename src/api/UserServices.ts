@@ -1,12 +1,13 @@
 import { AxiosRequestHeaders } from 'axios';
+
 import api from '@/api/axiosInstance';
-import { CommentAPI } from '@/interfaces/CommentAPI';
-import { LikeAPI } from '@/interfaces/LikeAPI';
-import { UserAPI, UserQuizPostAPI } from '@/interfaces/UserAPI';
 import {
   UpdateNameFormData,
   UpdatePasswordFormData,
 } from '@/interfaces/ChangeFormData';
+import { CommentAPI } from '@/interfaces/CommentAPI';
+import { LikeAPI } from '@/interfaces/LikeAPI';
+import { UserAPI, UserQuizPostAPI } from '@/interfaces/UserAPI';
 
 const isNotNull = (item: string | null): item is string => {
   return !!item;

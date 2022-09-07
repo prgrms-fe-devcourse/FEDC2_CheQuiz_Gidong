@@ -1,5 +1,4 @@
 import axiosInstance from '@/api/axiosInstance';
-
 import { NotificationPayload } from '@/interfaces/NotificationAPI';
 
 export const getNotifications = async (token: string) => {

@@ -5,24 +5,26 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import Quiz from '@components/Quiz';
 import { Redirect, useHistory } from 'react-router';
 import Slider from 'react-slick';
 import { v4 } from 'uuid';
-import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
+
 import * as QuizServices from '@/api/QuizServices';
+import { updateTotalPoint } from '@/api/UserServices';
+import Icon from '@/components/Icon';
+import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useQuizContext } from '@/contexts/QuizContext';
+import { Quiz as QuizInterface } from '@/interfaces/Quiz';
+import { UserQuizInfo } from '@/interfaces/UserAPI';
+import Quiz from '@components/Quiz';
+
+import SliderButton from './SliderButton';
+import * as S from './styles';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import SliderButton from './SliderButton';
-import { Quiz as QuizInterface } from '@/interfaces/Quiz';
-import * as S from './styles';
-import { useAuthContext } from '@/contexts/AuthContext';
-import { UserQuizInfo } from '@/interfaces/UserAPI';
-import { updateTotalPoint } from '@/api/UserServices';
-import { useQuizContext } from '@/contexts/QuizContext';
-import Icon from '@/components/Icon';
 
-function QuizSolvePage() {
+const QuizSolvePage = () => {
   const history = useHistory();
   const sliderRef = useRef<Slider | null>(null);
   const { user, setUser, isAuth } = useAuthContext();
@@ -201,6 +203,6 @@ function QuizSolvePage() {
       <S.Background />
     </form>
   );
-}
+};
 
 export default QuizSolvePage;

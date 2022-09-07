@@ -1,12 +1,13 @@
-import * as S from './styles';
-import { getUserImageByPoints } from '@/utils/getUserImage';
 import { ChannelAPI } from '@/interfaces/ChannelAPI';
+import { getUserImageByPoints } from '@/utils/getUserImage';
+
+import * as S from './styles';
 
 interface QuizSetCardProps {
   quizSet: ChannelAPI;
   cardIdx: number;
 }
-function QuizSetCard({ quizSet, cardIdx }: QuizSetCardProps) {
+const QuizSetCard = ({ quizSet, cardIdx }: QuizSetCardProps) => {
   const { description, name } = quizSet;
   const { tags, des, creator } = JSON.parse(description);
   const points = JSON.parse(creator?.username || null)?.points || 1000;
@@ -33,6 +34,6 @@ function QuizSetCard({ quizSet, cardIdx }: QuizSetCardProps) {
       </S.UserBox>
     </S.CardContainer>
   );
-}
+};
 
 export default QuizSetCard;

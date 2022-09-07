@@ -1,11 +1,12 @@
 import React from 'react';
-import * as S from './styles';
-import { QuizClientContent } from '@/interfaces/Quiz';
-import { QUIZ_ANSWER_TYPE_LIST, QUIZ_CATEGORY_LIST } from '@/constants';
 
+import Select from '@/components/Form/Select';
 import Icon from '@/components/Icon';
 import Rate from '@/components/QuizCreate/Rate';
-import Select from '@/components/Form/Select';
+import { QUIZ_ANSWER_TYPE_LIST, QUIZ_CATEGORY_LIST } from '@/constants';
+import { QuizClientContent } from '@/interfaces/Quiz';
+
+import * as S from './styles';
 
 interface QuizItemProps {
   quizData: QuizClientContent;
@@ -15,13 +16,13 @@ interface QuizItemProps {
   onChangeQuiz: (id: number, key: string, value: unknown) => void;
 }
 
-export default function QuizItem({
+const QuizItem = ({
   quizData,
   order,
   errors,
   onChangeQuiz,
   handleQuizDelete,
-}: QuizItemProps) {
+}: QuizItemProps) => {
   const handleInputChange = (key: string, value: unknown) => {
     onChangeQuiz(quizData._id, key, value);
   };
@@ -138,4 +139,6 @@ export default function QuizItem({
       </S.AnswerSection>
     </S.QuizContainer>
   );
-}
+};
+
+export default QuizItem;

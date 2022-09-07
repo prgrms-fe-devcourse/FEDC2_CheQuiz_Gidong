@@ -1,17 +1,16 @@
-import { Switch, BrowserRouter } from 'react-router-dom';
 import { Redirect } from 'react-router';
+import { Switch, BrowserRouter } from 'react-router-dom';
 
+import Error from '@/pages/ErrorPage';
 import Home from '@/pages/Home';
 import QuizCreate from '@/pages/QuizCreatePage';
-import QuizSolvePage from '@/pages/QuizSolvePage';
 import QuizResultPage from '@/pages/QuizResultPage';
-import UserInfoPage from '@/pages/UserInfoPage';
+import QuizSolvePage from '@/pages/QuizSolvePage';
 import Ranking from '@/pages/RankingPage';
-import Error from '@/pages/ErrorPage';
-
+import UserInfoPage from '@/pages/UserInfoPage';
 import AuthRoute from '@/routes/AuthRoute';
 
-function Routers() {
+const Routers = () => {
   return (
     <BrowserRouter>
       <Switch>
@@ -26,6 +25,6 @@ function Routers() {
       </Switch>
     </BrowserRouter>
   );
-}
+};
 
 export default Routers;

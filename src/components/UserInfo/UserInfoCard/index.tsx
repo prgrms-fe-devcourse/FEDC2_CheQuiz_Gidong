@@ -1,20 +1,28 @@
 import { useCallback, useEffect, useState } from 'react';
+
+import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
+import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
 import { MAXEXP } from '@/common/number';
-import * as S from './styles';
-import * as Breakpoints from '../breakpoints';
 import { BadgeType } from '@/interfaces/BadgeType';
+import { PostAPIUserInfo } from '@/interfaces/PostAPI';
 import {
   CustomUserAPI,
   UserAPI,
   UserQuizCategory,
   UserSimpleType,
 } from '@/interfaces/UserAPI';
-import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
-import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
-import { PostAPIUserInfo } from '@/interfaces/PostAPI';
 import { getUserImageByPoints } from '@/utils/getUserImage';
 
-function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
+import * as Breakpoints from '../breakpoints';
+import * as S from './styles';
+
+const UserInfoCard = ({
+  id,
+  width = '40rem',
+}: {
+  id: string;
+  width?: string;
+}) => {
   const [userData, setUserData] = useState<CustomUserAPI>(DEFAULT_USER_DATA);
   const [userRank, setUserRank] = useState(0);
   const [userQuiz, setUserQuiz] = useState<UserQuizCategory[]>([]);
@@ -234,5 +242,5 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
       {userData.id === 'loading' && <S.UserCard width={width} />}
     </>
   );
-}
+};
 export default UserInfoCard;

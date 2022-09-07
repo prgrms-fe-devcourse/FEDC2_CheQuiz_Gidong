@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { QUIZ_SET_TAG_LIST } from '@/constants';
-import * as S from './styles';
 import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
+
+import * as S from './styles';
 
 interface SetFormProps {
   isSet: boolean;
@@ -9,7 +11,12 @@ interface SetFormProps {
   toggleSet: React.Dispatch<React.SetStateAction<boolean>>;
   setQuizSet: React.Dispatch<React.SetStateAction<ChannelAPICustomTitle>>;
 }
-function QuizSetForm({ isSet, quizSet, toggleSet, setQuizSet }: SetFormProps) {
+const QuizSetForm = ({
+  isSet,
+  quizSet,
+  toggleSet,
+  setQuizSet,
+}: SetFormProps) => {
   const handleSetTagChange = (tag: string) => {
     const index = quizSet.tags.indexOf(tag);
     if (index < 0) {
@@ -57,6 +64,6 @@ function QuizSetForm({ isSet, quizSet, toggleSet, setQuizSet }: SetFormProps) {
       )}
     </S.SetWrapper>
   );
-}
+};
 
 export default QuizSetForm;

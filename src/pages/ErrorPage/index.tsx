@@ -2,7 +2,7 @@ import { useHistory } from 'react-router';
 
 import * as S from './styles';
 
-function Error() {
+const Error = () => {
   const history = useHistory();
 
   return (
@@ -25,6 +25,6 @@ function Error() {
       </S.HomeButton>
     </S.ErrorContainer>
   );
-}
+};
 
 export default Error;

@@ -1,14 +1,13 @@
 import { useState } from 'react';
 
-import { useAuthContext } from '@/contexts/AuthContext';
-
-import Modal from '@/components/Modal';
 import Icon from '@/components/Icon';
+import Modal from '@/components/Modal';
 import Notification from '@/components/Notification';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 import * as S from './styles';
 
-function Header(): JSX.Element {
+const Header = (): JSX.Element => {
   const { user, isAuth, logout } = useAuthContext();
 
   const [modalShow, setModalShow] = useState(false);
@@ -85,6 +84,6 @@ function Header(): JSX.Element {
       )}
     </>
   );
-}
+};
 
 export default Header;

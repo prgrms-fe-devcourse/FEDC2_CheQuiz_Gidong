@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import { borderRadius, DarkGray, h2 } from '@/styles/theme';
 
 export const notFoundText = styled.h2`

@@ -1,7 +1,6 @@
+import axiosInstance from '@/api/axiosInstance';
 import { LoginFormData } from '@/interfaces/LoginFormData';
 import { SignUpFormData } from '@/interfaces/SignUpFormData';
-
-import axiosInstance from '@/api/axiosInstance';
 
 const login = async (data: LoginFormData) => {
   try {

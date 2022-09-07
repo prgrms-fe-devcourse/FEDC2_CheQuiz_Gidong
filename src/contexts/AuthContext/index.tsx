@@ -7,12 +7,10 @@ import {
 } from 'react';
 import { v4 } from 'uuid';
 
+import auth from '@/api/auth';
 import { useLocalStorage } from '@/hooks/useStorage';
-
 import { LoginFormData } from '@/interfaces/LoginFormData';
 import { SignUpFormData } from '@/interfaces/SignUpFormData';
-
-import auth from '@/api/auth';
 import { UserAPI } from '@/interfaces/UserAPI';
 
 interface AuthContextType {
@@ -33,7 +31,7 @@ interface Props {
 const AuthContext = createContext({});
 export const useAuthContext = () => useContext(AuthContext) as AuthContextType;
 
-function AuthProvider({ children }: Props) {
+const AuthProvider = ({ children }: Props) => {
   const [user, setUser, removeUser] = useLocalStorage('user', {});
   const [token, setToken, removeToken] = useLocalStorage('token', '');
   const [isAuth, setIsAuth] = useState(false);
@@ -117,6 +115,6 @@ function AuthProvider({ children }: Props) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export default AuthProvider;

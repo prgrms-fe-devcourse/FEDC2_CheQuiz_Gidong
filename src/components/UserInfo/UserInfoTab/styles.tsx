@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import { lightGrayWhite, primary } from '@/styles/theme';
 
 export const TabWrapper = styled.div`
@@ -37,11 +38,11 @@ export const TabItemContainer = styled.div`
   top: 0.3rem;
 `;
 
-type tabItemProps = {
+type TabItemProps = {
   selected?: boolean;
 };
 
-export const TabItem = styled.div<tabItemProps>`
+export const TabItem = styled.div<TabItemProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;

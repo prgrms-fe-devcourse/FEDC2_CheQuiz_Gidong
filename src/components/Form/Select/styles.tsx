@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import { DarkGray, small } from '@/styles/theme';
-import arrowIcon from '@/assets/downArrow.png';
 
+import arrowIcon from '@/assets/downArrow.png';
+import { DarkGray, small } from '@/styles/theme';
+
+// eslint-disable-next-line import/prefer-default-export
 export const SelectBox = styled.select`
   width: 10rem;
   height: 2.5rem;

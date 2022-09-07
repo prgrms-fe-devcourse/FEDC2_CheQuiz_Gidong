@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
+
 import { QUIZ_ITEM_DEFAULT_STATE } from '@/assets/QuizCreateMockData';
 import Icon from '@/components/Icon';
 import { QuizClientContent } from '@/interfaces/Quiz';
+
 import QuizItem from '../QuizItem';
 import * as S from './styles';
 
@@ -10,7 +12,7 @@ interface QuizListProps {
   setQuizList: React.Dispatch<React.SetStateAction<QuizClientContent[]>>;
   errors: any;
 }
-function QuizList({ quizList, setQuizList, errors }: QuizListProps) {
+const QuizList = ({ quizList, setQuizList, errors }: QuizListProps) => {
   const moveController = useRef(false);
 
   const handleQuizAdd = () => {
@@ -68,5 +70,5 @@ function QuizList({ quizList, setQuizList, errors }: QuizListProps) {
       </S.InsertQuizItem>
     </S.QuizListContainer>
   );
-}
+};
 export default QuizList;

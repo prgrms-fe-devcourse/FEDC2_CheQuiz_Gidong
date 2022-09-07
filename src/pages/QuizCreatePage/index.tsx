@@ -1,13 +1,13 @@
 import Header from '@/components/Header';
 import QuizForm from '@/components/QuizCreate';
 
-function QuizCreatePage() {
+const QuizCreatePage = () => {
   return (
     <>
       <Header />
       <QuizForm />
     </>
   );
-}
+};
 
 export default QuizCreatePage;

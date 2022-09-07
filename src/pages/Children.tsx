@@ -7,12 +7,12 @@ const ChildrenCotainer = styled.div`
   border: 1px solid;
 `;
 
-function Children() {
+const Children = () => {
   return (
     <ChildrenCotainer>
       <h1>홈페이지를 레이아웃으로 한 하위 라우팅 페이지 입니다.</h1>
     </ChildrenCotainer>
   );
-}
+};
 
 export default Children;

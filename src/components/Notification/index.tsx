@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { getNotifications, seenNotifications } from '@/api/notification';
-import { useAuthContext } from '@/contexts/AuthContext';
 import Item from '@/components/Notification/Item';
-
+import { useAuthContext } from '@/contexts/AuthContext';
 import { NotificationAPI } from '@/interfaces/NotificationAPI';
 
 import * as S from './styles';
 
-function Notification() {
+const Notification = () => {
   const { token } = useAuthContext();
 
   const [notifications, setNotifications] = useState([]);
@@ -58,6 +57,6 @@ function Notification() {
       )}
     </S.Notification>
   );
-}
+};
 
 export default Notification;

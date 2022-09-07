@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import QuizResult from '@components/QuizResult';
 import { Redirect, useHistory } from 'react-router';
-import { Quiz as QuizInterface } from '@/interfaces/Quiz';
+
 import * as QuizServices from '@/api/QuizServices';
-import * as S from './styles';
-import { useSessionStorage } from '@/hooks/useStorage';
-import { POST_IDS, USER_ANSWERS } from '@/constants';
-import UserInfoCard from '@/components/UserInfo/UserInfoCard';
-import { useAuthContext } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
+import UserInfoCard from '@/components/UserInfo/UserInfoCard';
+import { POST_IDS, USER_ANSWERS } from '@/constants';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useSessionStorage } from '@/hooks/useStorage';
+import { Quiz as QuizInterface } from '@/interfaces/Quiz';
+import QuizResult from '@components/QuizResult';
+
+import * as S from './styles';
 
 /**
  * ANCHOR: QuizResultPage 로직
@@ -17,7 +19,7 @@ import Header from '@/components/Header';
  * 3. 댓글을 달 수 있는 input과, 좋아요를 누를 수 있는 like가 각 컴포넌트에 위치하여야 한다.
  * 4. random인지, random인지 아닌지 저장해야 한다.
  */
-function QuizResultPage() {
+const QuizResultPage = () => {
   const history = useHistory();
   const { user, isAuth } = useAuthContext();
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
@@ -63,6 +65,6 @@ function QuizResultPage() {
       </S.QuizResultPage>
     </>
   );
-}
+};
 
 export default QuizResultPage;

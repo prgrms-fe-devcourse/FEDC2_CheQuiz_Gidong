@@ -1,3 +1,3 @@
-export interface rankSearchProp {
+export interface RankSearchProp {
   keyword: string;
 }

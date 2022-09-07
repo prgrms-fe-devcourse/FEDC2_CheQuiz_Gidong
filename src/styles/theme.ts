@@ -5,7 +5,7 @@ const Size = {
   mobile: '600px', // 600px
 };
 
-export const theme = {
+const theme = {
   themeColors: {
     pointColor: '#FCA311',
     primary: '#14213D',

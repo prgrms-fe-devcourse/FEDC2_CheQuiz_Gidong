@@ -1,12 +1,14 @@
 import { Form, Formik } from 'formik';
 import { useCallback } from 'react';
-import { validationChangeName } from '@/utils/validation';
-import * as S from './styles';
-import InputBox from '../Form/InputBox';
-import Button from '../Form/Button';
-import { UserAPI } from '@/interfaces/UserAPI';
+
 import { updateFullName } from '@/api/UserServices';
 import { UpdateNameFormData } from '@/interfaces/ChangeFormData';
+import { UserAPI } from '@/interfaces/UserAPI';
+import { validationChangeName } from '@/utils/validation';
+
+import Button from '../Form/Button';
+import InputBox from '../Form/InputBox';
+import * as S from './styles';
 
 interface Props {
   user: UserAPI;
@@ -14,7 +16,7 @@ interface Props {
   onCloseNickname: () => void;
 }
 
-function NicknameModal({ user, isShown, onCloseNickname }: Props) {
+const NicknameModal = ({ user, isShown, onCloseNickname }: Props) => {
   const onSubmitFullName = useCallback(async (formData: UpdateNameFormData) => {
     try {
       const userInfo = await updateFullName(formData);
@@ -68,6 +70,6 @@ function NicknameModal({ user, isShown, onCloseNickname }: Props) {
       {isShown && null}
     </>
   );
-}
+};
 
 export default NicknameModal;

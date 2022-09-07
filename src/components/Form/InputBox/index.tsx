@@ -1,4 +1,5 @@
 import { useField } from 'formik';
+
 import * as S from './styles';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   placeholder: string;
 }
 
-function InputBox({ label, ...props }: Props) {
+const InputBox = ({ label, ...props }: Props) => {
   const [field, meta] = useField(props);
 
   return (
@@ -20,6 +21,6 @@ function InputBox({ label, ...props }: Props) {
       ) : null}
     </S.InputBox>
   );
-}
+};
 
 export default InputBox;

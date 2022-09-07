@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { UserAPI } from '@/interfaces/UserAPI';
-import Tag from '@/components/Tag';
-import { NOCOMMENTS, NOLIKES } from '@/common/string';
-import * as S from './style';
+
 import getUserList from '@/api/getUserList';
-import { rankSearchProp } from '@/interfaces/Rank';
+import { NOCOMMENTS, NOLIKES } from '@/common/string';
+import Tag from '@/components/Tag';
+import { RankSearchProp } from '@/interfaces/Rank';
+import { UserAPI } from '@/interfaces/UserAPI';
 import { getUserImageByPoints } from '@/utils/getUserImage';
 
-function UserRankList({ keyword }: rankSearchProp) {
+import * as S from './style';
+
+const UserRankList = ({ keyword }: RankSearchProp) => {
   const history = useHistory();
 
   const [rankingData, setRankingData] = useState([] as UserAPI[]);
@@ -218,6 +220,6 @@ function UserRankList({ keyword }: rankSearchProp) {
         })}
     </>
   );
-}
+};
 
 export default UserRankList;

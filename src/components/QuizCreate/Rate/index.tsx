@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import styled from '@emotion/styled';
+import { useState } from 'react';
+
 import Icon from '@/components/Icon';
 
 interface RateProps {
@@ -14,13 +15,13 @@ const RateWrapper = styled.div`
   display: flex;
 `;
 const Star = styled.div``;
-function Rate({
+const Rate = ({
   count,
   defaultVal,
   onChangeStar,
   size = 40,
   ...props
-}: RateProps) {
+}: RateProps) => {
   const [currVal, setCurrVal] = useState(defaultVal);
 
   const handleStarClick = (clickedVal: number) => {
@@ -48,6 +49,6 @@ function Rate({
       ))}
     </RateWrapper>
   );
-}
+};
 
 export default Rate;

@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import * as S from './styles';
+
 import { createQuiz, createQuizSet } from '@/api/create';
-import { QuizClientContent } from '@/interfaces/Quiz';
 import {
   QUIZ_ITEM_DEFAULT_STATE,
   QUIZ_SET_DEFAULT_STATE,
 } from '@/assets/QuizCreateMockData';
-import QuizList from './QuizList';
-import QuizSetForm from './QuizSetForm';
-import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
 import { useAuthContext } from '@/contexts/AuthContext';
 import useValidation from '@/hooks/useValidation';
+import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
+import { QuizClientContent } from '@/interfaces/Quiz';
 import { validationQuizCreate } from '@/utils/validation';
 
-function QuizForm() {
+import QuizList from './QuizList';
+import QuizSetForm from './QuizSetForm';
+import * as S from './styles';
+
+const QuizForm = () => {
   const [quizList, setQuizList] = useState<QuizClientContent[]>([
     QUIZ_ITEM_DEFAULT_STATE,
   ]);
@@ -38,11 +40,13 @@ function QuizForm() {
       const set = await createQuizSet(quizSet, user);
       if (!set) return;
       quizList.forEach((quiz) => {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         const { _id, ...quizData } = quiz;
         createQuiz(quizData, token, set._id);
       });
     } else {
       quizList.forEach((quiz) => {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         const { _id, ...quizData } = quiz;
         createQuiz(quizData, token);
       });
@@ -64,6 +68,6 @@ function QuizForm() {
       <S.SubmitButton type="submit">퀴즈 제출</S.SubmitButton>
     </S.FormContainer>
   );
-}
+};
 
 export default QuizForm;

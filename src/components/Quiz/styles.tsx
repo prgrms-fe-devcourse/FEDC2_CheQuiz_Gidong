@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { primary, pointColor, h2 } from '@/styles/theme';
+
 import maple from '@/assets/maple.png';
+import { primary, pointColor, h2 } from '@/styles/theme';
 
 interface SelectButtonProps {
   currentSelected: boolean;

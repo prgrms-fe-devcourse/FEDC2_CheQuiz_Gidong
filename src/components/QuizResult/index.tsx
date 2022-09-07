@@ -1,24 +1,26 @@
 import { useMemo, useState } from 'react';
-import useInput from '@hooks/useInput';
 import AnimateHeight from 'react-animate-height';
-import { Quiz } from '@/interfaces/Quiz';
-import { CommentAPI } from '@/interfaces/CommentAPI';
-import { useAuthContext } from '@/contexts/AuthContext';
+
+import { createNotification } from '@/api/notification';
 import * as UserService from '@/api/UserServices';
-import * as S from './styles';
+import Icon from '@/components/Icon';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { CommentAPI } from '@/interfaces/CommentAPI';
 import { LikeAPI } from '@/interfaces/LikeAPI';
+import { Quiz } from '@/interfaces/Quiz';
+import { UserQuizInfo, UserAPI } from '@/interfaces/UserAPI';
+import theme from '@/styles/theme';
 import dateFormat from '@/utils/dateFormat';
 import { getUserImageByPoints } from '@/utils/getUserImage';
-import { UserQuizInfo, UserAPI } from '@/interfaces/UserAPI';
-import { createNotification } from '@/api/notification';
-import { theme } from '@/styles/theme';
-import Icon from '@/components/Icon';
+import useInput from '@hooks/useInput';
+
+import * as S from './styles';
 
 interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
 }
 
-function QuizResult({ quiz, correct }: QuizResultProps) {
+const QuizResult = ({ quiz, correct }: QuizResultProps) => {
   const { user, token } = useAuthContext();
   const [inputValue, handler, setInputValue] = useInput('');
   const [comments, setComments] = useState<CommentAPI[]>(() =>
@@ -229,6 +231,6 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
       </AnimateHeight>
     </S.Box>
   );
-}
+};
 
 export default QuizResult;

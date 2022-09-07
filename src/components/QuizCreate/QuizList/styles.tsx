@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import { blackGray, DarkGray, small, white } from '@/styles/theme';
 
 export const QuizListContainer = styled.section`

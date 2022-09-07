@@ -1,5 +1,6 @@
 import { UserQuizType } from '@/interfaces/UserAPI';
 import { getUserImageByPoints } from '@/utils/getUserImage';
+
 import * as S from './styles';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   onClose: () => void;
 }
 
-function QuizModal({ quiz, isShown, onClose }: Props) {
+const QuizModal = ({ quiz, isShown, onClose }: Props) => {
   return (
     <>
       {isShown && (
@@ -66,6 +67,6 @@ function QuizModal({ quiz, isShown, onClose }: Props) {
       {!isShown && null}
     </>
   );
-}
+};
 
 export default QuizModal;

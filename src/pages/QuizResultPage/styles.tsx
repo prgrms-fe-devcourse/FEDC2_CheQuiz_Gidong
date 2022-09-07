@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { theme } from '@/styles/theme';
+
+import theme from '@/styles/theme';
 
 export interface StyledLinkedButtonProps {
   color?: 'point' | 'primary' | 'secondary';
