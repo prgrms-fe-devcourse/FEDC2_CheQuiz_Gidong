@@ -1,13 +1,13 @@
 import '@emotion/react';
 
 declare module '@emotion/react' {
-  interface themeColors {
+  interface ThemeColors {
     pointColor: string;
     primary: string;
     secondary: string;
   }
 
-  interface tagColor {
+  interface TagColor {
     green: string;
     blue: string;
     yellow: string;
@@ -27,7 +27,7 @@ declare module '@emotion/react' {
     noComments: string;
   }
 
-  interface textAndBackGroundColor {
+  interface TextAndBackGroundColor {
     blackGray: string;
     DarkGray: string;
     gray: string;
@@ -38,18 +38,18 @@ declare module '@emotion/react' {
     white: string;
   }
 
-  interface borderStyle {
+  interface BorderStyle {
     borderWidth: string;
     borderRadius: string;
   }
 
-  interface media {
+  interface Media {
     pc: string;
     tab: string;
     mobile: string;
   }
 
-  interface fontStyle {
+  interface FontStyle {
     h1: string;
     h2: string;
     h3: string;
@@ -61,11 +61,11 @@ declare module '@emotion/react' {
   }
 
   export interface Theme {
-    themeColors: themeColors;
-    tagColor: tagColor;
-    textAndBackGroundColor: textAndBackGroundColor;
-    borderStyle: borderStyle;
-    media: media;
-    fontStyle: fontStyle;
+    themeColors: ThemeColors;
+    tagColor: TagColor;
+    textAndBackGroundColor: TextAndBackGroundColor;
+    borderStyle: BorderStyle;
+    media: Media;
+    fontStyle: FontStyle;
   }
 }
