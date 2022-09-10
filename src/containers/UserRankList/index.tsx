@@ -31,7 +31,7 @@ const UserRankList = ({ keyword }: RankSearchProp) => {
     return () => {
       fetchRankData();
     };
-  }, []);
+  }, [history]);
 
   // 랭킹데이터 점수내림차순 정렬 후 순위를 위해 고정 인덱스 부여
   const userList = rankingData
