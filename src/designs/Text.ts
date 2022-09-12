@@ -22,23 +22,11 @@ type props = {
 };
 
 const setFontSize = ({ type }: props) => {
-  if (type === 'h1') {
-    return TEXT_300;
-  }
-
-  if (type === 'h2') {
-    return TEXT_250;
-  }
-
-  if (type === 'h3') {
-    return TEXT_200;
-  }
-
-  if (type === 'h4' || type === 'large') {
+  if (type === 'large') {
     return TEXT_150;
   }
 
-  if (type === 'h5' || type === 'medium') {
+  if (type === 'medium') {
     return TEXT_125;
   }
 
@@ -69,7 +57,85 @@ const setFontWeight = ({ weight }: props) => {
   return WEIGHT_REGULAR;
 };
 
-export const Text = styled.div<props>`
+export const H1 = styled.h1<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_300};
+  font-weight: ${WEIGHT_SEMI_BOLD};
+`;
+
+export const H2 = styled.h2<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_250};
+  font-weight: ${WEIGHT_SEMI_BOLD};
+`;
+
+export const H3 = styled.h3<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_200};
+  font-weight: ${WEIGHT_SEMI_BOLD};
+`;
+
+export const H4 = styled.h4<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_150};
+  font-weight: ${WEIGHT_SEMI_BOLD};
+`;
+
+export const H5 = styled.h5<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_125};
+  font-weight: ${WEIGHT_SEMI_BOLD};
+`;
+
+export const LargeText = styled.span<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_150};
+  font-weight: ${WEIGHT_REGULAR};
+`;
+
+export const MediumText = styled.span<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_125};
+  font-weight: ${WEIGHT_REGULAR};
+`;
+
+export const SmallText = styled.span<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_100};
+  font-weight: ${WEIGHT_REGULAR};
+`;
+
+export const DetailText = styled.span<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_80};
+  font-weight: ${WEIGHT_REGULAR};
+`;
+
+export const BoldText = styled.span<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_90};
+  font-weight: ${WEIGHT_SEMI_BOLD};
+`;
+
+export const MediumBoldText = styled.span<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_90};
+  font-weight: ${WEIGHT_MEDIUM};
+`;
+
+export const LightText = styled.span<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_90};
+  font-weight: ${WEIGHT_LIGHT};
+`;
+
+export const BasicText = styled.span<props>`
+  color: ${({ color = BLACK }) => color};
+  font-size: ${TEXT_90};
+  font-weight: ${WEIGHT_REGULAR};
+`;
+
+export const Text = styled.span<props>`
   color: ${({ color = BLACK }) => color};
   font-size: ${setFontSize};
   font-weight: ${setFontWeight};
