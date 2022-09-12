@@ -1,10 +1,16 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const DotenvPlugin = require('dotenv-webpack');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
+import DotenvPlugin from 'dotenv-webpack';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import type { Configuration as WebpackConfiguration } from 'webpack';
+import type { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
-module.exports = {
+interface Configuration extends WebpackConfiguration {
+  devserver?: WebpackDevServerConfiguration;
+}
+
+const config: Configuration = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
@@ -41,7 +47,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/index.html'),
     }),
-    new CopyWebpackPlugin({
+    new CopyPlugin({
       patterns: [
         {
           from: 'public',
@@ -66,3 +72,5 @@ module.exports = {
     historyApiFallback: true,
   },
 };
+
+export default config;
