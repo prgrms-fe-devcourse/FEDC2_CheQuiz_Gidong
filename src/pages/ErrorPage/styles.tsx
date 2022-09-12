@@ -1,3 +1,4 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
 
 import { borderRadius, h1, h2, large, primary, white } from '@/styles/theme';

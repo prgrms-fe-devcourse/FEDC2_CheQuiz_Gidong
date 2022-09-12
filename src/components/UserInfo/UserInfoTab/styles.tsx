@@ -1,3 +1,4 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
 
 import { lightGrayWhite, primary } from '@/styles/theme';

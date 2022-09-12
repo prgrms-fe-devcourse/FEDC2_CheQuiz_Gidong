@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect, useRef } from 'react';
 
 import { QUIZ_ITEM_DEFAULT_STATE } from '@/assets/QuizCreateMockData';
 import Icon from '@/components/Icon';
-import { QuizClientContent } from '@/interfaces/Quiz';
 
 import QuizItem from '../QuizItem';
+
 import * as S from './styles';
+
+import type { QuizClientContent } from '@/interfaces/Quiz';
 
 interface QuizListProps {
   quizList: QuizClientContent[];
@@ -32,8 +35,8 @@ const QuizList = ({ quizList, setQuizList, errors }: QuizListProps) => {
   const handleQuizChange = (id: number, key: string, value: unknown) => {
     setQuizList(
       quizList.map((quiz) =>
-        quiz._id === id ? { ...quiz, [key]: value } : quiz,
-      ),
+        quiz._id === id ? { ...quiz, [key]: value } : quiz
+      )
     );
   };
 
@@ -46,26 +49,29 @@ const QuizList = ({ quizList, setQuizList, errors }: QuizListProps) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [moveController.current]);
+  }, []);
 
   return (
     <S.QuizListContainer>
       {quizList.map((quiz, idx) => (
         <QuizItem
-          quizData={quiz}
           key={quiz._id}
-          order={idx + 1}
           errors={errors}
-          onChangeQuiz={handleQuizChange}
           handleQuizDelete={handleQuizDelete}
+          order={idx + 1}
+          quizData={quiz}
+          onChangeQuiz={handleQuizChange}
         />
       ))}
       <S.InsertQuizItem
         ref={insertButtonRef}
-        type="button"
+        type='button'
         onClick={handleQuizAdd}
       >
-        <Icon name="plus-circle" size={24} />
+        <Icon
+          name='plus-circle'
+          size={24}
+        />
         퀴즈 추가하기
       </S.InsertQuizItem>
     </S.QuizListContainer>

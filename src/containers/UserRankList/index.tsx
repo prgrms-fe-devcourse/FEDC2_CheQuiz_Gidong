@@ -1,15 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
+
 import { useHistory } from 'react-router';
 
 import getUserList from '@/api/getUserList';
 import { NOCOMMENTS, NOLIKES } from '@/common/string';
 import Tag from '@/components/Tag';
-import { RankSearchProp } from '@/interfaces/Rank';
-import { UserAPI } from '@/interfaces/UserAPI';
 import { getUserImageByPoints } from '@/utils/getUserImage';
 
 import * as S from './style';
+
+import type { RankSearchProp } from '@/interfaces/Rank';
+import type { UserAPI } from '@/interfaces/UserAPI';
 
 const UserRankList = ({ keyword }: RankSearchProp) => {
   const history = useHistory();
@@ -34,7 +40,7 @@ const UserRankList = ({ keyword }: RankSearchProp) => {
   }, [history]);
 
   // 랭킹데이터 점수내림차순 정렬 후 순위를 위해 고정 인덱스 부여
-  const userList = rankingData
+  const userList: [number, UserAPI][] = rankingData
     .sort((prev, next) => {
       let prevPoint;
       let nextPoint;
@@ -68,10 +74,10 @@ const UserRankList = ({ keyword }: RankSearchProp) => {
       if (roleFlag !== -1) return false;
       return true;
     })
-    .map((data, index) => {
+    .map((data, index) =>
       // 검색 필터링 이후에도 순위 유지를 위한 재 인덱싱
-      return [index + 1, data];
-    }) as [number, UserAPI][];
+      [index + 1, data]
+    );
 
   const generateTags = (userInfo: UserAPI) => {
     const tagsList = [];
@@ -98,39 +104,84 @@ const UserRankList = ({ keyword }: RankSearchProp) => {
     const isLevel50000 = level >= 50000;
 
     if (isLevel0) {
-      tagsList.push(<Tag colors="0" text="뉴비라네" />);
+      tagsList.push(
+        <Tag
+          colors='0'
+          text='뉴비라네'
+        />
+      );
     }
 
     if (isLevel10) {
-      tagsList.push(<Tag colors="10" text="내가 레벨 10대라니!" />);
+      tagsList.push(
+        <Tag
+          colors='10'
+          text='내가 레벨 10대라니!'
+        />
+      );
     }
 
     if (isLevel50) {
-      tagsList.push(<Tag colors="50" text="내가 레벨 50대라니!" />);
+      tagsList.push(
+        <Tag
+          colors='50'
+          text='내가 레벨 50대라니!'
+        />
+      );
     }
 
     if (isLevel100) {
-      tagsList.push(<Tag colors="100" text="내가 레벨 100대라니!" />);
+      tagsList.push(
+        <Tag
+          colors='100'
+          text='내가 레벨 100대라니!'
+        />
+      );
     }
 
     if (isLevel500) {
-      tagsList.push(<Tag colors="500" text="내가 레벨 500대라니!" />);
+      tagsList.push(
+        <Tag
+          colors='500'
+          text='내가 레벨 500대라니!'
+        />
+      );
     }
 
     if (isLevel1000) {
-      tagsList.push(<Tag colors="1000" text="내가 레벨 1000대라니!" />);
+      tagsList.push(
+        <Tag
+          colors='1000'
+          text='내가 레벨 1000대라니!'
+        />
+      );
     }
 
     if (isLevel5000) {
-      tagsList.push(<Tag colors="5000" text="내가 레벨 5000대라니!" />);
+      tagsList.push(
+        <Tag
+          colors='5000'
+          text='내가 레벨 5000대라니!'
+        />
+      );
     }
 
     if (isLevel10000) {
-      tagsList.push(<Tag colors="10000" text="내가 레벨 10000대라니!" />);
+      tagsList.push(
+        <Tag
+          colors='10000'
+          text='내가 레벨 10000대라니!'
+        />
+      );
     }
 
     if (isLevel50000) {
-      tagsList.push(<Tag colors="50000" text="내가 레벨 50000대라니!" />);
+      tagsList.push(
+        <Tag
+          colors='50000'
+          text='내가 레벨 50000대라니!'
+        />
+      );
     }
 
     // 좋아요, 커맨트 관련 조건
@@ -140,27 +191,57 @@ const UserRankList = ({ keyword }: RankSearchProp) => {
     const isNoComments = userInfo.comments?.length === 0;
 
     if (isManyComments && isManyLikes) {
-      tagsList.push(<Tag colors="red" text="소통왕" />);
+      tagsList.push(
+        <Tag
+          colors='red'
+          text='소통왕'
+        />
+      );
     }
 
     if (isManyComments) {
-      tagsList.push(<Tag colors="green" text="투머치토커" />);
+      tagsList.push(
+        <Tag
+          colors='green'
+          text='투머치토커'
+        />
+      );
     }
 
     if (isManyLikes) {
-      tagsList.push(<Tag colors="pink" text="사랑꾼" />);
+      tagsList.push(
+        <Tag
+          colors='pink'
+          text='사랑꾼'
+        />
+      );
     }
 
     if (isNoLikes) {
-      tagsList.push(<Tag colors={NOLIKES} text="무뚝뚝그자체" />);
+      tagsList.push(
+        <Tag
+          colors={NOLIKES}
+          text='무뚝뚝그자체'
+        />
+      );
     }
 
     if (isNoComments) {
-      tagsList.push(<Tag colors={NOCOMMENTS} text="묵언수행중" />);
+      tagsList.push(
+        <Tag
+          colors={NOCOMMENTS}
+          text='묵언수행중'
+        />
+      );
     }
 
     if (isNoLikes && isNoComments) {
-      tagsList.push(<Tag colors="alone" text="혼자가좋아" />);
+      tagsList.push(
+        <Tag
+          colors='alone'
+          text='혼자가좋아'
+        />
+      );
     }
 
     return tagsList;
@@ -201,8 +282,8 @@ const UserRankList = ({ keyword }: RankSearchProp) => {
               <S.UserWrapper>
                 <S.UserProfile rank={rank}>
                   <S.UserImg
+                    alt='userImage'
                     src={getUserImageByPoints(point)}
-                    alt="userImage"
                   />
                 </S.UserProfile>
                 <S.UserInfoWrap>

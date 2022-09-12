@@ -1,11 +1,5 @@
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 
 interface Props {
   children: React.ReactNode;
@@ -36,7 +30,7 @@ const QuizProvider = ({ children }: Props) => {
       setRandomQuizCount,
       setRandomQuizCategory,
     }),
-    [channelId, randomQuizCount, randomQuizCategory],
+    [channelId, randomQuizCount, randomQuizCategory]
   );
 
   return <QuizContext.Provider value={state}>{children}</QuizContext.Provider>;

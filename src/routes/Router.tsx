@@ -10,21 +10,49 @@ import Ranking from '@/pages/RankingPage';
 import UserInfoPage from '@/pages/UserInfoPage';
 import AuthRoute from '@/routes/AuthRoute';
 
-const Routers = () => {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <AuthRoute exact path="/create" component={QuizCreate} mode="private" />
-        <AuthRoute exact path="/solve" component={QuizSolvePage} />
-        <AuthRoute exact path="/result" component={QuizResultPage} />
-        <AuthRoute exact path="/ranking" component={Ranking} />
-        <AuthRoute path="/user/:userId" component={UserInfoPage} />
-        <AuthRoute path="/error" component={Error} />
-        <AuthRoute exact path="/" component={Home} />
-        <AuthRoute path="*" render={() => <Redirect to="/error" />} />
-      </Switch>
-    </BrowserRouter>
-  );
-};
+const Routers = () => (
+  <BrowserRouter>
+    <Switch>
+      <AuthRoute
+        exact
+        component={QuizCreate}
+        mode='private'
+        path='/create'
+      />
+      <AuthRoute
+        exact
+        component={QuizSolvePage}
+        path='/solve'
+      />
+      <AuthRoute
+        exact
+        component={QuizResultPage}
+        path='/result'
+      />
+      <AuthRoute
+        exact
+        component={Ranking}
+        path='/ranking'
+      />
+      <AuthRoute
+        component={UserInfoPage}
+        path='/user/:userId'
+      />
+      <AuthRoute
+        component={Error}
+        path='/error'
+      />
+      <AuthRoute
+        exact
+        component={Home}
+        path='/'
+      />
+      <AuthRoute
+        path='*'
+        render={() => <Redirect to='/error' />}
+      />
+    </Switch>
+  </BrowserRouter>
+);
 
 export default Routers;

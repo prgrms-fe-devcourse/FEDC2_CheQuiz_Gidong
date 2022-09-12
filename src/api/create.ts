@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import axiosInstance from '@/api/axiosInstance';
-import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
-import { QuizContent } from '@/interfaces/Quiz';
-import { UserAPI } from '@/interfaces/UserAPI';
+
+import type { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
+import type { QuizContent } from '@/interfaces/Quiz';
+import type { UserAPI } from '@/interfaces/UserAPI';
 
 export const createQuiz = async (
   quiz: QuizContent,
   token: string,
-  channelId = process.env.DEFAULT_CHANNEL_ID,
+  channelId = process.env.DEFAULT_CHANNEL_ID
 ) => {
   try {
     await axiosInstance({
@@ -24,7 +28,7 @@ export const createQuiz = async (
 
 export const createQuizSet = async (
   set: ChannelAPICustomTitle,
-  user: UserAPI,
+  user: UserAPI
 ) => {
   const { name, ...quizSetCustomData } = set;
   try {

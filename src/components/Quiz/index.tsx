@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-
-import { Quiz as QuizInterface } from '@/interfaces/Quiz';
+import { useState } from 'react';
 
 import * as S from './styles';
+
+import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
 
 interface QuizProps {
   quiz: QuizInterface;
@@ -23,21 +23,19 @@ const Quiz = ({ quiz, index, onChangeUserAnswer }: QuizProps): JSX.Element => {
         {[
           ['O', 'true'],
           ['X', 'false'],
-        ].map(([key, value], idx) => {
-          return (
-            <S.SelectButton
-              key={value}
-              type="button"
-              currentSelected={clickedIndex === idx}
-              onClick={() => {
-                onChangeUserAnswer(index, value);
-                handleClickIndex(idx);
-              }}
-            >
-              {key}
-            </S.SelectButton>
-          );
-        })}
+        ].map(([key, value], idx) => (
+          <S.SelectButton
+            key={value}
+            currentSelected={clickedIndex === idx}
+            type='button'
+            onClick={() => {
+              onChangeUserAnswer(index, value);
+              handleClickIndex(idx);
+            }}
+          >
+            {key}
+          </S.SelectButton>
+        ))}
       </S.Wrapper>
     </S.OuterBox>
   );

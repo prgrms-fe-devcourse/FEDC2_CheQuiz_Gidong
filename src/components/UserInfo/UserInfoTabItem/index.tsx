@@ -5,12 +5,13 @@ interface TabItemProps {
   selected: boolean;
   handleClick?: (e: React.MouseEvent) => void;
 }
-const TabItem = ({ title, selected, handleClick }: TabItemProps) => {
-  return (
-    <TabItemWrapper selected={selected} onClick={handleClick}>
-      {title}
-    </TabItemWrapper>
-  );
-};
+const TabItem = ({ title, selected, handleClick }: TabItemProps) => (
+  <TabItemWrapper
+    selected={selected}
+    onClick={handleClick}
+  >
+    {title}
+  </TabItemWrapper>
+);
 
 export default TabItem;

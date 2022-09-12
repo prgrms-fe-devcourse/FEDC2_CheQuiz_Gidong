@@ -1,3 +1,4 @@
+/* eslint-disable @emotion/syntax-preference */
 import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 
@@ -15,20 +16,18 @@ const Layout = styled.div`
   margin: 0 auto;
 `;
 
-const App = (): JSX.Element => {
-  return (
-    <AuthProvider>
-      <QuizProvider>
-        <ThemeProvider theme={theme}>
-          <Global styles={reset} />
-          <Global styles={fontStyle} />
-          <Layout>
-            <Router />
-          </Layout>
-        </ThemeProvider>
-      </QuizProvider>
-    </AuthProvider>
-  );
-};
+const App = (): JSX.Element => (
+  <AuthProvider>
+    <QuizProvider>
+      <ThemeProvider theme={theme}>
+        <Global styles={reset} />
+        <Global styles={fontStyle} />
+        <Layout>
+          <Router />
+        </Layout>
+      </ThemeProvider>
+    </QuizProvider>
+  </AuthProvider>
+);
 
 export default App;

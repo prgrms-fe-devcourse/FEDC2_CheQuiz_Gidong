@@ -1,3 +1,4 @@
+/* eslint-disable @emotion/syntax-preference */
 import { css } from '@emotion/react';
 
 const fontStyle = css`

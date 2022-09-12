@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { QUIZ_SET_TAG_LIST } from '@/constants';
-import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
 
 import * as S from './styles';
+
+import type { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
 
 interface SetFormProps {
   isSet: boolean;
@@ -28,14 +29,14 @@ const QuizSetForm = ({
   return (
     <S.SetWrapper>
       <S.SetCheckBox
-        type="checkbox"
         checked={isSet}
+        type='checkbox'
         onChange={() => toggleSet(!isSet)}
       />
       세트화 여부
       <S.SetNameInput
         disabled={!isSet}
-        placeholder="퀴즈세트 이름을 적어주세요"
+        placeholder='퀴즈세트 이름을 적어주세요'
         onChange={({ target }) =>
           setQuizSet({ ...quizSet, name: target.value })
         }
@@ -45,8 +46,8 @@ const QuizSetForm = ({
           {QUIZ_SET_TAG_LIST.map((tag) => (
             <React.Fragment key={tag}>
               <S.SetTagInput
-                type="checkbox"
                 id={tag}
+                type='checkbox'
                 value={tag}
                 onChange={({ target }) => handleSetTagChange(target.value)}
               />
@@ -54,8 +55,8 @@ const QuizSetForm = ({
             </React.Fragment>
           ))}
           <S.TextArea
+            placeholder='퀴즈세트에 대해서 설명해주세요'
             value={quizSet.des}
-            placeholder="퀴즈세트에 대해서 설명해주세요"
             onChange={({ target }) =>
               setQuizSet({ ...quizSet, des: target.value })
             }

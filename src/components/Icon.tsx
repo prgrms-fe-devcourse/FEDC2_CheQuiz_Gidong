@@ -1,3 +1,4 @@
+/* eslint-disable @emotion/syntax-preference */
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { Buffer } from 'buffer';
@@ -48,8 +49,14 @@ const Icon = ({
   const svg = icon ? icon.toSvg(iconStyle) : '';
   const base64 = Buffer.from(svg, 'utf8').toString('base64');
   return (
-    <IconWrapper style={{ ...shapeStyle, ...addStyle }} {...props}>
-      <img alt={name} src={`data:image/svg+xml;base64,${base64}`} />
+    <IconWrapper
+      style={{ ...shapeStyle, ...addStyle }}
+      {...props}
+    >
+      <img
+        alt={name}
+        src={`data:image/svg+xml;base64,${base64}`}
+      />
     </IconWrapper>
   );
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { useParams } from 'react-router';
 
 import { fetchUserList } from '@/api/user';
@@ -43,8 +44,8 @@ const UserInfo = () => {
     <div>
       <Header />
       <NicknameModal
-        user={user}
         isShown={isNameModalShown}
+        user={user}
         onCloseNickname={() => {
           setNameModalShown(false);
         }}
@@ -67,7 +68,7 @@ const UserInfo = () => {
               {user._id === id && (
                 <S.SettingDiv>
                   <S.SettingButton
-                    type="button"
+                    type='button'
                     onClick={() => {
                       setNameModalShown(true);
                     }}
@@ -75,7 +76,7 @@ const UserInfo = () => {
                     닉네임 변경
                   </S.SettingButton>
                   <S.SettingButton
-                    type="button"
+                    type='button'
                     onClick={() => {
                       setPwModalShown(true);
                     }}

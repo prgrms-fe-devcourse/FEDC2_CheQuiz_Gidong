@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import axiosInstance from '@/api/axiosInstance';
-import { LoginFormData } from '@/interfaces/LoginFormData';
-import { SignUpFormData } from '@/interfaces/SignUpFormData';
+
+import type { LoginFormData } from '@/interfaces/LoginFormData';
+import type { SignUpFormData } from '@/interfaces/SignUpFormData';
 
 const login = async (data: LoginFormData) => {
   try {

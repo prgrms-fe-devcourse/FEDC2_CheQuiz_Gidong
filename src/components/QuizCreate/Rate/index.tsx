@@ -1,5 +1,7 @@
-import styled from '@emotion/styled';
+/* eslint-disable @emotion/syntax-preference */
 import { useState } from 'react';
+
+import styled from '@emotion/styled';
 
 import Icon from '@/components/Icon';
 
@@ -39,11 +41,21 @@ const Rate = ({
   return (
     <RateWrapper {...props}>
       {Array.from({ length: count }, (_, i) => i + 1).map((starVal) => (
-        <Star key={starVal} onClick={() => handleStarClick(starVal)}>
+        <Star
+          key={starVal}
+          onClick={() => handleStarClick(starVal)}
+        >
           {starVal <= currVal ? (
-            <Icon name="star" size={size} fill />
+            <Icon
+              fill
+              name='star'
+              size={size}
+            />
           ) : (
-            <Icon name="star" size={size} />
+            <Icon
+              name='star'
+              size={size}
+            />
           )}
         </Star>
       ))}

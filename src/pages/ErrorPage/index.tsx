@@ -10,13 +10,13 @@ const Error = () => {
       <S.ErrorTitle>404 Error!!!</S.ErrorTitle>
       <S.ErrorImgBox>
         <img
-          src="https://maplestory.io/api/GMS/210.1.1/mob/2600302/render/stand"
-          alt="error"
+          alt='error'
+          src='https://maplestory.io/api/GMS/210.1.1/mob/2600302/render/stand'
         />
       </S.ErrorImgBox>
       <S.ErrorBody>오류가 발생했습니다</S.ErrorBody>
       <S.HomeButton
-        type="button"
+        type='button'
         onClick={() => {
           history.replace('/');
         }}

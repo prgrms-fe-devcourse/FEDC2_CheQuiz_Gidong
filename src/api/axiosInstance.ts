@@ -1,4 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
+
+import type { AxiosInstance } from 'axios';
 
 const host = process.env.REACT_APP_API_HOST || 'localhost';
 const port = process.env.REACT_APP_API_PORT || 3000;
@@ -18,7 +20,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     console.error(error);
     return Promise.reject(error);
-  },
+  }
 );
 
 export default axiosInstance;

@@ -15,7 +15,10 @@ const InputBox = ({ label, ...props }: Props) => {
   return (
     <S.InputBox>
       <S.Label htmlFor={props.name}>{label}</S.Label>
-      <S.Input {...props} {...field} />
+      <S.Input
+        {...props}
+        {...field}
+      />
       {meta.touched && meta.error ? (
         <S.ErrorText>{meta.error}</S.ErrorText>
       ) : null}

@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { useState } from 'react';
 
 import Header from '@/components/Header';
 import Icon from '@/components/Icon';
@@ -29,8 +30,8 @@ const Ranking = () => {
         <S.SearchWrap>
           <Icon {...iconProps} />
           <S.SearchInput
-            type="text"
-            placeholder="Search"
+            placeholder='Search'
+            type='text'
             onChange={changeKeyword}
           />
         </S.SearchWrap>

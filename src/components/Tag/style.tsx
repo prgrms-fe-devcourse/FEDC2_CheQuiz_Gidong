@@ -1,3 +1,4 @@
+/* eslint-disable @emotion/syntax-preference */
 /* eslint-disable import/prefer-default-export */
 import styled from '@emotion/styled';
 

@@ -16,33 +16,38 @@ const Select = ({
   onChangeValue,
   addStyle,
   ...props
-}: SelectProps) => {
-  return (
-    <S.SelectBox
-      value={value}
-      onChange={({ target }: { target: HTMLSelectElement }) =>
-        onChangeValue && onChangeValue(target.value)
-      }
-      {...props}
-      style={{ ...addStyle }}
-    >
-      {defaultValue && (
-        <option value="" hidden>
-          {defaultValue}
+}: SelectProps) => (
+  <S.SelectBox
+    value={value}
+    onChange={({ target }: { target: HTMLSelectElement }) =>
+      onChangeValue && onChangeValue(target.value)
+    }
+    {...props}
+    style={{ ...addStyle }}
+  >
+    {defaultValue && (
+      <option
+        hidden
+        value=''
+      >
+        {defaultValue}
+      </option>
+    )}
+    {options
+      .map((opt) =>
+        typeof opt === 'string'
+          ? { label: opt, value: opt, disabled: false }
+          : opt
+      )
+      .map((opt) => (
+        <option
+          key={opt.value}
+          disabled={opt.disabled}
+          value={opt.value}
+        >
+          {opt.label}
         </option>
-      )}
-      {options
-        .map((opt) =>
-          typeof opt === 'string'
-            ? { label: opt, value: opt, disabled: false }
-            : opt,
-        )
-        .map((opt) => (
-          <option key={opt.value} value={opt.value} disabled={opt.disabled}>
-            {opt.label}
-          </option>
-        ))}
-    </S.SelectBox>
-  );
-};
+      ))}
+  </S.SelectBox>
+);
 export default Select;

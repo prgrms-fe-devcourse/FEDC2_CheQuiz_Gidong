@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import axiosInstance from '@/api/axiosInstance';
-import { NotificationPayload } from '@/interfaces/NotificationAPI';
+
+import type { NotificationPayload } from '@/interfaces/NotificationAPI';
 
 export const getNotifications = async (token: string) => {
   try {
@@ -19,7 +21,7 @@ export const getNotifications = async (token: string) => {
 
 export const createNotification = async (
   token: string,
-  notificationPayload: NotificationPayload,
+  notificationPayload: NotificationPayload
 ) => {
   try {
     await axiosInstance({

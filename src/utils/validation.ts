@@ -17,7 +17,7 @@ const validationFullname = () => validationRequired();
 const validationPasswordConfirm = () =>
   validationRequired().oneOf(
     [Yup.ref('password'), null],
-    PASSWORD_CONFIRM_ERROR_TEXT,
+    PASSWORD_CONFIRM_ERROR_TEXT
   );
 
 export const validationLogin = () =>
@@ -57,5 +57,5 @@ export const validationQuizCreate = () =>
       answerType: Yup.string().trim().required('문제유형을 골라주세요'),
       answer: Yup.string().trim().required('정답을 선택해주세요'),
       answerDescription: Yup.string().trim().required('해설을 작성해주세요'),
-    }),
+    })
   );

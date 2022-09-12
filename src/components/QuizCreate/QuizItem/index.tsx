@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from 'react';
 
 import Select from '@/components/Form/Select';
 import Icon from '@/components/Icon';
 import Rate from '@/components/QuizCreate/Rate';
 import { QUIZ_ANSWER_TYPE_LIST, QUIZ_CATEGORY_LIST } from '@/constants';
-import { QuizClientContent } from '@/interfaces/Quiz';
 
 import * as S from './styles';
+
+import type { QuizClientContent } from '@/interfaces/Quiz';
 
 interface QuizItemProps {
   quizData: QuizClientContent;
@@ -30,23 +32,23 @@ const QuizItem = ({
   return (
     <S.QuizContainer>
       <Icon
-        name="x-circle"
         addStyle={{ alignSelf: 'flex-end', cursor: 'pointer' }}
+        name='x-circle'
         onClick={handleQuizDelete(quizData._id)}
       />
       <S.QuestionSection>
         <S.SelectWrapper>
           <Select
-            defaultValue="카테고리"
-            value={quizData.category}
+            defaultValue='카테고리'
             options={QUIZ_CATEGORY_LIST}
+            value={quizData.category}
             onChangeValue={(value: string) =>
               handleInputChange('category', value)
             }
           />
           <Select
-            value={quizData.answerType}
             options={QUIZ_ANSWER_TYPE_LIST}
+            value={quizData.answerType}
             onChangeValue={(value: string) =>
               handleInputChange('answerType', value)
             }
@@ -66,7 +68,11 @@ const QuizItem = ({
               }
             />
           </S.Wrapper>
-          <S.ValidationLabel block justify="start" marginL="2.5rem">
+          <S.ValidationLabel
+            block
+            justify='start'
+            marginL='2.5rem'
+          >
             {errors[`[${order - 1}].question`]}
           </S.ValidationLabel>
         </S.QuestionWrapper>
@@ -76,7 +82,7 @@ const QuizItem = ({
         <S.LeftSide>
           <S.TrueFalseWrapper>
             <S.Label> 정답 </S.Label>
-            <S.ValidationLabel marginL="1.5rem">
+            <S.ValidationLabel marginL='1.5rem'>
               {errors[`[${order - 1}].answer`]}
             </S.ValidationLabel>
             <S.TFWrapper>
@@ -86,9 +92,9 @@ const QuizItem = ({
               ].map(({ label, value }) => (
                 <React.Fragment key={value}>
                   <S.TrueFalseController
-                    type="radio"
                     id={`${quizData._id}${label}`}
                     name={`answer_${quizData._id}`}
+                    type='radio'
                     value={value}
                     onChange={({ target }) =>
                       handleInputChange('answer', target.value)
@@ -103,7 +109,7 @@ const QuizItem = ({
           </S.TrueFalseWrapper>
           <S.Importance>
             <S.Label>중요도</S.Label>
-            <S.ValidationLabel marginL="1rem">
+            <S.ValidationLabel marginL='1rem'>
               {errors[`[${order - 1}].importance`] && '중요도를 선택해주세요'}
             </S.ValidationLabel>
             <Rate
@@ -114,7 +120,7 @@ const QuizItem = ({
           </S.Importance>
           <S.Difficulty>
             <S.Label>난이도</S.Label>
-            <S.ValidationLabel marginL="1rem">
+            <S.ValidationLabel marginL='1rem'>
               {errors[`[${order - 1}].difficulty`] && '난이도를 선택해주세요'}
             </S.ValidationLabel>
             <Rate

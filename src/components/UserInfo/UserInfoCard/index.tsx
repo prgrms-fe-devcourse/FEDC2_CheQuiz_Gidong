@@ -1,20 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useCallback, useEffect, useState } from 'react';
 
 import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
 import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
 import { MAXEXP } from '@/common/number';
-import { BadgeType } from '@/interfaces/BadgeType';
-import { PostAPIUserInfo } from '@/interfaces/PostAPI';
-import {
+import { getUserImageByPoints } from '@/utils/getUserImage';
+
+import * as Breakpoints from '../breakpoints';
+
+import * as S from './styles';
+
+import type { BadgeType } from '@/interfaces/BadgeType';
+import type { PostAPIUserInfo } from '@/interfaces/PostAPI';
+import type {
   CustomUserAPI,
   UserAPI,
   UserQuizCategory,
   UserSimpleType,
 } from '@/interfaces/UserAPI';
-import { getUserImageByPoints } from '@/utils/getUserImage';
-
-import * as Breakpoints from '../breakpoints';
-import * as S from './styles';
 
 const UserInfoCard = ({
   id,
@@ -116,9 +124,9 @@ const UserInfoCard = ({
   const getBadges = useCallback(() => {
     const badges: BadgeType[] = [];
 
-    const userLevelBadges = Breakpoints.levelBreakpoints.filter((badge) => {
-      return badge.level <= level;
-    });
+    const userLevelBadges = Breakpoints.levelBreakpoints.filter(
+      (badge) => badge.level <= level
+    );
     const selectedLevelBadge = userLevelBadges[userLevelBadges.length - 1];
     badges.push({
       id: `badgeLevel${selectedLevelBadge.level}`,
@@ -205,7 +213,7 @@ const UserInfoCard = ({
             <S.ImageWrapper>
               <S.UserImage
                 src={getUserImageByPoints(
-                  userData.totalExp ? userData.totalExp : 0,
+                  userData.totalExp ? userData.totalExp : 0
                 )}
               />
             </S.ImageWrapper>
@@ -229,8 +237,8 @@ const UserInfoCard = ({
             <S.BadgeContent>
               {getBadges().map((badge) => (
                 <S.Badge
-                  color={badge.color ? badge.color : '#fffff'}
                   key={badge.id}
+                  color={badge.color ? badge.color : '#fffff'}
                 >
                   {badge.content}
                 </S.Badge>

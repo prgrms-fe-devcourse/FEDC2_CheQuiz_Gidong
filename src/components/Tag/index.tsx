@@ -5,12 +5,13 @@ type PropsType = {
   text: string;
 };
 
-const Tag = ({ colors, text, ...props }: PropsType) => {
-  return (
-    <S.TagWrap {...props} colors={colors}>
-      {text}
-    </S.TagWrap>
-  );
-};
+const Tag = ({ colors, text, ...props }: PropsType) => (
+  <S.TagWrap
+    {...props}
+    colors={colors}
+  >
+    {text}
+  </S.TagWrap>
+);
 
 export default Tag;

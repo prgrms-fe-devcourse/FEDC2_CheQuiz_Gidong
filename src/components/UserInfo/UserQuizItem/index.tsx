@@ -38,11 +38,17 @@ const UserQuizItem = ({
 
       <S.CountWrapper>
         <S.CountItem>
-          <Icon {...IconProps} name="thumbs-up" />
+          <Icon
+            {...IconProps}
+            name='thumbs-up'
+          />
           {renderCount(likeCount, 100)}
         </S.CountItem>
         <S.CountItem>
-          <Icon {...IconProps} name="message-square" />
+          <Icon
+            {...IconProps}
+            name='message-square'
+          />
           {renderCount(commentCount, 100)}
         </S.CountItem>
       </S.CountWrapper>

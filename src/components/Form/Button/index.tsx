@@ -5,8 +5,8 @@ interface Props {
   type: 'button' | 'submit';
 }
 
-const Button = ({ text, type }: Props) => {
-  return <S.Button type={type}>{text}</S.Button>;
-};
+const Button = ({ text, type }: Props) => (
+  <S.Button type={type}>{text}</S.Button>
+);
 
 export default Button;

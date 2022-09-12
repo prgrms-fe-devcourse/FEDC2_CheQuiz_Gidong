@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Formik, Form } from 'formik';
 
 import Button from '@/components/Form/Button';
@@ -17,11 +18,11 @@ const LoginForm = ({ setModalShow }: Props) => {
     <>
       <S.Title>로그인</S.Title>
       <Formik
+        validationSchema={validationLogin}
         initialValues={{
           email: '',
           password: '',
         }}
-        validationSchema={validationLogin}
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
           actions.resetForm();
@@ -32,18 +33,21 @@ const LoginForm = ({ setModalShow }: Props) => {
       >
         <Form>
           <InputBox
-            label="이메일"
-            name="email"
-            type="email"
-            placeholder="hello@welcome.com"
+            label='이메일'
+            name='email'
+            placeholder='hello@welcome.com'
+            type='email'
           />
           <InputBox
-            label="비밀번호"
-            name="password"
-            type="password"
-            placeholder=""
+            label='비밀번호'
+            name='password'
+            placeholder=''
+            type='password'
           />
-          <Button text="로그인" type="submit" />
+          <Button
+            text='로그인'
+            type='submit'
+          />
         </Form>
       </Formik>
     </>

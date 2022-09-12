@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import axiosInstance from '@/api/axiosInstance';
-import { UserAPI } from '@/interfaces/UserAPI';
+
+import type { UserAPI } from '@/interfaces/UserAPI';
 
 export const fetchUserData = async (userId: string) => {
   try {

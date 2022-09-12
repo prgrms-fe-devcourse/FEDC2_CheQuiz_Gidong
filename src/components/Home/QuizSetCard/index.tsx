@@ -1,7 +1,12 @@
-import { ChannelAPI } from '@/interfaces/ChannelAPI';
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { getUserImageByPoints } from '@/utils/getUserImage';
 
 import * as S from './styles';
+
+import type { ChannelAPI } from '@/interfaces/ChannelAPI';
 
 interface QuizSetCardProps {
   quizSet: ChannelAPI;
@@ -19,7 +24,10 @@ const QuizSetCard = ({ quizSet, cardIdx }: QuizSetCardProps) => {
         <S.TagBox>
           <S.Tag order={0}>{`총 문제수 ${quizSet.posts.length}`}</S.Tag>
           {tags.map((t: string, idx: number) => (
-            <S.Tag key={t} order={idx + 1}>
+            <S.Tag
+              key={t}
+              order={idx + 1}
+            >
               {t}
             </S.Tag>
           ))}
@@ -29,7 +37,10 @@ const QuizSetCard = ({ quizSet, cardIdx }: QuizSetCardProps) => {
       <S.UserBox>
         <S.UserName>{creator.fullName || '익명의 사용자'}</S.UserName>
         <S.UserImageWrapper>
-          <S.UserImage src={getUserImageByPoints(points)} alt="userImage" />
+          <S.UserImage
+            alt='userImage'
+            src={getUserImageByPoints(points)}
+          />
         </S.UserImageWrapper>
       </S.UserBox>
     </S.CardContainer>

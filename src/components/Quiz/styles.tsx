@@ -1,3 +1,4 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
 
 import maple from '@/assets/maple.png';

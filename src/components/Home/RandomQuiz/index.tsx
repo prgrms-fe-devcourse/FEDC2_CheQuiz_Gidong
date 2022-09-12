@@ -1,4 +1,5 @@
-import React from 'react';
+import type React from 'react';
+
 import { useHistory } from 'react-router';
 
 import Select from '@/components/Form/Select';
@@ -48,30 +49,33 @@ const RandomQuiz = () => {
           <S.Text>
             퀘스트 요약 |
             <Select
-              defaultValue="( 카테고리 )"
+              addStyle={{ ...SelectStyle }}
+              defaultValue='( 카테고리 )'
               options={QUIZ_CATEGORY_LIST}
               onChangeValue={(value: string) => setRandomQuizCategory(value)}
-              addStyle={{ ...SelectStyle }}
             />
             의 문제를
             <S.Input
-              type="number"
-              min={1}
               max={10}
-              placeholder="( 문제 수 )"
+              min={1}
+              placeholder='( 문제 수 )'
+              type='number'
+              onChange={({ target }) => handleQuizChange(target.value)}
+              onFocus={({ target }) => target.setAttribute('placeholder', '')}
               onBlur={({ target }) =>
                 target.value === '' &&
                 target.setAttribute('placeholder', '문제수')
               }
-              onFocus={({ target }) => target.setAttribute('placeholder', '')}
-              onChange={({ target }) => handleQuizChange(target.value)}
             />
             만큼 풀게나!
           </S.Text>
           <S.Text>보상 | 소정의 경험치 획득 </S.Text>
         </S.Content>
-        <S.StartBox to="/solve" onClick={handleQuizStart}>
-          <S.Text type="small">퀘스트 수행하러</S.Text>
+        <S.StartBox
+          to='/solve'
+          onClick={handleQuizStart}
+        >
+          <S.Text type='small'>퀘스트 수행하러</S.Text>
           <S.BoldText>Go!</S.BoldText>
         </S.StartBox>
       </S.ContentBox>

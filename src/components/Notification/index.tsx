@@ -1,11 +1,17 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useCallback, useEffect, useState } from 'react';
 
 import { getNotifications, seenNotifications } from '@/api/notification';
 import Item from '@/components/Notification/Item';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { NotificationAPI } from '@/interfaces/NotificationAPI';
 
 import * as S from './styles';
+
+import type { NotificationAPI } from '@/interfaces/NotificationAPI';
 
 const Notification = () => {
   const { token } = useAuthContext();
@@ -16,7 +22,7 @@ const Notification = () => {
   const fetchNotifications = useCallback(async () => {
     const data = await getNotifications(token);
     setNotifications(
-      data.filter((notification: NotificationAPI) => !notification.seen),
+      data.filter((notification: NotificationAPI) => !notification.seen)
     );
     // TODO: 로딩 로직 변경 필요
     setLoading(false);
@@ -33,7 +39,7 @@ const Notification = () => {
   if (loading) return null;
   return (
     <S.Notification>
-      <S.Item padding="0.7rem">
+      <S.Item padding='0.7rem'>
         <S.Button
           onClick={() => {
             markSeenToNotifications();
