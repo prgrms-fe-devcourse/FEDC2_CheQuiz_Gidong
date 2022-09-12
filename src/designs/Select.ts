@@ -20,4 +20,5 @@ export const Select = styled.div<props>`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
