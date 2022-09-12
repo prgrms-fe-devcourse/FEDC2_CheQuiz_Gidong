@@ -135,7 +135,7 @@ export const BasicText = styled.span<props>`
   font-weight: ${WEIGHT_REGULAR};
 `;
 
-export const Text = styled.span<props>`
+export const CustomText = styled.span<props>`
   color: ${({ color = BLACK }) => color};
   font-size: ${setFontSize};
   font-weight: ${setFontWeight};
