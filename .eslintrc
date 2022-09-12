@@ -10,22 +10,51 @@
     "project": ["./tsconfig.json"]
   },
   "extends": [
-    "plugin:@typescript-eslint/recommended",
     "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
-    "plugin:prettier/recommended"
+    "plugin:react/jsx-runtime",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:import/recommended",
+    "prettier"
   ],
+  "plugins": ["@typescript-eslint", "@emotion"],
   "rules": {
+    "@emotion/syntax-preference": ["error", "object"],
+    "@typescript-eslint/consistent-type-exports": [
+      "error",
+      { "fixMixedExportsWithInlineTypeSpecifier": false }
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { "prefer": "type-imports" }
+    ],
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal", ["parent", "sibling"], "index"],
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        },
-        "newlines-between": "always"
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type",
+          "unknown"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": false },
+        "warnOnUnassignedImports": true
       }
     ],
     "no-underscore-dangle": "off",
@@ -37,7 +66,15 @@
     ],
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "multiline": "last",
+        "reservedFirst": true
+      }
+    ]
   },
   "settings": {
     "react": {
