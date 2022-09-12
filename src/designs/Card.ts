@@ -3,7 +3,7 @@ import { BORDER_RADIUS_STYLE, BORDER_STYLE } from '@/foundations/border';
 import { GRAY_800 } from '@/foundations/colors';
 import { PADDING_OUTER_WRAPPER } from '@/foundations/grid';
 
-interface CardProps {
+interface Props {
   width: string | number;
   height: string | number;
   textColor?: string;
@@ -13,7 +13,7 @@ interface CardProps {
   borderTheme?: 'dashed' | 'solid';
 }
 
-export const Card = styled.div<CardProps>`
+export const Card = styled.div<Props>`
   width: ${({ width }) => (typeof width === 'string' ? width : `${width}px`)};
   height: ${({ height }) =>
     typeof height === 'string' ? height : `${height}px`};
