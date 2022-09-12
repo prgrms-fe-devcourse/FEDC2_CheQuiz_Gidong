@@ -145,7 +145,6 @@ const QuizSolvePage = () => {
     return <Redirect to='/error' />;
   }
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit}>
       <S.QuizSolvePage>
         <S.Wrapper justify='center'>
