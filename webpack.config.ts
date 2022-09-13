@@ -1,8 +1,10 @@
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+
 import CopyPlugin from 'copy-webpack-plugin';
 import DotenvPlugin from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+
 import type { Configuration as WebpackConfiguration } from 'webpack';
 import type { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 

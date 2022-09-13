@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.tsx",
   "scripts": {
-    "start": "cross-env TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack-dev-server --mode development --open --hot --progress",
-    "build": "cross-env TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack --mode production --progress",
+    "start": "webpack-dev-server --mode development --open --hot --progress",
+    "build": "webpack --mode production --progress",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
