@@ -59,6 +59,7 @@
         "warnOnUnassignedImports": true
       }
     ],
+    "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",
     "react/function-component-definition": [
       "error",
@@ -87,14 +88,5 @@
         "alwaysTryTypes": true
       }
     }
-  },
-  "overrides": [
-    {
-      // TODO: 앞 두개는 리팩토링 후 주석과 함께 제거
-      "files": ["styles.ts", "styles.tsx", "*.styles.ts"],
-      "rules": {
-        "import/prefer-default-export": "off"
-      }
-    }
-  ]
+  }
 }
