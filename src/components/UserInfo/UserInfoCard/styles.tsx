@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import { gray } from '@/styles/theme';
 
 type CardProps = {

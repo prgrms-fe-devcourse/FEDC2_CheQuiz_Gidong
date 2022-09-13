@@ -1,10 +1,10 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
+
 import {
-  borderRadius,
   DarkGray,
   grayWhite,
   large,
-  lightGray,
   primary,
   small,
   white,

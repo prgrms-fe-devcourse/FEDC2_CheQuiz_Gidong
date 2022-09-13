@@ -1,4 +1,5 @@
 import { useField } from 'formik';
+
 import * as S from './styles';
 
 interface Props {
@@ -8,18 +9,21 @@ interface Props {
   placeholder: string;
 }
 
-function InputBox({ label, ...props }: Props) {
+const InputBox = ({ label, ...props }: Props) => {
   const [field, meta] = useField(props);
 
   return (
     <S.InputBox>
       <S.Label htmlFor={props.name}>{label}</S.Label>
-      <S.Input {...props} {...field} />
+      <S.Input
+        {...props}
+        {...field}
+      />
       {meta.touched && meta.error ? (
         <S.ErrorText>{meta.error}</S.ErrorText>
       ) : null}
     </S.InputBox>
   );
-}
+};
 
 export default InputBox;

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { CommentAPI } from './CommentAPI';
 import { PostAPI } from './PostAPI';
 
@@ -6,7 +7,7 @@ export interface UserInfo {
   points: number;
 }
 
-export interface followingType {
+export interface FollowingType {
   _id: string;
   user: string;
   follower: string;
@@ -27,7 +28,7 @@ export interface UserAPI {
   likes: LikeAPI[];
   comments: CommentAPI[] | string[];
   followers?: string[];
-  following: followingType[];
+  following: FollowingType[];
   messages: Message[];
   notifications: NotificationAPI[];
   fullName: string;

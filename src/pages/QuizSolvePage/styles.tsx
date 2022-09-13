@@ -1,4 +1,6 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
+
 import { primary, lightGrayWhite, h1 } from '@/styles/theme';
 
 export interface SubmitButtonProps {

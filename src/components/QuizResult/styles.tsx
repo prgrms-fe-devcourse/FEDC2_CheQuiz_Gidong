@@ -1,5 +1,7 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
-import { theme } from '@/styles/theme';
+
+import theme from '@/styles/theme';
 
 interface BoxProps {
   flex?: boolean;

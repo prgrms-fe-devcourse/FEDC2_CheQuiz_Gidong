@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { QUIZ_SET_TAG_LIST } from '@/constants';
+
 import * as S from './styles';
-import { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
+
+import type { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
 
 interface SetFormProps {
   isSet: boolean;
@@ -9,7 +12,12 @@ interface SetFormProps {
   toggleSet: React.Dispatch<React.SetStateAction<boolean>>;
   setQuizSet: React.Dispatch<React.SetStateAction<ChannelAPICustomTitle>>;
 }
-function QuizSetForm({ isSet, quizSet, toggleSet, setQuizSet }: SetFormProps) {
+const QuizSetForm = ({
+  isSet,
+  quizSet,
+  toggleSet,
+  setQuizSet,
+}: SetFormProps) => {
   const handleSetTagChange = (tag: string) => {
     const index = quizSet.tags.indexOf(tag);
     if (index < 0) {
@@ -21,14 +29,14 @@ function QuizSetForm({ isSet, quizSet, toggleSet, setQuizSet }: SetFormProps) {
   return (
     <S.SetWrapper>
       <S.SetCheckBox
-        type="checkbox"
         checked={isSet}
+        type='checkbox'
         onChange={() => toggleSet(!isSet)}
       />
       세트화 여부
       <S.SetNameInput
         disabled={!isSet}
-        placeholder="퀴즈세트 이름을 적어주세요"
+        placeholder='퀴즈세트 이름을 적어주세요'
         onChange={({ target }) =>
           setQuizSet({ ...quizSet, name: target.value })
         }
@@ -38,8 +46,8 @@ function QuizSetForm({ isSet, quizSet, toggleSet, setQuizSet }: SetFormProps) {
           {QUIZ_SET_TAG_LIST.map((tag) => (
             <React.Fragment key={tag}>
               <S.SetTagInput
-                type="checkbox"
                 id={tag}
+                type='checkbox'
                 value={tag}
                 onChange={({ target }) => handleSetTagChange(target.value)}
               />
@@ -47,8 +55,8 @@ function QuizSetForm({ isSet, quizSet, toggleSet, setQuizSet }: SetFormProps) {
             </React.Fragment>
           ))}
           <S.TextArea
+            placeholder='퀴즈세트에 대해서 설명해주세요'
             value={quizSet.des}
-            placeholder="퀴즈세트에 대해서 설명해주세요"
             onChange={({ target }) =>
               setQuizSet({ ...quizSet, des: target.value })
             }
@@ -57,6 +65,6 @@ function QuizSetForm({ isSet, quizSet, toggleSet, setQuizSet }: SetFormProps) {
       )}
     </S.SetWrapper>
   );
-}
+};
 
 export default QuizSetForm;

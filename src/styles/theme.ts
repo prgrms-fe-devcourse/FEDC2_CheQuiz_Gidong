@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable no-shadow */
 const Size = {
   pc: '1200px', // 1200px
@@ -5,7 +7,7 @@ const Size = {
   mobile: '600px', // 600px
 };
 
-export const theme = {
+const theme = {
   themeColors: {
     pointColor: '#FCA311',
     primary: '#14213D',

@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useState } from 'react';
 
 const useValidation = (schema: any, formValues: any) => {
@@ -20,9 +25,10 @@ const useValidation = (schema: any, formValues: any) => {
           const flatErr = err.inner.flatMap((e: any) => ({
             [e.path]: e.errors,
           }));
-          const errs = flatErr.reduce((acc: any, cur: any) => {
-            return { ...acc, ...cur };
-          }, {});
+          const errs = flatErr.reduce(
+            (acc: any, cur: any) => ({ ...acc, ...cur }),
+            {}
+          );
           setErrors(errs);
         }
       });
@@ -41,9 +47,10 @@ const useValidation = (schema: any, formValues: any) => {
         const flatErr = err.inner.flatMap((e: any) => ({
           [e.path]: e.errors,
         }));
-        const errs = flatErr.reduce((acc: any, cur: any) => {
-          return { ...acc, ...cur };
-        }, {});
+        const errs = flatErr.reduce(
+          (acc: any, cur: any) => ({ ...acc, ...cur }),
+          {}
+        );
         setErrors(errs);
       }
     }

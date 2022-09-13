@@ -1,16 +1,16 @@
-import { AxiosRequestHeaders } from 'axios';
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import api from '@/api/axiosInstance';
-import { CommentAPI } from '@/interfaces/CommentAPI';
-import { LikeAPI } from '@/interfaces/LikeAPI';
-import { UserAPI, UserQuizPostAPI } from '@/interfaces/UserAPI';
-import {
+
+import type {
   UpdateNameFormData,
   UpdatePasswordFormData,
 } from '@/interfaces/ChangeFormData';
+import type { CommentAPI } from '@/interfaces/CommentAPI';
+import type { LikeAPI } from '@/interfaces/LikeAPI';
+import type { UserAPI, UserQuizPostAPI } from '@/interfaces/UserAPI';
+import type { AxiosRequestHeaders } from 'axios';
 
-const isNotNull = (item: string | null): item is string => {
-  return !!item;
-};
+const isNotNull = (item: string | null): item is string => !!item;
 
 function getHeaders(): AxiosRequestHeaders {
   const token = localStorage.getItem('token');
@@ -26,7 +26,7 @@ export function like(postId: string) {
       { postId },
       {
         headers: { ...getHeaders() },
-      },
+      }
     )
     .then((response) => response.data)
     .catch(() => {
@@ -54,7 +54,7 @@ export function createComment({
       { comment, postId },
       {
         headers: { ...getHeaders() },
-      },
+      }
     )
     .then((response) => response.data)
     .catch((error) => {
@@ -75,7 +75,7 @@ export function updateTotalPoint(info: UserQuizPostAPI) {
     .put<UserAPI>(
       '/settings/update-user',
       { ...info, username: JSON.stringify(info.username) },
-      { headers: { ...getHeaders() } },
+      { headers: { ...getHeaders() } }
     )
     .then((response) => response.data)
     .catch(() => {
@@ -88,7 +88,7 @@ export function updateFullName(userUpdateData: UpdateNameFormData) {
     .put<UserAPI>(
       '/settings/update-user',
       { ...userUpdateData },
-      { headers: { ...getHeaders() } },
+      { headers: { ...getHeaders() } }
     )
     .then((response) => response.data)
     .catch(() => {
@@ -100,7 +100,7 @@ export function updatePassword(passwordData: UpdatePasswordFormData) {
     .put<UserAPI>(
       '/settings/update-password',
       { ...passwordData },
-      { headers: { ...getHeaders() } },
+      { headers: { ...getHeaders() } }
     )
     .then((response) => response.data)
     .catch(() => {

@@ -4,7 +4,7 @@
       "@babel/preset-env",
       { "targets": { "browsers": ["last 2 versions", ">= 5% in KR"] } }
     ],
-    ["@babel/preset-react", {"runtime": "automatic"}],
+    ["@babel/preset-react", {"runtime": "automatic", "importSource": "@emotion/react"}],
     "@babel/typescript"
   ],
   "plugins": [

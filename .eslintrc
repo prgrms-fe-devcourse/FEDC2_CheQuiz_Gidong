@@ -1,70 +1,92 @@
 {
-    "env": {
-        "browser": true,
-        "node": true,
-        "es6": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "airbnb",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:prettier/recommended"
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "tsconfigRootDir": "./",
+    "project": ["./tsconfig.json"]
+  },
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:react/jsx-runtime",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:import/recommended",
+    "prettier"
+  ],
+  "plugins": ["@typescript-eslint", "@emotion"],
+  "rules": {
+    "@emotion/syntax-preference": ["error", "object"],
+    "@typescript-eslint/consistent-type-exports": [
+      "error",
+      { "fixMixedExportsWithInlineTypeSpecifier": false }
     ],
-    "plugins": [
-        "prettier"
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { "prefer": "type-imports" }
     ],
-    "rules": {
-        "linebreak-style": "off",
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
-        "react/jsx-filename-extension": [
-            1,
-            {
-                "extensions": [
-                    ".js",
-                    ".jsx",
-                    "tsx"
-                ]
-            }
+    "@typescript-eslint/no-misused-promises": "off",  // ANCHOR: 무슨 옵션인지 정확히 알 수 없으나, callback 처리가 잘 안됨
+    "@typescript-eslint/no-use-before-define": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type",
+          "unknown"
         ],
-        "import/no-unresolved": "off",
-        "react/react-in-jsx-scope": "off",
-        "react/jsx-props-no-spreading": "off",
-        "react/require-default-props": "off",
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-                "devDependencies": true
-            }
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
         ],
-        "import/extensions": "off",
-        "@typescript-eslint/no-non-null-assertion": "off",
-        "prettier/prettier": ["error", { "endOfLine": "auto" }],
-        "no-underscore-dangle": "off",
-        "import/prefer-default-export": "off",
-    },
-    "overrides": [
-        {
-            "files": [
-                "*.ts",
-                "*.tsx"
-            ],
-            "rules": {
-                "no-undef": "off",
-                "no-unused-vars": "off"
-            }
-        },
-        {
-            "files": [
-                "*.config.js"
-            ],
-            "rules": {
-                "@typescript-eslint/no-var-requires": "off"
-            }
-        }
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": false },
+        "warnOnUnassignedImports": true
+      }
     ],
-    "parser": "@typescript-eslint/parser"
+    "import/prefer-default-export": "off",
+    "no-underscore-dangle": "off",
+    "react/function-component-definition": [
+      "error",
+      {
+          "namedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "multiline": "last",
+        "reservedFirst": true
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  }
 }

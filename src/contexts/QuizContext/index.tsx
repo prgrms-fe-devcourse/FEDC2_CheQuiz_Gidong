@@ -1,11 +1,5 @@
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 
 interface Props {
   children: React.ReactNode;
@@ -22,7 +16,7 @@ interface QuizContextType {
 const QuizContext = createContext({});
 export const useQuizContext = () => useContext(QuizContext) as QuizContextType;
 
-function QuizProvider({ children }: Props) {
+const QuizProvider = ({ children }: Props) => {
   const [channelId, setChannelId] = useState(null);
   const [randomQuizCount, setRandomQuizCount] = useState(null);
   const [randomQuizCategory, setRandomQuizCategory] = useState(null);
@@ -36,10 +30,10 @@ function QuizProvider({ children }: Props) {
       setRandomQuizCount,
       setRandomQuizCategory,
     }),
-    [channelId, randomQuizCount, randomQuizCategory],
+    [channelId, randomQuizCount, randomQuizCategory]
   );
 
   return <QuizContext.Provider value={state}>{children}</QuizContext.Provider>;
-}
+};
 
 export default QuizProvider;

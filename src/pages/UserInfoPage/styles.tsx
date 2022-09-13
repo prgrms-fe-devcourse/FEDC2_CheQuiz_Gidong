@@ -1,8 +1,10 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
+
 import { borderRadius, DarkGray, h2 } from '@/styles/theme';
 
 export const notFoundText = styled.h2`
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   margin: 0 auto;

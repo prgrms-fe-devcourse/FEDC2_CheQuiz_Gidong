@@ -1,10 +1,11 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
 
-type tabItemProps = {
+type TabItemProps = {
   selected?: boolean;
 };
 
-export const TabItemWrapper = styled.button<tabItemProps>`
+const TabItemWrapper = styled.button<TabItemProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -21,3 +22,5 @@ export const TabItemWrapper = styled.button<tabItemProps>`
     background-color: ${({ selected }) => (selected ? '#14213D' : '#E9ECEF')};
   }
 `;
+
+export default TabItemWrapper;

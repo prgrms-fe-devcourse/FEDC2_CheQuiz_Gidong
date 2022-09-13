@@ -1,15 +1,13 @@
-import RandomQuiz from '@/components/Home/RandomQuiz';
-import QuizSetList from '@/components/Home/QuizSetList';
 import Header from '@/components/Header';
+import QuizSetList from '@/components/Home/QuizSetList';
+import RandomQuiz from '@/components/Home/RandomQuiz';
 
-function Home() {
-  return (
-    <>
-      <Header />
-      <RandomQuiz />
-      <QuizSetList />
-    </>
-  );
-}
+const Home = () => (
+  <>
+    <Header />
+    <RandomQuiz />
+    <QuizSetList />
+  </>
+);
 
 export default Home;

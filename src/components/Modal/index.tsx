@@ -8,7 +8,7 @@ interface Props {
   content: string;
 }
 
-function Modal({ setModalShow, content }: Props) {
+const Modal = ({ setModalShow, content }: Props) => {
   const getComponentByContent = (contentType: string) => {
     switch (contentType) {
       case 'login':
@@ -31,6 +31,6 @@ function Modal({ setModalShow, content }: Props) {
       </S.Container>
     </S.Wrapper>
   );
-}
+};
 
 export default Modal;

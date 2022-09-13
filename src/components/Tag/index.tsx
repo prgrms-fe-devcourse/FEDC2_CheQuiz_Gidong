@@ -1,16 +1,17 @@
 import * as S from './style';
 
-type propsType = {
+type PropsType = {
   colors: string;
   text: string;
 };
 
-function Tag({ colors, text, ...props }: propsType) {
-  return (
-    <S.TagWrap {...props} colors={colors}>
-      {text}
-    </S.TagWrap>
-  );
-}
+const Tag = ({ colors, text, ...props }: PropsType) => (
+  <S.TagWrap
+    {...props}
+    colors={colors}
+  >
+    {text}
+  </S.TagWrap>
+);
 
 export default Tag;

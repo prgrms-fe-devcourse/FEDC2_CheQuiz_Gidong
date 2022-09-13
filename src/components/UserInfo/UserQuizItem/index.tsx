@@ -1,4 +1,5 @@
 import Icon from '@/components/Icon';
+
 import * as S from './styles';
 
 interface QuizItemProps {
@@ -16,12 +17,12 @@ const IconProps = {
   rotate: 0,
 };
 
-function UserQuizItem({
+const UserQuizItem = ({
   question,
   likeCount,
   commentCount,
   handleClick,
-}: QuizItemProps) {
+}: QuizItemProps) => {
   const renderCount = (currentCount: number, maxCount: number) => {
     if (currentCount > maxCount) {
       return `${maxCount}+`;
@@ -37,16 +38,22 @@ function UserQuizItem({
 
       <S.CountWrapper>
         <S.CountItem>
-          <Icon {...IconProps} name="thumbs-up" />
+          <Icon
+            {...IconProps}
+            name='thumbs-up'
+          />
           {renderCount(likeCount, 100)}
         </S.CountItem>
         <S.CountItem>
-          <Icon {...IconProps} name="message-square" />
+          <Icon
+            {...IconProps}
+            name='message-square'
+          />
           {renderCount(commentCount, 100)}
         </S.CountItem>
       </S.CountWrapper>
     </S.ItemWrapper>
   );
-}
+};
 
 export default UserQuizItem;

@@ -1,18 +1,24 @@
-import { Form, Formik } from 'formik';
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useCallback } from 'react';
-import { validationChangePassword } from '@/utils/validation';
-import * as S from './styles';
-import InputBox from '../Form/InputBox';
-import Button from '../Form/Button';
+
+import { Form, Formik } from 'formik';
+
 import { updatePassword } from '@/api/UserServices';
-import { UpdatePasswordFormData } from '@/interfaces/ChangeFormData';
+import { validationChangePassword } from '@/utils/validation';
+
+import Button from '../Form/Button';
+import InputBox from '../Form/InputBox';
+
+import * as S from './styles';
+
+import type { UpdatePasswordFormData } from '@/interfaces/ChangeFormData';
 
 interface Props {
   isShown: boolean;
   onClosePassword: () => void;
 }
 
-function PasswordModal({ isShown, onClosePassword }: Props) {
+const PasswordModal = ({ isShown, onClosePassword }: Props) => {
   const onSubmitPassword = useCallback(
     async (formData: UpdatePasswordFormData) => {
       try {
@@ -23,7 +29,7 @@ function PasswordModal({ isShown, onClosePassword }: Props) {
         console.error('error occured at onSubmitFullName.');
       }
     },
-    [],
+    []
   );
   return (
     <>
@@ -36,11 +42,11 @@ function PasswordModal({ isShown, onClosePassword }: Props) {
           >
             <S.Title>비밀번호 변경</S.Title>
             <Formik
+              validationSchema={validationChangePassword}
               initialValues={{
                 password: '',
                 passwordConfirm: '',
               }}
-              validationSchema={validationChangePassword}
               onSubmit={(values, actions) => {
                 actions.setSubmitting(false);
                 actions.resetForm();
@@ -53,18 +59,21 @@ function PasswordModal({ isShown, onClosePassword }: Props) {
             >
               <Form>
                 <InputBox
-                  label="비밀번호"
-                  name="password"
-                  type="password"
-                  placeholder=""
+                  label='비밀번호'
+                  name='password'
+                  placeholder=''
+                  type='password'
                 />
                 <InputBox
-                  label="비밀번호 확인"
-                  name="passwordConfirm"
-                  type="password"
-                  placeholder=""
+                  label='비밀번호 확인'
+                  name='passwordConfirm'
+                  placeholder=''
+                  type='password'
                 />
-                <Button text="저장" type="submit" />
+                <Button
+                  text='저장'
+                  type='submit'
+                />
               </Form>
             </Formik>
           </S.Container>
@@ -73,6 +82,6 @@ function PasswordModal({ isShown, onClosePassword }: Props) {
       {isShown && null}
     </>
   );
-}
+};
 
 export default PasswordModal;

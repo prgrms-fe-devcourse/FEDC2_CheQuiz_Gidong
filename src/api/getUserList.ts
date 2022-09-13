@@ -1,6 +1,8 @@
-import apiInstance from '@/api/axiosInstance';
-import { UserAPI } from '@/interfaces/UserAPI';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { rankingUrl } from '@/api/apiUrl';
+import apiInstance from '@/api/axiosInstance';
+
+import type { UserAPI } from '@/interfaces/UserAPI';
 
 const getUserList = async () => {
   try {

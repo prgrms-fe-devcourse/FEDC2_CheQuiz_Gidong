@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   createContext,
   useCallback,
@@ -5,15 +8,15 @@ import {
   useMemo,
   useState,
 } from 'react';
+
 import { v4 } from 'uuid';
 
+import auth from '@/api/auth';
 import { useLocalStorage } from '@/hooks/useStorage';
 
-import { LoginFormData } from '@/interfaces/LoginFormData';
-import { SignUpFormData } from '@/interfaces/SignUpFormData';
-
-import auth from '@/api/auth';
-import { UserAPI } from '@/interfaces/UserAPI';
+import type { LoginFormData } from '@/interfaces/LoginFormData';
+import type { SignUpFormData } from '@/interfaces/SignUpFormData';
+import type { UserAPI } from '@/interfaces/UserAPI';
 
 interface AuthContextType {
   user: UserAPI;
@@ -33,7 +36,7 @@ interface Props {
 const AuthContext = createContext({});
 export const useAuthContext = () => useContext(AuthContext) as AuthContextType;
 
-function AuthProvider({ children }: Props) {
+const AuthProvider = ({ children }: Props) => {
   const [user, setUser, removeUser] = useLocalStorage('user', {});
   const [token, setToken, removeToken] = useLocalStorage('token', '');
   const [isAuth, setIsAuth] = useState(false);
@@ -51,7 +54,7 @@ function AuthProvider({ children }: Props) {
         // TODO: Error Toast
       }
     },
-    [setUser, setToken],
+    [setUser, setToken]
   );
 
   const signUp = useCallback(
@@ -71,7 +74,7 @@ function AuthProvider({ children }: Props) {
         // TODO: Error Toast
       }
     },
-    [setUser, setToken],
+    [setUser, setToken]
   );
 
   const authUser = useCallback(async () => {
@@ -111,12 +114,12 @@ function AuthProvider({ children }: Props) {
           isAuth,
           logout,
         }),
-        [user, token, login, signUp, authUser, setUser, isAuth, logout],
+        [user, token, login, signUp, authUser, setUser, isAuth, logout]
       )}
     >
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export default AuthProvider;

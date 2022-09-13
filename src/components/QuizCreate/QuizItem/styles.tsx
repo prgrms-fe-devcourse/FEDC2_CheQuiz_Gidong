@@ -1,4 +1,7 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
+
+import arrowIcon from '@/assets/downArrow.png';
 import {
   blackGray,
   correct,
@@ -9,7 +12,6 @@ import {
   small,
   white,
 } from '@/styles/theme';
-import arrowIcon from '@/assets/downArrow.png';
 
 //* Question
 export const QuizContainer = styled.div`

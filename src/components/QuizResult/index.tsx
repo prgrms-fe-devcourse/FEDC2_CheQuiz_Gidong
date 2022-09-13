@@ -1,40 +1,46 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useMemo, useState } from 'react';
-import useInput from '@hooks/useInput';
+
 import AnimateHeight from 'react-animate-height';
-import { Quiz } from '@/interfaces/Quiz';
-import { CommentAPI } from '@/interfaces/CommentAPI';
-import { useAuthContext } from '@/contexts/AuthContext';
+
 import * as UserService from '@/api/UserServices';
-import * as S from './styles';
-import { LikeAPI } from '@/interfaces/LikeAPI';
+import { createNotification } from '@/api/notification';
+import Icon from '@/components/Icon';
+import { useAuthContext } from '@/contexts/AuthContext';
+import theme from '@/styles/theme';
 import dateFormat from '@/utils/dateFormat';
 import { getUserImageByPoints } from '@/utils/getUserImage';
-import { UserQuizInfo, UserAPI } from '@/interfaces/UserAPI';
-import { createNotification } from '@/api/notification';
-import { theme } from '@/styles/theme';
-import Icon from '@/components/Icon';
+import useInput from '@hooks/useInput';
+
+import * as S from './styles';
+
+import type { CommentAPI } from '@/interfaces/CommentAPI';
+import type { LikeAPI } from '@/interfaces/LikeAPI';
+import type { Quiz } from '@/interfaces/Quiz';
+import type { UserQuizInfo, UserAPI } from '@/interfaces/UserAPI';
 
 interface QuizResultProps extends S.StyledQuizResultProps {
   quiz: Quiz;
 }
 
-function QuizResult({ quiz, correct }: QuizResultProps) {
+const QuizResult = ({ quiz, correct }: QuizResultProps) => {
   const { user, token } = useAuthContext();
   const [inputValue, handler, setInputValue] = useInput('');
   const [comments, setComments] = useState<CommentAPI[]>(() =>
-    quiz && quiz.comments ? quiz.comments : [],
+    quiz && quiz.comments ? quiz.comments : []
   );
   const [likes, setLikes] = useState<LikeAPI[]>(() =>
-    quiz && quiz.likes ? quiz.likes : [],
+    quiz && quiz.likes ? quiz.likes : []
   );
   const [collapsed, setCollapsed] = useState(true);
   const isLoggedIn = useMemo(
     () => JSON.stringify(user) !== '{}' || !user,
-    [user],
-  )!;
+    [user]
+  );
   const isUserLiked = useMemo(
     () => !!(user._id && likes.map((like) => like.user).includes(user._id)),
-    [likes, user._id],
+    [likes, user._id]
   );
   const findLike = () => likes.find((like) => like.user === user._id);
 
@@ -62,6 +68,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
       });
 
       setComments((prev) => [...prev, newComment]);
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       createNotification(token, {
         notificationType: 'COMMENT',
         notificationTypeId: newComment._id,
@@ -90,6 +97,7 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
     try {
       const like = await UserService.like(quiz._id);
       setLikes((prev) => [...prev, like]);
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       createNotification(token, {
         notificationType: 'LIKE',
         notificationTypeId: like._id,
@@ -127,33 +135,57 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
     <S.Box border>
       <S.Header>
         <S.HeaderLeft>
-          <S.Sign reverse={false} color={correct ? 'correct' : 'incorrect'}>
+          <S.Sign
+            color={correct ? 'correct' : 'incorrect'}
+            reverse={false}
+          >
             {correct ? 'O' : 'X'}
           </S.Sign>
-          <S.Sign reverse={false} color="default">
+          <S.Sign
+            color='default'
+            reverse={false}
+          >
             Q.
           </S.Sign>
           <S.Text>{quiz.question}</S.Text>
         </S.HeaderLeft>
         <S.HeaderRight>
-          <button type="button" onClick={() => setCollapsed((prev) => !prev)}>
+          <button
+            type='button'
+            onClick={() => setCollapsed((prev) => !prev)}
+          >
             <Icon
-              name="chevron-down"
-              strokeWidth={3}
-              rotate={collapsed ? 0 : 180}
               addStyle={{ transition: 'all 0.2s' }}
+              name='chevron-down'
+              rotate={collapsed ? 0 : 180}
+              strokeWidth={3}
             />
           </button>
-          <button type="button" onClick={handleLikePost}>
-            <S.Box flex justify="center" align="center" gap="0.5rem" margin="0">
+          <button
+            type='button'
+            onClick={handleLikePost}
+          >
+            <S.Box
+              flex
+              align='center'
+              gap='0.5rem'
+              justify='center'
+              margin='0'
+            >
               <div>
-                <Icon name="thumbs-up" fill={isUserLiked} />
+                <Icon
+                  fill={isUserLiked}
+                  name='thumbs-up'
+                />
               </div>
             </S.Box>
           </button>
         </S.HeaderRight>
       </S.Header>
-      <AnimateHeight duration={350} height={collapsed ? 0 : 'auto'}>
+      <AnimateHeight
+        duration={350}
+        height={collapsed ? 0 : 'auto'}
+      >
         <S.Container>
           <S.Description>
             <S.Sign
@@ -172,21 +204,31 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
                     src={getUserImageByPoints(getUserPoints(user))}
                   />
                 </S.ImageWrapper>
-                <S.Box flex gap="0.5rem">
-                  <S.InputWrapper border background="#ffffff">
+                <S.Box
+                  flex
+                  gap='0.5rem'
+                >
+                  <S.InputWrapper
+                    border
+                    background='#ffffff'
+                  >
                     <S.Input
-                      type="text"
+                      disabled={!isLoggedIn}
+                      type='text'
                       value={inputValue}
-                      onChange={handler}
                       placeholder={
                         isLoggedIn ? '댓글을 남겨보세요.' : '로그인해야 합니다.'
                       }
-                      disabled={!isLoggedIn}
+                      onChange={handler}
                     />
                   </S.InputWrapper>
 
                   {/** TODO: disabled when loading */}
-                  <S.Button type="submit" color="point" disabled={!isLoggedIn}>
+                  <S.Button
+                    color='point'
+                    disabled={!isLoggedIn}
+                    type='submit'
+                  >
                     댓글 쓰기
                   </S.Button>
                 </S.Box>
@@ -208,15 +250,15 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
                   <S.Text>{comment.author.fullName}</S.Text>
                 </div>
                 <div>
-                  <S.Text color="#567">{comment.comment}</S.Text>
+                  <S.Text color='#567'>{comment.comment}</S.Text>
                 </div>
               </S.CommentCenter>
               <div>
                 <div>{dateFormat(comment.createdAt)}</div>
                 {comment.author._id === user._id ? (
                   <S.Button
-                    type="button"
                     fullWidth
+                    type='button'
                     onClick={() => deleteComment(comment._id)}
                   >
                     삭제하기
@@ -229,6 +271,6 @@ function QuizResult({ quiz, correct }: QuizResultProps) {
       </AnimateHeight>
     </S.Box>
   );
-}
+};
 
 export default QuizResult;

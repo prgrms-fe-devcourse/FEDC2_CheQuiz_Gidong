@@ -1,20 +1,36 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useCallback, useEffect, useState } from 'react';
+
+import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
+import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
 import { MAXEXP } from '@/common/number';
-import * as S from './styles';
+import { getUserImageByPoints } from '@/utils/getUserImage';
+
 import * as Breakpoints from '../breakpoints';
-import { BadgeType } from '@/interfaces/BadgeType';
-import {
+
+import * as S from './styles';
+
+import type { BadgeType } from '@/interfaces/BadgeType';
+import type { PostAPIUserInfo } from '@/interfaces/PostAPI';
+import type {
   CustomUserAPI,
   UserAPI,
   UserQuizCategory,
   UserSimpleType,
 } from '@/interfaces/UserAPI';
-import { fetchUserData, fetchUserList, fetchUserQuiz } from '@/api/user';
-import { DEFAULT_USER_DATA } from '@/assets/UserInfoDefault';
-import { PostAPIUserInfo } from '@/interfaces/PostAPI';
-import { getUserImageByPoints } from '@/utils/getUserImage';
 
-function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
+const UserInfoCard = ({
+  id,
+  width = '40rem',
+}: {
+  id: string;
+  width?: string;
+}) => {
   const [userData, setUserData] = useState<CustomUserAPI>(DEFAULT_USER_DATA);
   const [userRank, setUserRank] = useState(0);
   const [userQuiz, setUserQuiz] = useState<UserQuizCategory[]>([]);
@@ -108,9 +124,9 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
   const getBadges = useCallback(() => {
     const badges: BadgeType[] = [];
 
-    const userLevelBadges = Breakpoints.levelBreakpoints.filter((badge) => {
-      return badge.level <= level;
-    });
+    const userLevelBadges = Breakpoints.levelBreakpoints.filter(
+      (badge) => badge.level <= level
+    );
     const selectedLevelBadge = userLevelBadges[userLevelBadges.length - 1];
     badges.push({
       id: `badgeLevel${selectedLevelBadge.level}`,
@@ -197,7 +213,7 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
             <S.ImageWrapper>
               <S.UserImage
                 src={getUserImageByPoints(
-                  userData.totalExp ? userData.totalExp : 0,
+                  userData.totalExp ? userData.totalExp : 0
                 )}
               />
             </S.ImageWrapper>
@@ -221,8 +237,8 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
             <S.BadgeContent>
               {getBadges().map((badge) => (
                 <S.Badge
-                  color={badge.color ? badge.color : '#fffff'}
                   key={badge.id}
+                  color={badge.color ? badge.color : '#fffff'}
                 >
                   {badge.content}
                 </S.Badge>
@@ -234,5 +250,5 @@ function UserInfoCard({ id, width = '40rem' }: { id: string; width?: string }) {
       {userData.id === 'loading' && <S.UserCard width={width} />}
     </>
   );
-}
+};
 export default UserInfoCard;

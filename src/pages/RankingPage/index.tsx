@@ -1,10 +1,13 @@
-import { ChangeEvent, useState } from 'react';
-import UserRankList from '@/containers/UserRankList';
-import Icon from '@/components/Icon';
-import * as S from './style';
-import Header from '@/components/Header';
+import type { ChangeEvent } from 'react';
+import { useState } from 'react';
 
-function Ranking() {
+import Header from '@/components/Header';
+import Icon from '@/components/Icon';
+import UserRankList from '@/containers/UserRankList';
+
+import * as S from './style';
+
+const Ranking = () => {
   const iconProps = {
     name: 'search',
     size: 20,
@@ -27,8 +30,8 @@ function Ranking() {
         <S.SearchWrap>
           <Icon {...iconProps} />
           <S.SearchInput
-            type="text"
-            placeholder="Search"
+            placeholder='Search'
+            type='text'
             onChange={changeKeyword}
           />
         </S.SearchWrap>
@@ -43,6 +46,6 @@ function Ranking() {
       </S.Wrap>
     </>
   );
-}
+};
 
 export default Ranking;

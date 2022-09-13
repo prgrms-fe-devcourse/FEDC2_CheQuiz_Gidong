@@ -1,5 +1,17 @@
+/* eslint-disable @emotion/syntax-preference */
 /* eslint-disable import/prefer-default-export */
 import styled from '@emotion/styled';
+
+import {
+  BLUE,
+  BROWN,
+  GREEN,
+  NOCOMMENTS,
+  NOLIKES,
+  PINK,
+  RED,
+  YELLOW,
+} from '@/common/string';
 import {
   blackGray,
   borderRadius,
@@ -22,22 +34,12 @@ import {
   tagRed,
   tagYellow,
 } from '@/styles/theme';
-import {
-  BLUE,
-  BROWN,
-  GREEN,
-  NOCOMMENTS,
-  NOLIKES,
-  PINK,
-  RED,
-  YELLOW,
-} from '@/common/string';
 
-type tagProps = {
+type TagProps = {
   colors: string;
 };
 
-export const TagWrap = styled.div<tagProps>`
+export const TagWrap = styled.div<TagProps>`
   font-family: 'MaplestoryOTFLight';
   color: ${blackGray};
   padding: 0.3125rem;

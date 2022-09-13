@@ -1,30 +1,28 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Formik, Form } from 'formik';
 
-import InputBox from '@/components/Form/InputBox';
 import Button from '@/components/Form/Button';
-
-import { useAuthContext } from '@/contexts/AuthContext';
-
-import { validationLogin } from '@/utils/validation';
-
+import InputBox from '@/components/Form/InputBox';
 import * as S from '@/components/Form/Title/styles';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { validationLogin } from '@/utils/validation';
 
 interface Props {
   setModalShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function LoginForm({ setModalShow }: Props) {
+const LoginForm = ({ setModalShow }: Props) => {
   const { login } = useAuthContext();
 
   return (
     <>
       <S.Title>로그인</S.Title>
       <Formik
+        validationSchema={validationLogin}
         initialValues={{
           email: '',
           password: '',
         }}
-        validationSchema={validationLogin}
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
           actions.resetForm();
@@ -35,22 +33,25 @@ function LoginForm({ setModalShow }: Props) {
       >
         <Form>
           <InputBox
-            label="이메일"
-            name="email"
-            type="email"
-            placeholder="hello@welcome.com"
+            label='이메일'
+            name='email'
+            placeholder='hello@welcome.com'
+            type='email'
           />
           <InputBox
-            label="비밀번호"
-            name="password"
-            type="password"
-            placeholder=""
+            label='비밀번호'
+            name='password'
+            placeholder=''
+            type='password'
           />
-          <Button text="로그인" type="submit" />
+          <Button
+            text='로그인'
+            type='submit'
+          />
         </Form>
       </Formik>
     </>
   );
-}
+};
 
 export default LoginForm;

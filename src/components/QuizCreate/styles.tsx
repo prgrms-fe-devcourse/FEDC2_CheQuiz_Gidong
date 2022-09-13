@@ -1,4 +1,6 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
+
 import { DarkGray, pointColor } from '@/styles/theme';
 
 export const FormContainer = styled.form`

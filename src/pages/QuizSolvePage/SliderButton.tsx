@@ -1,4 +1,5 @@
-import React from 'react';
+import type React from 'react';
+
 import * as S from './styles';
 
 export interface SliderButtonProps {
@@ -10,25 +11,23 @@ export interface SliderButtonProps {
   [extraProps: string]: unknown;
 }
 
-function SliderButton({
+const SliderButton = ({
   color,
   onClick,
   children,
   disabled,
   className,
   ...props
-}: SliderButtonProps) {
-  return (
-    <S.SliderButton
-      color={color}
-      onClick={onClick}
-      disabled={disabled}
-      className={className}
-      {...props}
-    >
-      {children}
-    </S.SliderButton>
-  );
-}
+}: SliderButtonProps) => (
+  <S.SliderButton
+    className={className}
+    color={color}
+    disabled={disabled}
+    onClick={onClick}
+    {...props}
+  >
+    {children}
+  </S.SliderButton>
+);
 
 export default SliderButton;

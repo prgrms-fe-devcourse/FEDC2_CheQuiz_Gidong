@@ -1,5 +1,7 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+
 import { DarkGray, grayWhite, h3, small } from '@/styles/theme';
 
 export const FilterContainer = styled.div`

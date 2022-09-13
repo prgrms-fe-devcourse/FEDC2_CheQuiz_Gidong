@@ -1,12 +1,18 @@
-import { Form, Formik } from 'formik';
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useCallback } from 'react';
-import { validationChangeName } from '@/utils/validation';
-import * as S from './styles';
-import InputBox from '../Form/InputBox';
-import Button from '../Form/Button';
-import { UserAPI } from '@/interfaces/UserAPI';
+
+import { Form, Formik } from 'formik';
+
 import { updateFullName } from '@/api/UserServices';
-import { UpdateNameFormData } from '@/interfaces/ChangeFormData';
+import { validationChangeName } from '@/utils/validation';
+
+import Button from '../Form/Button';
+import InputBox from '../Form/InputBox';
+
+import * as S from './styles';
+
+import type { UpdateNameFormData } from '@/interfaces/ChangeFormData';
+import type { UserAPI } from '@/interfaces/UserAPI';
 
 interface Props {
   user: UserAPI;
@@ -14,7 +20,7 @@ interface Props {
   onCloseNickname: () => void;
 }
 
-function NicknameModal({ user, isShown, onCloseNickname }: Props) {
+const NicknameModal = ({ user, isShown, onCloseNickname }: Props) => {
   const onSubmitFullName = useCallback(async (formData: UpdateNameFormData) => {
     try {
       const userInfo = await updateFullName(formData);
@@ -37,10 +43,10 @@ function NicknameModal({ user, isShown, onCloseNickname }: Props) {
           >
             <S.Title>닉네임 변경</S.Title>
             <Formik
+              validationSchema={validationChangeName}
               initialValues={{
                 fullName: '',
               }}
-              validationSchema={validationChangeName}
               onSubmit={(values, actions) => {
                 actions.setSubmitting(false);
                 actions.resetForm();
@@ -54,12 +60,15 @@ function NicknameModal({ user, isShown, onCloseNickname }: Props) {
             >
               <Form>
                 <InputBox
-                  label="새 닉네임"
-                  name="fullName"
-                  type="text"
-                  placeholder=""
+                  label='새 닉네임'
+                  name='fullName'
+                  placeholder=''
+                  type='text'
                 />
-                <Button text="저장" type="submit" />
+                <Button
+                  text='저장'
+                  type='submit'
+                />
               </Form>
             </Formik>
           </S.Container>
@@ -68,6 +77,6 @@ function NicknameModal({ user, isShown, onCloseNickname }: Props) {
       {isShown && null}
     </>
   );
-}
+};
 
 export default NicknameModal;

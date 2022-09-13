@@ -1,28 +1,27 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import Quiz from '@components/Quiz';
+import type React from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import { Redirect, useHistory } from 'react-router';
 import Slider from 'react-slick';
-import { v4 } from 'uuid';
-import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
-import * as QuizServices from '@/api/QuizServices';
-import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import SliderButton from './SliderButton';
-import { Quiz as QuizInterface } from '@/interfaces/Quiz';
-import * as S from './styles';
-import { useAuthContext } from '@/contexts/AuthContext';
-import { UserQuizInfo } from '@/interfaces/UserAPI';
-import { updateTotalPoint } from '@/api/UserServices';
-import { useQuizContext } from '@/contexts/QuizContext';
-import Icon from '@/components/Icon';
+import 'slick-carousel/slick/slick.css';
+import { v4 } from 'uuid';
 
-function QuizSolvePage() {
+import * as QuizServices from '@/api/QuizServices';
+import { updateTotalPoint } from '@/api/UserServices';
+import Icon from '@/components/Icon';
+import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useQuizContext } from '@/contexts/QuizContext';
+import Quiz from '@components/Quiz';
+
+import SliderButton from './SliderButton';
+import * as S from './styles';
+
+import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
+import type { UserQuizInfo } from '@/interfaces/UserAPI';
+
+const QuizSolvePage = () => {
   const history = useHistory();
   const sliderRef = useRef<Slider | null>(null);
   const { user, setUser, isAuth } = useAuthContext();
@@ -36,7 +35,7 @@ function QuizSolvePage() {
 
   const handleUserAnswers = useCallback((index: number, value: string) => {
     setUserAnswers((prev) =>
-      prev.map((answer, idx) => (idx === index ? value : answer)),
+      prev.map((answer, idx) => (idx === index ? value : answer))
     );
   }, []);
 
@@ -77,7 +76,7 @@ function QuizSolvePage() {
       sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
       sessionStorage.setItem(
         POST_IDS,
-        JSON.stringify(quizzes.map((quiz) => quiz._id)),
+        JSON.stringify(quizzes.map((quiz) => quiz._id))
       );
 
       // 로그인했다면, 사용자의 점수를 반영
@@ -98,12 +97,12 @@ function QuizSolvePage() {
       setRandomQuizCount,
       updateUserPoint,
       userAnswers,
-    ],
+    ]
   );
 
   // Slider Options
-  const settings = useMemo(() => {
-    return {
+  const settings = useMemo(
+    () => ({
       dots: false,
       infinite: false,
       speed: 500,
@@ -114,8 +113,9 @@ function QuizSolvePage() {
       beforeChange: (oldIndex: number, newIndex: number) => {
         setCurrentIndex(newIndex);
       },
-    };
-  }, []);
+    }),
+    []
+  );
 
   useEffect(() => {
     // initialize
@@ -131,35 +131,40 @@ function QuizSolvePage() {
     (async () => {
       if (randomQuizCount && randomQuizCount > 0)
         await QuizServices.getShuffledQuizzes(randomQuizCount).then(
-          (quizArray) => next(quizArray),
+          (quizArray) => next(quizArray)
         );
       else if (channelId)
         await QuizServices.getQuizzesFromChannel(channelId).then((quizArray) =>
-          next(quizArray),
+          next(quizArray)
         );
     })().finally(() => setLoading(false));
   }, [channelId, quizzes.length, randomQuizCount, setUserAnswers]);
 
   if (loading) return null;
   if (!(channelId || randomQuizCount)) {
-    return <Redirect to="/error" />;
+    return <Redirect to='/error' />;
   }
   return (
     <form onSubmit={handleSubmit}>
       <S.QuizSolvePage>
-        <S.Wrapper justify="center">
+        <S.Wrapper justify='center'>
           <S.Box>
             {currentIndex + 1} / {quizzes.length}
           </S.Box>
         </S.Wrapper>
-        <S.Wrapper justify="between">
+        <S.Wrapper justify='between'>
           <SliderButton
-            type="button"
-            color="point"
+            color='point'
             disabled={currentIndex === 0}
+            type='button'
             onClick={() => sliderRef.current?.slickPrev()}
           >
-            <Icon name="triangle" size={30} rotate={270} fill />
+            <Icon
+              fill
+              name='triangle'
+              rotate={270}
+              size={30}
+            />
           </SliderButton>
           <S.SliderContainer>
             <Slider
@@ -170,26 +175,34 @@ function QuizSolvePage() {
             >
               {quizzes.map((quiz, index) => (
                 <Quiz
-                  quiz={quiz}
                   key={quiz._id}
                   index={index}
+                  quiz={quiz}
                   onChangeUserAnswer={handleUserAnswers}
                 />
               ))}
             </Slider>
           </S.SliderContainer>
           <SliderButton
-            type="button"
-            color="point"
+            color='point'
             disabled={currentIndex === quizzes.length - 1}
+            type='button'
             onClick={() => sliderRef.current?.slickNext()}
           >
-            <Icon name="triangle" size={30} rotate={90} fill />
+            <Icon
+              fill
+              name='triangle'
+              rotate={90}
+              size={30}
+            />
           </SliderButton>
         </S.Wrapper>
-        <S.Wrapper gap="2.5rem" justify="center">
+        <S.Wrapper
+          gap='2.5rem'
+          justify='center'
+        >
           <S.SubmitButton
-            type="submit"
+            type='submit'
             disabled={
               userAnswers.filter((answer) => answer).length < quizzes.length
             }
@@ -201,6 +214,6 @@ function QuizSolvePage() {
       <S.Background />
     </form>
   );
-}
+};
 
 export default QuizSolvePage;

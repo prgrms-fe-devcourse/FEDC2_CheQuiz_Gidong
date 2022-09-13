@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import QuizResult from '@components/QuizResult';
+import { useEffect, useState } from 'react';
+
 import { Redirect, useHistory } from 'react-router';
-import { Quiz as QuizInterface } from '@/interfaces/Quiz';
+
 import * as QuizServices from '@/api/QuizServices';
-import * as S from './styles';
-import { useSessionStorage } from '@/hooks/useStorage';
-import { POST_IDS, USER_ANSWERS } from '@/constants';
-import UserInfoCard from '@/components/UserInfo/UserInfoCard';
-import { useAuthContext } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
+import UserInfoCard from '@/components/UserInfo/UserInfoCard';
+import { POST_IDS, USER_ANSWERS } from '@/constants';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useSessionStorage } from '@/hooks/useStorage';
+import QuizResult from '@components/QuizResult';
+
+import * as S from './styles';
+
+import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
 
 /**
  * ANCHOR: QuizResultPage 로직
@@ -17,7 +21,7 @@ import Header from '@/components/Header';
  * 3. 댓글을 달 수 있는 input과, 좋아요를 누를 수 있는 like가 각 컴포넌트에 위치하여야 한다.
  * 4. random인지, random인지 아닌지 저장해야 한다.
  */
-function QuizResultPage() {
+const QuizResultPage = () => {
   const history = useHistory();
   const { user, isAuth } = useAuthContext();
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
@@ -41,28 +45,33 @@ function QuizResultPage() {
 
   if (loading) return null;
   if (!isAppropriateAccess()) {
-    return <Redirect to="/error" />;
+    return <Redirect to='/error' />;
   }
   return (
     <>
       <Header />
-      {isAuth ? <UserInfoCard id={user._id} width="100%" /> : null}
+      {isAuth ? (
+        <UserInfoCard
+          id={user._id}
+          width='100%'
+        />
+      ) : null}
       <S.QuizResultPage>
         {quizzes.map((quiz, index) => (
           <QuizResult
             key={quiz._id}
-            quiz={quiz}
             correct={quiz.answer === userAnswers[index]}
+            quiz={quiz}
           />
         ))}
         <S.FooterButtonWrapper>
-          <S.LinkButton to="/">다른 문제 풀러가기</S.LinkButton>
-          <S.LinkButton to="/ranking">랭킹 보기</S.LinkButton>
-          <S.LinkButton to="/create">퀴즈 만들러 가기</S.LinkButton>
+          <S.LinkButton to='/'>다른 문제 풀러가기</S.LinkButton>
+          <S.LinkButton to='/ranking'>랭킹 보기</S.LinkButton>
+          <S.LinkButton to='/create'>퀴즈 만들러 가기</S.LinkButton>
         </S.FooterButtonWrapper>
       </S.QuizResultPage>
     </>
   );
-}
+};
 
 export default QuizResultPage;

@@ -1,13 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useEffect, useState } from 'react';
-import * as S from './styles';
-import Icon from '@/components/Icon';
-import QuizSetCard from '../QuizSetCard';
-import { ChannelAPI } from '@/interfaces/ChannelAPI';
-import { useQuizContext } from '@/contexts/QuizContext';
-import Select from '@/components/Form/Select';
-import { getChannels } from '@/api/QuizServices';
 
-function QuizSetList() {
+import { getChannels } from '@/api/QuizServices';
+import Select from '@/components/Form/Select';
+import Icon from '@/components/Icon';
+import { useQuizContext } from '@/contexts/QuizContext';
+
+import QuizSetCard from '../QuizSetCard';
+
+import * as S from './styles';
+
+import type { ChannelAPI } from '@/interfaces/ChannelAPI';
+
+const QuizSetList = () => {
   const [quizSetList, setQuizSetList] = useState<ChannelAPI[]>([]);
   const [keyword, setKeyword] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('new');
@@ -20,8 +30,8 @@ function QuizSetList() {
       const apiData = await getChannels();
       setQuizSetList(
         apiData.filter(
-          (quizset) => quizset._id !== process.env.DEFAULT_CHANNEL_ID,
-        ),
+          (quizset) => quizset._id !== process.env.DEFAULT_CHANNEL_ID
+        )
       );
     };
 
@@ -36,9 +46,8 @@ function QuizSetList() {
     const { name, description } = quizSet;
     const { tags, creator } = JSON.parse(description);
 
-    const parseValue = (value: string) => {
-      return value.replace(/\s/g, '').toLowerCase();
-    };
+    const parseValue = (value: string) =>
+      value.replace(/\s/g, '').toLowerCase();
 
     const lowerTitle = parseValue(name);
     const lowerTags = tags.map((tag: string) => parseValue(tag));
@@ -61,7 +70,7 @@ function QuizSetList() {
   const sortBySelect = (
     prev: ChannelAPI,
     next: ChannelAPI,
-    sortValue: string,
+    sortValue: string
   ) => {
     const byNewer = +new Date(next.createdAt) - +new Date(prev?.createdAt);
     const byOlder = +new Date(prev.createdAt) - +new Date(next?.createdAt);
@@ -79,22 +88,25 @@ function QuizSetList() {
     <section>
       <S.FilterContainer>
         <S.SearchWrap>
-          <Icon name="search" strokeWidth={4} />
+          <Icon
+            name='search'
+            strokeWidth={4}
+          />
           <S.SearchInput
-            type="text"
-            placeholder="검색"
+            placeholder='검색'
+            type='text'
             value={keyword}
             onChange={handleInputChange}
           />
         </S.SearchWrap>
         <Select
-          defaultValue="정렬"
+          addStyle={{ width: '11rem', backgroundColor: '#DEE2E6' }}
+          defaultValue='정렬'
           options={[
             { label: '최신순', value: 'new' },
             { label: '오래된순', value: 'old' },
           ]}
           onChangeValue={(value: string) => setSortBy(value)}
-          addStyle={{ width: '11rem', backgroundColor: '#DEE2E6' }}
         />
       </S.FilterContainer>
       <S.Title>지식 사냥터 </S.Title>
@@ -104,16 +116,19 @@ function QuizSetList() {
           .sort((a, b) => sortBySelect(a, b, sortBy))
           .map((quizSet: ChannelAPI, idx) => (
             <S.LinkToSolve
-              to="/solve"
               key={quizSet._id}
+              to='/solve'
               onClick={() => handleQuizClick(quizSet._id)}
             >
-              <QuizSetCard quizSet={quizSet} cardIdx={idx} />
+              <QuizSetCard
+                cardIdx={idx}
+                quizSet={quizSet}
+              />
             </S.LinkToSolve>
           ))}
       </S.QuizSetListContainer>
     </section>
   );
-}
+};
 
 export default QuizSetList;

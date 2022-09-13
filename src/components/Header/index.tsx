@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useState } from 'react';
 
-import { useAuthContext } from '@/contexts/AuthContext';
-
-import Modal from '@/components/Modal';
 import Icon from '@/components/Icon';
+import Modal from '@/components/Modal';
 import Notification from '@/components/Notification';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 import * as S from './styles';
 
-function Header(): JSX.Element {
+const Header = (): JSX.Element => {
   const { user, isAuth, logout } = useAuthContext();
 
   const [modalShow, setModalShow] = useState(false);
@@ -19,22 +19,35 @@ function Header(): JSX.Element {
     <>
       <S.HeaderContainer>
         <S.ContentContainer>
-          <S.LinkButton to="/" color="point" logo="true">
+          <S.LinkButton
+            color='point'
+            logo='true'
+            to='/'
+          >
             CheQuiz
           </S.LinkButton>
           {isAuth ? (
             <S.ButtonGroup>
-              <S.LinkButton to="/create" color="primary">
+              <S.LinkButton
+                color='primary'
+                to='/create'
+              >
                 문제 만들기
               </S.LinkButton>
-              <S.LinkButton to="/ranking" color="primary">
+              <S.LinkButton
+                color='primary'
+                to='/ranking'
+              >
                 랭킹 보기
               </S.LinkButton>
-              <S.LinkButton to={`/user/${user._id}`} color="primary">
+              <S.LinkButton
+                color='primary'
+                to={`/user/${user._id}`}
+              >
                 내 정보
               </S.LinkButton>
               <S.Button
-                color="primary"
+                color='primary'
                 onClick={() => {
                   logout();
                   setNotiShow(false);
@@ -43,21 +56,27 @@ function Header(): JSX.Element {
                 로그아웃
               </S.Button>
               <S.Button
-                color="primary"
+                color='primary'
                 onClick={() => {
                   setNotiShow(!notiShow);
                 }}
               >
-                <Icon name="bell" size={24} />
+                <Icon
+                  name='bell'
+                  size={24}
+                />
               </S.Button>
             </S.ButtonGroup>
           ) : (
             <S.ButtonGroup>
-              <S.LinkButton to="/ranking" color="primary">
+              <S.LinkButton
+                color='primary'
+                to='/ranking'
+              >
                 랭킹 보기
               </S.LinkButton>
               <S.Button
-                color="primary"
+                color='primary'
                 onClick={() => {
                   setModalShow(true);
                   setModalContent('login');
@@ -66,7 +85,7 @@ function Header(): JSX.Element {
                 로그인
               </S.Button>
               <S.Button
-                color="primary"
+                color='primary'
                 onClick={() => {
                   setModalShow(true);
                   setModalContent('signup');
@@ -81,10 +100,13 @@ function Header(): JSX.Element {
       </S.HeaderContainer>
       <S.HeaderSpacer />
       {modalShow && (
-        <Modal setModalShow={setModalShow} content={modalContent} />
+        <Modal
+          content={modalContent}
+          setModalShow={setModalShow}
+        />
       )}
     </>
   );
-}
+};
 
 export default Header;

@@ -1,8 +1,10 @@
 import axios from 'axios';
+
 import api from '@/api/axiosInstance';
-import { ChannelAPI } from '@/interfaces/ChannelAPI';
-import { PostAPI } from '@/interfaces/PostAPI';
-import { Quiz } from '@/interfaces/Quiz';
+
+import type { ChannelAPI } from '@/interfaces/ChannelAPI';
+import type { PostAPI } from '@/interfaces/PostAPI';
+import type { Quiz } from '@/interfaces/Quiz';
 
 function shuffle<T = unknown>(array: T[], count: number): T[] {
   const ret = [...array];
@@ -31,8 +33,8 @@ function getPostsFromPostIds(postIds: string[]) {
         .then((response) => response.data)
         .catch(() => {
           throw new Error('error occured at getPostsfromPostIds.');
-        }),
-    ),
+        })
+    )
   );
 }
 
@@ -102,7 +104,7 @@ export function getQuizzesFromChannel(channelId: string) {
 
 export function getShuffledQuizzes(count: number) {
   return getShuffledPosts(count).then((posts) =>
-    posts.map((post) => parseQuiz(post)),
+    posts.map((post) => parseQuiz(post))
   );
 }
 

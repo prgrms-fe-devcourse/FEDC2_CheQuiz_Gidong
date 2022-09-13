@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { UserAPI } from './UserAPI';
 
 export interface CommentAPI {
