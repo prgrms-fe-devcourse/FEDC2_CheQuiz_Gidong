@@ -14,11 +14,11 @@ import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useQuizContext } from '@/contexts/QuizContext';
 import Quiz from '@components/Quiz';
+import { useQuiz } from '@hooks/useQuiz';
 
 import SliderButton from './SliderButton';
 import * as S from './styles';
 
-import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import type { UserQuizInfo } from '@/interfaces/UserAPI';
 
 const QuizSolvePage = () => {
@@ -28,8 +28,8 @@ const QuizSolvePage = () => {
   const { channelId, randomQuizCount, setChannelId, setRandomQuizCount } =
     useQuizContext();
 
-  const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
-  const [userAnswers, setUserAnswers] = useState<string[]>([]);
+  const [quizzes, getRandomQuizzes, getQuizzesFromQuizset] = useQuiz();
+  const [userAnswers, setUserAnswers] = useState<string[]>(Array(10).fill(''));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -123,22 +123,29 @@ const QuizSolvePage = () => {
     sessionStorage.removeItem(USER_ANSWERS);
     sessionStorage.removeItem(POINTS);
 
-    const next = (quizArray: QuizInterface[]) => {
-      setQuizzes(quizArray);
-      setUserAnswers(Array(quizArray.length).fill(''));
+    const fetchData = async () => {
+      try {
+        if (randomQuizCount && randomQuizCount > 0) {
+          await getRandomQuizzes(randomQuizCount);
+        } else if (channelId) {
+          await getQuizzesFromQuizset(channelId);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    (async () => {
-      if (randomQuizCount && randomQuizCount > 0)
-        await QuizServices.getShuffledQuizzes(randomQuizCount).then(
-          (quizArray) => next(quizArray)
-        );
-      else if (channelId)
-        await QuizServices.getQuizzesFromChannel(channelId).then((quizArray) =>
-          next(quizArray)
-        );
-    })().finally(() => setLoading(false));
-  }, [channelId, quizzes.length, randomQuizCount, setUserAnswers]);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    fetchData();
+  }, [
+    channelId,
+    getQuizzesFromQuizset,
+    getRandomQuizzes,
+    randomQuizCount,
+    setUserAnswers,
+  ]);
 
   if (loading) return null;
   if (!(channelId || randomQuizCount)) {
