@@ -1,4 +1,4 @@
-import { PostAPIBase } from './PostAPI';
+import type { PostAPIBase } from './PostAPI';
 
 export interface QuizContent {
   question: string;

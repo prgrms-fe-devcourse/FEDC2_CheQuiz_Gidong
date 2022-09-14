@@ -1,8 +1,8 @@
 /* eslint-disable import/no-cycle */
-import { ChannelAPI } from './ChannelAPI';
-import { CommentAPI } from './CommentAPI';
-import { LikeAPI } from './LikeAPI';
-import { UserAPI } from './UserAPI';
+import type { ChannelAPI } from './ChannelAPI';
+import type { CommentAPI } from './CommentAPI';
+import type { LikeAPI } from './LikeAPI';
+import type { UserAPI } from './UserAPI';
 /**
  * ANCHOR: title에는 stringify된 QuizContent interface 정보가 들어감
  * TODO: Like, Comment, Channel interface 추가
