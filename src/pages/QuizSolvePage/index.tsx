@@ -28,7 +28,7 @@ const QuizSolvePage = () => {
   const { channelId, randomQuizCount, setChannelId, setRandomQuizCount } =
     useQuizContext();
 
-  const { quizzes, getRandomQuizzes, getQuizzesFromQuizset } = useQuiz();
+  const [quizzes, getRandomQuizzes, getQuizzesFromQuizSet] = useQuiz();
   const [userAnswers, setUserAnswers] = useState<string[]>(Array(10).fill(''));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -128,7 +128,7 @@ const QuizSolvePage = () => {
         if (randomQuizCount && randomQuizCount > 0) {
           await getRandomQuizzes(randomQuizCount);
         } else if (channelId) {
-          await getQuizzesFromQuizset(channelId);
+          await getQuizzesFromQuizSet(channelId);
         }
       } catch (error) {
         console.error(error);
@@ -141,7 +141,7 @@ const QuizSolvePage = () => {
     fetchData();
   }, [
     channelId,
-    getQuizzesFromQuizset,
+    getQuizzesFromQuizSet,
     getRandomQuizzes,
     randomQuizCount,
     setUserAnswers,

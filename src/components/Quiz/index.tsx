@@ -2,10 +2,10 @@ import { useState } from 'react';
 
 import * as S from './styles';
 
-import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
+import type { QuizType } from '@/hooks/useQuiz/useQuiz.helper';
 
 interface QuizProps {
-  quiz: QuizInterface;
+  quiz: QuizType;
   index: number;
   onChangeUserAnswer: (index: number, value: string) => void;
 }

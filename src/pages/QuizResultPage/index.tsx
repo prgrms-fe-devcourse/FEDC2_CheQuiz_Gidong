@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Redirect } from 'react-router';
 
+import * as QuizServices from '@/api/QuizServices';
 import Header from '@/components/Header';
 import UserInfoCard from '@/components/UserInfo/UserInfoCard';
 import { POST_IDS, USER_ANSWERS } from '@/constants';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useSessionStorage } from '@/hooks/useStorage';
 import QuizResult from '@components/QuizResult';
-import { useQuiz } from '@hooks/useQuiz';
 
 import * as S from './styles';
+
+import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
 
 /**
  * ANCHOR: QuizResultPage 로직
@@ -21,7 +23,7 @@ import * as S from './styles';
  */
 const QuizResultPage = () => {
   const { user, isAuth } = useAuthContext();
-  const { quizzes, getQuizzesFromIds } = useQuiz();
+  const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
   const [postIds] = useSessionStorage<string[]>(POST_IDS, []);
   const [userAnswers] = useSessionStorage<string[]>(USER_ANSWERS, []);
   const [loading, setLoading] = useState(true);
@@ -33,6 +35,16 @@ const QuizResultPage = () => {
       return false;
     return true;
   };
+
+  // NOTE: 임시 콜백 함수입니다. QuizSolve가 정리된 후 해당 부분 처리 예정입니다.
+  const getQuizzesFromIds = useCallback(async (_postIds: string[]) => {
+    try {
+      const data = await QuizServices.getQuizzesFromPostIds(_postIds);
+      setQuizzes(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

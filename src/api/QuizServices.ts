@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import api from '@/api/axiosInstance';
 
+import type { QuizType } from '@/hooks/useQuiz/useQuiz.helper';
 import type { ChannelAPI } from '@/interfaces/ChannelAPI';
 import type { PostAPI } from '@/interfaces/PostAPI';
 import type { Quiz } from '@/interfaces/Quiz';
@@ -38,14 +39,14 @@ function getPostsFromPostIds(postIds: string[]) {
   );
 }
 
-function getPosts() {
-  return api
-    .get<PostAPI[]>('/posts')
-    .then((response) => response.data)
-    .catch(() => {
-      throw new Error('error occured at getPosts.');
-    });
-}
+export const getPosts = async () => {
+  try {
+    const response = await api.get<PostAPI[]>('/posts');
+    return response.data;
+  } catch (error) {
+    throw new Error('error occurred at getPosts.');
+  }
+};
 
 function getShuffledPosts(count: number) {
   return getPosts().then((posts) => shuffle(posts, count));
@@ -58,7 +59,7 @@ function parseQuiz(post: PostAPI) {
   return { ...postCopy, ...JSON.parse(quizContent) } as Quiz;
 }
 
-function getPostsFromChannel(channelId: string): Promise<PostAPI[]> {
+export function getPostsFromChannel(channelId: string): Promise<PostAPI[]> {
   return api
     .get<PostAPI[]>(`/posts/channel/${channelId}`)
     .then((response) => response.data);
@@ -108,7 +109,7 @@ export function getShuffledQuizzes(count: number) {
   );
 }
 
-export function caculateScore(quizzes: Quiz[], userAnswers: string[]) {
+export function caculateScore(quizzes: QuizType[], userAnswers: string[]) {
   // 전부 선택하지 않았거나 user가 임의로 조작했다면 0점을 부여한다.
   if (quizzes.length !== userAnswers.filter((answer) => answer).length)
     return 0;
