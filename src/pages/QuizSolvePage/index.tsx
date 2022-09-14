@@ -28,7 +28,7 @@ const QuizSolvePage = () => {
   const { channelId, randomQuizCount, setChannelId, setRandomQuizCount } =
     useQuizContext();
 
-  const [quizzes, getRandomQuizzes, getQuizzesFromQuizset] = useQuiz();
+  const { quizzes, getRandomQuizzes, getQuizzesFromQuizset } = useQuiz();
   const [userAnswers, setUserAnswers] = useState<string[]>(Array(10).fill(''));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
