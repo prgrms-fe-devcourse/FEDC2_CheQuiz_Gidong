@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import { Redirect, useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 
-import * as QuizServices from '@/api/QuizServices';
 import Header from '@/components/Header';
 import UserInfoCard from '@/components/UserInfo/UserInfoCard';
 import { POST_IDS, USER_ANSWERS } from '@/constants';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useSessionStorage } from '@/hooks/useStorage';
 import QuizResult from '@components/QuizResult';
+import { useQuiz } from '@hooks/useQuiz';
 
 import * as S from './styles';
-
-import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
 
 /**
  * ANCHOR: QuizResultPage 로직
@@ -22,9 +20,8 @@ import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
  * 4. random인지, random인지 아닌지 저장해야 한다.
  */
 const QuizResultPage = () => {
-  const history = useHistory();
   const { user, isAuth } = useAuthContext();
-  const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
+  const { quizzes, getQuizzesFromIds } = useQuiz();
   const [postIds] = useSessionStorage<string[]>(POST_IDS, []);
   const [userAnswers] = useSessionStorage<string[]>(USER_ANSWERS, []);
   const [loading, setLoading] = useState(true);
@@ -38,10 +35,20 @@ const QuizResultPage = () => {
   };
 
   useEffect(() => {
-    QuizServices.getQuizzesFromPostIds(postIds)
-      .then((quizArray) => setQuizzes(quizArray))
-      .finally(() => setLoading(false));
-  }, [history, postIds, userAnswers.length]);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        await getQuizzesFromIds(postIds);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    fetchData();
+  }, [getQuizzesFromIds, postIds]);
 
   if (loading) return null;
   if (!isAppropriateAccess()) {
