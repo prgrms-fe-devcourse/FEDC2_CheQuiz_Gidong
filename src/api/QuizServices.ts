@@ -2,29 +2,11 @@ import axios from 'axios';
 
 import api from '@/api/axiosInstance';
 
+// ANCHOR: temporary import
 import type { QuizType } from '@/hooks/useQuiz/useQuiz.helper';
 import type { ChannelAPI } from '@/interfaces/ChannelAPI';
 import type { PostAPI } from '@/interfaces/PostAPI';
 import type { Quiz } from '@/interfaces/Quiz';
-
-function shuffle<T = unknown>(array: T[], count: number): T[] {
-  const ret = [...array];
-  for (let i = 0; i < array.length - 1; i += 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [ret[i], ret[j]] = [ret[j], ret[i]];
-  }
-  return ret.slice(0, count < ret.length ? count : ret.length);
-}
-
-function getPostIds() {
-  return api
-    .get<ChannelAPI[]>('/channels')
-    .then((response) => response.data)
-    .then((data) => data.flatMap((channel) => channel.posts))
-    .catch(() => {
-      throw new Error('error occured at getAllPostIds.');
-    });
-}
 
 function getPostsFromPostIds(postIds: string[]) {
   return axios.all(
@@ -48,10 +30,6 @@ export const getPosts = async () => {
   }
 };
 
-function getShuffledPosts(count: number) {
-  return getPosts().then((posts) => shuffle(posts, count));
-}
-
 function parseQuiz(post: PostAPI) {
   const postCopy: Partial<PostAPI> = { ...post };
   const quizContent = postCopy.title as string;
@@ -65,48 +43,12 @@ export function getPostsFromChannel(channelId: string): Promise<PostAPI[]> {
     .then((response) => response.data);
 }
 
-/**
- * @deprecated
- */
-export function getPostIdsFromChannel(channelName: string): Promise<string[]> {
-  return api
-    .get<ChannelAPI>(`/channels/${channelName}`)
-    .then((response) => response.data)
-    .then((data) => (data.posts ? data.posts : []))
-    .catch(() => {
-      throw new Error('error occured at getPostIdsFromChannel.');
-    });
-}
-
-/**
- * @deprecated
- */
-export function getShuffledPostIds(count: number) {
-  return getPostIds()
-    .then((postIds) => shuffle(postIds, count))
-    .catch(() => {
-      throw new Error('error occured at getShuffledPostIds.');
-    });
-}
-
 export function getQuizzesFromPostIds(postIds: string[]): Promise<Quiz[]> {
   return getPostsFromPostIds(postIds)
     .then((response) => response.map((post) => parseQuiz(post)))
     .catch(() => {
       throw new Error('error occured at getQuizzes');
     });
-}
-
-export function getQuizzesFromChannel(channelId: string) {
-  return getPostsFromChannel(channelId)
-    .then((posts) => posts.map((post) => parseQuiz(post)))
-    .then((quiz) => quiz.reverse());
-}
-
-export function getShuffledQuizzes(count: number) {
-  return getShuffledPosts(count).then((posts) =>
-    posts.map((post) => parseQuiz(post))
-  );
 }
 
 export function caculateScore(quizzes: QuizType[], userAnswers: string[]) {
