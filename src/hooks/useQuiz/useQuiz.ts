@@ -23,7 +23,7 @@ const useQuiz = (): ReturnType => {
     }
   }, []);
 
-  const getQuizzesfromQuizset = useCallback(async (channelId: string) => {
+  const getQuizzesFromQuizset = useCallback(async (channelId: string) => {
     try {
       const data = await QuizServices.getQuizzesFromChannel(channelId);
       setQuizzes(data);
@@ -32,7 +32,7 @@ const useQuiz = (): ReturnType => {
     }
   }, []);
 
-  return [quizzes, getRandomQuizzes, getQuizzesfromQuizset];
+  return [quizzes, getRandomQuizzes, getQuizzesFromQuizset];
 };
 
 export default useQuiz;
