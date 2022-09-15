@@ -1,6 +1,6 @@
-import { CommentAPI } from './CommentAPI';
-import { LikeAPI } from './LikeAPI';
-import { UserAPI } from './UserAPI';
+import type { CommentAPI } from './CommentAPI';
+import type { LikeAPI } from './LikeAPI';
+import type { UserAPI } from './UserAPI';
 
 export interface NotificationAPI {
   seen: boolean;

@@ -1,4 +1,4 @@
-import { QuizClientContent } from '@/interfaces/Quiz';
+import type { QuizClientContent } from '@/interfaces/Quiz';
 
 const QUIZ_ITEM_DEFAULT_STATE: QuizClientContent = {
   _id: 0,

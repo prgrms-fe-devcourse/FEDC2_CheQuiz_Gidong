@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import * as S from './styles';
 
-import type { QuizType } from '@/hooks/useQuiz/useQuiz.helper';
+import type { Quiz as QuizType } from '@/hooks/useQuiz/useQuiz.helper';
 
 interface QuizProps {
   quiz: QuizType;

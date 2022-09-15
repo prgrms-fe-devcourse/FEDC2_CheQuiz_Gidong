@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
-import { CommentAPI } from './CommentAPI';
-import { PostAPI } from './PostAPI';
+import type { CommentAPI } from './CommentAPI';
+import type { PostAPI } from './PostAPI';
 
 export interface UserInfo {
   _id: string;

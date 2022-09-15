@@ -1,4 +1,4 @@
-import { UserAPI } from '@/interfaces/UserAPI';
+import type { UserAPI } from '@/interfaces/UserAPI';
 
 const RankingMockData: UserAPI[] = [
   {

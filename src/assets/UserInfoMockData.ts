@@ -1,4 +1,4 @@
-import { UserAPI } from '@/interfaces/UserAPI';
+import type { UserAPI } from '@/interfaces/UserAPI';
 
 // API: GET /user/{userId}
 const UserInfoMockData: UserAPI = {

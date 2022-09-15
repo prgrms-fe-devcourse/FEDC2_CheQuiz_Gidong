@@ -1,4 +1,4 @@
-import { Quiz } from '@/interfaces/Quiz';
+import type { Quiz } from '@/interfaces/Quiz';
 
 const QuizMockData: Quiz[] = [
   {

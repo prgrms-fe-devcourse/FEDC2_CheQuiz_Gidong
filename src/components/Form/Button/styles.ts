@@ -1,3 +1,4 @@
+/* eslint-disable @emotion/syntax-preference */
 import styled from '@emotion/styled';
 
 // TODO: 전역 스타일 컬러 적용
