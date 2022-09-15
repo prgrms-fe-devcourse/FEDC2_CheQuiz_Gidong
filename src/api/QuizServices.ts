@@ -2,8 +2,6 @@ import axios from 'axios';
 
 import api from '@/api/axiosInstance';
 
-// ANCHOR: temporary import
-import type { QuizType } from '@/hooks/useQuiz/useQuiz.helper';
 import type { ChannelAPI } from '@/interfaces/ChannelAPI';
 import type { PostAPI } from '@/interfaces/PostAPI';
 import type { Quiz } from '@/interfaces/Quiz';
@@ -49,16 +47,6 @@ export function getQuizzesFromPostIds(postIds: string[]): Promise<Quiz[]> {
     .catch(() => {
       throw new Error('error occured at getQuizzes');
     });
-}
-
-export function caculateScore(quizzes: QuizType[], userAnswers: string[]) {
-  // 전부 선택하지 않았거나 user가 임의로 조작했다면 0점을 부여한다.
-  if (quizzes.length !== userAnswers.filter((answer) => answer).length)
-    return 0;
-  // filter corrected quizzes and add scores
-  return quizzes
-    .filter((quiz, index) => quiz.answer === userAnswers[index])
-    .reduce((acc, cur) => acc + cur.difficulty * 10, 0);
 }
 
 export async function getChannels() {

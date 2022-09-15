@@ -7,7 +7,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { v4 } from 'uuid';
 
-import * as QuizServices from '@/api/QuizServices';
 import { updateTotalPoint } from '@/api/UserServices';
 import Icon from '@/components/Icon';
 import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
@@ -15,6 +14,7 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { useQuizContext } from '@/contexts/QuizContext';
 import Quiz from '@components/Quiz';
 import { useQuiz } from '@hooks/useQuiz';
+import { calculateScore } from '@hooks/useQuiz/useQuiz.helper';
 
 import SliderButton from './SliderButton';
 import * as S from './styles';
@@ -41,7 +41,7 @@ const QuizSolvePage = () => {
 
   const updateUserPoint = useCallback(async () => {
     try {
-      const totalPoint = QuizServices.caculateScore(quizzes, userAnswers);
+      const totalPoint = calculateScore(quizzes, userAnswers);
       sessionStorage.setItem(POINTS, JSON.stringify(totalPoint));
 
       const newInfo = {
