@@ -2,16 +2,16 @@ import { useCallback, useState } from 'react';
 
 import QuizServices from './useQuiz.helper';
 
-import type { QuizType } from './useQuiz.helper';
+import type { Quiz } from './useQuiz.helper';
 
 type ReturnType = [
-  QuizType[],
+  Quiz[],
   (count: number) => Promise<void>,
   (channelId: string) => Promise<void>
 ];
 
 const useQuiz = (): ReturnType => {
-  const [quizzes, setQuizzes] = useState<QuizType[]>([]);
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 
   const getRandomQuizzes = useCallback(async (count: number) => {
     try {

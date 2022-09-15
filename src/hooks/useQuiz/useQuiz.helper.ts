@@ -1,20 +1,18 @@
 import { getPostsFromChannel, getPosts } from '@/api/QuizServices';
 
 import type { PostAPI } from '@/interfaces/PostAPI';
-import type { Quiz, QuizContent } from '@/interfaces/Quiz';
+import type { QuizContent } from '@/interfaces/Quiz';
 
-// ANCHOR: 인터페이스에 변경 있을 경우 다시 확인할 것
-export type QuizType = Pick<
-  Quiz,
-  | '_id'
-  | 'question'
-  | 'answer'
-  | 'answerDescription'
-  | 'answerType'
-  | 'category'
-  | 'difficulty'
-  | 'importance'
->;
+export interface Quiz {
+  _id: string;
+  question: string;
+  answerDescription: string;
+  category: string;
+  difficulty: number;
+  importance: number;
+  answerType: 'trueOrFalse' | 'multipleChoice' | 'shortAnswer';
+  answer: string;
+}
 
 /**
  *
@@ -36,12 +34,18 @@ const shuffle = <T = unknown>(array: T[], count: number): T[] => {
 /**
  * Quiz 인터페이스를 구현하는 팩토리 함수
  */
-const createQuiz = (post: PostAPI): QuizType => {
+const createQuiz = (post: PostAPI): Quiz => {
   const quizContent = JSON.parse(post.title) as QuizContent;
 
   return {
     _id: post._id,
-    ...quizContent,
+    question: quizContent.question,
+    answerDescription: quizContent.answerDescription,
+    answer: quizContent.answer,
+    answerType: quizContent.answerType,
+    category: quizContent.category,
+    difficulty: quizContent.difficulty,
+    importance: quizContent.importance,
   };
 };
 
