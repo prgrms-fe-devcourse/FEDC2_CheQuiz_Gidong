@@ -3,12 +3,22 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import axiosInstance from '@/api/axiosInstance';
 
-import type { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
-import type { QuizContent } from '@/interfaces/Quiz';
+import type { QuizSetType } from '@/components/QuizCreateForm/QuizCreateForm';
 import type { UserAPI } from '@/interfaces/UserAPI';
 
+export interface QuizItemType {
+  _id: number;
+  question: string;
+  answerDescription: string;
+  category: string;
+  difficulty: number;
+  importance: number;
+  answerType: 'trueOrFalse' | 'multipleChoice' | 'shortAnswer';
+  answer: string;
+}
+
 export const createQuiz = async (
-  quiz: QuizContent,
+  quiz: Omit<QuizItemType, '_id'>,
   token: string,
   channelId = process.env.DEFAULT_CHANNEL_ID
 ) => {
@@ -26,10 +36,7 @@ export const createQuiz = async (
   }
 };
 
-export const createQuizSet = async (
-  set: ChannelAPICustomTitle,
-  user: UserAPI
-) => {
+export const createQuizSet = async (set: QuizSetType, user: UserAPI) => {
   const { name, ...quizSetCustomData } = set;
   try {
     const { data } = await axiosInstance({

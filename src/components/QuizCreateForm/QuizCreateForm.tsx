@@ -21,17 +21,20 @@ import * as S from './QuizCreateForm.styles';
 import QuizList from './QuizList';
 import QuizSetForm from './QuizSetForm';
 
-import type { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
-import type { QuizClientContent } from '@/interfaces/Quiz';
+import type { QuizItemType } from '@/api/create';
+
+export interface QuizSetType {
+  name: string;
+  tags: string[];
+  des: string;
+}
 
 const QuizForm = () => {
-  const [quizList, setQuizList] = useState<QuizClientContent[]>([
+  const [quizList, setQuizList] = useState<QuizItemType[]>([
     QUIZ_ITEM_DEFAULT_STATE,
   ]);
   const [isSet, toggleSet] = useState<boolean>(false);
-  const [quizSet, setQuizSet] = useState<ChannelAPICustomTitle>(
-    QUIZ_SET_DEFAULT_STATE
-  );
+  const [quizSet, setQuizSet] = useState<QuizSetType>(QUIZ_SET_DEFAULT_STATE);
   const { user, token } = useAuthContext();
   const { errors, handleFormSubmit, reValidate } = useValidation(
     validationQuizCreate(),

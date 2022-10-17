@@ -7,9 +7,3 @@ export interface ChannelAPI {
   createdAt: string;
   updatedAt: string;
 }
-
-export interface ChannelAPICustomTitle {
-  name: string;
-  tags: string[];
-  des: string;
-}
