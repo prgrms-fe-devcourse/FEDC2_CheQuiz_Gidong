@@ -1,5 +1,5 @@
 import Header from '@/components/Header';
-import QuizForm from '@/components/QuizCreate';
+import QuizForm from '@/components/QuizCreateForm';
 
 const QuizCreatePage = () => (
   <>

@@ -3,7 +3,7 @@ import React from 'react';
 
 import Select from '@/components/Form/Select';
 import Icon from '@/components/Icon';
-import Rate from '@/components/QuizCreate/Rate';
+import Rate from '@/components/QuizCreateForm/Rate';
 import { QUIZ_ANSWER_TYPE_LIST, QUIZ_CATEGORY_LIST } from '@/constants';
 
 import * as S from './styles';

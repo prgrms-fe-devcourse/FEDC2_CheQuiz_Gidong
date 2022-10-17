@@ -17,9 +17,9 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import useValidation from '@/hooks/useValidation';
 import { validationQuizCreate } from '@/utils/validation';
 
+import * as S from './QuizCreateForm.styles';
 import QuizList from './QuizList';
 import QuizSetForm from './QuizSetForm';
-import * as S from './styles';
 
 import type { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
 import type { QuizClientContent } from '@/interfaces/Quiz';
