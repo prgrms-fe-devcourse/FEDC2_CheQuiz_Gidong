@@ -30,8 +30,16 @@
       "error",
       { "prefer": "type-imports" }
     ],
-    "@typescript-eslint/no-misused-promises": "off",  // ANCHOR: 무슨 옵션인지 정확히 알 수 없으나, callback 처리가 잘 안됨
+    "@typescript-eslint/no-misused-promises": "off", // ANCHOR: 무슨 옵션인지 정확히 알 수 없으나, callback 처리가 잘 안됨
     "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variable",
+        "format": null,
+        "leadingUnderscore": "allow"
+      }
+    ],
     "import/order": [
       "error",
       {
@@ -66,7 +74,7 @@
     "react/function-component-definition": [
       "error",
       {
-          "namedComponents": "arrow-function"
+        "namedComponents": "arrow-function"
       }
     ],
     "react/jsx-props-no-spreading": "off",
