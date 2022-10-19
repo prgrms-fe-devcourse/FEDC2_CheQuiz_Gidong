@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type React from 'react';
 import { useState, useEffect } from 'react';
@@ -44,22 +40,20 @@ const QuizForm = () => {
 
   useEffect(() => {
     reValidate();
-  }, [quizList]);
+  }, [quizList, reValidate]);
 
   const handleQuizSubmit = async () => {
     if (isSet) {
       const set = await createQuizSet(quizSet, user);
-      if (!set) return;
-      quizList.forEach((quiz) => {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+
+      quizList.forEach(async (quiz) => {
         const { _id, ...quizData } = quiz;
-        createQuiz(quizData, token, set._id);
+        await createQuiz(quizData, token, set?._id);
       });
     } else {
-      quizList.forEach((quiz) => {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+      quizList.forEach(async (quiz) => {
         const { _id, ...quizData } = quiz;
-        createQuiz(quizData, token);
+        await createQuiz(quizData, token);
       });
     }
     history.push('/');

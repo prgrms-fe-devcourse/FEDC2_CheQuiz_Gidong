@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import axiosInstance from '@/api/axiosInstance';
 
 import type { QuizSetType } from '@/components/QuizCreateForm/QuizCreateForm';
 import type { UserAPI } from '@/interfaces/UserAPI';
+import type { Channel } from '@/interfaces/model';
 
 export interface QuizItemType {
   _id: number;
@@ -39,7 +38,7 @@ export const createQuiz = async (
 export const createQuizSet = async (set: QuizSetType, user: UserAPI) => {
   const { name, ...quizSetCustomData } = set;
   try {
-    const { data } = await axiosInstance({
+    const { data }: { data: Channel } = await axiosInstance({
       method: 'POST',
       url: 'channels/create',
       data: {
@@ -51,7 +50,7 @@ export const createQuizSet = async (set: QuizSetType, user: UserAPI) => {
         }),
       },
       headers: {
-        Authorization: `Bearer ${process.env.ADMIN_USER_TOKEN}`,
+        Authorization: `Bearer ${process.env.ADMIN_USER_TOKEN || ''}`,
       },
     });
     return data;
