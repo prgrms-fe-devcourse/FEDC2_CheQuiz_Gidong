@@ -4,7 +4,7 @@ import { QUIZ_SET_TAG_LIST } from '@/constants';
 
 import * as S from './styles';
 
-import type { QuizSetType } from '@/components/QuizCreateForm/QuizCreateForm';
+import type { QuizSetType } from '@/interfaces/model';
 
 interface SetFormProps {
   isSet: boolean;

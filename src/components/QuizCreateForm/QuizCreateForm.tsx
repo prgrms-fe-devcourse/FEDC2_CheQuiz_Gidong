@@ -17,19 +17,13 @@ import * as S from './QuizCreateForm.styles';
 import QuizList from './QuizList';
 import QuizSetForm from './QuizSetForm';
 
-import type { QuizItemType } from '@/api/create';
-
-export interface QuizSetType {
-  name: string;
-  tags: string[];
-  des: string;
-}
+import type { QuizItemType, QuizSetType } from '@/interfaces/model';
 
 const QuizForm = () => {
   const [quizList, setQuizList] = useState<QuizItemType[]>([
     QUIZ_ITEM_DEFAULT_STATE,
   ]);
-  const [isSet, toggleSet] = useState<boolean>(false);
+  const [isSet, toggleSet] = useState(false);
   const [quizSet, setQuizSet] = useState<QuizSetType>(QUIZ_SET_DEFAULT_STATE);
   const { user, token } = useAuthContext();
   const { errors, handleFormSubmit, reValidate } = useValidation(

@@ -17,10 +17,16 @@ export interface Channel {
   _id: string;
   name: string;
   authRequired: false;
-  description: string;
   posts: string[];
   createdAt: string;
   updatedAt: string;
+  description: string; // JSON.stringify(QuizSetType)
+}
+
+export interface QuizSetType {
+  name: string;
+  tags: string[];
+  des: string;
 }
 
 export interface Post {
@@ -33,7 +39,18 @@ export interface Post {
   author: User;
   createdAt: string;
   updatedAt: string;
-  title: string;
+  title: string; // JSON.stringify(QuizItemType)
+}
+
+export interface QuizItemType {
+  _id: number;
+  question: string;
+  answerDescription: string;
+  category: string;
+  difficulty: number;
+  importance: number;
+  answerType: 'trueOrFalse' | 'multipleChoice' | 'shortAnswer';
+  answer: string;
 }
 
 export interface Like {

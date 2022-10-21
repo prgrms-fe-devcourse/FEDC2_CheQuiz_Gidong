@@ -1,20 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import axiosInstance from '@/api/axiosInstance';
 
-import type { QuizSetType } from '@/components/QuizCreateForm/QuizCreateForm';
 import type { UserAPI } from '@/interfaces/UserAPI';
-import type { Channel } from '@/interfaces/model';
-
-export interface QuizItemType {
-  _id: number;
-  question: string;
-  answerDescription: string;
-  category: string;
-  difficulty: number;
-  importance: number;
-  answerType: 'trueOrFalse' | 'multipleChoice' | 'shortAnswer';
-  answer: string;
-}
+import type { Channel, QuizItemType, QuizSetType } from '@/interfaces/model';
 
 export const createQuiz = async (
   quiz: Omit<QuizItemType, '_id'>,
