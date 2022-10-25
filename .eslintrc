@@ -21,7 +21,6 @@
   ],
   "plugins": ["@typescript-eslint", "@emotion"],
   "rules": {
-    "@emotion/syntax-preference": ["error", "object"],
     "@typescript-eslint/consistent-type-exports": [
       "error",
       { "fixMixedExportsWithInlineTypeSpecifier": false }
