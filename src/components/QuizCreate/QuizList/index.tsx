@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect, useRef } from 'react';
 
+import styled from '@emotion/styled';
+
 import { QUIZ_ITEM_DEFAULT_STATE } from '@/assets/QuizCreateMockData';
 import Icon from '@/components/Icon';
+import { blackGray, DarkGray, small, white } from '@/styles/theme';
 
 import QuizItem from '../QuizItem';
-
-import * as S from './styles';
 
 import type { QuizClientContent } from '@/interfaces/Quiz';
 
@@ -52,7 +53,7 @@ const QuizList = ({ quizList, setQuizList, errors }: QuizListProps) => {
   }, []);
 
   return (
-    <S.QuizListContainer>
+    <QuizListContainer>
       {quizList.map((quiz, idx) => (
         <QuizItem
           key={quiz._id}
@@ -63,7 +64,7 @@ const QuizList = ({ quizList, setQuizList, errors }: QuizListProps) => {
           onChangeQuiz={handleQuizChange}
         />
       ))}
-      <S.InsertQuizItem
+      <InsertQuizItem
         ref={insertButtonRef}
         type='button'
         onClick={handleQuizAdd}
@@ -73,8 +74,30 @@ const QuizList = ({ quizList, setQuizList, errors }: QuizListProps) => {
           size={24}
         />
         퀴즈 추가하기
-      </S.InsertQuizItem>
-    </S.QuizListContainer>
+      </InsertQuizItem>
+    </QuizListContainer>
   );
 };
 export default QuizList;
+
+export const QuizListContainer = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
+export const InsertQuizItem = styled.button`
+  height: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 3px dashed ${DarkGray};
+  border-radius: 0.5rem;
+  background-color: ${white};
+
+  ${small};
+  color: ${blackGray};
+  cursor: pointer;
+`;

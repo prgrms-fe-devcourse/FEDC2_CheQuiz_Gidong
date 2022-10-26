@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type React from 'react';
 import { useState, useEffect } from 'react';
 
+import styled from '@emotion/styled';
 import { useHistory } from 'react-router';
 
 import { createQuiz, createQuizSet } from '@/api/create';
@@ -9,13 +9,12 @@ import {
   QUIZ_ITEM_DEFAULT_STATE,
   QUIZ_SET_DEFAULT_STATE,
 } from '@/assets/QuizCreateMockData';
+import QuizList from '@/components/QuizCreate/QuizList';
+import QuizSetForm from '@/components/QuizCreate/QuizSetForm';
 import { useAuthContext } from '@/contexts/AuthContext';
 import useValidation from '@/hooks/useValidation';
+import { DarkGray, pointColor } from '@/styles/theme';
 import { validationQuizCreate } from '@/utils/validation';
-
-import * as S from './QuizCreateForm.styles';
-import QuizList from './QuizList';
-import QuizSetForm from './QuizSetForm';
 
 import type { QuizItemType, QuizSetType } from '@/interfaces/model';
 
@@ -54,7 +53,7 @@ const QuizForm = () => {
   };
 
   return (
-    <S.FormContainer
+    <FormContainer
       onSubmit={(e: React.FormEvent) => handleFormSubmit(e, handleQuizSubmit)}
     >
       <QuizSetForm
@@ -68,9 +67,30 @@ const QuizForm = () => {
         quizList={quizList}
         setQuizList={setQuizList}
       />
-      <S.SubmitButton type='submit'>퀴즈 제출</S.SubmitButton>
-    </S.FormContainer>
+      <SubmitButton type='submit'>퀴즈 제출</SubmitButton>
+    </FormContainer>
   );
 };
 
 export default QuizForm;
+
+const FormContainer = styled.form`
+  width: 100%;
+  margin-top: 7rem;
+`;
+
+const SubmitButton = styled.button`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+
+  width: 7.5rem;
+  height: 3rem;
+
+  border: 3px solid ${DarkGray};
+  border-radius: 0.5rem;
+  background-color: ${pointColor};
+  text-align: center;
+  font-family: 'MaplestoryOTFBold', sans-serif !important;
+  cursor: pointer;
+`;
