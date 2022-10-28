@@ -8,11 +8,14 @@ import { useAuthContext } from '@/contexts/AuthContext';
 
 import LoginForm from '../LoginForm';
 import SignUpForm from '../SignUpForm';
+import { modals } from '../shared/Modal/Modals';
+import useModals from '../shared/Modal/useModals';
 
 import * as S from './styles';
 
 const Header = (): JSX.Element => {
-  const { user, isAuth, logout } = useAuthContext();
+  const { user, isAuth, login, logout } = useAuthContext();
+  const { openModal } = useModals();
 
   const [notiShow, setNotiShow] = useState(false);
 
@@ -76,14 +79,25 @@ const Header = (): JSX.Element => {
               >
                 랭킹 보기
               </S.LinkButton>
-              <ModalProvider>
+              {/* <ModalProvider>
                 <ModalTrigger>
                   <S.Button color='primary'>로그인</S.Button>
                 </ModalTrigger>
                 <Modal>
                   <LoginForm />
                 </Modal>
-              </ModalProvider>
+              </ModalProvider> */}
+              <S.Button
+                color='primary'
+                onClick={() => {
+                  openModal(modals.login, {
+                    onSubmit: (values: { email: string; password: string }) =>
+                      login(values),
+                  });
+                }}
+              >
+                로그인 모달 열기
+              </S.Button>
               <ModalProvider>
                 <ModalTrigger>
                   <S.Button color='primary'>회원가입</S.Button>
