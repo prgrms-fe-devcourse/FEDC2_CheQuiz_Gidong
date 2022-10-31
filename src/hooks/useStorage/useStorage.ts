@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export type ReturnTypes<T> = [T, (value: T) => void, () => void];
 
@@ -12,13 +12,14 @@ function useStorage<T>(
   defaultValue: T,
   storageType: StorageType
 ): ReturnTypes<T> {
+  const defaultValueRef = useRef(defaultValue);
   const [value, setValue] = useState<T>(() => {
     try {
       const item = getStorage(storageType).getItem(key);
-      return item ? (JSON.parse(item) as T) : defaultValue;
+      return item ? (JSON.parse(item) as T) : defaultValueRef.current;
     } catch (error) {
       console.error(error);
-      return defaultValue;
+      return defaultValueRef.current;
     }
   });
 
@@ -36,12 +37,12 @@ function useStorage<T>(
 
   const removeItem = useCallback(() => {
     try {
-      setValue(defaultValue);
+      setValue(defaultValueRef.current);
       getStorage(storageType).removeItem(key);
     } catch (error) {
       console.error(error);
     }
-  }, [defaultValue, key, storageType]);
+  }, [key, storageType]);
 
   return [value, setItem, removeItem];
 }
