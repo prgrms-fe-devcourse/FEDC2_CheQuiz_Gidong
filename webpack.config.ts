@@ -56,14 +56,7 @@ const config: Configuration = {
         },
       ],
     }),
-    new ForkTsCheckerWebpackPlugin({
-      typescript: {
-        diagnosticOptions: {
-          semantic: true,
-          syntactic: true,
-        },
-      },
-    }),
+    new ForkTsCheckerWebpackPlugin(),
     new DotenvPlugin({
       systemvars: true,
     }),
