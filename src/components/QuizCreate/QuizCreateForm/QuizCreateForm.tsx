@@ -16,14 +16,14 @@ import useValidation from '@/hooks/useValidation';
 import { DarkGray, pointColor } from '@/styles/theme';
 import { validationQuizCreate } from '@/utils/validation';
 
-import type { QuizItemType, QuizSetType } from '@/interfaces/model';
+import type { QuizItem, QuizSet } from '@/interfaces/model';
 
 const QuizForm = () => {
-  const [quizList, setQuizList] = useState<QuizItemType[]>([
+  const [quizList, setQuizList] = useState<QuizItem[]>([
     QUIZ_ITEM_DEFAULT_STATE,
   ]);
   const [isSet, toggleSet] = useState(false);
-  const [quizSet, setQuizSet] = useState<QuizSetType>(QUIZ_SET_DEFAULT_STATE);
+  const [quizSet, setQuizSet] = useState<QuizSet>(QUIZ_SET_DEFAULT_STATE);
   const { user, token } = useAuthContext();
   const { errors, handleFormSubmit, reValidate } = useValidation(
     validationQuizCreate(),

@@ -20,10 +20,10 @@ export interface Channel {
   posts: string[];
   createdAt: string;
   updatedAt: string;
-  description: string; // JSON.stringify(QuizSetType)
+  description: string; // JSON.stringify(QuizSet)
 }
 
-export interface QuizSetType {
+export interface QuizSet {
   name: string;
   tags: string[];
   des: string;
@@ -39,10 +39,10 @@ export interface Post {
   author: User;
   createdAt: string;
   updatedAt: string;
-  title: string; // JSON.stringify(QuizItemType)
+  title: string; // JSON.stringify(QuizItem)
 }
 
-export interface QuizItemType {
+export interface QuizItem {
   _id: number;
   question: string;
   answerDescription: string;

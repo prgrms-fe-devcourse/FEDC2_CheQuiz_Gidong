@@ -5,13 +5,13 @@ import styled from '@emotion/styled';
 import { QUIZ_SET_TAG_LIST } from '@/constants';
 import { DarkGray, lightGrayWhite, pointColor } from '@/styles/theme';
 
-import type { QuizSetType } from '@/interfaces/model';
+import type { QuizSet } from '@/interfaces/model';
 
 interface SetFormProps {
   isSet: boolean;
-  quizSet: QuizSetType;
+  quizSet: QuizSet;
   toggleSet: React.Dispatch<React.SetStateAction<boolean>>;
-  setQuizSet: React.Dispatch<React.SetStateAction<QuizSetType>>;
+  setQuizSet: React.Dispatch<React.SetStateAction<QuizSet>>;
 }
 const QuizSetForm = ({
   isSet,
