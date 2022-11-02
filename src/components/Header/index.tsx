@@ -2,17 +2,18 @@
 import { useState } from 'react';
 
 import Icon from '@/components/Icon';
-import Modal from '@/components/Modal';
 import Notification from '@/components/Notification';
+import { Modal, ModalProvider, ModalTrigger } from '@/components/shared/Modal';
 import { useAuthContext } from '@/contexts/AuthContext';
+
+import LoginForm from '../LoginForm';
+import SignUpForm from '../SignUpForm';
 
 import * as S from './styles';
 
 const Header = (): JSX.Element => {
   const { user, isAuth, logout } = useAuthContext();
 
-  const [modalShow, setModalShow] = useState(false);
-  const [modalContent, setModalContent] = useState('');
   const [notiShow, setNotiShow] = useState(false);
 
   return (
@@ -75,36 +76,28 @@ const Header = (): JSX.Element => {
               >
                 랭킹 보기
               </S.LinkButton>
-              <S.Button
-                color='primary'
-                onClick={() => {
-                  setModalShow(true);
-                  setModalContent('login');
-                }}
-              >
-                로그인
-              </S.Button>
-              <S.Button
-                color='primary'
-                onClick={() => {
-                  setModalShow(true);
-                  setModalContent('signup');
-                }}
-              >
-                회원가입
-              </S.Button>
+              <ModalProvider>
+                <ModalTrigger>
+                  <S.Button color='primary'>로그인</S.Button>
+                </ModalTrigger>
+                <Modal>
+                  <LoginForm />
+                </Modal>
+              </ModalProvider>
+              <ModalProvider>
+                <ModalTrigger>
+                  <S.Button color='primary'>회원가입</S.Button>
+                </ModalTrigger>
+                <Modal>
+                  <SignUpForm />
+                </Modal>
+              </ModalProvider>
             </S.ButtonGroup>
           )}
           {notiShow && <Notification />}
         </S.ContentContainer>
       </S.HeaderContainer>
       <S.HeaderSpacer />
-      {modalShow && (
-        <Modal
-          content={modalContent}
-          setModalShow={setModalShow}
-        />
-      )}
     </>
   );
 };

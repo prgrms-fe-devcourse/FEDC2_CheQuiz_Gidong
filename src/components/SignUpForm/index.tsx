@@ -6,11 +6,7 @@ import * as S from '@/components/Form/Title/styles';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { validationSignup } from '@/utils/validation';
 
-interface Props {
-  setModalShow: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const SignUpForm = ({ setModalShow }: Props) => {
+const SignUpForm = () => {
   const { signUp } = useAuthContext();
 
   return (
@@ -30,7 +26,6 @@ const SignUpForm = ({ setModalShow }: Props) => {
 
           // eslint-disable-next-line @typescript-eslint/no-floating-promises
           signUp(values);
-          setModalShow(false);
         }}
       >
         <Form>
