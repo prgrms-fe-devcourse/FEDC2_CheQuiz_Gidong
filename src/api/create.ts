@@ -1,14 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import axiosInstance from '@/api/axiosInstance';
 
-import type { ChannelAPICustomTitle } from '@/interfaces/ChannelAPI';
-import type { QuizContent } from '@/interfaces/Quiz';
 import type { UserAPI } from '@/interfaces/UserAPI';
+import type { Channel, QuizItem, QuizSet } from '@/interfaces/model';
 
 export const createQuiz = async (
-  quiz: QuizContent,
+  quiz: Omit<QuizItem, '_id'>,
   token: string,
   channelId = process.env.DEFAULT_CHANNEL_ID
 ) => {
@@ -26,13 +23,10 @@ export const createQuiz = async (
   }
 };
 
-export const createQuizSet = async (
-  set: ChannelAPICustomTitle,
-  user: UserAPI
-) => {
+export const createQuizSet = async (set: QuizSet, user: UserAPI) => {
   const { name, ...quizSetCustomData } = set;
   try {
-    const { data } = await axiosInstance({
+    const { data }: { data: Channel } = await axiosInstance({
       method: 'POST',
       url: 'channels/create',
       data: {
@@ -44,7 +38,7 @@ export const createQuizSet = async (
         }),
       },
       headers: {
-        Authorization: `Bearer ${process.env.ADMIN_USER_TOKEN}`,
+        Authorization: `Bearer ${process.env.ADMIN_USER_TOKEN || ''}`,
       },
     });
     return data;

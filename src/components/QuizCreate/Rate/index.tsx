@@ -13,10 +13,6 @@ interface RateProps {
   [x: string]: unknown;
 }
 
-const RateWrapper = styled.div`
-  display: flex;
-`;
-const Star = styled.div``;
 const Rate = ({
   count,
   defaultVal,
@@ -64,3 +60,8 @@ const Rate = ({
 };
 
 export default Rate;
+
+const RateWrapper = styled.div`
+  display: flex;
+`;
+const Star = styled.div``;
