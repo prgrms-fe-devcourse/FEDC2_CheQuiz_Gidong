@@ -1,36 +1,28 @@
 import type React from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+import styled from '@emotion/styled';
 import { Redirect, useHistory } from 'react-router';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
 import { v4 } from 'uuid';
 
 import * as QuizServices from '@/api/QuizServices';
 import { updateTotalPoint } from '@/api/UserServices';
-import Icon from '@/components/Icon';
 import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useQuizContext } from '@/contexts/QuizContext';
-import Quiz from '@components/Quiz';
-
-import SliderButton from './SliderButton';
-import * as S from './styles';
+import { Layout, QuizContentArea, QuizSubmitArea } from '@components/QuizSolve';
 
 import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import type { UserQuizInfo } from '@/interfaces/UserAPI';
 
 const QuizSolvePage = () => {
   const history = useHistory();
-  const sliderRef = useRef<Slider | null>(null);
   const { user, setUser, isAuth } = useAuthContext();
   const { channelId, randomQuizCount, setChannelId, setRandomQuizCount } =
     useQuizContext();
 
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const handleUserAnswers = useCallback((index: number, value: string) => {
@@ -100,23 +92,6 @@ const QuizSolvePage = () => {
     ]
   );
 
-  // Slider Options
-  const settings = useMemo(
-    () => ({
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      centerPadding: '40px',
-      arrows: false,
-      beforeChange: (oldIndex: number, newIndex: number) => {
-        setCurrentIndex(newIndex);
-      },
-    }),
-    []
-  );
-
   useEffect(() => {
     // initialize
     sessionStorage.removeItem(POST_IDS);
@@ -140,80 +115,33 @@ const QuizSolvePage = () => {
     })().finally(() => setLoading(false));
   }, [channelId, quizzes.length, randomQuizCount, setUserAnswers]);
 
+  const disabled =
+    userAnswers.filter((answer) => answer).length < quizzes.length;
+
   if (loading) return null;
   if (!(channelId || randomQuizCount)) {
     return <Redirect to='/error' />;
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <S.QuizSolvePage>
-        <S.Wrapper justify='center'>
-          <S.Box>
-            {currentIndex + 1} / {quizzes.length}
-          </S.Box>
-        </S.Wrapper>
-        <S.Wrapper justify='between'>
-          <SliderButton
-            color='point'
-            disabled={currentIndex === 0}
-            type='button'
-            onClick={() => sliderRef.current?.slickPrev()}
-          >
-            <Icon
-              fill
-              name='triangle'
-              rotate={270}
-              size={30}
-            />
-          </SliderButton>
-          <S.SliderContainer>
-            <Slider
-              {...settings}
-              ref={(slider) => {
-                sliderRef.current = slider;
-              }}
-            >
-              {quizzes.map((quiz, index) => (
-                <Quiz
-                  key={quiz._id}
-                  index={index}
-                  quiz={quiz}
-                  onChangeUserAnswer={handleUserAnswers}
-                />
-              ))}
-            </Slider>
-          </S.SliderContainer>
-          <SliderButton
-            color='point'
-            disabled={currentIndex === quizzes.length - 1}
-            type='button'
-            onClick={() => sliderRef.current?.slickNext()}
-          >
-            <Icon
-              fill
-              name='triangle'
-              rotate={90}
-              size={30}
-            />
-          </SliderButton>
-        </S.Wrapper>
-        <S.Wrapper
-          gap='2.5rem'
-          justify='center'
-        >
-          <S.SubmitButton
-            type='submit'
-            disabled={
-              userAnswers.filter((answer) => answer).length < quizzes.length
-            }
-          >
-            제출
-          </S.SubmitButton>
-        </S.Wrapper>
-      </S.QuizSolvePage>
-      <S.Background />
-    </form>
+    <Layout backgroundColor='#E9ECEF'>
+      <form onSubmit={handleSubmit}>
+        <Container>
+          <QuizContentArea
+            quizzes={quizzes}
+            onClickAnswer={handleUserAnswers}
+          />
+          <QuizSubmitArea disabled={disabled} />
+        </Container>
+      </form>
+    </Layout>
   );
 };
 
 export default QuizSolvePage;
+
+const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '3rem',
+  marginTop: '5rem',
+});
