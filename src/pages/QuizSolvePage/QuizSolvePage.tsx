@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import styled from '@emotion/styled';
 import { Redirect, useHistory } from 'react-router';
@@ -12,8 +12,8 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { useQuizContext } from '@/contexts/QuizContext';
 import { Layout, QuizContentArea, QuizSubmitArea } from '@components/QuizSolve';
 import useLoading from '@hooks/shared/useLoading';
+import useQuiz from '@hooks/useQuiz';
 
-import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import type { UserQuizInfo } from '@/interfaces/UserAPI';
 
 const QuizSolvePage = () => {
@@ -22,15 +22,15 @@ const QuizSolvePage = () => {
   const { channelId, randomQuizCount, setChannelId, setRandomQuizCount } =
     useQuizContext();
 
-  const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
-  const [userAnswers, setUserAnswers] = useState<string[]>([]);
-  const [isLoading, startTransition] = useLoading(true);
+  const {
+    quizzes,
+    userAnswers,
+    handleUserAnswers,
+    getSetQuizzes,
+    getRandomQuizzes,
+  } = useQuiz();
 
-  const handleUserAnswers = useCallback((index: number, value: string) => {
-    setUserAnswers((prev) =>
-      prev.map((answer, idx) => (idx === index ? value : answer))
-    );
-  }, []);
+  const [isLoading, startTransition] = useLoading(true);
 
   // totalPoint를 받아와 이를 서버에 반영한다.
   const updateUserPoint = async (totalPoint: number) => {
@@ -127,38 +127,6 @@ const QuizSolvePage = () => {
   }, []);
 
   useEffect(() => {
-    // randomQuizCount가 0보다 클 경우 -> shuffle된 퀴즈를 가져온다.
-    // channelId가 있다면 -> 퀴즈 세트를 가져온다
-    // 두 함수를 분리하는 것이 좋을 듯 하다.
-
-    // randomQuizCount로 부터 shuffled된 퀴즈를 불러와 상태에 저장하는 함수
-    // 동시에 user answer 배열의 길이를 초기화
-    const getRandomQuizzes = async (count: number) => {
-      try {
-        const randomQuizzes = await QuizServices.getShuffledQuizzes(count);
-
-        setQuizzes(randomQuizzes);
-        setUserAnswers(Array(randomQuizzes.length).fill(''));
-      } catch (error) {
-        console.error('error occurred at getRandomQuizzes.');
-        console.error(error);
-      }
-    };
-
-    // channelId로부터 퀴즈를 가져와 이를 반영하는 함수
-    // 동시에 user answer 배열의 길이를 초기화
-    const getSetQuizzes = async (channel: string) => {
-      try {
-        const quizSet = await QuizServices.getQuizzesFromChannel(channel);
-
-        setQuizzes(quizSet);
-        setUserAnswers(Array(quizSet.length).fill(''));
-      } catch (error) {
-        console.error('error occurred at getSetQuizzes.');
-        console.error(error);
-      }
-    };
-
     startTransition(
       (async () => {
         try {
@@ -173,7 +141,13 @@ const QuizSolvePage = () => {
         }
       })()
     );
-  }, [channelId, randomQuizCount, startTransition]);
+  }, [
+    channelId,
+    getRandomQuizzes,
+    getSetQuizzes,
+    randomQuizCount,
+    startTransition,
+  ]);
 
   const disabled =
     userAnswers.filter((answer) => answer).length < quizzes.length;
