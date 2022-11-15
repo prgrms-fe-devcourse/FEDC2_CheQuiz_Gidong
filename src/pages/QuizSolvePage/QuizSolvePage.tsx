@@ -11,6 +11,7 @@ import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useQuizContext } from '@/contexts/QuizContext';
 import { Layout, QuizContentArea, QuizSubmitArea } from '@components/QuizSolve';
+import useLoading from '@hooks/shared/useLoading';
 
 import type { Quiz as QuizInterface } from '@/interfaces/Quiz';
 import type { UserQuizInfo } from '@/interfaces/UserAPI';
@@ -97,22 +98,52 @@ const QuizSolvePage = () => {
     sessionStorage.removeItem(POST_IDS);
     sessionStorage.removeItem(USER_ANSWERS);
     sessionStorage.removeItem(POINTS);
+  }, []);
 
-    const next = (quizArray: QuizInterface[]) => {
-      setQuizzes(quizArray);
-      setUserAnswers(Array(quizArray.length).fill(''));
+  useEffect(() => {
+    // randomQuizCount가 0보다 클 경우 -> shuffle된 퀴즈를 가져온다.
+    // channelId가 있다면 -> 퀴즈 세트를 가져온다
+    // 두 함수를 분리하는 것이 좋을 듯 하다.
+
+    // randomQuizCount로 부터 shuffled된 퀴즈를 불러와 상태에 저장하는 함수
+    const getRandomQuizzes = async (count: number) => {
+      try {
+        const randomQuizzes = await QuizServices.getShuffledQuizzes(count);
+        setQuizzes(randomQuizzes);
+      } catch (error) {
+        console.error('error occurred at getRandomQuizzes.');
+        console.error(error);
+      }
+    };
+
+    // channelId로부터 퀴즈를 가져와 이를 반영하는 함수
+    const getSetQuizzes = async (channel: string) => {
+      try {
+        const quizSet = await QuizServices.getQuizzesFromChannel(channel);
+        setQuizzes(quizSet);
+      } catch (error) {
+        console.error('error occurred at getSetQuizzes.');
+        console.error(error);
+      }
     };
 
     (async () => {
-      if (randomQuizCount && randomQuizCount > 0)
-        await QuizServices.getShuffledQuizzes(randomQuizCount).then(
-          (quizArray) => next(quizArray)
-        );
-      else if (channelId)
-        await QuizServices.getQuizzesFromChannel(channelId).then((quizArray) =>
-          next(quizArray)
-        );
-    })().finally(() => setLoading(false));
+      try {
+        if (randomQuizCount && randomQuizCount > 0) {
+          await getRandomQuizzes(randomQuizCount);
+        } else if (channelId) {
+          await getSetQuizzes(channelId);
+        }
+
+        // set user answers
+        setUserAnswers(Array(quizzes.length).fill(''));
+      } catch (error) {
+        console.error('error occurred at QuizSolvePage.');
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, [channelId, quizzes.length, randomQuizCount, setUserAnswers]);
 
   const disabled =
