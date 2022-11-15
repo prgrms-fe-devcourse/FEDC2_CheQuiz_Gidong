@@ -32,30 +32,44 @@ const QuizSolvePage = () => {
     );
   }, []);
 
-  const updateUserPoint = useCallback(async () => {
-    try {
-      const totalPoint = QuizServices.caculateScore(quizzes, userAnswers);
-      sessionStorage.setItem(POINTS, JSON.stringify(totalPoint));
-
-      const newInfo = {
+  // totalPoint를 받아와 이를 서버에 반영한다.
+  const updateUserPoint = async (totalPoint: number) => {
+    const getNewUserQuizInfo = () => {
+      // userInfo에 들어갈 임시 데이터
+      const newInfo: UserQuizInfo = {
         _id: v4(),
         points: totalPoint,
       };
+
       if (user.username) {
-        const prevUserInfo = JSON.parse(user.username) as UserQuizInfo;
+        const prevUserInfo = JSON.parse(user.username) as Partial<UserQuizInfo>;
+
         if (prevUserInfo._id) newInfo._id = prevUserInfo._id;
+
         if (prevUserInfo.points)
           newInfo.points = totalPoint + prevUserInfo.points;
       }
+
+      return newInfo;
+    };
+
+    try {
+      sessionStorage.setItem(POINTS, JSON.stringify(totalPoint));
+
+      // user의 퀴즈 정보가 username에 저장되어 있기 때문에, user.username을 호출한다.
+      // 첫 호출시에는 없을 수 있기 때문에 확인해야 한다.
+
+      // user 정보 업데이트
       const newUserInfo = await updateTotalPoint({
         fullName: user.fullName,
-        username: newInfo,
+        username: getNewUserQuizInfo(),
       });
+
       setUser(newUserInfo);
     } catch {
       throw new Error('error occurred at updateUserPoint.');
     }
-  }, [quizzes, setUser, user.fullName, user.username, userAnswers]);
+  };
 
   const validate = () => {
     if (quizzes.length !== userAnswers.filter((answer) => answer).length)
@@ -85,10 +99,13 @@ const QuizSolvePage = () => {
       return;
     }
 
+    // 점수 계산
+    const totalPoint = QuizServices.caculateScore(quizzes, userAnswers);
+
     // 로그인했다면, 사용자의 점수를 반영
     if (isAuth) {
       try {
-        await updateUserPoint();
+        await updateUserPoint(totalPoint);
       } catch (error) {
         console.error(error);
       }
