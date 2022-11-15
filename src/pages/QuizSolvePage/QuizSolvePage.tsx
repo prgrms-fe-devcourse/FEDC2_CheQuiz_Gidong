@@ -52,46 +52,55 @@ const QuizSolvePage = () => {
         username: newInfo,
       });
       setUser(newUserInfo);
-    } catch (error) {
-      console.log('error occured at updateUserPoint.');
+    } catch {
+      throw new Error('error occurred at updateUserPoint.');
     }
   }, [quizzes, setUser, user.fullName, user.username, userAnswers]);
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      // validation
-      if (quizzes.length !== userAnswers.filter((answer) => answer).length) {
-        console.log('올바르지 않은 동작입니다.');
-        return;
-      }
+  const validate = () => {
+    if (quizzes.length !== userAnswers.filter((answer) => answer).length)
+      throw new Error('모든 정답을 선택해 주세요!');
+  };
 
+  // form event 발생 시 호출될 함수
+  // 1) validation - 모든 퀴즈 정답을 선택했는지 확인
+  // 2) 모든 정답을 선택하면 유저가 선택한 정답과 퀴즈 id 배열을 세션 스토리지에 저장
+  // 3) 로그인 했다면, 점수를 계산해서 반영
+  // 4) context 정보 초기화
+  // 5) go to result page
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      validate();
+
+      // 모든 정답을 선택하면 유저가 선택한 정답과 퀴즈 id 배열을 세션 스토리지에 저장
       sessionStorage.setItem(USER_ANSWERS, JSON.stringify(userAnswers));
       sessionStorage.setItem(
         POST_IDS,
         JSON.stringify(quizzes.map((quiz) => quiz._id))
       );
+    } catch (error) {
+      alert(error);
+      return;
+    }
 
-      // 로그인했다면, 사용자의 점수를 반영
-      if (isAuth) {
+    // 로그인했다면, 사용자의 점수를 반영
+    if (isAuth) {
+      try {
         await updateUserPoint();
+      } catch (error) {
+        console.error(error);
       }
+    }
 
-      setRandomQuizCount(null);
-      setChannelId(null);
+    // context 초기화
+    setRandomQuizCount(null);
+    setChannelId(null);
 
-      history.push('/result');
-    },
-    [
-      history,
-      isAuth,
-      quizzes,
-      setChannelId,
-      setRandomQuizCount,
-      updateUserPoint,
-      userAnswers,
-    ]
-  );
+    // go to result page
+    history.push('/result');
+  };
 
   useEffect(() => {
     // initialize
