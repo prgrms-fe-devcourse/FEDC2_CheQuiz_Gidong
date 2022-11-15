@@ -24,7 +24,7 @@ const QuizSolvePage = () => {
 
   const [quizzes, setQuizzes] = useState<QuizInterface[]>([]);
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, startTransition] = useLoading(true);
 
   const handleUserAnswers = useCallback((index: number, value: string) => {
     setUserAnswers((prev) =>
@@ -106,10 +106,13 @@ const QuizSolvePage = () => {
     // 두 함수를 분리하는 것이 좋을 듯 하다.
 
     // randomQuizCount로 부터 shuffled된 퀴즈를 불러와 상태에 저장하는 함수
+    // 동시에 user answer 배열의 길이를 초기화
     const getRandomQuizzes = async (count: number) => {
       try {
         const randomQuizzes = await QuizServices.getShuffledQuizzes(count);
+
         setQuizzes(randomQuizzes);
+        setUserAnswers(Array(randomQuizzes.length).fill(''));
       } catch (error) {
         console.error('error occurred at getRandomQuizzes.');
         console.error(error);
@@ -117,39 +120,39 @@ const QuizSolvePage = () => {
     };
 
     // channelId로부터 퀴즈를 가져와 이를 반영하는 함수
+    // 동시에 user answer 배열의 길이를 초기화
     const getSetQuizzes = async (channel: string) => {
       try {
         const quizSet = await QuizServices.getQuizzesFromChannel(channel);
+
         setQuizzes(quizSet);
+        setUserAnswers(Array(quizSet.length).fill(''));
       } catch (error) {
         console.error('error occurred at getSetQuizzes.');
         console.error(error);
       }
     };
 
-    (async () => {
-      try {
-        if (randomQuizCount && randomQuizCount > 0) {
-          await getRandomQuizzes(randomQuizCount);
-        } else if (channelId) {
-          await getSetQuizzes(channelId);
+    startTransition(
+      (async () => {
+        try {
+          if (randomQuizCount && randomQuizCount > 0) {
+            await getRandomQuizzes(randomQuizCount);
+          } else if (channelId) {
+            await getSetQuizzes(channelId);
+          }
+        } catch (error) {
+          console.error('error occurred at QuizSolvePage.');
+          console.error(error);
         }
-
-        // set user answers
-        setUserAnswers(Array(quizzes.length).fill(''));
-      } catch (error) {
-        console.error('error occurred at QuizSolvePage.');
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [channelId, quizzes.length, randomQuizCount, setUserAnswers]);
+      })()
+    );
+  }, [channelId, randomQuizCount, startTransition]);
 
   const disabled =
     userAnswers.filter((answer) => answer).length < quizzes.length;
 
-  if (loading) return null;
+  if (isLoading) return null;
   if (!(channelId || randomQuizCount)) {
     return <Redirect to='/error' />;
   }
