@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 
-import { updateTotalPoint } from '@/api/UserServices';
+import { updateTotalPoint as updateUserScore } from '@/api/UserServices';
 import { POINTS } from '@/constants';
 
 import type { UserAPI, UserQuizInfo } from '@/interfaces/UserAPI';
@@ -12,7 +12,7 @@ import type { UserAPI, UserQuizInfo } from '@/interfaces/UserAPI';
  * @param point 이번 퀴즈를 해결해서 얻은 점수
  * @returns UserQuizInfo 객체
  */
-export const getNextQuizInfoOf = (user: UserAPI, point: number) => {
+export const getUserScore = (user: UserAPI, point: number) => {
   // 유저가 처음 문제를 해결하면 정보가 없기 때문에, 이를 반환하는 객체가 필요하다.
   const newInfo: UserQuizInfo = {
     _id: v4(),
@@ -36,9 +36,9 @@ export const updateUserPoint = async (user: UserAPI, totalPoint: number) => {
     sessionStorage.setItem(POINTS, JSON.stringify(totalPoint));
 
     // user 정보 업데이트
-    const newUserInfo = await updateTotalPoint({
+    const newUserInfo = await updateUserScore({
       fullName: user.fullName,
-      username: getNextQuizInfoOf(user, totalPoint),
+      username: getUserScore(user, totalPoint),
     });
 
     return newUserInfo;

@@ -14,7 +14,7 @@ const useQuiz = () => {
     );
   }, []);
 
-  const getRandomQuizzes = useCallback(async (count: number) => {
+  const getQuizRandom = useCallback(async (count: number) => {
     try {
       const randomQuizzes = await getShuffledQuizzes(count);
 
@@ -26,7 +26,7 @@ const useQuiz = () => {
     }
   }, []);
 
-  const getSetQuizzes = useCallback(async (channel: string) => {
+  const getQuizSet = useCallback(async (channel: string) => {
     try {
       const quizSet = await getQuizzesFromChannel(channel);
 
@@ -42,8 +42,8 @@ const useQuiz = () => {
     quizzes,
     userAnswers,
     handleUserAnswers,
-    getRandomQuizzes,
-    getSetQuizzes,
+    getQuizRandom,
+    getQuizSet,
   };
 };
 

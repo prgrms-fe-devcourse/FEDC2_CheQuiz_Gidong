@@ -20,13 +20,8 @@ const QuizSolvePage = () => {
   const { channelId, randomQuizCount, setChannelId, setRandomQuizCount } =
     useQuizContext();
 
-  const {
-    quizzes,
-    userAnswers,
-    handleUserAnswers,
-    getSetQuizzes,
-    getRandomQuizzes,
-  } = useQuiz();
+  const { quizzes, userAnswers, handleUserAnswers, getQuizSet, getQuizRandom } =
+    useQuiz();
 
   const [isLoading, startTransition] = useLoading(true);
 
@@ -91,9 +86,9 @@ const QuizSolvePage = () => {
       (async () => {
         try {
           if (randomQuizCount && randomQuizCount > 0) {
-            await getRandomQuizzes(randomQuizCount);
+            await getQuizRandom(randomQuizCount);
           } else if (channelId) {
-            await getSetQuizzes(channelId);
+            await getQuizSet(channelId);
           }
         } catch (error) {
           console.error('error occurred at QuizSolvePage.');
@@ -101,13 +96,7 @@ const QuizSolvePage = () => {
         }
       })()
     );
-  }, [
-    channelId,
-    getRandomQuizzes,
-    getSetQuizzes,
-    randomQuizCount,
-    startTransition,
-  ]);
+  }, [channelId, getQuizRandom, getQuizSet, randomQuizCount, startTransition]);
 
   const disabled =
     userAnswers.filter((answer) => answer).length < quizzes.length;
