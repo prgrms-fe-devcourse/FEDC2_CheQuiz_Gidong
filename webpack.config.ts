@@ -56,7 +56,19 @@ export default (env: NodeJS.ProcessEnv, argv: WebpackArguments) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
+        inject: true,
         template: path.resolve(__dirname, 'public/index.html'),
+        ...(isProdcution
+          ? {
+              minify: {
+                removeComments: true,
+                removeRedundantAttributes: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
+              },
+            }
+          : undefined),
       }),
       new ForkTsCheckerWebpackPlugin({
         async: isDevelopment,
