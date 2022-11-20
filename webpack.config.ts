@@ -31,6 +31,8 @@ export default (env: NodeJS.ProcessEnv, argv: WebpackArguments) => {
     },
     entry: './src/index.tsx',
     output: {
+      filename: 'static/js/[name].[contenthash:8].js',
+      chunkFilename: 'static/js/[name].[contenthash:8].js',
       path: path.resolve(__dirname, 'dist'),
       publicPath: '/',
       clean: true,
@@ -72,6 +74,11 @@ export default (env: NodeJS.ProcessEnv, argv: WebpackArguments) => {
       port: 3000,
       hot: true,
       historyApiFallback: true,
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
     },
   };
 
