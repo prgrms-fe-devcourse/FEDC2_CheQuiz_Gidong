@@ -3,6 +3,7 @@ import path from 'path';
 import DotenvPlugin from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import BundleAnalyzerPlugin from 'webpack-bundle-analyzer';
 
 import type { Configuration as WebpackConfiguration } from 'webpack';
 import type { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
@@ -87,6 +88,13 @@ export default (env: NodeJS.ProcessEnv, argv: WebpackArguments) => {
       }),
       new DotenvPlugin({
         systemvars: true,
+      }),
+      new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: 'bundle-report.html',
+        openAnalyzer: false,
+        generateStatsFile: true,
+        statsFilename: 'bundle-stats.json',
       }),
     ],
     devServer: {
