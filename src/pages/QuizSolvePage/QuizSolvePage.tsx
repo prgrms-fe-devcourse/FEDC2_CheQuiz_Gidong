@@ -1,16 +1,15 @@
 import type React from 'react';
 import { useEffect } from 'react';
 
+import * as QuizServices from '@api/QuizServices';
+import { updateTotalPoint } from '@api/UserServices';
+import { POINTS, POST_IDS, USER_ANSWERS } from '@constants/.';
+import { useAuthContext } from '@contexts/AuthContext';
+import { useQuizContext } from '@contexts/QuizContext';
 import styled from '@emotion/styled';
 import { Redirect, useHistory } from 'react-router';
 
-import * as QuizServices from '@/api/QuizServices';
-import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
-import { useAuthContext } from '@/contexts/AuthContext';
-import { useQuizContext } from '@/contexts/QuizContext';
 import { Layout, QuizContentArea, QuizSubmitArea } from '@components/QuizSolve';
-import useLoading from '@hooks/shared/useLoading';
-import useQuiz from '@hooks/useQuiz';
 
 import { updateUserPoint } from './QuizSolvePage.helper';
 
