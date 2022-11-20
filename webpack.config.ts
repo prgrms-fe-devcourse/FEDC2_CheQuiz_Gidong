@@ -1,6 +1,5 @@
 import path from 'path';
 
-import CopyPlugin from 'copy-webpack-plugin';
 import DotenvPlugin from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -48,13 +47,6 @@ const config: Configuration = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/index.html'),
-    }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: 'public',
-        },
-      ],
     }),
     new ForkTsCheckerWebpackPlugin(),
     new DotenvPlugin({
