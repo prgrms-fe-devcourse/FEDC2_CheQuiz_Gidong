@@ -25,8 +25,15 @@ export default (env: NodeJS.ProcessEnv, argv: WebpackArguments) => {
       alias: {
         // ANCHOR: '@' 경로는 삭제 예정이므로, import시 하위 폴더 alias로 import 변경
         '@': path.resolve(__dirname, 'src'),
+        '@api': path.resolve(__dirname, 'src/api'),
         '@components': path.resolve(__dirname, 'src/components'),
+        '@constants': path.resolve(__dirname, 'src/constants'),
+        '@contexts': path.resolve(__dirname, 'src/contexts'),
         '@hooks': path.resolve(__dirname, 'src/hooks'),
+        '@pages': path.resolve(__dirname, 'src/pages'),
+        '@routes': path.resolve(__dirname, 'src/routes'),
+        '@styles': path.resolve(__dirname, 'src/styles'),
+        '@utils': path.resolve(__dirname, 'src/utils'),
       },
     },
     entry: './src/index.tsx',
