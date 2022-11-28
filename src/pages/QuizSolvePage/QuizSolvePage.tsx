@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Redirect, useHistory } from 'react-router';
 
-import * as QuizServices from '@/api/QuizServices';
-import { POINTS, POST_IDS, USER_ANSWERS } from '@/constants';
-import { useAuthContext } from '@/contexts/AuthContext';
-import { useQuizContext } from '@/contexts/QuizContext';
+import * as QuizServices from '@api/QuizServices';
 import { Layout, QuizContentArea, QuizSubmitArea } from '@components/QuizSolve';
+import { POINTS, POST_IDS, USER_ANSWERS } from '@constants/.';
+import { useAuthContext } from '@contexts/AuthContext';
+import { useQuizContext } from '@contexts/QuizContext';
 import useLoading from '@hooks/shared/useLoading';
 import useQuiz from '@hooks/useQuiz';
 
